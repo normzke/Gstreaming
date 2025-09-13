@@ -1,0 +1,1033 @@
+<?php
+require_once 'config/config.php';
+require_once 'config/database.php';
+require_once 'includes/functions.php';
+
+// Get packages for display
+$db = new Database();
+$conn = $db->getConnection();
+
+$packageQuery = "SELECT * FROM packages WHERE is_active = true ORDER BY sort_order, price ASC";
+$packageStmt = $conn->prepare($packageQuery);
+$packageStmt->execute();
+$packages = $packageStmt->fetchAll();
+
+// Get featured gallery items
+$galleryQuery = "SELECT * FROM gallery WHERE is_featured = true ORDER BY sort_order LIMIT 6";
+$galleryStmt = $conn->prepare($galleryQuery);
+$galleryStmt->execute();
+$featuredGallery = $galleryStmt->fetchAll();
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GStreaming - Premium TV Streaming for Kenya</title>
+    <meta name="description" content="Stream thousands of channels on your Smart TV, Firestick, Roku and more. Premium packages with M-PESA integration.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-satellite-dish"></i>
+                <span class="logo-text">GStreaming</span>
+            </div>
+            
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#home" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="channels.php" class="nav-link">Channels</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#packages" class="nav-link">Packages</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#devices" class="nav-link">Devices</a>
+                </li>
+                <li class="nav-item">
+                    <a href="gallery.php" class="nav-link">Gallery</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#support" class="nav-link">Support</a>
+                </li>
+                <li class="nav-item">
+                    <a href="login.php" class="nav-link btn-login">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a href="register.php" class="nav-link btn-register">Get Started</a>
+                </li>
+            </ul>
+            
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-background">
+            <div class="hero-overlay"></div>
+            <!-- YouTube Background Video -->
+            <div class="hero-video-container">
+                <iframe 
+                    src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1&loop=1&playlist=dQw4w9WgXcQ&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&fs=0&cc_load_policy=0&start=0&end=30" 
+                    frameborder="0" 
+                    allow="autoplay; encrypted-media" 
+                    allowfullscreen
+                    class="hero-video">
+                </iframe>
+            </div>
+        </div>
+        
+        <div class="hero-content">
+            <div class="container">
+                <div class="hero-text">
+                    <h1 class="hero-title">
+                        <span class="title-main">Stream Thousands of</span>
+                        <span class="title-highlight">TV Channels</span>
+                        <span class="title-sub">Anywhere in Kenya</span>
+                    </h1>
+                    
+                    <p class="hero-description">
+                        Experience premium streaming on your Smart TV, Firestick, Roku and more. 
+                        Subscribe with M-PESA and enjoy unlimited entertainment.
+                    </p>
+                    
+                    <div class="hero-stats">
+                        <div class="stat-item" data-aos="fadeInUp" data-aos-delay="100">
+                            <div class="stat-number counter" data-target="1000">0</div>
+                            <div class="stat-label">Channels</div>
+                        </div>
+                        <div class="stat-item" data-aos="fadeInUp" data-aos-delay="200">
+                            <div class="stat-number counter" data-target="50">0</div>
+                            <div class="stat-label">Countries</div>
+                        </div>
+                        <div class="stat-item" data-aos="fadeInUp" data-aos-delay="300">
+                            <div class="stat-number counter" data-target="10000">0</div>
+                            <div class="stat-label">Happy Customers</div>
+                        </div>
+                        <div class="stat-item" data-aos="fadeInUp" data-aos-delay="400">
+                            <div class="stat-number counter" data-target="24">0</div>
+                            <div class="stat-label">Hours Support</div>
+                        </div>
+                    </div>
+                    
+                    <div class="hero-buttons">
+                        <a href="#packages" class="btn btn-primary btn-large">
+                            <i class="fas fa-play"></i>
+                            Start Streaming Now
+                        </a>
+                        <a href="#gallery" class="btn btn-secondary btn-large">
+                            <i class="fas fa-video"></i>
+                            Watch Preview
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="hero-visual">
+                    <div class="device-showcase">
+                        <div class="device tv">
+                            <i class="fas fa-tv"></i>
+                            <span>Smart TV</span>
+                        </div>
+                        <div class="device firestick">
+                            <i class="fab fa-amazon"></i>
+                            <span>Firestick</span>
+                        </div>
+                        <div class="device roku">
+                            <i class="fas fa-stream"></i>
+                            <span>Roku</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="scroll-indicator">
+            <div class="scroll-arrow">
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Why Choose GStreaming?</h2>
+                <p class="section-subtitle">Experience the best in TV streaming with our premium features</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card" data-aos="fadeInUp" data-aos-delay="100">
+                    <div class="feature-icon">
+                        <i class="fas fa-satellite-dish"></i>
+                    </div>
+                    <h3>1000+ Channels</h3>
+                    <p>Access thousands of international and local channels including news, sports, movies, and entertainment from around the world.</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check"></i> International News Channels</li>
+                        <li><i class="fas fa-check"></i> Premium Sports Coverage</li>
+                        <li><i class="fas fa-check"></i> Latest Movies & Series</li>
+                        <li><i class="fas fa-check"></i> Kids & Family Content</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-card" data-aos="fadeInUp" data-aos-delay="200">
+                    <div class="feature-icon">
+                        <i class="fas fa-tv"></i>
+                    </div>
+                    <h3>Multi-Device Support</h3>
+                    <p>Stream seamlessly across all your devices - Smart TVs, Firestick, Roku, mobile phones, and tablets.</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check"></i> Smart TV Compatible</li>
+                        <li><i class="fas fa-check"></i> Firestick & Roku Ready</li>
+                        <li><i class="fas fa-check"></i> Mobile & Tablet Apps</li>
+                        <li><i class="fas fa-check"></i> Cross-Platform Sync</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-card" data-aos="fadeInUp" data-aos-delay="300">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>M-PESA Integration</h3>
+                    <p>Pay easily and securely using M-PESA Till and Paybill numbers. Instant activation after payment confirmation.</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check"></i> Till Number Payment</li>
+                        <li><i class="fas fa-check"></i> Paybill Integration</li>
+                        <li><i class="fas fa-check"></i> Instant Activation</li>
+                        <li><i class="fas fa-check"></i> Secure Transactions</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-card" data-aos="fadeInUp" data-aos-delay="400">
+                    <div class="feature-icon">
+                        <i class="fas fa-hd-video"></i>
+                    </div>
+                    <h3>Premium Quality</h3>
+                    <p>Enjoy crystal clear HD and 4K streaming with minimal buffering and optimized for Kenyan internet speeds.</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check"></i> HD & 4K Quality</li>
+                        <li><i class="fas fa-check"></i> Optimized Streaming</li>
+                        <li><i class="fas fa-check"></i> Low Buffering</li>
+                        <li><i class="fas fa-check"></i> Adaptive Bitrate</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-card" data-aos="fadeInUp" data-aos-delay="500">
+                    <div class="feature-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3>24/7 Support</h3>
+                    <p>Get help whenever you need it with our dedicated support team available round the clock via multiple channels.</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check"></i> Live Chat Support</li>
+                        <li><i class="fas fa-check"></i> WhatsApp Support</li>
+                        <li><i class="fas fa-check"></i> Phone Support</li>
+                        <li><i class="fas fa-check"></i> Email Support</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-card" data-aos="fadeInUp" data-aos-delay="600">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Secure & Reliable</h3>
+                    <p>Your privacy and security are our top priorities with encrypted connections and reliable streaming infrastructure.</p>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check"></i> Encrypted Connections</li>
+                        <li><i class="fas fa-check"></i> Privacy Protection</li>
+                        <li><i class="fas fa-check"></i> Reliable Infrastructure</li>
+                        <li><i class="fas fa-check"></i> Data Security</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Statistics Section -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card" data-aos="fadeInUp" data-aos-delay="100">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-number counter" data-target="25000">0</div>
+                        <div class="stat-label">Happy Customers</div>
+                    </div>
+                </div>
+                
+                <div class="stat-card" data-aos="fadeInUp" data-aos-delay="200">
+                    <div class="stat-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-number counter" data-target="4.9">0</div>
+                        <div class="stat-label">Customer Rating</div>
+                    </div>
+                </div>
+                
+                <div class="stat-card" data-aos="fadeInUp" data-aos-delay="300">
+                    <div class="stat-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-number counter" data-target="99.9">0</div>
+                        <div class="stat-label">Uptime %</div>
+                    </div>
+                </div>
+                
+                <div class="stat-card" data-aos="fadeInUp" data-aos-delay="400">
+                    <div class="stat-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-number counter" data-target="24">0</div>
+                        <div class="stat-label">Support Hours</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Packages Section -->
+    <section id="packages" class="packages-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Choose Your Perfect Package</h2>
+                <p class="section-subtitle">Flexible plans designed for every Kenyan household</p>
+            </div>
+            
+            <!-- Device Selection Tabs -->
+            <div class="pricing-tabs">
+                <div class="device-tabs">
+                    <button class="device-tab active" data-devices="1">1 Device</button>
+                    <button class="device-tab" data-devices="3">3 Devices</button>
+                    <button class="device-tab" data-devices="5">5 Devices</button>
+                    <button class="device-tab" data-devices="10">10 Devices</button>
+                </div>
+                
+                <!-- Duration Selection for Each Device Count -->
+                <div class="duration-tabs-container">
+                    <div class="duration-tabs" data-devices="1">
+                        <button class="duration-tab active" data-duration="1">1 Month</button>
+                        <button class="duration-tab" data-duration="3">3 Months</button>
+                        <button class="duration-tab" data-duration="6">6 Months</button>
+                        <button class="duration-tab" data-duration="12">12 Months</button>
+                    </div>
+                    
+                    <div class="duration-tabs" data-devices="3" style="display: none;">
+                        <button class="duration-tab active" data-duration="1">1 Month</button>
+                        <button class="duration-tab" data-duration="3">3 Months</button>
+                        <button class="duration-tab" data-duration="6">6 Months</button>
+                        <button class="duration-tab" data-duration="12">12 Months</button>
+                    </div>
+                    
+                    <div class="duration-tabs" data-devices="5" style="display: none;">
+                        <button class="duration-tab active" data-duration="1">1 Month</button>
+                        <button class="duration-tab" data-duration="3">3 Months</button>
+                        <button class="duration-tab" data-duration="6">6 Months</button>
+                        <button class="duration-tab" data-duration="12">12 Months</button>
+                    </div>
+                    
+                    <div class="duration-tabs" data-devices="10" style="display: none;">
+                        <button class="duration-tab active" data-duration="1">1 Month</button>
+                        <button class="duration-tab" data-duration="3">3 Months</button>
+                        <button class="duration-tab" data-duration="6">6 Months</button>
+                        <button class="duration-tab" data-duration="12">12 Months</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Pricing Cards -->
+            <div class="packages-grid">
+                <!-- Basic Plan -->
+                <div class="package-card basic-plan" data-devices="1" data-duration="1">
+                    <div class="package-badge">Most Popular</div>
+                    <div class="package-header">
+                        <h3 class="package-name">Basic Plan</h3>
+                        <div class="package-price">
+                            <span class="currency">KES</span>
+                            <span class="amount" data-price="500">500</span>
+                            <span class="period">/month</span>
+                        </div>
+                    </div>
+                    
+                    <div class="package-features">
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>50+ Channels</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>SD Quality</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>1 Device</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>24/7 Support</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>M-PESA Payment</span>
+                        </div>
+                    </div>
+                    
+                    <div class="package-footer">
+                        <a href="subscribe.php?package=1" class="btn btn-primary btn-full">
+                            <i class="fas fa-credit-card"></i>
+                            Subscribe Now
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Premium Plan -->
+                <div class="package-card premium-plan" data-devices="1" data-duration="1">
+                    <div class="package-header">
+                        <h3 class="package-name">Premium Plan</h3>
+                        <div class="package-price">
+                            <span class="currency">KES</span>
+                            <span class="amount" data-price="1200">1,200</span>
+                            <span class="period">/month</span>
+                        </div>
+                    </div>
+                    
+                    <div class="package-features">
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>200+ Channels</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>HD Quality</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>1 Device</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>24/7 Support</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>M-PESA Payment</span>
+                        </div>
+                    </div>
+                    
+                    <div class="package-footer">
+                        <a href="subscribe.php?package=2" class="btn btn-primary btn-full">
+                            <i class="fas fa-credit-card"></i>
+                            Subscribe Now
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Family Plan -->
+                <div class="package-card family-plan" data-devices="1" data-duration="1">
+                    <div class="package-header">
+                        <h3 class="package-name">Family Plan</h3>
+                        <div class="package-price">
+                            <span class="currency">KES</span>
+                            <span class="amount" data-price="2000">2,000</span>
+                            <span class="period">/month</span>
+                        </div>
+                    </div>
+                    
+                    <div class="package-features">
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>500+ Channels</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>HD Quality</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>5 Devices</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>24/7 Support</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>M-PESA Payment</span>
+                        </div>
+                    </div>
+                    
+                    <div class="package-footer">
+                        <a href="subscribe.php?package=3" class="btn btn-primary btn-full">
+                            <i class="fas fa-credit-card"></i>
+                            Subscribe Now
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- VIP Plan -->
+                <div class="package-card vip-plan" data-devices="1" data-duration="1">
+                    <div class="package-header">
+                        <h3 class="package-name">VIP Plan</h3>
+                        <div class="package-price">
+                            <span class="currency">KES</span>
+                            <span class="amount" data-price="3500">3,500</span>
+                            <span class="period">/month</span>
+                        </div>
+                    </div>
+                    
+                    <div class="package-features">
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>1000+ Channels</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>4K Quality</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>10 Devices</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>Priority Support</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check"></i>
+                            <span>M-PESA Payment</span>
+                        </div>
+                    </div>
+                    
+                    <div class="package-footer">
+                        <a href="subscribe.php?package=4" class="btn btn-primary btn-full">
+                            <i class="fas fa-credit-card"></i>
+                            Subscribe Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="packages-note">
+                <div class="note-content">
+                    <i class="fas fa-shield-alt"></i>
+                    <p>All packages include M-PESA payment integration, 24/7 support, and instant activation</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Devices Section -->
+    <section id="devices" class="devices-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Stream on Any Device</h2>
+                <p class="section-subtitle">Download our gateway app and enjoy streaming everywhere</p>
+            </div>
+            
+            <div class="devices-grid">
+                <div class="device-card">
+                    <div class="device-icon">
+                        <i class="fas fa-tv"></i>
+                    </div>
+                    <h3>Smart TV</h3>
+                    <p>Works on all Smart TV brands - Samsung, LG, Sony, TCL and more</p>
+                    <div class="device-features">
+                        <span class="feature-tag">4K Support</span>
+                        <span class="feature-tag">HD Ready</span>
+                    </div>
+                </div>
+                
+                <div class="device-card">
+                    <div class="device-icon">
+                        <i class="fab fa-amazon"></i>
+                    </div>
+                    <h3>Amazon Firestick</h3>
+                    <p>Transform your regular TV into a smart streaming device</p>
+                    <div class="device-features">
+                        <span class="feature-tag">Easy Setup</span>
+                        <span class="feature-tag">Voice Remote</span>
+                    </div>
+                </div>
+                
+                <div class="device-card">
+                    <div class="device-icon">
+                        <i class="fas fa-stream"></i>
+                    </div>
+                    <h3>Roku</h3>
+                    <p>Simple, reliable streaming with thousands of channels</p>
+                    <div class="device-features">
+                        <span class="feature-tag">User Friendly</span>
+                        <span class="feature-tag">Affordable</span>
+                    </div>
+                </div>
+                
+                <div class="device-card">
+                    <div class="device-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Mobile & Tablet</h3>
+                    <p>Stream on your Android and iOS devices</p>
+                    <div class="device-features">
+                        <span class="feature-tag">Cross Platform</span>
+                        <span class="feature-tag">Offline Viewing</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="gateway-app">
+                <div class="gateway-content">
+                    <h3>Download Gateway App</h3>
+                    <p>Our lightweight gateway app provides secure access to all your streaming channels</p>
+                    
+                    <div class="download-buttons">
+                        <a href="gateway/download.php?platform=android" class="download-btn android">
+                            <i class="fab fa-android"></i>
+                            <div class="btn-text">
+                                <span class="btn-label">Download for</span>
+                                <span class="btn-platform">Android</span>
+                            </div>
+                        </a>
+                        
+                        <a href="gateway/download.php?platform=ios" class="download-btn ios">
+                            <i class="fab fa-apple"></i>
+                            <div class="btn-text">
+                                <span class="btn-label">Download for</span>
+                                <span class="btn-platform">iOS</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">What Our Customers Say</h2>
+                <p class="section-subtitle">Real reviews from satisfied GStreaming subscribers across Kenya</p>
+            </div>
+            
+            <div class="testimonials-carousel">
+                <div class="testimonial-track">
+                    <div class="testimonial-slide active">
+                        <div class="testimonial-content">
+                            <div class="testimonial-image">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face" alt="John Mwangi">
+                            </div>
+                            <div class="testimonial-text">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <blockquote>
+                                    "GStreaming has completely transformed our family's entertainment experience. The picture quality is amazing and we can watch on all our devices. M-PESA payment makes it so convenient!"
+                                </blockquote>
+                                <div class="testimonial-author">
+                                    <h4>John Mwangi</h4>
+                                    <p>Nairobi, Kenya</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-slide">
+                        <div class="testimonial-content">
+                            <div class="testimonial-image">
+                                <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face" alt="Sarah Wanjiku">
+                            </div>
+                            <div class="testimonial-text">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <blockquote>
+                                    "I love the variety of channels available. From international news to local content, everything is there. The customer support is excellent and always available when I need help."
+                                </blockquote>
+                                <div class="testimonial-author">
+                                    <h4>Sarah Wanjiku</h4>
+                                    <p>Mombasa, Kenya</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-slide">
+                        <div class="testimonial-content">
+                            <div class="testimonial-image">
+                                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face" alt="Peter Otieno">
+                            </div>
+                            <div class="testimonial-text">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <blockquote>
+                                    "The setup was so easy! I just downloaded the app on my Firestick and was streaming within minutes. The sports channels are fantastic - never miss a game now."
+                                </blockquote>
+                                <div class="testimonial-author">
+                                    <h4>Peter Otieno</h4>
+                                    <p>Kisumu, Kenya</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-slide">
+                        <div class="testimonial-content">
+                            <div class="testimonial-image">
+                                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face" alt="Grace Akinyi">
+                            </div>
+                            <div class="testimonial-text">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <blockquote>
+                                    "As a busy working mom, I appreciate how reliable the service is. My kids can watch their favorite shows without any interruptions. The family plan is perfect for us!"
+                                </blockquote>
+                                <div class="testimonial-author">
+                                    <h4>Grace Akinyi</h4>
+                                    <p>Nakuru, Kenya</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-nav">
+                    <button class="nav-btn prev-btn" onclick="changeSlide(-1)">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="nav-btn next-btn" onclick="changeSlide(1)">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+                
+                <div class="testimonial-dots">
+                    <span class="dot active" onclick="currentSlide(1)"></span>
+                    <span class="dot" onclick="currentSlide(2)"></span>
+                    <span class="dot" onclick="currentSlide(3)"></span>
+                    <span class="dot" onclick="currentSlide(4)"></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="gallery-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Featured Content</h2>
+                <p class="section-subtitle">Preview some of the amazing channels and content available</p>
+            </div>
+            
+            <div class="gallery-grid">
+                <?php if (!empty($featuredGallery)): ?>
+                    <?php foreach ($featuredGallery as $item): ?>
+                    <div class="gallery-item">
+                        <?php if ($item['type'] === 'video'): ?>
+                            <div class="video-container">
+                                <iframe src="<?php echo htmlspecialchars($item['video_url']); ?>" 
+                                        frameborder="0" 
+                                        allowfullscreen></iframe>
+                            </div>
+                        <?php else: ?>
+                            <div class="image-container">
+                                <img src="<?php echo htmlspecialchars($item['image_url']); ?>" 
+                                     alt="<?php echo htmlspecialchars($item['title']); ?>">
+                                <div class="image-overlay">
+                                    <i class="fas fa-play"></i>
+                                </div>
+                            </div>
+                        <?php endif; ?>
+                        
+                        <div class="gallery-content">
+                            <h4><?php echo htmlspecialchars($item['title']); ?></h4>
+                            <p><?php echo htmlspecialchars($item['description']); ?></p>
+                        </div>
+                    </div>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <div class="gallery-placeholder">
+                        <i class="fas fa-video"></i>
+                        <h3>Gallery Coming Soon</h3>
+                        <p>We're preparing amazing content previews for you!</p>
+                    </div>
+                <?php endif; ?>
+            </div>
+            
+            <div class="gallery-cta">
+                <a href="gallery.php" class="btn btn-primary">
+                    <i class="fas fa-images"></i>
+                    View Full Gallery
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Frequently Asked Questions</h2>
+                <p class="section-subtitle">Get answers to common questions about GStreaming</p>
+            </div>
+            
+            <div class="faq-container">
+                <div class="faq-item" data-aos="fadeInUp" data-aos-delay="100">
+                    <div class="faq-question">
+                        <h3>How do I get started with GStreaming?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Getting started is easy! Simply choose a package that suits your needs, register for an account, and pay using M-PESA. Once payment is confirmed, you'll receive your login credentials and can start streaming immediately on any compatible device.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item" data-aos="fadeInUp" data-aos-delay="200">
+                    <div class="faq-question">
+                        <h3>Which devices are supported?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>GStreaming works on Smart TVs (Samsung, LG, Sony, TCL), Amazon Firestick, Roku, Android and iOS devices, and computers. Simply download our gateway app from the appropriate app store or our website.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item" data-aos="fadeInUp" data-aos-delay="300">
+                    <div class="faq-question">
+                        <h3>How does M-PESA payment work?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>You can pay using either our Till number or Paybill number. After selecting your package, you'll receive the payment details via SMS. Once payment is confirmed, your account will be activated automatically within minutes.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item" data-aos="fadeInUp" data-aos-delay="400">
+                    <div class="faq-question">
+                        <h3>Can I watch on multiple devices simultaneously?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes! Depending on your package, you can stream on 1, 3, 5, or up to 10 devices simultaneously. Each device counts as one connection, so you can share your subscription with family members.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item" data-aos="fadeInUp" data-aos-delay="500">
+                    <div class="faq-question">
+                        <h3>What internet speed do I need?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>For SD quality, we recommend at least 2 Mbps. For HD streaming, 5 Mbps is ideal. For 4K content, you'll need 15+ Mbps. Our adaptive streaming automatically adjusts quality based on your connection.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item" data-aos="fadeInUp" data-aos-delay="600">
+                    <div class="faq-question">
+                        <h3>Is there customer support available?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Absolutely! We provide 24/7 customer support through WhatsApp, live chat, phone, and email. Our support team is always ready to help with any technical issues or questions you may have.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item" data-aos="fadeInUp" data-aos-delay="700">
+                    <div class="faq-question">
+                        <h3>Can I cancel my subscription anytime?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, you can cancel your subscription at any time. Your service will continue until the end of your current billing period. You can manage your subscription and billing through your user dashboard.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item" data-aos="fadeInUp" data-aos-delay="800">
+                    <div class="faq-question">
+                        <h3>Do you offer refunds?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We offer a 7-day money-back guarantee for new subscribers. If you're not satisfied with our service within the first week, contact our support team for a full refund.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Support Section -->
+    <section id="support" class="support-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">24/7 Support</h2>
+                <p class="section-subtitle">We're here to help you with any questions or issues</p>
+            </div>
+            
+            <div class="support-grid">
+                <div class="support-card">
+                    <div class="support-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3>Live Chat</h3>
+                    <p>Get instant help from our support team</p>
+                    <a href="support.php?type=chat" class="support-btn">Start Chat</a>
+                </div>
+                
+                <div class="support-card">
+                    <div class="support-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h3>Email Support</h3>
+                    <p>Send us a detailed message and we'll respond quickly</p>
+                    <a href="support.php?type=email" class="support-btn">Send Email</a>
+                </div>
+                
+                <div class="support-card">
+                    <div class="support-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <h3>Phone Support</h3>
+                    <p>Call us for urgent technical assistance</p>
+                    <a href="tel:+254700000000" class="support-btn">Call Now</a>
+                </div>
+                
+                <div class="support-card">
+                    <div class="support-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3>Help Center</h3>
+                    <p>Browse our comprehensive knowledge base</p>
+                    <a href="help.php" class="support-btn">Browse FAQ</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fas fa-satellite-dish"></i>
+                        <span>GStreaming</span>
+                    </div>
+                    <p>Premium TV streaming service for Kenya. Stream thousands of channels on any device.</p>
+                    
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#packages">Packages</a></li>
+                        <li><a href="#devices">Supported Devices</a></li>
+                        <li><a href="gallery.php">Gallery</a></li>
+                        <li><a href="support.php">Support</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Account</h4>
+                    <ul class="footer-links">
+                        <li><a href="login.php">Login</a></li>
+                        <li><a href="register.php">Register</a></li>
+                        <li><a href="dashboard.php">Dashboard</a></li>
+                        <li><a href="billing.php">Billing</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>support@gstreaming.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <span>+254 768 704 834</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Nairobi, Kenya</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <p>&copy; <?php echo date('Y'); ?> GStreaming. All rights reserved.</p>
+                    <div class="footer-bottom-links">
+                        <a href="privacy.php">Privacy Policy</a>
+                        <a href="terms.php">Terms of Service</a>
+                        <a href="refund.php">Refund Policy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp Button -->
+    <div class="whatsapp-float">
+        <a href="https://wa.me/254768704834?text=Hello%2C%20I%20need%20help%20with%20GStreaming" target="_blank" class="whatsapp-btn">
+            <i class="fab fa-whatsapp"></i>
+            <span class="whatsapp-text">Chat with us</span>
+        </a>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/animations.js"></script>
+    <script src="assets/js/enhanced.js"></script>
+</body>
+</html>
