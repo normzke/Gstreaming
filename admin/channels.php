@@ -1,10 +1,9 @@
 <?php
 require_once '../config/config.php';
 require_once '../config/database.php';
-require_once '../includes/functions.php';
+require_once '../lib/functions.php';
 
 // Check admin authentication
-session_start();
 if (!isset($_SESSION['admin_id'])) {
     header('Location: login.php');
     exit();
@@ -152,361 +151,311 @@ if (isset($_GET['edit'])) {
     $editStmt->execute([$editId]);
     $editChannel = $editStmt->fetch();
 }
+
+$page_title = 'Channels';
+include 'includes/header.php';
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Channels Management - GStreaming Admin</title>
-    
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- CSS -->
-    <link rel="stylesheet" href="../assets/css/main.css">
-    <link rel="stylesheet" href="../assets/css/components.css">
-    <link rel="stylesheet" href="assets/css/admin.css">
-    
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
-<body class="admin-page">
-    <!-- Admin Navigation -->
-    <nav class="admin-navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <i class="fas fa-satellite-dish"></i>
-                <span class="logo-text">GStreaming Admin</span>
-            </div>
-            
-            <ul class="nav-menu">
-                <li class="nav-item">
-                    <a href="index.php" class="nav-link">Dashboard</a>
-                </li>
-                <li class="nav-item">
-                    <a href="users.php" class="nav-link">Users</a>
-                </li>
-                <li class="nav-item">
-                    <a href="packages.php" class="nav-link">Packages</a>
-                </li>
-                <li class="nav-item">
-                    <a href="payments.php" class="nav-link">Payments</a>
-                </li>
-                <li class="nav-item">
-                    <a href="channels.php" class="nav-link active">Channels</a>
-                </li>
-                <li class="nav-item">
-                    <a href="gallery.php" class="nav-link">Gallery</a>
-                </li>
-                <li class="nav-item">
-                    <a href="settings.php" class="nav-link">Settings</a>
-                </li>
-                <li class="nav-item">
-                    <a href="../logout.php" class="nav-link">Logout</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
 
-    <!-- Admin Main -->
-    <main class="admin-main">
-        <div class="container">
-            <div class="admin-header">
-                <h1>Channels Management</h1>
-                <p>Manage your streaming channels</p>
-                <button class="btn btn-primary" onclick="toggleAddForm()">
-                    <i class="fas fa-plus"></i>
-                    Add New Channel
-                </button>
-            </div>
-            
-            <?php if ($message): ?>
-                <div class="alert alert-<?php echo $messageType; ?>">
-                    <i class="fas fa-<?php echo $messageType === 'success' ? 'check-circle' : 'exclamation-circle'; ?>"></i>
-                    <?php echo htmlspecialchars($message); ?>
-                </div>
-            <?php endif; ?>
-            
-            <!-- Add/Edit Channel Form -->
-            <div id="channelForm" class="admin-card" style="display: none;">
-                <div class="card-header">
-                    <h3><?php echo $editChannel ? 'Edit Channel' : 'Add New Channel'; ?></h3>
-                    <button class="btn btn-secondary btn-sm" onclick="toggleAddForm()">
-                        <i class="fas fa-times"></i>
-                        Cancel
-                    </button>
-                </div>
-                
-                <form method="POST" class="form-grid">
-                    <input type="hidden" name="action" value="<?php echo $editChannel ? 'edit' : 'add'; ?>">
-                    <?php if ($editChannel): ?>
-                        <input type="hidden" name="id" value="<?php echo $editChannel['id']; ?>">
-                    <?php endif; ?>
-                    
-                    <div class="form-group">
-                        <label for="name">Channel Name *</label>
-                        <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($editChannel['name'] ?? ''); ?>" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="category">Category</label>
-                        <input type="text" id="category" name="category" value="<?php echo htmlspecialchars($editChannel['category'] ?? ''); ?>" list="categories">
-                        <datalist id="categories">
-                            <?php foreach ($categories as $cat): ?>
-                                <option value="<?php echo htmlspecialchars($cat); ?>">
-                            <?php endforeach; ?>
-                        </datalist>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="country">Country</label>
-                        <input type="text" id="country" name="country" value="<?php echo htmlspecialchars($editChannel['country'] ?? ''); ?>">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="language">Language</label>
-                        <input type="text" id="language" name="language" value="<?php echo htmlspecialchars($editChannel['language'] ?? ''); ?>">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="logo_url">Logo URL</label>
-                        <input type="url" id="logo_url" name="logo_url" value="<?php echo htmlspecialchars($editChannel['logo_url'] ?? ''); ?>">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="stream_url">Stream URL</label>
-                        <input type="url" id="stream_url" name="stream_url" value="<?php echo htmlspecialchars($editChannel['stream_url'] ?? ''); ?>">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="sort_order">Sort Order</label>
-                        <input type="number" id="sort_order" name="sort_order" value="<?php echo $editChannel['sort_order'] ?? 0; ?>" min="0">
-                    </div>
-                    
-                    <div class="form-group full-width">
-                        <label for="description">Description</label>
-                        <textarea id="description" name="description" rows="4"><?php echo htmlspecialchars($editChannel['description'] ?? ''); ?></textarea>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="checkbox-label">
-                            <input type="checkbox" name="is_hd" <?php echo ($editChannel['is_hd'] ?? false) ? 'checked' : ''; ?>>
-                            <span class="checkmark"></span>
-                            HD Quality
-                        </label>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="checkbox-label">
-                            <input type="checkbox" name="is_active" <?php echo ($editChannel['is_active'] ?? true) ? 'checked' : ''; ?>>
-                            <span class="checkmark"></span>
-                            Active
-                        </label>
-                    </div>
-                    
-                    <div class="form-actions">
-                        <button type="submit" class="btn btn-primary">
-                            <i class="fas fa-save"></i>
-                            <?php echo $editChannel ? 'Update Channel' : 'Add Channel'; ?>
-                        </button>
-                        <?php if ($editChannel): ?>
-                            <a href="channels.php" class="btn btn-secondary">
-                                <i class="fas fa-times"></i>
-                                Cancel
-                            </a>
-                        <?php endif; ?>
-                    </div>
-                </form>
-            </div>
-            
-            <!-- Search and Filter -->
-            <div class="admin-card">
-                <div class="card-header">
-                    <h3>Search & Filter Channels</h3>
-                </div>
-                
-                <form method="GET" class="filter-form">
-                    <div class="filter-row">
-                        <div class="filter-group">
-                            <label for="search">Search</label>
-                            <input type="text" id="search" name="search" value="<?php echo htmlspecialchars($search); ?>" placeholder="Search channels...">
+<!-- Messages -->
+<?php if ($message): ?>
+<div class="admin-card" style="margin-bottom: 1.5rem;">
+    <div class="card-body">
+        <div class="alert alert-<?php echo $messageType; ?>" style="display: flex; align-items: center; gap: 0.5rem; padding: 1rem; border-radius: var(--admin-radius); background: <?php echo $messageType === 'success' ? '#D1FAE5' : '#FEE2E2'; ?>; color: <?php echo $messageType === 'success' ? '#065F46' : '#991B1B'; ?>;">
+            <i class="fas fa-<?php echo $messageType === 'success' ? 'check-circle' : 'exclamation-circle'; ?>"></i>
+            <?php echo htmlspecialchars($message); ?>
+        </div>
+    </div>
+</div>
+<?php endif; ?>
+
+<!-- Add Channel Button -->
+<div style="margin-bottom: 1.5rem;">
+    <button class="btn btn-primary" onclick="openAddModal()">
+        <i class="fas fa-plus"></i>
+        Add New Channel
+    </button>
+</div>
+
+<!-- Channels Table -->
+<div class="admin-card">
+    <div class="card-header">
+        <h3 class="card-title">All Channels</h3>
+    </div>
+    <div class="card-body">
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>Stream URL</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($channels as $channel): ?>
+                <tr>
+                    <td>
+                        <div>
+                            <strong><?php echo htmlspecialchars($channel['name']); ?></strong>
+                            <br>
+                            <small class="text-muted"><?php echo htmlspecialchars($channel['description']); ?></small>
                         </div>
-                        
-                        <div class="filter-group">
-                            <label for="category">Category</label>
-                            <select id="category" name="category">
-                                <option value="">All Categories</option>
-                                <?php foreach ($categories as $cat): ?>
-                                    <option value="<?php echo htmlspecialchars($cat); ?>" <?php echo $category === $cat ? 'selected' : ''; ?>>
-                                        <?php echo htmlspecialchars($cat); ?>
-                                    </option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-                        
-                        <div class="filter-group">
-                            <label for="status">Status</label>
-                            <select id="status" name="status">
-                                <option value="">All Status</option>
-                                <option value="active" <?php echo $status === 'active' ? 'selected' : ''; ?>>Active</option>
-                                <option value="inactive" <?php echo $status === 'inactive' ? 'selected' : ''; ?>>Inactive</option>
-                            </select>
-                        </div>
-                        
-                        <div class="filter-actions">
-                            <button type="submit" class="btn btn-primary">
-                                <i class="fas fa-search"></i>
-                                Search
-                            </button>
-                            <a href="channels.php" class="btn btn-secondary">
-                                <i class="fas fa-times"></i>
-                                Clear
-                            </a>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            
-            <!-- Channels List -->
-            <div class="admin-card">
-                <div class="card-header">
-                    <h3>Channels List (<?php echo number_format($totalChannels); ?> total)</h3>
-                </div>
-                
-                <div class="table-container">
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>Logo</th>
-                                <th>Name</th>
-                                <th>Category</th>
-                                <th>Country</th>
-                                <th>Quality</th>
-                                <th>Status</th>
-                                <th>Sort</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php if (empty($channels)): ?>
-                                <tr>
-                                    <td colspan="8" class="text-center">No channels found</td>
-                                </tr>
-                            <?php else: ?>
-                                <?php foreach ($channels as $channel): ?>
-                                    <tr>
-                                        <td>
-                                            <?php if ($channel['logo_url']): ?>
-                                                <img src="<?php echo htmlspecialchars($channel['logo_url']); ?>" 
-                                                     alt="<?php echo htmlspecialchars($channel['name']); ?>"
-                                                     class="channel-logo-small"
-                                                     onerror="this.src='../assets/images/default-channel.png'">
-                                            <?php else: ?>
-                                                <div class="channel-logo-small default">
-                                                    <i class="fas fa-tv"></i>
-                                                </div>
-                                            <?php endif; ?>
-                                        </td>
-                                        <td>
-                                            <div class="channel-info">
-                                                <strong><?php echo htmlspecialchars($channel['name']); ?></strong>
-                                                <?php if ($channel['description']): ?>
-                                                    <small><?php echo htmlspecialchars(substr($channel['description'], 0, 50)); ?>...</small>
-                                                <?php endif; ?>
-                                            </div>
-                                        </td>
-                                        <td><?php echo htmlspecialchars($channel['category'] ?: '-'); ?></td>
-                                        <td><?php echo htmlspecialchars($channel['country'] ?: '-'); ?></td>
-                                        <td>
-                                            <?php if ($channel['is_hd']): ?>
-                                                <span class="badge badge-success">HD</span>
-                                            <?php else: ?>
-                                                <span class="badge badge-secondary">SD</span>
-                                            <?php endif; ?>
-                                        </td>
-                                        <td>
-                                            <span class="status-badge status-<?php echo $channel['is_active'] ? 'active' : 'inactive'; ?>">
-                                                <?php echo $channel['is_active'] ? 'Active' : 'Inactive'; ?>
-                                            </span>
-                                        </td>
-                                        <td><?php echo $channel['sort_order']; ?></td>
-                                        <td>
-                                            <div class="action-buttons">
-                                                <a href="channels.php?edit=<?php echo $channel['id']; ?>" class="btn btn-sm btn-secondary" title="Edit">
-                                                    <i class="fas fa-edit"></i>
-                                                </a>
-                                                
-                                                <form method="POST" style="display: inline;" onsubmit="return confirm('Are you sure you want to toggle this channel status?')">
-                                                    <input type="hidden" name="action" value="toggle_status">
-                                                    <input type="hidden" name="id" value="<?php echo $channel['id']; ?>">
-                                                    <button type="submit" class="btn btn-sm btn-<?php echo $channel['is_active'] ? 'warning' : 'success'; ?>" title="<?php echo $channel['is_active'] ? 'Deactivate' : 'Activate'; ?>">
-                                                        <i class="fas fa-<?php echo $channel['is_active'] ? 'pause' : 'play'; ?>"></i>
-                                                    </button>
-                                                </form>
-                                                
-                                                <form method="POST" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this channel? This action cannot be undone.')">
-                                                    <input type="hidden" name="action" value="delete">
-                                                    <input type="hidden" name="id" value="<?php echo $channel['id']; ?>">
-                                                    <button type="submit" class="btn btn-sm btn-danger" title="Delete">
-                                                        <i class="fas fa-trash"></i>
-                                                    </button>
-                                                </form>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                <?php endforeach; ?>
-                            <?php endif; ?>
-                        </tbody>
-                    </table>
-                </div>
-                
-                <!-- Pagination -->
-                <?php if ($totalPages > 1): ?>
-                    <div class="pagination">
-                        <?php if ($page > 1): ?>
-                            <a href="?page=<?php echo $page - 1; ?>&search=<?php echo urlencode($search); ?>&category=<?php echo urlencode($category); ?>&status=<?php echo urlencode($status); ?>" class="btn btn-secondary">
-                                <i class="fas fa-chevron-left"></i>
-                                Previous
-                            </a>
-                        <?php endif; ?>
-                        
-                        <span class="pagination-info">
-                            Page <?php echo $page; ?> of <?php echo $totalPages; ?>
+                    </td>
+                    <td><?php echo htmlspecialchars($channel['category']); ?></td>
+                    <td>
+                        <code style="font-size: 0.75rem; background: #f1f5f9; padding: 0.25rem 0.5rem; border-radius: 4px;">
+                            <?php echo htmlspecialchars(substr($channel['stream_url'], 0, 50)) . '...'; ?>
+                        </code>
+                    </td>
+                    <td>
+                        <span class="badge badge-<?php echo $channel['is_active'] ? 'success' : 'danger'; ?>">
+                            <?php echo $channel['is_active'] ? 'Active' : 'Inactive'; ?>
                         </span>
-                        
-                        <?php if ($page < $totalPages): ?>
-                            <a href="?page=<?php echo $page + 1; ?>&search=<?php echo urlencode($search); ?>&category=<?php echo urlencode($category); ?>&status=<?php echo urlencode($status); ?>" class="btn btn-secondary">
-                                Next
-                                <i class="fas fa-chevron-right"></i>
-                            </a>
-                        <?php endif; ?>
-                    </div>
-                <?php endif; ?>
-            </div>
-        </div>
-    </main>
+                    </td>
+                    <td>
+                        <button class="btn btn-secondary" onclick="editChannel(<?php echo $channel['id']; ?>)">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn btn-danger btn-delete" onclick="deleteChannel(<?php echo $channel['id']; ?>)">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</div>
 
-    <!-- JavaScript -->
-    <script src="../assets/js/main.js"></script>
-    <script src="assets/js/admin.js"></script>
-    <script>
-        function toggleAddForm() {
-            const form = document.getElementById('channelForm');
-            if (form.style.display === 'none') {
-                form.style.display = 'block';
-                form.scrollIntoView({ behavior: 'smooth' });
-            } else {
-                form.style.display = 'none';
-            }
-        }
-        
-        // Auto-show form if editing
-        <?php if ($editChannel): ?>
-            document.addEventListener('DOMContentLoaded', function() {
-                document.getElementById('channelForm').style.display = 'block';
-            });
-        <?php endif; ?>
-    </script>
-</body>
-</html>
+<!-- Add/Edit Channel Modal -->
+<div id="channelModal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 id="modalTitle">Add Channel</h3>
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+        </div>
+        <form id="channelForm" method="POST">
+            <input type="hidden" name="action" id="formAction" value="add_channel">
+            <input type="hidden" name="channel_id" id="channelId">
+            
+            <div class="form-group">
+                <label for="name">Channel Name</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea id="description" name="description" rows="3" required></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="category">Category</label>
+                <select id="category" name="category" required>
+                    <option value="News">News</option>
+                    <option value="Sports">Sports</option>
+                    <option value="Entertainment">Entertainment</option>
+                    <option value="Movies">Movies</option>
+                    <option value="Kids">Kids</option>
+                    <option value="Documentary">Documentary</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="stream_url">Stream URL</label>
+                <input type="url" id="stream_url" name="stream_url" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="logo_url">Logo URL</label>
+                <input type="url" id="logo_url" name="logo_url">
+            </div>
+            
+            <div class="form-group">
+                <label for="sort_order">Sort Order</label>
+                <input type="number" id="sort_order" name="sort_order" value="0">
+            </div>
+            
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" id="is_active" name="is_active" checked>
+                    Active Channel
+                </label>
+            </div>
+            
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+                <button type="submit" class="btn btn-primary">Save Channel</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div id="deleteModal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Confirm Delete</h3>
+            <button class="modal-close" onclick="closeDeleteModal()">&times;</button>
+        </div>
+        <div class="modal-body">
+            <p>Are you sure you want to delete this channel? This action cannot be undone.</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" onclick="closeDeleteModal()">Cancel</button>
+            <button type="button" class="btn btn-danger" onclick="confirmDelete()">Delete</button>
+        </div>
+    </div>
+</div>
+
+<style>
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background: white;
+    border-radius: var(--admin-radius);
+    width: 90%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.modal-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--admin-border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--admin-text-light);
+}
+
+.modal-body {
+    padding: 1.5rem;
+}
+
+.modal-footer {
+    padding: 1.5rem;
+    border-top: 1px solid var(--admin-border);
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--admin-text);
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--admin-border);
+    border-radius: var(--admin-radius);
+    font-size: 1rem;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: var(--admin-primary);
+    box-shadow: 0 0 0 3px rgba(139, 0, 0, 0.1);
+}
+
+.text-muted {
+    color: var(--admin-text-light);
+}
+
+.badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.badge-success {
+    background: #D1FAE5;
+    color: #065F46;
+}
+
+.badge-danger {
+    background: #FEE2E2;
+    color: #991B1B;
+}
+</style>
+
+<script>
+let currentChannelId = null;
+
+function openAddModal() {
+    document.getElementById('modalTitle').textContent = 'Add Channel';
+    document.getElementById('formAction').value = 'add_channel';
+    document.getElementById('channelForm').reset();
+    document.getElementById('channelId').value = '';
+    document.getElementById('channelModal').style.display = 'flex';
+}
+
+function editChannel(id) {
+    document.getElementById('modalTitle').textContent = 'Edit Channel';
+    document.getElementById('formAction').value = 'edit_channel';
+    document.getElementById('channelId').value = id;
+    document.getElementById('channelModal').style.display = 'flex';
+}
+
+function deleteChannel(id) {
+    currentChannelId = id;
+    document.getElementById('deleteModal').style.display = 'flex';
+}
+
+function closeModal() {
+    document.getElementById('channelModal').style.display = 'none';
+}
+
+function closeDeleteModal() {
+    document.getElementById('deleteModal').style.display = 'none';
+    currentChannelId = null;
+}
+
+function confirmDelete() {
+    if (currentChannelId) {
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.innerHTML = `
+            <input type="hidden" name="action" value="delete_channel">
+            <input type="hidden" name="channel_id" value="${currentChannelId}">
+        `;
+        document.body.appendChild(form);
+        form.submit();
+    }
+}
+</script>
+
+<?php include 'includes/footer.php'; ?>

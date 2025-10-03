@@ -6,10 +6,9 @@
 
 require_once '../../config/config.php';
 require_once '../../config/database.php';
-require_once '../../includes/functions.php';
+require_once '../../lib/functions.php';
 
 // Check admin authentication
-session_start();
 if (!isset($_SESSION['admin_id'])) {
     http_response_code(401);
     echo json_encode(['error' => 'Unauthorized']);

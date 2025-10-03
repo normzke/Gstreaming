@@ -4,7 +4,7 @@
  */
 
 // Site Configuration
-define('SITE_NAME', 'GStreaming');
+define('SITE_NAME', 'BingeTV');
 
 // Auto-detect localhost mode
 $isLocalhost = (isset($_SERVER['HTTP_HOST']) && 
@@ -12,14 +12,25 @@ $isLocalhost = (isset($_SERVER['HTTP_HOST']) &&
                  strpos($_SERVER['HTTP_HOST'], '127.0.0.1') !== false));
 
 if ($isLocalhost) {
-    define('SITE_URL', 'http://localhost:4000/GStreaming');
+    define('SITE_URL', 'http://localhost:4000/BingeTV');
     define('LOCALHOST_MODE', true);
 } else {
-    define('SITE_URL', 'https://yourdomain.com'); // Update for production
+    define('SITE_URL', 'https://bingetv.co.ke');
     define('LOCALHOST_MODE', false);
 }
 
-define('SITE_EMAIL', 'support@gstreaming.com');
+define('SITE_EMAIL', 'support@bingetv.co.ke');
+
+// Database Configuration
+define('DB_HOST', 'localhost');
+define('DB_NAME', 'fieldte5_bingetv');
+define('DB_USER', 'fieldte5_bingetv1');
+define('DB_PASSWORD', 'Normas@4340');
+define('DB_PORT', '5432');
+
+// Alternative constant names for compatibility
+define('DB_DATABASE', 'fieldte5_bingetv');
+define('DB_USERNAME', 'fieldte5_bingetv1');
 
 // M-PESA Configuration
 define('MPESA_ENVIRONMENT', 'sandbox'); // sandbox or production

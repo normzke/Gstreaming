@@ -5,12 +5,20 @@
  */
 
 class Database {
-    private $host = 'localhost';
-    private $db_name = 'gstreaming_db';
-    private $username = 'gstreaming_user';
-    private $password = 'your_secure_password';
-    private $port = '5432';
+    private $host;
+    private $db_name;
+    private $username;
+    private $password;
+    private $port;
     private $conn;
+
+    public function __construct() {
+        $this->host = DB_HOST;
+        $this->db_name = DB_NAME;
+        $this->username = DB_USER;
+        $this->password = DB_PASSWORD;
+        $this->port = DB_PORT ?? '5432';
+    }
 
     public function getConnection() {
         $this->conn = null;

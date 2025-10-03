@@ -1,0 +1,43 @@
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://bingetv.co.ke/sitemap.xml
+Sitemap: https://bingetv.co.ke/sitemap-images.xml
+
+# Disallow admin areas
+Disallow: /admin/
+Disallow: /api/
+Disallow: /includes/
+Disallow: /config/
+Disallow: /cache/
+Disallow: /logs/
+Disallow: /uploads/
+Disallow: /database/
+Disallow: /tests/
+
+# Allow important pages
+Allow: /channels.php
+Allow: /gallery.php
+Allow: /subscribe.php
+Allow: /login.php
+Allow: /register.php
+Allow: /dashboard.php
+Allow: /payment.php
+
+# Allow static assets
+Allow: /assets/
+Allow: /*.css
+Allow: /*.js
+Allow: /*.jpg
+Allow: /*.jpeg
+Allow: /*.png
+Allow: /*.gif
+Allow: /*.svg
+Allow: /*.webp
+
+# Crawl delay
+Crawl-delay: 1
+
+# Host
+Host: https://bingetv.co.ke
