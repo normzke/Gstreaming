@@ -160,7 +160,7 @@ function generateSecurePassword($length = 12) {
 }
 
 function generateStreamingUrl($packageId) {
-    $baseUrl = 'https://stream.gstreaming.com/';
+    $baseUrl = 'https://stream.BingeTV.com/';
     $packageHash = hash('md5', $packageId . time());
     return $baseUrl . $packageHash;
 }

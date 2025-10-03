@@ -282,4 +282,4 @@ INSERT INTO mpesa_config (config_key, config_value, description, is_encrypted) V
 
 -- Insert default admin user (password: admin123)
 INSERT INTO admin_users (username, password_hash, email, full_name, role) VALUES
-('admin', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin@gstreaming.com', 'System Administrator', 'super_admin');
+('admin', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin@BingeTV.com', 'System Administrator', 'super_admin');

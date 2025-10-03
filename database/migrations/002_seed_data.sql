@@ -3,7 +3,7 @@
 
 -- Insert default admin user
 INSERT INTO admin_users (username, email, password_hash, full_name, role) VALUES
-('admin', 'admin@gstreaming.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'System Administrator', 'super_admin')
+('admin', 'admin@BingeTV.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'System Administrator', 'super_admin')
 ON CONFLICT (username) DO NOTHING;
 
 -- Insert default M-PESA configuration

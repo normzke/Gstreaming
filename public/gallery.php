@@ -312,7 +312,7 @@ $breadcrumb_data = SEO::getBreadcrumbData([
                     <div class="contact-info">
                         <div class="contact-item">
                             <i class="fas fa-envelope"></i>
-                            <span>support@gstreaming.com</span>
+                            <span>support@BingeTV.com</span>
                         </div>
                         <div class="contact-item">
                             <i class="fas fa-phone"></i>
