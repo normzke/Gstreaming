@@ -24,7 +24,7 @@ define('SITE_EMAIL', 'support@bingetv.co.ke');
 // Database Configuration (production: cPanel PostgreSQL host)
 define('DB_HOST', '127.0.0.200');
 define('DB_NAME', 'fieldte5_bingetv');
-define('DB_USER', 'fieldte5');
+define('DB_USER', 'fieldte5_bingetv1');
 define('DB_PASSWORD', 'Normas@4340');
 define('DB_PORT', '5432');
 
