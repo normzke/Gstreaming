@@ -29,11 +29,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($email) || empty($password)) {
         $error = 'Please fill in all fields.';
     } else {
-        $db = new Database();
-        $conn = $db->getConnection();
-        
+                $db = new Database();
+                $conn = $db->getConnection();
+                
         try {
-            // Get user by email
+                // Get user by email
             $userQuery = "SELECT * FROM users WHERE email = ? AND is_active = true";
             $userStmt = $conn->prepare($userQuery);
             $userStmt->execute([$email]);
@@ -46,9 +46,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $updateStmt->execute([$user['id']]);
                 
                 // Set session variables
-                $_SESSION['user_id'] = $user['id'];
-                $_SESSION['user_email'] = $user['email'];
-                $_SESSION['user_name'] = $user['first_name'] . ' ' . $user['last_name'];
+                    $_SESSION['user_id'] = $user['id'];
+                    $_SESSION['user_email'] = $user['email'];
+                    $_SESSION['user_name'] = $user['first_name'] . ' ' . $user['last_name'];
                 
                 // Handle remember me
                 if ($remember) {
@@ -119,7 +119,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <h1>Login to Your Account</h1>
                 <p>Access your personalized streaming experience</p>
             </div>
-            <form action="https://bingetv.co.ke/login_new.php" method="POST" class="auth-form">
+            <form action="https://bingetv.co.ke/login.php" method="POST" class="auth-form">
                 <?php if (!empty($error)): ?>
                     <div class="alert alert-error">
                         <p><?php echo htmlspecialchars($error); ?></p>
@@ -183,8 +183,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <li><a href="https://bingetv.co.ke/register.php">Register</a></li>
                         <li><a href="https://bingetv.co.ke/packages.php">Packages</a></li>
                         <li><a href="https://bingetv.co.ke/support.php">Support</a></li>
-                    </ul>
-                </div>
+                            </ul>
+                        </div>
                 <div class="footer-section">
                     <h4>Contact Info</h4>
                     <div class="contact-info">
