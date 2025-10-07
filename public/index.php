@@ -4,14 +4,16 @@ require_once '../config/database.php';
 require_once '../lib/functions.php';
 require_once '../lib/seo.php';
 
-// Get packages for display
+// Get packages for display (guard against DB connection failure)
 $db = new Database();
 $conn = $db->getConnection();
-
-$packageQuery = "SELECT * FROM packages WHERE is_active = true ORDER BY sort_order, price ASC";
-$packageStmt = $conn->prepare($packageQuery);
-$packageStmt->execute();
-$packages = $packageStmt->fetchAll();
+$packages = [];
+if ($conn) {
+    $packageQuery = "SELECT * FROM packages WHERE is_active = true ORDER BY sort_order, price ASC";
+    $packageStmt = $conn->prepare($packageQuery);
+    $packageStmt->execute();
+    $packages = $packageStmt->fetchAll();
+}
 
 // Get featured gallery items
 $galleryQuery = "SELECT * FROM gallery_items WHERE is_featured = true ORDER BY sort_order LIMIT 6";
