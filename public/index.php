@@ -440,174 +440,54 @@ $faq_data = SEO::getFAQData();
             
             <!-- Pricing Cards -->
             <div class="packages-grid">
-                <!-- Basic Plan -->
-                <div class="package-card basic-plan" data-devices="1" data-duration="1">
-                    <div class="package-badge">Most Popular</div>
+                <?php 
+                $index = 0;
+                foreach ($packages as $pkg): 
+                    $index++;
+                    $months = max(1, (int)round(($pkg['duration_days'] ?? 30) / 30));
+                    $devices = (int)($pkg['max_devices'] ?? 1);
+                    $badge = $index === 1 ? 'Most Popular' : '';
+                ?>
+                <div class="package-card" data-devices="<?php echo $devices; ?>" data-duration="<?php echo $months; ?>">
+                    <?php if ($badge): ?>
+                    <div class="package-badge"><?php echo $badge; ?></div>
+                    <?php endif; ?>
                     <div class="package-header">
-                        <h3 class="package-name">Basic Plan</h3>
+                        <h3 class="package-name"><?php echo htmlspecialchars($pkg['name']); ?></h3>
                         <div class="package-price">
-                            <span class="currency">KES</span>
-                            <span class="amount" data-price="500">500</span>
-                            <span class="period">/month</span>
+                            <span class="currency"><?php echo htmlspecialchars($pkg['currency'] ?: 'KSh'); ?></span>
+                            <span class="amount" data-price="<?php echo (float)$pkg['price']; ?>"><?php echo number_format((float)$pkg['price'], 0); ?></span>
+                            <span class="period">/<?php echo $months > 1 ? $months . ' mo' : 'month'; ?></span>
                         </div>
                     </div>
                     
                     <div class="package-features">
                         <div class="feature-item">
                             <i class="fas fa-check"></i>
-                            <span>50+ Channels</span>
+                            <span>All Channels Included</span>
                         </div>
                         <div class="feature-item">
                             <i class="fas fa-check"></i>
-                            <span>SD Quality</span>
+                            <span><?php echo $devices; ?> Device<?php echo $devices > 1 ? 's' : ''; ?></span>
                         </div>
                         <div class="feature-item">
                             <i class="fas fa-check"></i>
-                            <span>1 Device</span>
+                            <span>M-PESA Payment</span>
                         </div>
                         <div class="feature-item">
                             <i class="fas fa-check"></i>
                             <span>24/7 Support</span>
                         </div>
-                        <div class="feature-item">
-                            <i class="fas fa-check"></i>
-                            <span>M-PESA Payment</span>
-                        </div>
                     </div>
                     
                     <div class="package-footer">
-                        <a href="package-selection.php?from_homepage=1&package=1" class="btn btn-primary btn-full">
+                        <a href="packages.php?from_homepage=1&package_id=<?php echo (int)$pkg['id']; ?>" class="btn btn-primary btn-full">
                             <i class="fas fa-credit-card"></i>
                             Subscribe Now
                         </a>
                     </div>
                 </div>
-                
-                <!-- Premium Plan -->
-                <div class="package-card premium-plan" data-devices="1" data-duration="1">
-                    <div class="package-header">
-                        <h3 class="package-name">Premium Plan</h3>
-                        <div class="package-price">
-                            <span class="currency">KES</span>
-                            <span class="amount" data-price="1200">1,200</span>
-                            <span class="period">/month</span>
-                        </div>
-                    </div>
-                    
-                    <div class="package-features">
-                        <div class="feature-item">
-                            <i class="fas fa-check"></i>
-                            <span>200+ Channels</span>
-                        </div>
-                        <div class="feature-item">
-                            <i class="fas fa-check"></i>
-                            <span>HD Quality</span>
-                        </div>
-                        <div class="feature-item">
-                            <i class="fas fa-check"></i>
-                            <span>1 Device</span>
-                        </div>
-                        <div class="feature-item">
-                            <i class="fas fa-check"></i>
-                            <span>24/7 Support</span>
-                        </div>
-                        <div class="feature-item">
-                            <i class="fas fa-check"></i>
-                            <span>M-PESA Payment</span>
-                        </div>
-                    </div>
-                    
-                    <div class="package-footer">
-                        <a href="package-selection.php?from_homepage=1&package=2" class="btn btn-primary btn-full">
-                            <i class="fas fa-credit-card"></i>
-                            Subscribe Now
-                        </a>
-                    </div>
-                </div>
-                
-                <!-- Family Plan -->
-                <div class="package-card family-plan" data-devices="1" data-duration="1">
-                    <div class="package-header">
-                        <h3 class="package-name">Family Plan</h3>
-                        <div class="package-price">
-                            <span class="currency">KES</span>
-                            <span class="amount" data-price="2000">2,000</span>
-                            <span class="period">/month</span>
-                        </div>
-                    </div>
-                    
-                    <div class="package-features">
-                        <div class="feature-item">
-                            <i class="fas fa-check"></i>
-                            <span>500+ Channels</span>
-                        </div>
-                        <div class="feature-item">
-                            <i class="fas fa-check"></i>
-                            <span>HD Quality</span>
-                        </div>
-                        <div class="feature-item">
-                            <i class="fas fa-check"></i>
-                            <span>5 Devices</span>
-                        </div>
-                        <div class="feature-item">
-                            <i class="fas fa-check"></i>
-                            <span>24/7 Support</span>
-                        </div>
-                        <div class="feature-item">
-                            <i class="fas fa-check"></i>
-                            <span>M-PESA Payment</span>
-                        </div>
-                    </div>
-                    
-                    <div class="package-footer">
-                        <a href="package-selection.php?from_homepage=1&package=3" class="btn btn-primary btn-full">
-                            <i class="fas fa-credit-card"></i>
-                            Subscribe Now
-                        </a>
-                    </div>
-                </div>
-                
-                <!-- VIP Plan -->
-                <div class="package-card vip-plan" data-devices="1" data-duration="1">
-                    <div class="package-header">
-                        <h3 class="package-name">VIP Plan</h3>
-                        <div class="package-price">
-                            <span class="currency">KES</span>
-                            <span class="amount" data-price="3500">3,500</span>
-                            <span class="period">/month</span>
-                        </div>
-                    </div>
-                    
-                    <div class="package-features">
-                        <div class="feature-item">
-                            <i class="fas fa-check"></i>
-                            <span>1000+ Channels</span>
-                        </div>
-                        <div class="feature-item">
-                            <i class="fas fa-check"></i>
-                            <span>4K Quality</span>
-                        </div>
-                        <div class="feature-item">
-                            <i class="fas fa-check"></i>
-                            <span>10 Devices</span>
-                        </div>
-                        <div class="feature-item">
-                            <i class="fas fa-check"></i>
-                            <span>Priority Support</span>
-                        </div>
-                        <div class="feature-item">
-                            <i class="fas fa-check"></i>
-                            <span>M-PESA Payment</span>
-                        </div>
-                    </div>
-                    
-                    <div class="package-footer">
-                        <a href="package-selection.php?from_homepage=1&package=4" class="btn btn-primary btn-full">
-                            <i class="fas fa-credit-card"></i>
-                            Subscribe Now
-                        </a>
-                    </div>
-                </div>
+                <?php endforeach; ?>
             </div>
             
             <div class="packages-note">
