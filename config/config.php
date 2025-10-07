@@ -21,8 +21,8 @@ if ($isLocalhost) {
 
 define('SITE_EMAIL', 'support@bingetv.co.ke');
 
-// Database Configuration (empty host prefers Unix socket on cPanel)
-define('DB_HOST', '');
+// Database Configuration (production: cPanel PostgreSQL host)
+define('DB_HOST', '127.0.0.200');
 define('DB_NAME', 'fieldte5_bingetv');
 define('DB_USER', 'fieldte5_bingetv1');
 define('DB_PASSWORD', 'Normas@4340');
