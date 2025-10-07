@@ -27,6 +27,7 @@ define('DB_NAME', 'fieldte5_bingetv');
 define('DB_USER', 'fieldte5_bingetv1');
 define('DB_PASSWORD', 'Normas@4340');
 define('DB_PORT', '5432');
+define('DB_SSLMODE', LOCALHOST_MODE ? 'disable' : 'require');
 
 // Alternative constant names for compatibility
 define('DB_DATABASE', 'fieldte5_bingetv');
