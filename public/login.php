@@ -1,9 +1,9 @@
 <?php
 // Updated: 2024-01-15 12:00:00
-require_once 'config/config.php';
-require_once 'config/database.php';
-require_once 'lib/functions.php';
-require_once 'lib/seo.php';
+require_once '../config/config.php';
+require_once '../config/database.php';
+require_once '../lib/functions.php';
+require_once '../lib/seo.php';
 
 // Session is started in config files
 
