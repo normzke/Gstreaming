@@ -32,7 +32,16 @@ class Database {
             $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $this->conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
         } catch(PDOException $exception) {
-            echo "Connection error: " . $exception->getMessage();
+            // Fallback: Try Unix domain socket (common on cPanel is /tmp)
+            try {
+                $socketHost = '/tmp';
+                $dsnSocket = "pgsql:host=" . $socketHost . ";dbname=" . $this->db_name;
+                $this->conn = new PDO($dsnSocket, $this->username, $this->password);
+                $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                $this->conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+            } catch (PDOException $e2) {
+                echo "Connection error: " . $exception->getMessage();
+            }
         }
 
         return $this->conn;
