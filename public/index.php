@@ -15,11 +15,14 @@ if ($conn) {
     $packages = $packageStmt->fetchAll();
 }
 
-// Get featured gallery items
-$galleryQuery = "SELECT * FROM gallery_items WHERE is_featured = true ORDER BY sort_order LIMIT 6";
-$galleryStmt = $conn->prepare($galleryQuery);
-$galleryStmt->execute();
-$featuredGallery = $galleryStmt->fetchAll();
+// Get featured gallery items (only if DB is available)
+$featuredGallery = [];
+if ($conn) {
+    $galleryQuery = "SELECT * FROM gallery_items WHERE is_featured = true ORDER BY sort_order LIMIT 6";
+    $galleryStmt = $conn->prepare($galleryQuery);
+    $galleryStmt->execute();
+    $featuredGallery = $galleryStmt->fetchAll();
+}
 
 // Get SEO data
 $seo_meta = SEO::getMetaTags('home');
