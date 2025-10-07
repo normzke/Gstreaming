@@ -9,6 +9,9 @@ $conn = $db->getConnection();
 // Get selected package
 $package_id = isset($_GET['package']) ? (int)$_GET['package'] : 0;
 $package = null;
+// selections from homepage
+$selectedDevices = isset($_SESSION['selected_devices']) ? (int)$_SESSION['selected_devices'] : 1;
+$selectedMonths = isset($_SESSION['selected_months']) ? (int)$_SESSION['selected_months'] : 1;
 
 if ($package_id > 0) {
             $packageQuery = "SELECT * FROM packages WHERE id = ? AND is_active = true";
@@ -21,6 +24,12 @@ if (!$package) {
     header('Location: index.php');
                 exit();
 }
+
+// Compute pricing based on selections
+$minDevices = (int)($package['max_devices'] ?? 1);
+$extraDevices = max(0, $selectedDevices - $minDevices);
+$perMonth = (float)$package['price'] + ($extraDevices * 500);
+$totalPrice = $perMonth * max(1, $selectedMonths);
 
 // Get package channels
 $channelsQuery = "SELECT c.* FROM channels c 
@@ -130,8 +139,8 @@ include '../includes/header.php';
                         <h1><?php echo htmlspecialchars($package['name']); ?></h1>
                         <p class="package-description"><?php echo htmlspecialchars($package['description']); ?></p>
                         <div class="package-price">
-                            <span class="price-amount">KES <?php echo number_format($package['price']); ?></span>
-                            <span class="price-period">/ <?php echo $package['duration_days']; ?> days</span>
+                            <span class="price-amount">KES <?php echo number_format($totalPrice); ?></span>
+                            <span class="price-period">for <?php echo (int)$selectedMonths; ?> month(s), <?php echo (int)$selectedDevices; ?> device(s)</span>
                     </div>
                     </div>
                     </div>
@@ -246,7 +255,7 @@ include '../includes/header.php';
                             </div>
                             <div class="summary-item total">
                                 <span>Total Amount:</span>
-                                <span>KES <?php echo number_format($package['price']); ?></span>
+                                <span>KES <?php echo number_format($perMonth); ?> per month</span>
                             </div>
                         </div>
                     </div>
@@ -318,7 +327,7 @@ include '../includes/header.php';
                                     </div>
                                     <div class="summary-row total">
                                         <span>Amount to Pay:</span>
-                                        <span>KES <?php echo number_format($package['price']); ?></span>
+                                        <span>KES <?php echo number_format($perMonth); ?></span>
                                     </div>
                                 </div>
                                 
@@ -453,7 +462,7 @@ include '../includes/header.php';
                                     <li>Select "Paybill"</li>
                                     <li>Enter Paybill Number: <strong><?php echo MPESA_SHORTCODE; ?></strong></li>
                                     <li>Enter Account Number: <strong id="account-number">Loading...</strong></li>
-                                    <li>Enter Amount: <strong>KES <?php echo number_format($package['price']); ?></strong></li>
+                                    <li>Enter Amount: <strong>KES <?php echo number_format($totalPrice); ?></strong></li>
                                     <li>Enter your M-PESA PIN</li>
                                     <li>Confirm the transaction</li>
                                 </ol>
@@ -472,7 +481,7 @@ include '../includes/header.php';
                                 </div>
                                 <div class="detail-item">
                                     <span>Amount:</span>
-                                    <span>KES <?php echo number_format($package['price']); ?></span>
+                                    <span>KES <?php echo number_format($totalPrice); ?></span>
                                 </div>
                                 <div class="detail-item">
                                     <span>Phone:</span>

@@ -48,6 +48,8 @@ function initPricingTabs() {
     const deviceTabs = document.querySelectorAll('.device-tab');
     const durationTabs = document.querySelectorAll('.duration-tab');
     const packageCards = document.querySelectorAll('.package-card');
+    let selectedDevices = 1;
+    let selectedDuration = '1';
     
     // Device tab functionality
     deviceTabs.forEach(tab => {
@@ -57,7 +59,7 @@ function initPricingTabs() {
             // Add active class to clicked tab
             tab.classList.add('active');
             
-            const selectedDevices = tab.getAttribute('data-devices');
+            selectedDevices = parseInt(tab.getAttribute('data-devices'), 10);
             
             // Show/hide duration tabs based on device selection
             document.querySelectorAll('.duration-tabs').forEach(durationTabGroup => {
@@ -73,7 +75,8 @@ function initPricingTabs() {
             });
             
             // Update package cards visibility and pricing
-            updatePackageCards(selectedDevices, '1');
+            selectedDuration = '1';
+            updatePackageCards(selectedDevices, selectedDuration);
         });
     });
     
@@ -88,10 +91,20 @@ function initPricingTabs() {
             // Add active class to clicked tab
             tab.classList.add('active');
             
-            const selectedDevices = durationTabGroup.getAttribute('data-devices');
-            const selectedDuration = tab.getAttribute('data-duration');
+            selectedDevices = parseInt(durationTabGroup.getAttribute('data-devices'), 10);
+            selectedDuration = tab.getAttribute('data-duration');
             
             updatePackageCards(selectedDevices, selectedDuration);
+        });
+    });
+
+    // Hook subscribe buttons to pass selected devices/duration
+    document.querySelectorAll('.subscribe-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const pkgId = btn.getAttribute('data-package-id');
+            const url = `packages.php?from_homepage=1&package_id=${encodeURIComponent(pkgId)}&devices=${encodeURIComponent(selectedDevices)}&months=${encodeURIComponent(selectedDuration)}`;
+            window.location.href = url;
         });
     });
 }
@@ -110,31 +123,18 @@ function updatePackageCards(devices, duration) {
         // Update pricing based on duration
         const amountElement = card.querySelector('.amount');
         if (amountElement) {
-            const basePrice = parseFloat(amountElement.getAttribute('data-price'));
-            let finalPrice = basePrice;
-            
-            // Apply discounts for longer durations
-            switch (duration) {
-                case '3':
-                    finalPrice = basePrice * 2.7; // 10% discount
-                    break;
-                case '6':
-                    finalPrice = basePrice * 5.4; // 10% discount
-                    break;
-                case '12':
-                    finalPrice = basePrice * 10.8; // 10% discount
-                    break;
-            }
-            
-            amountElement.textContent = finalPrice.toLocaleString();
+            const basePrice = parseFloat(amountElement.getAttribute('data-price')) || 0; // base for 1 device per month
+            const minDevices = parseInt(card.getAttribute('data-min-devices') || '1', 10);
+            const extraDevices = Math.max(0, devices - minDevices);
+            const perMonth = basePrice + (extraDevices * 500);
+            const months = parseInt(duration, 10) || 1;
+            const finalPrice = perMonth * months;
+            amountElement.textContent = finalPrice.toLocaleString('en-KE');
             
             // Update subscription links
-            const subscribeLink = card.querySelector('.btn');
+            const subscribeLink = card.querySelector('.subscribe-btn');
             if (subscribeLink) {
-                const packageType = card.classList.contains('basic-plan') ? 'basic' :
-                                  card.classList.contains('premium-plan') ? 'premium' :
-                                  card.classList.contains('family-plan') ? 'family' : 'vip';
-                subscribeLink.href = `register.php?package=${packageType}&devices=${devices}&duration=${duration}`;
+                // updated via click handler with current selections
             }
         }
     });

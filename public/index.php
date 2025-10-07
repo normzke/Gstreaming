@@ -453,7 +453,7 @@ $faq_data = SEO::getFAQData();
                     $devices = (int)($pkg['max_devices'] ?? 1);
                     $badge = $index === 1 ? 'Most Popular' : '';
                 ?>
-                <div class="package-card" data-devices="<?php echo $devices; ?>" data-duration="<?php echo $months; ?>">
+                <div class="package-card" data-base-price="<?php echo (float)$pkg['price']; ?>" data-min-devices="<?php echo $devices; ?>" data-duration="<?php echo $months; ?>">
                     <?php if ($badge): ?>
                     <div class="package-badge"><?php echo $badge; ?></div>
                     <?php endif; ?>
@@ -486,7 +486,7 @@ $faq_data = SEO::getFAQData();
                     </div>
                     
                     <div class="package-footer">
-                        <a href="packages.php?from_homepage=1&package_id=<?php echo (int)$pkg['id']; ?>" class="btn btn-primary btn-full">
+                        <a href="#" class="btn btn-primary btn-full subscribe-btn" data-package-id="<?php echo (int)$pkg['id']; ?>">
                             <i class="fas fa-credit-card"></i>
                             Subscribe Now
                         </a>
