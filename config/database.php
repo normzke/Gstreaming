@@ -24,10 +24,14 @@ class Database {
         $this->conn = null;
 
         try {
-            // Prefer socket when host is empty (cPanel default)
-            $dsn = (trim($this->host) === '')
-                ? ("pgsql:host=/tmp;dbname=" . $this->db_name)
-                : ("pgsql:host=" . $this->host . ";port=" . $this->port . ";dbname=" . $this->db_name . ";sslmode=disable");
+            // Prefer configured socket path; fallback to /tmp; then TCP non-SSL
+            if (strpos($this->host, '/') === 0) {
+                $dsn = "pgsql:host=" . $this->host . ";dbname=" . $this->db_name;
+            } else if (trim($this->host) === '') {
+                $dsn = "pgsql:host=/tmp;dbname=" . $this->db_name;
+            } else {
+                $dsn = "pgsql:host=" . $this->host . ";port=" . $this->port . ";dbname=" . $this->db_name . ";sslmode=disable";
+            }
             $this->conn = new PDO($dsn, $this->username, $this->password);
             $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $this->conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
