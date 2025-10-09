@@ -8,6 +8,8 @@ document.addEventListener('DOMContentLoaded', function() {
     initTestimonials();
     initFAQ();
     initAnimations();
+    // Ensure initial pricing reflects default device selection
+    try { updatePackageCards(1); } catch (e) {}
 });
 
 // Animated Counters
@@ -54,29 +56,23 @@ function initPricingTabs() {
     // Device tab functionality
     deviceTabs.forEach(tab => {
         tab.addEventListener('click', () => {
+            const devicesValue = tab.getAttribute('data-devices');
+            
+            // Handle "Custom" option
+            if (devicesValue === 'custom') {
+                window.location.href = 'support.php?inquiry=custom_package';
+                return;
+            }
+            
             // Remove active class from all device tabs
             deviceTabs.forEach(t => t.classList.remove('active'));
             // Add active class to clicked tab
             tab.classList.add('active');
             
-            selectedDevices = parseInt(tab.getAttribute('data-devices'), 10);
+            selectedDevices = parseInt(devicesValue, 10);
             
-            // Show/hide duration tabs based on device selection
-            document.querySelectorAll('.duration-tabs').forEach(durationTabGroup => {
-                if (durationTabGroup.getAttribute('data-devices') === selectedDevices) {
-                    durationTabGroup.style.display = 'flex';
-                    // Reset first duration tab as active
-                    const firstDurationTab = durationTabGroup.querySelector('.duration-tab');
-                    durationTabGroup.querySelectorAll('.duration-tab').forEach(dt => dt.classList.remove('active'));
-                    if (firstDurationTab) firstDurationTab.classList.add('active');
-                } else {
-                    durationTabGroup.style.display = 'none';
-                }
-            });
-            
-            // Update package cards visibility and pricing
-            selectedDuration = '1';
-            updatePackageCards(selectedDevices, selectedDuration);
+            // Update package cards pricing (duration comes from DB per card)
+            updatePackageCards(selectedDevices);
         });
     });
     
@@ -94,48 +90,71 @@ function initPricingTabs() {
             selectedDevices = parseInt(durationTabGroup.getAttribute('data-devices'), 10);
             selectedDuration = tab.getAttribute('data-duration');
             
-            updatePackageCards(selectedDevices, selectedDuration);
+            updatePackageCards(selectedDevices);
         });
     });
 
-    // Hook subscribe buttons to pass selected devices/duration
+    // Hook subscribe buttons: if pointing directly to subscribe.php, allow default navigation
     document.querySelectorAll('.subscribe-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
-            e.preventDefault();
+            const href = btn.getAttribute('href') || '';
+            const devicesParam = `devices=${encodeURIComponent(selectedDevices)}`;
+            if (href.includes('user/subscriptions/subscribe.php')) {
+                const joiner = href.includes('?') ? '&' : '?';
+                btn.setAttribute('href', `${href}${joiner}${devicesParam}`);
+                return;
+            }
+            // Legacy fallback
             const pkgId = btn.getAttribute('data-package-id');
-            const url = `packages.php?from_homepage=1&package_id=${encodeURIComponent(pkgId)}&devices=${encodeURIComponent(selectedDevices)}&months=${encodeURIComponent(selectedDuration)}`;
+            e.preventDefault();
+            const url = `packages.php?from_homepage=1&package_id=${encodeURIComponent(pkgId)}&${devicesParam}`;
             window.location.href = url;
         });
     });
 }
 
 // Update package cards based on selection
-function updatePackageCards(devices, duration) {
+function updatePackageCards(devices) {
+    // Fixed pricing table - exact prices based on devices and duration
+    const pricingTable = {
+        1: { 1: 2500, 6: 14000, 12: 28000 },      // 1 Device
+        2: { 1: 4500, 6: 27000, 12: 54000 },      // 2 Devices  
+        3: { 1: 6500, 6: 39000, 12: 78000 }       // 3 Devices
+    };
+    
+    // Get price from fixed table
+    function getPrice(devices, months) {
+        // Normalize months to available tiers (1, 6, or 12)
+        let tier = 1;
+        if (months >= 12) {
+            tier = 12;
+        } else if (months >= 6) {
+            tier = 6;
+        }
+        
+        // Ensure devices is between 1 and 3
+        devices = Math.max(1, Math.min(3, devices));
+        
+        return pricingTable[devices] && pricingTable[devices][tier] 
+            ? pricingTable[devices][tier] 
+            : 0;
+    }
+    
     const packageCards = document.querySelectorAll('.package-card');
     
     packageCards.forEach(card => {
         // Update device count in features
-        const deviceFeature = card.querySelector('.feature-item span');
-        if (deviceFeature && deviceFeature.textContent.includes('Device')) {
-            deviceFeature.textContent = `${devices} Device${devices > 1 ? 's' : ''}`;
+        const deviceCountSpan = card.querySelector('.devices-count');
+        if (deviceCountSpan) {
+            deviceCountSpan.textContent = `${devices} Device${devices > 1 ? 's' : ''}`;
         }
         
-        // Update pricing based on duration
+        // Update pricing using fixed pricing table
         const amountElement = card.querySelector('.amount');
         if (amountElement) {
-            const basePrice = parseFloat(amountElement.getAttribute('data-price')) || 0; // base for 1 device per month
-            const minDevices = parseInt(card.getAttribute('data-min-devices') || '1', 10);
-            const extraDevices = Math.max(0, devices - minDevices);
-            const perMonth = basePrice + (extraDevices * 500);
-            const months = parseInt(duration, 10) || 1;
-            const finalPrice = perMonth * months;
+            const months = parseInt(card.getAttribute('data-duration') || '1', 10) || 1;
+            const finalPrice = getPrice(devices, months);
             amountElement.textContent = finalPrice.toLocaleString('en-KE');
-            
-            // Update subscription links
-            const subscribeLink = card.querySelector('.subscribe-btn');
-            if (subscribeLink) {
-                // updated via click handler with current selections
-            }
         }
     });
 }
@@ -262,8 +281,10 @@ function initAnimations() {
 // Smooth scrolling for navigation links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
+        const href = this.getAttribute('href') || '';
+        if (href === '#' || href.trim().length <= 1) return; // ignore invalid target
         e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
+        const target = document.querySelector(href);
         if (target) {
             target.scrollIntoView({
                 behavior: 'smooth',

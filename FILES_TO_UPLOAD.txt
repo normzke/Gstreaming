@@ -1,0 +1,62 @@
+BingeTV - Files to Upload to Remote Server
+============================================
+
+UPLOAD VIA CPANEL FILE MANAGER
+
+Important: Upload each file to the exact path shown below
+
+ROOT DIRECTORY (/home1/fieldte5/bingetv.co.ke/)
+------------------------------------------------
+1. run_migration_010.php
+2. DEPLOYMENT_INSTRUCTIONS.md (optional)
+3. MANUAL_MPESA_SYSTEM.md (optional)
+
+DATABASE DIRECTORY (/home1/fieldte5/bingetv.co.ke/database/migrations/)
+-----------------------------------------------------------------------
+4. database/migrations/010_manual_mpesa_confirmations.sql
+
+USER DIRECTORY (/home1/fieldte5/bingetv.co.ke/user/)
+-----------------------------------------------------
+5. user/dashboard/index.php (MODIFIED - fixed subscription links)
+6. user/channels.php (MODIFIED - fixed subscription redirects)
+
+USER PAYMENTS DIRECTORY (/home1/fieldte5/bingetv.co.ke/user/payments/)
+-----------------------------------------------------------------------
+7. user/payments/submit-mpesa.php (NEW FILE)
+8. user/payments/process.php (VERIFY - should already have manual M-Pesa link)
+
+ADMIN DIRECTORY (/home1/fieldte5/bingetv.co.ke/admin/)
+-------------------------------------------------------
+9. admin/manual-payments.php (NEW FILE)
+
+ADMIN INCLUDES DIRECTORY (/home1/fieldte5/bingetv.co.ke/admin/includes/)
+-------------------------------------------------------------------------
+10. admin/includes/header.php (MODIFIED - added manual M-Pesa nav link)
+
+AFTER UPLOADING
+===============
+1. Set permissions (directories: 755, files: 644)
+2. Visit: https://bingetv.co.ke/run_migration_010.php
+3. Verify migration success
+4. DELETE run_migration_010.php for security
+5. Test all links
+
+TESTING CHECKLIST
+=================
+□ https://bingetv.co.ke/user/dashboard/ (login required)
+□ Click "Subscribe Now" from dashboard - should go to /user/subscriptions/subscribe.php
+□ https://bingetv.co.ke/user/gallery.php (should redirect to login)
+□ https://bingetv.co.ke/user/subscriptions/subscribe.php (subscription page)
+□ https://bingetv.co.ke/user/payments/process.php (payment page with manual option)
+□ https://bingetv.co.ke/user/payments/submit-mpesa.php (manual submission page)
+□ https://bingetv.co.ke/user/support.php (support page)
+□ https://bingetv.co.ke/help.php (public help page)
+□ https://bingetv.co.ke/admin/manual-payments.php (admin review page)
+
+KEY FIXES
+=========
+1. Fixed broken link: user/dashboard/subscriptions/subscribe.php → user/subscriptions/subscribe.php
+2. Added manual M-Pesa submission system for when automatic payment fails
+3. Added admin interface to review and approve manual M-Pesa submissions
+4. Updated payment process page with manual submission option
+

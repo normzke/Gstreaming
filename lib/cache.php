@@ -217,7 +217,7 @@ class CachedQueries {
         }
         
         $conn = self::$db->getConnection();
-        $query = "SELECT * FROM gallery_items";
+        $query = "SELECT * FROM gallery";
         
         if ($featured_only) {
             $query .= " WHERE is_featured = true";

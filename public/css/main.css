@@ -2058,6 +2058,8 @@ section {
 @media (max-width: 768px) {
     .hamburger {
         display: flex;
+        z-index: 1000;
+        position: relative;
     }
     
     .nav-menu {
@@ -2068,9 +2070,12 @@ section {
         background-color: var(--white);
         width: 100%;
         text-align: center;
-        transition: 0.3s;
+        transition: left 0.3s ease-in-out;
         box-shadow: var(--shadow-lg);
         padding: var(--spacing-xl) 0;
+        z-index: 999;
+        max-height: calc(100vh - 70px);
+        overflow-y: auto;
     }
     
     .nav-menu.active {

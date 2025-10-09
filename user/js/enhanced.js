@@ -349,3 +349,5 @@ const enhancedStyles = `
 const styleSheet = document.createElement('style');
 styleSheet.textContent = enhancedStyles;
 document.head.appendChild(styleSheet);
+
+

@@ -87,8 +87,8 @@ $faq_data = SEO::getFAQData();
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- CSS -->
-    <link rel="stylesheet" href="https://bingetv.co.ke/css/main.css?v=<?php echo time(); ?>">
-    <link rel="stylesheet" href="https://bingetv.co.ke/css/components.css">
+    <link rel="stylesheet" href="css/main.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="css/components.css">
     
     <!-- Inline CSS for visibility fixes -->
     <style>
@@ -131,10 +131,10 @@ $faq_data = SEO::getFAQData();
             
             <ul class="nav-menu">
                 <li class="nav-item">
-                    <a href="#home" class="nav-link">Home</a>
+                    <a href="/" class="nav-link">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a href="https://bingetv.co.ke/channels.php" class="nav-link">Channels</a>
+                    <a href="channels.php" class="nav-link">Channels</a>
                 </li>
                 <li class="nav-item">
                     <a href="#packages" class="nav-link">Packages</a>
@@ -143,16 +143,16 @@ $faq_data = SEO::getFAQData();
                     <a href="#devices" class="nav-link">Devices</a>
                 </li>
                 <li class="nav-item">
-                    <a href="https://bingetv.co.ke/gallery.php" class="nav-link">Gallery</a>
+                    <a href="gallery.php" class="nav-link">Gallery</a>
                 </li>
                 <li class="nav-item">
-                    <a href="https://bingetv.co.ke/support.php" class="nav-link">Support</a>
+                    <a href="support.php" class="nav-link">Support</a>
                 </li>
                 <li class="nav-item">
-                    <a href="https://bingetv.co.ke/login.php" class="nav-link btn-login">Login</a>
+                    <a href="login.php" class="nav-link btn-login">Login</a>
                 </li>
                 <li class="nav-item">
-                    <a href="https://bingetv.co.ke/register.php" class="nav-link btn-register">Get Started</a>
+                    <a href="register.php" class="nav-link btn-register">Get Started</a>
                 </li>
             </ul>
             
@@ -196,7 +196,7 @@ $faq_data = SEO::getFAQData();
                     
                     <div class="hero-stats">
                         <div class="stat-item" data-aos="fadeInUp" data-aos-delay="100">
-                            <div class="stat-number counter" data-target="150">0</div>
+                            <div class="stat-number counter" data-target="16000">0</div>
                             <div class="stat-label">Channels</div>
                         </div>
                         <div class="stat-item" data-aos="fadeInUp" data-aos-delay="200">
@@ -264,7 +264,7 @@ $faq_data = SEO::getFAQData();
                     <div class="feature-icon">
                         <i class="fas fa-satellite-dish"></i>
                     </div>
-                    <h3>1000+ Channels</h3>
+                    <h3>16,000+ Channels</h3>
                     <p>Access thousands of international and local channels including news, sports, movies, and entertainment from around the world.</p>
                     <ul class="feature-list">
                         <li><i class="fas fa-check"></i> International News Channels</li>
@@ -347,6 +347,422 @@ $faq_data = SEO::getFAQData();
         </div>
     </section>
 
+    <!-- Channel Groups Section -->
+    <section id="channel-groups" class="features-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Channel Groups</h2>
+                <p class="section-subtitle">Curated categories spanning 16,000+ channels worldwide</p>
+            </div>
+            <div class="user-card" style="padding:20px;">
+                <details>
+                    <summary style="cursor:pointer;font-weight:600;">View all channel groups</summary>
+                    <div style="margin-top:16px;columns:3;column-gap:24px;">
+                        <ul style="list-style:none;padding:0;margin:0;">
+                            <li>USA Entertainment</li>
+                            <li>USA Movies Channels</li>
+                            <li>USA Religion</li>
+                            <li>USA Documentary</li>
+                            <li>USA Local - CBS</li>
+                            <li>USA Latin</li>
+                            <li>USA News</li>
+                            <li>USA Family & Kids</li>
+                            <li>24/7 Shows</li>
+                            <li>24/7 Reality</li>
+                            <li>24/7 Comedy</li>
+                            <li>24/7 Documentary</li>
+                            <li>24/7 Drama</li>
+                            <li>24/7 Sci-fi</li>
+                            <li>24/7 Mysteries</li>
+                            <li>24/7 Action & Adventure</li>
+                            <li>USA MLB</li>
+                            <li>USA NFL - Sunday Ticket</li>
+                            <li>USA Latin UNIVISION</li>
+                            <li>USA Sports</li>
+                            <li>USA Music</li>
+                            <li>USA Local - MISC</li>
+                            <li>Sport Match Center</li>
+                            <li>USA Latin TELEMUNDO</li>
+                            <li>USA Bein Sports</li>
+                            <li>USA NBC Sports</li>
+                            <li>USA FanDuel Sports</li>
+                            <li>24/7 Family</li>
+                            <li>24/7 War & Politics</li>
+                            <li>24/7 Cartoon</li>
+                            <li>24/7 Talk</li>
+                            <li>24/7 Classic Show</li>
+                            <li>24/7 News</li>
+                            <li>USA Latin GALAVISION</li>
+                            <li>USA Local - FOX</li>
+                            <li>USA Local - ABC</li>
+                            <li>USA Local - NBC</li>
+                            <li>Sport Rugby</li>
+                            <li>Sport Cycling</li>
+                            <li>USA Local Channels ( Full List )</li>
+                            <li>24/7 Fantasy</li>
+                            <li>24/7 Adventure</li>
+                            <li>24/7 Science Fiction</li>
+                            <li>24/7 Action</li>
+                            <li>Sport Cricket</li>
+                            <li>Premium Shows</li>
+                            <li>24/7 Kids & Family</li>
+                            <li>24/7 Movie Categories</li>
+                            <li>24/7 Actors and Actresses</li>
+                            <li>USA Peacock Network</li>
+                            <li>Radio</li>
+                            <li>USA STIRR TV</li>
+                            <li>24/7 Tv Series</li>
+                            <li>24/7 Western</li>
+                            <li>USA PPV Cinema</li>
+                            <li>24/7 Cooking</li>
+                            <li>24/7 Horror</li>
+                            <li>24/7 Music</li>
+                            <li>24/7 Crime</li>
+                            <li>PPV-MMA/BOXING/WWE/UFC</li>
+                            <li>USA NHL</li>
+                            <li>USA NBA</li>
+                            <li>Sport Golf</li>
+                            <li>USA Latin UNIMAS</li>
+                            <li>USA WNBA</li>
+                            <li>24/7 Action & Crime</li>
+                            <li>24/7 Anime</li>
+                            <li>24/7 Christmas</li>
+                            <li>24/7 Classic Tv Series</li>
+                            <li>24/7 Comedy & Drama</li>
+                            <li>24/7 Documentary Series</li>
+                            <li>24/7 Kids</li>
+                            <li>Kids</li>
+                            <li>24/7 Movie Series</li>
+                            <li>24/7 Netflix</li>
+                            <li>24/7 Reality Shows</li>
+                            <li>24/7 Soap</li>
+                            <li>24/7 Sports Replay</li>
+                            <li>24/7 SYFY</li>
+                            <li>24/7 Teen Cartoons</li>
+                            <li>24/7 Toddler</li>
+                            <li>Pay Per View Events</li>
+                            <li>USA NCAAF</li>
+                            <li>Hockey Special Events</li>
+                            <li>CHRISTMAS</li>
+                            <li>ESPN Events 200 VIP channels</li>
+                            <li>Sport NCAA Men Basketball</li>
+                            <li>Sport Volley Ball</li>
+                            <li>Sport Handball</li>
+                            <li>Sport NCAA Women Basketball</li>
+                            <li>Sport Softball</li>
+                            <li>Sport NJCAA Men Basketball</li>
+                            <li>Sport NJCAA Women Basketball</li>
+                            <li>Sport NBA G League</li>
+                            <li>Sport Tennis</li>
+                            <li>24/7 Streaming</li>
+                            <li>Sports Motorsports</li>
+                            <li>USA MILB</li>
+                            <li>Sport Lacrosse</li>
+                            <li>PPV FLOSPORTS</li>
+                            <li>Sport College Baseball</li>
+                            <li>Soccer Special Events</li>
+                            <li>USA Big Brother</li>
+                            <li>CA: Canada FR</li>
+                            <li>CA: Canada General</li>
+                            <li>CA: Canada Entertainment</li>
+                            <li>CA: Canada News</li>
+                            <li>CA: Canada Sports</li>
+                            <li>CA: Canada Kids</li>
+                            <li>CA: Canada Local</li>
+                            <li>CA: Canada Cinema</li>
+                            <li>CA: Canada Super Sports</li>
+                            <li>Sports DAZN</li>
+                            <li>UK: Movies</li>
+                            <li>UK: Music</li>
+                            <li>UK: Entertainment</li>
+                            <li>UK: Asia</li>
+                            <li>UK: News</li>
+                            <li>UK: Kids</li>
+                            <li>UK: Documentary</li>
+                            <li>UK: Sport</li>
+                            <li>IRE: Ireland General</li>
+                            <li>UK: Religion</li>
+                            <li>UK: EPL Games</li>
+                            <li>AR: Arab OSN VIP (Orbit Showtime Network)</li>
+                            <li>Kurdistan</li>
+                            <li>AR: Tunisia</li>
+                            <li>AR: Yeman</li>
+                            <li>AR: Christian</li>
+                            <li>AR: United Arab Emirates UAE</li>
+                            <li>AR: Arab BeIN sports VIP</li>
+                            <li>AR: Arab BeIN VIP</li>
+                            <li>AR: Arab News</li>
+                            <li>AR: Arab Rotana</li>
+                            <li>AR: Arab MBC</li>
+                            <li>AR: Arab TARAB</li>
+                            <li>AR: Arab Kids</li>
+                            <li>AR: Arab Food Channels</li>
+                            <li>AR: Algeria</li>
+                            <li>AR: Bahrain</li>
+                            <li>AR: Egypt</li>
+                            <li>AR: Iraq</li>
+                            <li>AR: Islamic Channels</li>
+                            <li>AR: Jordan</li>
+                            <li>AR: Kuwait</li>
+                            <li>AR: Libya</li>
+                            <li>AR: Morocco</li>
+                            <li>AR: Palestine</li>
+                            <li>AR: Sudan</li>
+                            <li>AR: Mauritania</li>
+                            <li>AR: Saudi Arabia KSA</li>
+                            <li>AR: Syria</li>
+                            <li>AR: Lebanon</li>
+                            <li>AR: Oman</li>
+                            <li>Syriacs Channels</li>
+                            <li>AR: Qatar</li>
+                            <li>AR: Arabic Sports</li>
+                            <li>AR: Bein 4K</li>
+                            <li>Paraguay</li>
+                            <li>Peru</li>
+                            <li>Panama</li>
+                            <li>Bolivia</li>
+                            <li>Colombia</li>
+                            <li>Ecuador</li>
+                            <li>El Salvador</li>
+                            <li>Honduras</li>
+                            <li>Chile</li>
+                            <li>BR: Brazil Entertainment</li>
+                            <li>BR: Brazil General</li>
+                            <li>BR: Brazil Kids</li>
+                            <li>BR: Brazil Sports</li>
+                            <li>ARG: Argentina Entertainment</li>
+                            <li>ARG: Argentina General</li>
+                            <li>ARG: Argentina Kids</li>
+                            <li>ARG: Argentina News</li>
+                            <li>ARG: Argentina Music</li>
+                            <li>ARG: Argentina Movies</li>
+                            <li>ARG: Argentina Sports</li>
+                            <li>ARG: Argentina Documentary</li>
+                            <li>MX: Mexico Entertainment</li>
+                            <li>MX: Mexico General</li>
+                            <li>MX: Mexico News</li>
+                            <li>MX: Mexico Sports</li>
+                            <li>MX: Mexico Kids</li>
+                            <li>Latino Sports</li>
+                            <li>Latino All</li>
+                            <li>Costa Rica</li>
+                            <li>Guatemala</li>
+                            <li>Cuba</li>
+                            <li>Uruguay</li>
+                            <li>Puerto Rico</li>
+                            <li>Nicaragua</li>
+                            <li>Venezuela</li>
+                            <li>Dominican</li>
+                            <li>Suriname</li>
+                            <li>PT: Portugal News</li>
+                            <li>ES: Spain</li>
+                            <li>ES: Cine Tv</li>
+                            <li>ES: Entretenimiento</li>
+                            <li>ES: Musicales</li>
+                            <li>ES: Infantil</li>
+                            <li>ES: Deportes de España</li>
+                            <li>ES: Spain Locales</li>
+                            <li>FR: France General</li>
+                            <li>FR: France Sports</li>
+                            <li>FR: France Music</li>
+                            <li>FR: France Cinema</li>
+                            <li>FR: France Decouvertes</li>
+                            <li>FR: France Info</li>
+                            <li>FR: France Divertissement</li>
+                            <li>FR: France Enfants</li>
+                            <li>FR: Amazon Prime</li>
+                            <li>Belgium</li>
+                            <li>DE: Germany General</li>
+                            <li>DE: Germany Kids</li>
+                            <li>DE: Germany News</li>
+                            <li>DE: Germany Cinema</li>
+                            <li>DE: Germany Entertainment</li>
+                            <li>DE: Germany Sport</li>
+                            <li>DE: Germany Music</li>
+                            <li>PT: Portugal General</li>
+                            <li>PT: Portugal Kids</li>
+                            <li>PT: Portugal Sport</li>
+                            <li>PT: Portugal entertainment</li>
+                            <li>NL: Netherland Sport</li>
+                            <li>NL: Netherland General</li>
+                            <li>NL: Netherland Entertainment</li>
+                            <li>NL: Netherland Kids</li>
+                            <li>NL: Netherland Music</li>
+                            <li>Austria</li>
+                            <li>Australia</li>
+                            <li>IT: Italy General</li>
+                            <li>IT: Sky Sports</li>
+                            <li>IT: Bambini</li>
+                            <li>IT: Canale Italia</li>
+                            <li>IT: Intrattenimento</li>
+                            <li>IT: Mediaset Premium</li>
+                            <li>IT: Sky Primafila</li>
+                            <li>IT: Musica</li>
+                            <li>IT: Sky Cinema</li>
+                            <li>IT: Cultura</li>
+                            <li>IT: Eagle Cinema VIP</li>
+                            <li>Israel</li>
+                            <li>Philippines</li>
+                            <li>China</li>
+                            <li>Thailand</li>
+                            <li>Vietnam</li>
+                            <li>Indonesia</li>
+                            <li>Malaysia</li>
+                            <li>Korea</li>
+                            <li>Afghanistan</li>
+                            <li>Kazakhistan</li>
+                            <li>Iran</li>
+                            <li>CAR: Caribbean Entertainment</li>
+                            <li>CAR: Caribbean Cinema</li>
+                            <li>CAR: Caribbean Sport</li>
+                            <li>CAR: Caribbean News</li>
+                            <li>CAR: Caribbean General</li>
+                            <li>CAR: Caribbean Kids</li>
+                            <li>CAR: Caribbean Haiti</li>
+                            <li>Malta</li>
+                            <li>CH: Switzerland Sport</li>
+                            <li>CH: Switzerland General</li>
+                            <li>CH: Switzerland Cinema</li>
+                            <li>CH: Switzerland Entertainment</li>
+                            <li>CH: Switzerland Kids</li>
+                            <li>DK: Denmark General</li>
+                            <li>DK: Denmark Entertainment</li>
+                            <li>DK: Denmark Kids</li>
+                            <li>DK: Denmark Sport</li>
+                            <li>Finland</li>
+                            <li>SE: Sweden General</li>
+                            <li>SE: Sweden Sport</li>
+                            <li>SE: Sweden Entertainment</li>
+                            <li>SE: Sweden Cinema</li>
+                            <li>SE: Sweden Kids</li>
+                            <li>Norway</li>
+                            <li>HU: Hungary General</li>
+                            <li>HU: Hungary Entertainment</li>
+                            <li>HU: Hungary Cinema</li>
+                            <li>HU: Hungary Kids</li>
+                            <li>HU: Hungary Sport</li>
+                            <li>Ukraine</li>
+                            <li>PL: Poland Movies</li>
+                            <li>PL: Poland Kids</li>
+                            <li>PL: Poland General</li>
+                            <li>PL: Poland Entertainment</li>
+                            <li>PL: Poland Sports</li>
+                            <li>PL: Poland News</li>
+                            <li>Russia</li>
+                            <li>CZ: Czech Entertainment</li>
+                            <li>CZ: Czech Sport</li>
+                            <li>CZ: Czech Cinema</li>
+                            <li>CZ: Czech General</li>
+                            <li>CZ: Czech Kids</li>
+                            <li>HR: Croatia Entertainment</li>
+                            <li>HR: Croatia Sport</li>
+                            <li>HR: Croatia Kids</li>
+                            <li>HR: Croatia General</li>
+                            <li>HR: Croatia Cinema</li>
+                            <li>RO: Romania Cinema</li>
+                            <li>RO: Romania Kids</li>
+                            <li>RO: Romania Entertainment</li>
+                            <li>RO: Romania General</li>
+                            <li>RO: Romania News</li>
+                            <li>RO: Romania Sports</li>
+                            <li>BG: Bulgaria Entertainment</li>
+                            <li>BG: Bulgaria General</li>
+                            <li>BG: Bulgaria Cinema</li>
+                            <li>BG: Bulgaria Kids</li>
+                            <li>BG: Bulgaria Sport</li>
+                            <li>Slovakia</li>
+                            <li>AL: Albania General</li>
+                            <li>AL: Albania Entertainment</li>
+                            <li>AL: Albania Cinema</li>
+                            <li>AL: Albania News</li>
+                            <li>AL: Albania Music</li>
+                            <li>AL: Albania Sport</li>
+                            <li>AL: Albania Kids</li>
+                            <li>Armenia</li>
+                            <li>Azerbaijan</li>
+                            <li>BIH: Bosnia General</li>
+                            <li>BIH: Bosnia News</li>
+                            <li>BIH: Bosnia Entertainment</li>
+                            <li>BIH: Bosnia Sport</li>
+                            <li>BIH: Bosnia Music</li>
+                            <li>BIH: Bosnia Kids</li>
+                            <li>Macedonia</li>
+                            <li>GR: Greece Cinema</li>
+                            <li>GR: Greece General</li>
+                            <li>GR: Greece Kids</li>
+                            <li>GR: Greece Documentary</li>
+                            <li>GR: Greece Music</li>
+                            <li>TR: Turkey Sport</li>
+                            <li>TR: Turkey General</li>
+                            <li>TR: Turkey Entertainment</li>
+                            <li>TR: Turkey BeIN</li>
+                            <li>TR: Turkey News</li>
+                            <li>TR: Turkey Kids</li>
+                            <li>EX-YU</li>
+                            <li>Slovenia</li>
+                            <li>Cyprus</li>
+                            <li>New Zealand Sky</li>
+                            <li>IN: Indian Entertainment</li>
+                            <li>IN: Indian Tamil</li>
+                            <li>IN: Indian Music</li>
+                            <li>IN: Indian Malayalam</li>
+                            <li>IN: Indian Telugu</li>
+                            <li>IN: Indian Marathi</li>
+                            <li>IN: Indian Punjabi</li>
+                            <li>IN: Indian Gujarat</li>
+                            <li>IN: Indian South</li>
+                            <li>IN: India Urdu</li>
+                            <li>IN: India Kannada</li>
+                            <li>PK: Pakistan General</li>
+                            <li>PK: Pakistan News</li>
+                            <li>PK: Pakistan Entertainment</li>
+                            <li>PK: Pakistan Cinema</li>
+                            <li>PK: Pakistan Sport</li>
+                            <li>Bangladesh</li>
+                            <li>Africa All</li>
+                            <li>Africa DSTV</li>
+                            <li>Africa Music</li>
+                            <li>AF: Angola</li>
+                            <li>AF: Benin</li>
+                            <li>AF: Burkina Faso</li>
+                            <li>AF: Cameroon</li>
+                            <li>AF: Congo</li>
+                            <li>AF: Côte d'Ivoire</li>
+                            <li>AF: Ghana</li>
+                            <li>AF: Ethiopia</li>
+                            <li>AF: Guinea</li>
+                            <li>AF: Kenya</li>
+                            <li>AF: Mali</li>
+                            <li>AF: Mozambique</li>
+                            <li>AF: Nigeria</li>
+                            <li>AF: Rwanda</li>
+                            <li>AF: Uganda</li>
+                            <li>AF: Tanzania</li>
+                            <li>AF: South Africa</li>
+                            <li>AF: Senegal</li>
+                            <li>AF: Somal</li>
+                            <li>Taiwan</li>
+                            <li>GR: Greece Sports</li>
+                            <li>Cambodia</li>
+                            <li>PL: Poland ViaPlay</li>
+                            <li>Japan</li>
+                            <li>Montenegro</li>
+                            <li>Belarus</li>
+                            <li>Georgia</li>
+                            <li>EX-YU: SkyLink</li>
+                            <li>EX-YU: Pink</li>
+                            <li>Africa Canal+</li>
+                            <li>Mongolia</li>
+                            <li>Serbia</li>
+                            <li>Carib RUSH Sports</li>
+                            <li>Africa Super Sports</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+        </div>
+    </section>
+
     <!-- Statistics Section -->
     <section class="stats-section">
         <div class="container">
@@ -405,42 +821,24 @@ $faq_data = SEO::getFAQData();
             <!-- Device Selection Tabs -->
             <div class="pricing-tabs">
                 <div class="device-tabs">
-                    <button class="device-tab active" data-devices="1">1 Device</button>
-                    <button class="device-tab" data-devices="3">3 Devices</button>
-                    <button class="device-tab" data-devices="5">5 Devices</button>
-                    <button class="device-tab" data-devices="10">10 Devices</button>
+                    <button class="device-tab active" data-devices="1">
+                        <i class="fas fa-mobile-alt"></i> 1 Device
+                    </button>
+                    <button class="device-tab" data-devices="2">
+                        <i class="fas fa-laptop"></i> 2 Devices
+                    </button>
+                    <button class="device-tab" data-devices="3">
+                        <i class="fas fa-tv"></i> 3 Devices
+                    </button>
+                    <button class="device-tab custom-device" data-devices="custom" style="border: 2px dashed #8B0000; background: rgba(139, 0, 0, 0.05);">
+                        <i class="fas fa-users"></i> Custom (4+)
+                    </button>
                 </div>
-                
-                <!-- Duration Selection for Each Device Count -->
-                <div class="duration-tabs-container">
-                    <div class="duration-tabs" data-devices="1">
-                        <button class="duration-tab active" data-duration="1">1 Month</button>
-                        <button class="duration-tab" data-duration="3">3 Months</button>
-                        <button class="duration-tab" data-duration="6">6 Months</button>
-                        <button class="duration-tab" data-duration="12">12 Months</button>
-                    </div>
-                    
-                    <div class="duration-tabs" data-devices="3" style="display: none;">
-                        <button class="duration-tab active" data-duration="1">1 Month</button>
-                        <button class="duration-tab" data-duration="3">3 Months</button>
-                        <button class="duration-tab" data-duration="6">6 Months</button>
-                        <button class="duration-tab" data-duration="12">12 Months</button>
-                    </div>
-                    
-                    <div class="duration-tabs" data-devices="5" style="display: none;">
-                        <button class="duration-tab active" data-duration="1">1 Month</button>
-                        <button class="duration-tab" data-duration="3">3 Months</button>
-                        <button class="duration-tab" data-duration="6">6 Months</button>
-                        <button class="duration-tab" data-duration="12">12 Months</button>
-                    </div>
-                    
-                    <div class="duration-tabs" data-devices="10" style="display: none;">
-                        <button class="duration-tab active" data-duration="1">1 Month</button>
-                        <button class="duration-tab" data-duration="3">3 Months</button>
-                        <button class="duration-tab" data-duration="6">6 Months</button>
-                        <button class="duration-tab" data-duration="12">12 Months</button>
-                    </div>
-                </div>
+            </div>
+            <div style="text-align: center; margin-top: 1rem;">
+                <p style="color: #666; font-size: 0.9rem;">
+                    <i class="fas fa-info-circle"></i> Need more than 3 devices? <a href="support.php" style="color: #8B0000; font-weight: 600;">Contact us</a> for a custom package
+                </p>
             </div>
             
             <!-- Pricing Cards -->
@@ -473,7 +871,7 @@ $faq_data = SEO::getFAQData();
                         </div>
                         <div class="feature-item">
                             <i class="fas fa-check"></i>
-                            <span><?php echo $devices; ?> Device<?php echo $devices > 1 ? 's' : ''; ?></span>
+                            <span class="devices-count"><?php echo $devices; ?> Device<?php echo $devices > 1 ? 's' : ''; ?></span>
                         </div>
                         <div class="feature-item">
                             <i class="fas fa-check"></i>
@@ -486,7 +884,7 @@ $faq_data = SEO::getFAQData();
                     </div>
                     
                     <div class="package-footer">
-                        <a href="#" class="btn btn-primary btn-full subscribe-btn" data-package-id="<?php echo (int)$pkg['id']; ?>">
+                        <a href="user/subscriptions/subscribe.php?package=<?php echo (int)$pkg['id']; ?>" class="btn btn-primary btn-full subscribe-btn" data-package-id="<?php echo (int)$pkg['id']; ?>">
                             <i class="fas fa-credit-card"></i>
                             Subscribe Now
                         </a>
@@ -564,25 +962,100 @@ $faq_data = SEO::getFAQData();
             
             <div class="gateway-app">
                 <div class="gateway-content">
-                    <h3>Download Gateway App</h3>
-                    <p>Our lightweight gateway app provides secure access to all your streaming channels</p>
+                    <h3>Download Ibo Player Pro</h3>
+                    <p>Our lightweight streaming app provides secure access to all 16,000+ channels</p>
                     
-                    <div class="download-buttons">
-                        <a href="gateway/download.php?platform=android" class="download-btn android">
-                            <i class="fab fa-android"></i>
+                    <div class="download-buttons" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-top: 2rem;">
+                        <!-- Google Play -->
+                        <a href="https://play.google.com/store/apps/details?id=ibpro.smart.player" target="_blank" class="download-btn android" style="display: flex; align-items: center; gap: 0.75rem; padding: 1rem 1.5rem; background: linear-gradient(135deg, #3DDC84, #2BAF66); color: white; border-radius: 10px; text-decoration: none; transition: all 0.3s;">
+                            <i class="fab fa-google-play" style="font-size: 2rem;"></i>
                             <div class="btn-text">
-                                <span class="btn-label">Download for</span>
-                                <span class="btn-platform">Android</span>
+                                <span class="btn-label" style="display: block; font-size: 0.7rem; opacity: 0.9;">GET IT ON</span>
+                                <span class="btn-platform" style="display: block; font-size: 1rem; font-weight: 700;">Google Play</span>
                             </div>
                         </a>
                         
-                        <a href="gateway/download.php?platform=ios" class="download-btn ios">
-                            <i class="fab fa-apple"></i>
+                        <!-- Apple App Store -->
+                        <a href="https://apps.apple.com/app/ibo-pro-player/id6449647925" target="_blank" class="download-btn ios" style="display: flex; align-items: center; gap: 0.75rem; padding: 1rem 1.5rem; background: linear-gradient(135deg, #000000, #333333); color: white; border-radius: 10px; text-decoration: none; transition: all 0.3s;">
+                            <i class="fab fa-apple" style="font-size: 2rem;"></i>
                             <div class="btn-text">
-                                <span class="btn-label">Download for</span>
-                                <span class="btn-platform">iOS</span>
+                                <span class="btn-label" style="display: block; font-size: 0.7rem; opacity: 0.9;">Download on the</span>
+                                <span class="btn-platform" style="display: block; font-size: 1rem; font-weight: 700;">App Store</span>
                             </div>
                         </a>
+
+                        <!-- LG Store -->
+                        <a href="https://us.lgappstv.com/main/tvapp/detail?appId=1209143" target="_blank" class="download-btn" style="display: flex; align-items: center; gap: 0.75rem; padding: 1rem 1.5rem; background: linear-gradient(135deg, #A50034, #8B0000); color: white; border-radius: 10px; text-decoration: none; transition: all 0.3s;">
+                            <i class="fas fa-tv" style="font-size: 2rem;"></i>
+                            <div class="btn-text">
+                                <span class="btn-label" style="display: block; font-size: 0.7rem; opacity: 0.9;">Available on</span>
+                                <span class="btn-platform" style="display: block; font-size: 1rem; font-weight: 700;">LG Store</span>
+                            </div>
+                        </a>
+
+                        <!-- Roku Store -->
+                        <a href="https://channelstore.roku.com/details/8bb2a96953173808e85902295304a2e1:8490a219fcbeecc63b4cc16b6ba9be93/ibo-player-pro" target="_blank" class="download-btn" style="display: flex; align-items: center; gap: 0.75rem; padding: 1rem 1.5rem; background: linear-gradient(135deg, #662D91, #4E1A6B); color: white; border-radius: 10px; text-decoration: none; transition: all 0.3s;">
+                            <i class="fas fa-stream" style="font-size: 2rem;"></i>
+                            <div class="btn-text">
+                                <span class="btn-label" style="display: block; font-size: 0.7rem; opacity: 0.9;">Add from</span>
+                                <span class="btn-platform" style="display: block; font-size: 1rem; font-weight: 700;">Roku Store</span>
+                            </div>
+                        </a>
+
+                        <!-- Microsoft Store -->
+                        <a href="https://www.microsoft.com/store/apps/9MSNK97XPVRK" target="_blank" class="download-btn" style="display: flex; align-items: center; gap: 0.75rem; padding: 1rem 1.5rem; background: linear-gradient(135deg, #0078D4, #005A9E); color: white; border-radius: 10px; text-decoration: none; transition: all 0.3s;">
+                            <i class="fab fa-windows" style="font-size: 2rem;"></i>
+                            <div class="btn-text">
+                                <span class="btn-label" style="display: block; font-size: 0.7rem; opacity: 0.9;">Download from</span>
+                                <span class="btn-platform" style="display: block; font-size: 1rem; font-weight: 700;">Microsoft</span>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- Direct Downloads -->
+                    <div style="margin-top: 3rem; padding: 2rem; background: rgba(255,255,255,0.05); border-radius: 12px;">
+                        <h4 style="margin: 0 0 1.5rem 0; text-align: center; color: white;">
+                            <i class="fas fa-download"></i> Direct Downloads
+                        </h4>
+                        
+                        <div style="display: grid; gap: 1rem;">
+                            <!-- Android/Fire TV APK -->
+                            <div style="background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 8px;">
+                                <p style="margin: 0 0 0.5rem 0; color: white; font-weight: 600;">
+                                    <i class="fab fa-android"></i> Android & Amazon Fire TV (APK)
+                                </p>
+                                <a href="https://iboproapp.com/ibopro.apk" target="_blank" style="color: #FFD700; word-break: break-all; text-decoration: none;">
+                                    https://iboproapp.com/ibopro.apk
+                                </a>
+                            </div>
+
+                            <!-- Samsung TV -->
+                            <div style="background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 8px;">
+                                <p style="margin: 0 0 0.5rem 0; color: white; font-weight: 600;">
+                                    <i class="fas fa-tv"></i> Samsung Smart TV (Tizen)
+                                </p>
+                                <a href="https://shorturl.at/nAOUY" target="_blank" style="color: #FFD700; word-break: break-all; text-decoration: none;">
+                                    https://shorturl.at/nAOUY
+                                </a>
+                            </div>
+
+                            <!-- Windows Desktop -->
+                            <div style="background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 8px;">
+                                <p style="margin: 0 0 0.5rem 0; color: white; font-weight: 600;">
+                                    <i class="fab fa-windows"></i> Windows Desktop (EXE)
+                                </p>
+                                <a href="https://rb.gy/8beuu" target="_blank" style="color: #FFD700; word-break: break-all; text-decoration: none;">
+                                    https://rb.gy/8beuu
+                                </a>
+                            </div>
+
+                            <!-- ZEASN -->
+                            <div style="background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 8px;">
+                                <p style="margin: 0; color: white; font-weight: 600; text-align: center;">
+                                    <i class="fas fa-check-circle"></i> Also available on ZEASN/Whale OS compatible devices
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -759,7 +1232,7 @@ $faq_data = SEO::getFAQData();
             </div>
             
             <div class="gallery-cta">
-                <a href="https://bingetv.co.ke/gallery.php" class="btn btn-primary">
+                <a href="gallery.php" class="btn btn-primary">
                     <i class="fas fa-images"></i>
                     View Full Gallery
                 </a>
@@ -901,7 +1374,7 @@ $faq_data = SEO::getFAQData();
                     </div>
                     <h3>Help Center</h3>
                     <p>Browse our comprehensive knowledge base</p>
-                    <a href="https://bingetv.co.ke/help.php" class="support-btn">Browse FAQ</a>
+                    <a href="help.php" class="support-btn">Browse FAQ</a>
                 </div>
             </div>
         </div>
@@ -931,18 +1404,18 @@ $faq_data = SEO::getFAQData();
                     <ul class="footer-links">
                         <li><a href="#packages">Packages</a></li>
                         <li><a href="#devices">Supported Devices</a></li>
-                        <li><a href="https://bingetv.co.ke/gallery.php">Gallery</a></li>
-                        <li><a href="https://bingetv.co.ke/support.php">Support</a></li>
+                        <li><a href="gallery.php">Gallery</a></li>
+                        <li><a href="support.php">Support</a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-section">
                     <h4>Account</h4>
                     <ul class="footer-links">
-                        <li><a href="https://bingetv.co.ke/login.php">Login</a></li>
-                        <li><a href="https://bingetv.co.ke/register.php">Register</a></li>
+                        <li><a href="login.php">Login</a></li>
+                        <li><a href="register.php">Register</a></li>
                         <li><a href="packages.php">Packages</a></li>
-                        <li><a href="https://bingetv.co.ke/support.php">Support</a></li>
+                        <li><a href="user/dashboard/">Dashboard</a></li>
                     </ul>
                 </div>
                 
@@ -969,8 +1442,8 @@ $faq_data = SEO::getFAQData();
                 <div class="footer-bottom-content">
                     <p>&copy; <?php echo date('Y'); ?> BingeTV. All rights reserved.</p>
                     <div class="footer-bottom-links">
-                        <a href="https://bingetv.co.ke/privacy.php">Privacy Policy</a>
-                        <a href="https://bingetv.co.ke/terms.php">Terms of Service</a>
+                        <a href="privacy.php">Privacy Policy</a>
+                        <a href="terms.php">Terms of Service</a>
                         <a href="refund.php">Refund Policy</a>
                     </div>
                 </div>
@@ -987,9 +1460,9 @@ $faq_data = SEO::getFAQData();
     </div>
 
     <!-- JavaScript -->
-    <script src="https://bingetv.co.ke/js/main.js"></script>
-    <script src="https://bingetv.co.ke/js/animations.js"></script>
-    <script src="https://bingetv.co.ke/js/enhanced.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/animations.js"></script>
+    <script src="js/enhanced.js"></script>
     
     <!-- Structured Data -->
     <script type="application/ld+json">

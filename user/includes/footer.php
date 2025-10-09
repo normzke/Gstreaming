@@ -3,46 +3,40 @@
     </div>
 
     <script>
-        // Sidebar toggle functionality
-        document.getElementById('sidebarToggle').addEventListener('click', function() {
-            const sidebar = document.getElementById('sidebar');
-            const mainContent = document.getElementById('mainContent');
-            
-            sidebar.classList.toggle('collapsed');
-            mainContent.classList.toggle('sidebar-collapsed');
-        });
+        // Sidebar toggle functionality for mobile
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const sidebar = document.getElementById('sidebar');
+        const mainContent = document.getElementById('mainContent');
 
-        // Mobile sidebar toggle
-        if (window.innerWidth <= 768) {
-            const sidebar = document.getElementById('sidebar');
-            sidebar.classList.add('collapsed');
+        if (sidebarToggle && sidebar) {
+            sidebarToggle.addEventListener('click', function() {
+                // Toggle mobile-open class for mobile view
+                sidebar.classList.toggle('mobile-open');
+                
+                // Toggle collapsed for desktop view
+                sidebar.classList.toggle('collapsed');
+                mainContent.classList.toggle('sidebar-collapsed');
+            });
         }
-
-        // Auto-collapse sidebar on mobile
-        window.addEventListener('resize', function() {
-            const sidebar = document.getElementById('sidebar');
-            const mainContent = document.getElementById('mainContent');
-            
-            if (window.innerWidth <= 768) {
-                sidebar.classList.add('collapsed');
-                mainContent.classList.add('sidebar-collapsed');
-            } else {
-                sidebar.classList.remove('collapsed');
-                mainContent.classList.remove('sidebar-collapsed');
-            }
-        });
 
         // Close mobile sidebar when clicking outside
         document.addEventListener('click', function(e) {
-            const sidebar = document.getElementById('sidebar');
-            const sidebarToggle = document.getElementById('sidebarToggle');
-            
             if (window.innerWidth <= 768 && 
+                sidebar && 
                 !sidebar.contains(e.target) && 
+                sidebarToggle &&
                 !sidebarToggle.contains(e.target)) {
-                sidebar.classList.add('collapsed');
-                document.getElementById('mainContent').classList.add('sidebar-collapsed');
+                sidebar.classList.remove('mobile-open');
             }
+        });
+
+        // Close sidebar when clicking nav links on mobile
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function() {
+                if (window.innerWidth <= 768 && sidebar) {
+                    sidebar.classList.remove('mobile-open');
+                }
+            });
         });
     </script>
 </body>

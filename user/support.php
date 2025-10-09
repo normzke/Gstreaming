@@ -5,7 +5,7 @@ require_once '../lib/functions.php';
 
 // Check user authentication
 if (!isLoggedIn()) {
-    header('Location: login.php');
+    header('Location: ../login.php');
     exit();
 }
 

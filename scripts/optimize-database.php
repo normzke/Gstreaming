@@ -51,10 +51,10 @@ try {
         "CREATE INDEX IF NOT EXISTS idx_packages_sort ON packages(sort_order)",
         
         // Gallery items indexes
-        "CREATE INDEX IF NOT EXISTS idx_gallery_featured ON gallery_items(is_featured)",
-        "CREATE INDEX IF NOT EXISTS idx_gallery_category ON gallery_items(category)",
-        "CREATE INDEX IF NOT EXISTS idx_gallery_sort ON gallery_items(sort_order)",
-        "CREATE INDEX IF NOT EXISTS idx_gallery_type ON gallery_items(type)",
+        "CREATE INDEX IF NOT EXISTS idx_gallery_featured ON gallery(is_featured)",
+        "CREATE INDEX IF NOT EXISTS idx_gallery_category ON gallery(category)",
+        "CREATE INDEX IF NOT EXISTS idx_gallery_sort ON gallery(sort_order)",
+        "CREATE INDEX IF NOT EXISTS idx_gallery_type ON gallery(type)",
         
         // Activity logs indexes
         "CREATE INDEX IF NOT EXISTS idx_activity_logs_user_id ON activity_logs(user_id)",
@@ -90,7 +90,7 @@ try {
     // 2. Analyze tables for query optimization
     echo "🔍 Analyzing tables for optimization...\n";
     
-    $tables = ['users', 'user_subscriptions', 'payments', 'channels', 'packages', 'gallery_items', 'activity_logs', 'notifications'];
+    $tables = ['users', 'user_subscriptions', 'payments', 'channels', 'packages', 'gallery', 'activity_logs', 'notifications'];
     
     foreach ($tables as $table) {
         try {

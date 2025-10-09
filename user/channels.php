@@ -66,6 +66,25 @@ $page_title = 'Channels';
 include 'includes/header.php';
 ?>
 
+<!-- Channels Info Banner -->
+<div style="background: linear-gradient(135deg, #8B0000, #660000); color: white; padding: 2rem; border-radius: 12px; margin-bottom: 2rem; text-align: center;">
+    <div style="font-size: 3rem; margin-bottom: 0.5rem; font-weight: bold;">
+        16,000+
+    </div>
+    <h2 style="margin: 0 0 1rem 0; font-size: 1.5rem;">
+        Premium Channels Available
+    </h2>
+    <p style="margin: 0; opacity: 0.9; max-width: 600px; margin: 0 auto;">
+        Access thousands of international and local channels including news, sports, movies, and entertainment from around the world.
+    </p>
+    <div style="display: flex; gap: 1.5rem; justify-content: center; margin-top: 1.5rem; flex-wrap: wrap; font-size: 0.9rem;">
+        <div><i class="fas fa-check-circle"></i> International News</div>
+        <div><i class="fas fa-check-circle"></i> Premium Sports</div>
+        <div><i class="fas fa-check-circle"></i> Movies & Entertainment</div>
+        <div><i class="fas fa-check-circle"></i> HD & 4K Quality</div>
+    </div>
+</div>
+
 <!-- Filter Section -->
 <div class="user-card" style="margin-bottom: 1.5rem;">
     <div class="card-header">
@@ -348,13 +367,13 @@ include 'includes/header.php';
                         } else {
                             // Redirect to subscription page
                 alert('Please subscribe to watch channels');
-                            window.location.href = 'subscriptions/subscribe.php';
+                            window.location.href = '/user/subscriptions/subscribe.php';
                         }
                     })
                     .catch(error => {
             console.error('Error checking subscription:', error);
             alert('Please subscribe to watch channels');
-            window.location.href = 'subscriptions/subscribe.php';
+            window.location.href = '/user/subscriptions/subscribe.php';
         });
 }
 

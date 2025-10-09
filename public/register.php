@@ -1,8 +1,9 @@
 <?php
-require_once 'config/config.php';
-require_once 'config/database.php';
-require_once 'lib/functions.php';
-require_once 'lib/seo.php';
+require_once __DIR__ . '/../config/config.php';
+require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/../lib/functions.php';
+require_once __DIR__ . '/../lib/seo.php';
+require_once __DIR__ . '/../lib/email.php';
 
 // Start session
 // Session is started in config files
@@ -19,20 +20,25 @@ if (isLoggedIn()) {
 
 $error = '';
 $success = '';
+$packageId = isset($_GET['package']) ? (int)$_GET['package'] : 0;
 
 // Handle registration form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $firstName = trim($_POST['first_name'] ?? '');
     $lastName = trim($_POST['last_name'] ?? '');
+    $username = trim($_POST['username'] ?? '');
     $email = trim($_POST['email'] ?? '');
     $phone = trim($_POST['phone'] ?? '');
     $password = $_POST['password'] ?? '';
     $confirmPassword = $_POST['confirm_password'] ?? '';
-    $packageId = (int)($_GET['package'] ?? 0);
     
     // Validation
-    if (empty($firstName) || empty($lastName) || empty($email) || empty($phone) || empty($password)) {
+    if (empty($firstName) || empty($lastName) || empty($username) || empty($email) || empty($phone) || empty($password)) {
         $error = 'Please fill in all required fields.';
+    } elseif (strlen($username) < 3 || strlen($username) > 50) {
+        $error = 'Username must be between 3 and 50 characters.';
+    } elseif (!preg_match('/^[a-zA-Z0-9_]+$/', $username)) {
+        $error = 'Username can only contain letters, numbers, and underscores.';
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $error = 'Please enter a valid email address.';
     } elseif (strlen($password) < 8) {
@@ -46,35 +52,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         try {
             $conn->beginTransaction();
             
-            // Check if email already exists
-            $checkQuery = "SELECT id FROM users WHERE email = ?";
+            // Check if username or email already exists
+            $checkQuery = "SELECT id FROM users WHERE username = ? OR email = ?";
             $checkStmt = $conn->prepare($checkQuery);
-            $checkStmt->execute([$email]);
+            $checkStmt->execute([$username, $email]);
             
             if ($checkStmt->fetch()) {
-                $error = 'An account with this email already exists.';
+                $error = 'An account with this username or email already exists.';
             } else {
+                // Generate email verification token
+                $verificationToken = generateEmailVerificationToken();
+                $verificationExpires = date('Y-m-d H:i:s', strtotime('+24 hours'));
+
                 // Create user
                 $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-                $userQuery = "INSERT INTO users (first_name, last_name, email, phone, password, is_active, created_at) VALUES (?, ?, ?, ?, ?, true, NOW())";
+                $userQuery = "INSERT INTO users (username, first_name, last_name, email, phone, password_hash, is_active, email_verified, email_verification_token, email_verification_expires, created_at)
+                             VALUES (?, ?, ?, ?, ?, ?, true, false, ?, ?, NOW())";
                 $userStmt = $conn->prepare($userQuery);
-                $userStmt->execute([$firstName, $lastName, $email, $phone, $hashedPassword]);
+                $userStmt->execute([$username, $firstName, $lastName, $email, $phone, $hashedPassword, $verificationToken, $verificationExpires]);
                 
                         $userId = $conn->lastInsertId();
                         
-                // Set session variables
-                $_SESSION['user_id'] = $userId;
-                $_SESSION['user_email'] = $email;
-                $_SESSION['user_name'] = $firstName . ' ' . $lastName;
-                        
-                        // If package is selected, redirect to payment
-                        if ($packageId) {
-                            $conn->commit();
-                    redirect("user/payment.php?package={$packageId}", 'Registration successful! Complete your subscription to start streaming.');
-                        } else {
-                            $conn->commit();
-                    redirect('user/dashboard/', 'Registration successful! Welcome to BingeTV.');
+                // Send verification email
+                $emailSent = sendEmailVerification($email, $verificationToken, $firstName);
+
+                if (!$emailSent) {
+                    error_log("Failed to send verification email to: " . $email);
+                    // Continue anyway - user can request verification email again
                 }
+
+                $conn->commit();
+
+                // Show success message with email verification instructions
+                $success = 'Registration successful! Please check your email and click the verification link to activate your account.';
             }
         } catch (Exception $e) {
             $conn->rollback();
@@ -107,8 +117,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- CSS -->
-    <link rel="stylesheet" href="https://bingetv.co.ke/css/main.css">
-    <link rel="stylesheet" href="https://bingetv.co.ke/css/components.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components.css">
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -355,39 +365,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <a href="/" class="nav-link">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a href="https://bingetv.co.ke/channels.php" class="nav-link">Channels</a>
+                    <a href="channels.php" class="nav-link">Channels</a>
                 </li>
                 <li class="nav-item">
-                    <a href="https://bingetv.co.ke/gallery.php" class="nav-link">Gallery</a>
+                    <a href="gallery.php" class="nav-link">Gallery</a>
                 </li>
                 <li class="nav-item">
-                    <a href="https://bingetv.co.ke/support.php" class="nav-link">Support</a>
+                    <a href="support.php" class="nav-link">Support</a>
                 </li>
                 <li class="nav-item">
-                    <a href="https://bingetv.co.ke/login.php" class="nav-link btn-login">Login</a>
+                    <a href="login.php" class="nav-link btn-login">Login</a>
                 </li>
                 <li class="nav-item">
-                    <a href="https://bingetv.co.ke/register.php" class="nav-link active">Get Started</a>
+                    <a href="register.php" class="nav-link active">Get Started</a>
                 </li>
             </ul>
         </div>
     </nav>
 
     <!-- Register Content -->
-    <main class="register-page">
-        <div class="container">
-            <div class="register-container">
-                <div class="register-card">
-                    <div class="register-header">
-                        <h1>Create Your Account</h1>
-                        <p>Join thousands of satisfied BingeTV subscribers</p>
-                        <?php if ($packageId): ?>
-                            <div class="package-notice">
-                                <i class="fas fa-info-circle"></i>
-                                <span>You're registering for a selected package</span>
-                            </div>
-                            <?php endif; ?>
+    <main class="auth-container" style="display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#8B0000 0%,#660000 100%);padding:120px 20px 40px;">
+        <div class="register-container" style="max-width:600px;margin:0 auto;width:100%;">
+            <div class="register-card" style="background:white;border-radius:15px;box-shadow:0 20px 40px rgba(0,0,0,0.1);padding:32px;position:relative;overflow:hidden;">
+                <div class="register-header" style="text-align:center;margin-bottom:20px;">
+                    <h1 style="color:#8B0000;font-family:'Orbitron',sans-serif;font-weight:900;margin:0 0 8px 0;">Create Your Account</h1>
+                    <p style="color:#666;margin:0;">Join thousands of satisfied BingeTV subscribers</p>
+                    <?php if ($packageId): ?>
+                    <div class="package-notice" style="background:#f7fafc;border:1px solid #8B0000;border-radius:10px;padding:10px;margin-top:12px;display:flex;align-items:center;gap:8px;color:#8B0000;font-weight:500;">
+                        <i class="fas fa-info-circle"></i>
+                        <span>You're registering for a selected package</span>
                     </div>
+                    <?php endif; ?>
+                </div>
                     
                     <?php if ($error): ?>
                         <div class="alert alert-error">
@@ -419,6 +428,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     <i class="fas fa-user"></i>
                                     <input type="text" id="last_name" name="last_name" value="<?php echo htmlspecialchars($_POST['last_name'] ?? ''); ?>" required>
                                 </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="username">Username *</label>
+                            <div class="input-group">
+                                <i class="fas fa-at"></i>
+                                <input type="text" id="username" name="username" value="<?php echo htmlspecialchars($_POST['username'] ?? ''); ?>" placeholder="Choose a unique username" required minlength="3" maxlength="50">
                             </div>
                         </div>
                         
@@ -472,21 +489,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <label class="checkbox-label">
                                 <input type="checkbox" name="terms" value="1" required>
                                 <span class="checkmark"></span>
-                                I agree to the <a href="https://bingetv.co.ke/terms.php" target="_blank">Terms of Service</a> and <a href="https://bingetv.co.ke/privacy.php" target="_blank">Privacy Policy</a>
+                                I agree to the <a href="terms.php" target="_blank">Terms of Service</a> and <a href="privacy.php" target="_blank">Privacy Policy</a>
                             </label>
                         </div>
                         
-                        <button type="submit" class="btn btn-primary btn-full">
+                        <button type="submit" class="btn-primary" style="width:100%;padding:12px;background:linear-gradient(135deg,#8B0000,#660000);color:white;border:none;border-radius:8px;font-size:16px;font-weight:600;cursor:pointer;">
                             <i class="fas fa-user-plus"></i>
                             Create Account
                         </button>
                     </form>
                     
-                    <div class="register-footer">
-                        <p>Already have an account? <a href="https://bingetv.co.ke/login.php">Sign in here</a></p>
-                        <p><a href="/">← Back to Homepage</a></p>
+                    <div class="register-footer" style="text-align:center;margin-top:16px;color:#666;">
+                        <p>Already have an account? <a href="login.php">Sign in here</a></p>
+                        <p><a href="/" style="color:#8B0000;font-weight:600;">← Back to Homepage</a></p>
                     </div>
-                </div>
             </div>
         </div>
     </main>
@@ -507,19 +523,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <h4>Quick Links</h4>
                     <ul class="footer-links">
                         <li><a href="/">Home</a></li>
-                        <li><a href="https://bingetv.co.ke/channels.php">Channels</a></li>
-                        <li><a href="https://bingetv.co.ke/gallery.php">Gallery</a></li>
-                        <li><a href="https://bingetv.co.ke/support.php">Support</a></li>
+                        <li><a href="channels.php">Channels</a></li>
+                        <li><a href="gallery.php">Gallery</a></li>
+                        <li><a href="support.php">Support</a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-section">
                     <h4>Account</h4>
                     <ul class="footer-links">
-                        <li><a href="https://bingetv.co.ke/login.php">Login</a></li>
-                        <li><a href="https://bingetv.co.ke/register.php">Register</a></li>
+                        <li><a href="login.php">Login</a></li>
+                        <li><a href="register.php">Register</a></li>
                         <li><a href="packages.php">Packages</a></li>
-                        <li><a href="https://bingetv.co.ke/support.php">Support</a></li>
+                        <li><a href="support.php">Support</a></li>
                     </ul>
                 </div>
             </div>
@@ -531,7 +547,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </footer>
 
     <!-- JavaScript -->
-    <script src="https://bingetv.co.ke/js/main.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        (function(){
+            const hamburger = document.querySelector('.hamburger');
+            const navMenu = document.querySelector('.nav-menu');
+            if (!hamburger || !navMenu) return;
+            const toggle = () => {
+                hamburger.classList.toggle('active');
+                navMenu.classList.toggle('active');
+                const expanded = hamburger.classList.contains('active');
+                hamburger.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+            };
+            hamburger.setAttribute('aria-label', 'Toggle navigation');
+            hamburger.setAttribute('aria-expanded', 'false');
+            hamburger.addEventListener('click', toggle);
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburger.classList.remove('active');
+                    navMenu.classList.remove('active');
+                    hamburger.setAttribute('aria-expanded', 'false');
+                });
+            });
+            window.addEventListener('resize', () => {
+                if (window.innerWidth > 992) {
+                    hamburger.classList.remove('active');
+                    navMenu.classList.remove('active');
+                    hamburger.setAttribute('aria-expanded', 'false');
+                }
+            });
+        })();
+    </script>
     <script>
         function togglePassword(inputId) {
             const input = document.getElementById(inputId);
@@ -580,6 +626,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         });
         
         // Password confirmation checker
+        document.getElementById('confirm_password').addEventListener('input', function() {
+            const password = document.getElementById('password').value;
+            const confirmPassword = this.value;
+            
+            if (confirmPassword && password !== confirmPassword) {
+                this.style.borderColor = '#ef4444';
+            } else {
+                this.style.borderColor = '#d1d5db';
+            }
+        });
+    </script>
+</body>
+</html>
         document.getElementById('confirm_password').addEventListener('input', function() {
             const password = document.getElementById('password').value;
             const confirmPassword = this.value;

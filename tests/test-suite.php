@@ -70,7 +70,7 @@ class GStreamingTestSuite {
         $requiredTables = [
             'users', 'packages', 'user_subscriptions', 'payments', 
             'channels', 'package_channels', 'user_streaming_access', 
-            'mpesa_config', 'admin_users', 'gallery_items'
+            'mpesa_config', 'admin_users', 'gallery'
         ];
         
         $missingTables = [];

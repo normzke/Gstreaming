@@ -1,8 +1,8 @@
 <?php
-require_once 'config/config.php';
-require_once 'config/database.php';
-require_once 'lib/functions.php';
-require_once 'lib/seo.php';
+require_once __DIR__ . '/../config/config.php';
+require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/../lib/functions.php';
+require_once __DIR__ . '/../lib/seo.php';
 
 // Get channels from database
 $db = new Database();
@@ -135,9 +135,9 @@ foreach ($channels as $channel) {
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- CSS -->
-    <link rel="stylesheet" href="https://bingetv.co.ke/css/main.css">
-    <link rel="stylesheet" href="https://bingetv.co.ke/css/components.css">
-    <link rel="stylesheet" href="https://bingetv.co.ke/css/channels.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/channels.css">
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -156,25 +156,25 @@ foreach ($channels as $channel) {
                     <a href="/" class="nav-link">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a href="https://bingetv.co.ke/channels.php" class="nav-link active">Channels</a>
+                    <a href="channels.php" class="nav-link active">Channels</a>
                 </li>
                 <li class="nav-item">
-                    <a href="index.php#packages" class="nav-link">Packages</a>
+                    <a href="#packages" class="nav-link">Packages</a>
                 </li>
                 <li class="nav-item">
-                    <a href="index.php#devices" class="nav-link">Devices</a>
+                    <a href="#devices" class="nav-link">Devices</a>
                 </li>
                 <li class="nav-item">
-                    <a href="https://bingetv.co.ke/gallery.php" class="nav-link">Gallery</a>
+                    <a href="gallery.php" class="nav-link">Gallery</a>
                 </li>
                 <li class="nav-item">
-                    <a href="index.php#support" class="nav-link">Support</a>
+                    <a href="#support" class="nav-link">Support</a>
                 </li>
                 <li class="nav-item">
-                    <a href="https://bingetv.co.ke/login.php" class="nav-link btn-login">Login</a>
+                    <a href="login.php" class="nav-link btn-login">Login</a>
                 </li>
                 <li class="nav-item">
-                    <a href="https://bingetv.co.ke/register.php" class="nav-link btn-register">Get Started</a>
+                    <a href="register.php" class="nav-link btn-register">Get Started</a>
                 </li>
             </ul>
             
@@ -254,7 +254,7 @@ foreach ($channels as $channel) {
                                 <i class="fas fa-filter"></i>
                                 Filter
                             </button>
-                            <a href="https://bingetv.co.ke/channels.php" class="btn btn-secondary">
+                            <a href="channels.php" class="btn btn-secondary">
                                 <i class="fas fa-times"></i>
                                 Clear
                             </a>
@@ -358,7 +358,7 @@ foreach ($channels as $channel) {
                         <i class="fas fa-search"></i>
                         <h3>No Channels Found</h3>
                         <p>Try adjusting your search criteria or filters to find the channels you're looking for.</p>
-                        <a href="https://bingetv.co.ke/channels.php" class="btn btn-primary">View All Channels</a>
+                        <a href="channels.php" class="btn btn-primary">View All Channels</a>
                     </div>
                 </div>
             <?php endif; ?>
@@ -377,7 +377,7 @@ foreach ($channels as $channel) {
                     <div class="preview-placeholder">
                         <i class="fas fa-tv"></i>
                         <p>Channel preview will be available after subscription</p>
-                        <a href="https://bingetv.co.ke/register.php" class="btn btn-primary">Subscribe Now</a>
+                        <a href="register.php" class="btn btn-primary">Subscribe Now</a>
                     </div>
                 </div>
             </div>
@@ -414,21 +414,21 @@ foreach ($channels as $channel) {
                 <div class="footer-section">
                     <h4>Quick Links</h4>
                     <ul class="footer-links">
-                        <li><a href="https://bingetv.co.ke/channels.php">Channels</a></li>
-                        <li><a href="index.php#packages">Packages</a></li>
-                        <li><a href="index.php#devices">Supported Devices</a></li>
-                        <li><a href="https://bingetv.co.ke/gallery.php">Gallery</a></li>
-                        <li><a href="index.php#support">Support</a></li>
+                        <li><a href="channels.php">Channels</a></li>
+                        <li><a href="#packages">Packages</a></li>
+                        <li><a href="#devices">Supported Devices</a></li>
+                        <li><a href="gallery.php">Gallery</a></li>
+                        <li><a href="#support">Support</a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-section">
                     <h4>Account</h4>
                     <ul class="footer-links">
-                        <li><a href="https://bingetv.co.ke/login.php">Login</a></li>
-                        <li><a href="https://bingetv.co.ke/register.php">Register</a></li>
-                        <li><a href="dashboard.php">Dashboard</a></li>
-                        <li><a href="billing.php">Billing</a></li>
+                        <li><a href="login.php">Login</a></li>
+                        <li><a href="register.php">Register</a></li>
+                        <li><a href="user/dashboard/">Dashboard</a></li>
+                        <li><a href="user/payments/">Payments</a></li>
                     </ul>
                 </div>
                 
@@ -455,8 +455,8 @@ foreach ($channels as $channel) {
                 <div class="footer-bottom-content">
                     <p>&copy; <?php echo date('Y'); ?> BingeTV. All rights reserved.</p>
                     <div class="footer-bottom-links">
-                        <a href="https://bingetv.co.ke/privacy.php">Privacy Policy</a>
-                        <a href="https://bingetv.co.ke/terms.php">Terms of Service</a>
+                        <a href="privacy.php">Privacy Policy</a>
+                        <a href="terms.php">Terms of Service</a>
                         <a href="refund.php">Refund Policy</a>
                     </div>
                 </div>
@@ -465,9 +465,9 @@ foreach ($channels as $channel) {
     </footer>
 
     <!-- JavaScript -->
-    <script src="https://bingetv.co.ke/js/main.js"></script>
-    <script src="https://bingetv.co.ke/js/enhanced.js"></script>
-    <script src="https://bingetv.co.ke/js/channels.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/enhanced.js"></script>
+    <script src="js/channels.js"></script>
     
     <!-- Structured Data -->
     <script type="application/ld+json">

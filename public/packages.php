@@ -14,7 +14,7 @@ if (isset($_GET['months'])) {
     $_SESSION['selected_months'] = max(1, (int)$_GET['months']);
 }
 
-// Redirect to unified package selection page in user portal
-header('Location: ../user/package-selection.php?from_homepage=1');
+// Redirect to unified package selection page in public directory
+header('Location: package-selection.php?from_homepage=1');
 exit();
 ?>

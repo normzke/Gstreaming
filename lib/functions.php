@@ -79,15 +79,35 @@ function sendEmail($to, $subject, $message, $headers = '') {
  * Log activity
  */
 function logActivity($userId, $action, $details = '') {
+    // Activity logging temporarily disabled per requirements
+    return;
     global $conn;
     if (!$conn) {
         $db = new Database();
         $conn = $db->getConnection();
     }
-    
-    $query = "INSERT INTO activity_logs (user_id, action, details, created_at) VALUES (?, ?, ?, CURRENT_TIMESTAMP)";
-    $stmt = $conn->prepare($query);
-    $stmt->execute([$userId, $action, $details]);
+
+    // Try to log with provided userId; if FK fails (e.g., admin users not in users table), fallback gracefully
+    try {
+        $query = "INSERT INTO activity_logs (user_id, action, details, created_at) VALUES (?, ?, ?, CURRENT_TIMESTAMP)";
+        $stmt = $conn->prepare($query);
+        $stmt->execute([$userId, $action, $details]);
+    } catch (PDOException $e) {
+        // PostgreSQL FK violation SQLSTATE is 23503
+        if ($e->getCode() === '23503' || stripos($e->getMessage(), 'foreign key') !== false) {
+            try {
+                // Attempt to insert without user linkage if schema allows NULL user_id
+                $fallback = "INSERT INTO activity_logs (user_id, action, details, created_at) VALUES (NULL, ?, ?, CURRENT_TIMESTAMP)";
+                $stmt = $conn->prepare($fallback);
+                $stmt->execute([$action, $details]);
+            } catch (PDOException $_) {
+                // If fallback also fails, swallow to avoid breaking primary flow
+            }
+        } else {
+            // Re-throw unexpected DB errors
+            throw $e;
+        }
+    }
 }
 
 /**

@@ -10,14 +10,14 @@
     <meta name="description" content="Get help with BingeTV streaming service. 24/7 support via WhatsApp, email, phone, and live chat. Technical assistance and customer service.">
     <meta name="keywords" content="BingeTV support, customer service, technical help, streaming assistance, 24/7 support Kenya">
     <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://bingetv.co.ke/support.php">
+    <link rel="canonical" href="support.php">
     
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- CSS -->
-    <link rel="stylesheet" href="https://bingetv.co.ke/css/main.css">
-    <link rel="stylesheet" href="https://bingetv.co.ke/css/components.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components.css">
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -36,19 +36,19 @@
                     <a href="/" class="nav-link">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a href="https://bingetv.co.ke/channels.php" class="nav-link">Channels</a>
+                    <a href="channels.php" class="nav-link">Channels</a>
                 </li>
                 <li class="nav-item">
-                    <a href="https://bingetv.co.ke/gallery.php" class="nav-link">Gallery</a>
+                    <a href="gallery.php" class="nav-link">Gallery</a>
                 </li>
                 <li class="nav-item">
-                    <a href="https://bingetv.co.ke/support.php" class="nav-link active">Support</a>
+                    <a href="support.php" class="nav-link active">Support</a>
                 </li>
                 <li class="nav-item">
-                    <a href="https://bingetv.co.ke/login.php" class="nav-link btn-login">Login</a>
+                    <a href="login.php" class="nav-link btn-login">Login</a>
                 </li>
                 <li class="nav-item">
-                    <a href="https://bingetv.co.ke/register.php" class="nav-link btn-register">Get Started</a>
+                    <a href="register.php" class="nav-link btn-register">Get Started</a>
                 </li>
             </ul>
         </div>
@@ -96,7 +96,7 @@
                     </div>
                     <h3>Help Center</h3>
                     <p>Browse our comprehensive knowledge base</p>
-                    <a href="https://bingetv.co.ke/help.php" class="support-btn">Browse FAQ</a>
+                    <a href="help.php" class="support-btn">Browse FAQ</a>
                 </div>
             </div>
             
@@ -136,19 +136,19 @@
                     <h4>Quick Links</h4>
                     <ul class="footer-links">
                         <li><a href="/">Home</a></li>
-                        <li><a href="https://bingetv.co.ke/channels.php">Channels</a></li>
-                        <li><a href="https://bingetv.co.ke/gallery.php">Gallery</a></li>
-                        <li><a href="https://bingetv.co.ke/support.php">Support</a></li>
+                        <li><a href="channels.php">Channels</a></li>
+                        <li><a href="gallery.php">Gallery</a></li>
+                        <li><a href="support.php">Support</a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-section">
                     <h4>Account</h4>
                     <ul class="footer-links">
-                        <li><a href="https://bingetv.co.ke/login.php">Login</a></li>
-                        <li><a href="https://bingetv.co.ke/register.php">Register</a></li>
+                        <li><a href="login.php">Login</a></li>
+                        <li><a href="register.php">Register</a></li>
                         <li><a href="packages.php">Packages</a></li>
-                        <li><a href="https://bingetv.co.ke/support.php">Support</a></li>
+                        <li><a href="support.php">Support</a></li>
                     </ul>
                 </div>
             </div>
@@ -160,6 +160,6 @@
     </footer>
 
     <!-- JavaScript -->
-    <script src="https://bingetv.co.ke/js/main.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>

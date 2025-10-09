@@ -1,8 +1,8 @@
 <?php
-require_once 'config/config.php';
-require_once 'config/database.php';
-require_once 'lib/functions.php';
-require_once 'lib/seo.php';
+require_once __DIR__ . '/../config/config.php';
+require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/../lib/functions.php';
+require_once __DIR__ . '/../lib/seo.php';
 
 $db = new Database();
 $conn = $db->getConnection();
@@ -96,8 +96,8 @@ $breadcrumb_data = SEO::getBreadcrumbData([
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- CSS -->
-    <link rel="stylesheet" href="https://bingetv.co.ke/css/main.css">
-    <link rel="stylesheet" href="https://bingetv.co.ke/css/components.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components.css">
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -119,22 +119,22 @@ $breadcrumb_data = SEO::getBreadcrumbData([
                     <a href="/" class="nav-link">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a href="index.php#packages" class="nav-link">Packages</a>
+                    <a href="#packages" class="nav-link">Packages</a>
                 </li>
                 <li class="nav-item">
-                    <a href="index.php#devices" class="nav-link">Devices</a>
+                    <a href="#devices" class="nav-link">Devices</a>
                 </li>
                 <li class="nav-item">
-                    <a href="https://bingetv.co.ke/gallery.php" class="nav-link active">Gallery</a>
+                    <a href="gallery.php" class="nav-link active">Gallery</a>
                 </li>
                 <li class="nav-item">
-                    <a href="index.php#support" class="nav-link">Support</a>
+                    <a href="#support" class="nav-link">Support</a>
                 </li>
                 <li class="nav-item">
-                    <a href="https://bingetv.co.ke/login.php" class="nav-link btn-login">Login</a>
+                    <a href="login.php" class="nav-link btn-login">Login</a>
                 </li>
                 <li class="nav-item">
-                    <a href="https://bingetv.co.ke/register.php" class="nav-link btn-register">Get Started</a>
+                    <a href="register.php" class="nav-link btn-register">Get Started</a>
                 </li>
             </ul>
         </div>
@@ -290,20 +290,20 @@ $breadcrumb_data = SEO::getBreadcrumbData([
                 <div class="footer-section">
                     <h4>Quick Links</h4>
                     <ul class="footer-links">
-                        <li><a href="index.php#packages">Packages</a></li>
-                        <li><a href="index.php#devices">Supported Devices</a></li>
-                        <li><a href="https://bingetv.co.ke/gallery.php">Gallery</a></li>
-                        <li><a href="https://bingetv.co.ke/support.php">Support</a></li>
+                        <li><a href="#packages">Packages</a></li>
+                        <li><a href="#devices">Supported Devices</a></li>
+                        <li><a href="gallery.php">Gallery</a></li>
+                        <li><a href="support.php">Support</a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-section">
                     <h4>Account</h4>
                     <ul class="footer-links">
-                        <li><a href="https://bingetv.co.ke/login.php">Login</a></li>
-                        <li><a href="https://bingetv.co.ke/register.php">Register</a></li>
-                        <li><a href="dashboard.php">Dashboard</a></li>
-                        <li><a href="billing.php">Billing</a></li>
+                        <li><a href="login.php">Login</a></li>
+                        <li><a href="register.php">Register</a></li>
+                        <li><a href="user/dashboard/">Dashboard</a></li>
+                        <li><a href="user/payments/">Payments</a></li>
                     </ul>
                 </div>
                 
@@ -335,7 +335,7 @@ $breadcrumb_data = SEO::getBreadcrumbData([
     </footer>
 
     <!-- JavaScript -->
-    <script src="https://bingetv.co.ke/js/main.js"></script>
+    <script src="js/main.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox.min.js"></script>
     
     <!-- Structured Data -->

@@ -1,12 +1,12 @@
 <?php
-require_once '../../config/config.php';
-require_once '../../config/database.php';
-require_once '../../lib/functions.php';
-require_once '../../lib/cache.php';
+require_once __DIR__ . '/../../config/config.php';
+require_once __DIR__ . '/../../config/database.php';
+require_once __DIR__ . '/../../lib/functions.php';
+require_once __DIR__ . '/../../lib/cache.php';
 
 // Check if user is logged in
 if (!isLoggedIn()) {
-    header('Location: ../login.php');
+    header('Location: ../../login.php');
     exit();
 }
 
@@ -76,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         if ($packageId) {
             // Redirect to subscription page with package pre-selected
-            header('Location: subscriptions/subscribe.php?package=' . $packageId);
+            header('Location: ../subscriptions/subscribe.php?package=' . $packageId);
             exit();
         } else {
             $message = 'Invalid package ID.';
@@ -143,7 +143,7 @@ include '../includes/header.php';
             
             <?php if ($subscription['status'] === 'active'): ?>
             <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
-                <a href="subscriptions/subscribe.php" class="btn btn-primary">
+                <a href="../subscriptions/subscribe.php" class="btn btn-primary">
                     <i class="fas fa-sync"></i>
                     Renew Subscription
                 </a>
@@ -157,7 +157,7 @@ include '../includes/header.php';
             <div style="text-align: center;">
                 <h3 style="color: var(--user-text); margin-bottom: 1rem;">No Active Subscription</h3>
                 <p style="color: var(--user-text-light); margin-bottom: 1.5rem;">Subscribe to a package to start streaming premium content</p>
-                <a href="subscriptions/subscribe.php" class="btn btn-primary">
+                <a href="../subscriptions/subscribe.php" class="btn btn-primary">
                     <i class="fas fa-plus"></i>
                     Choose Package
                 </a>
@@ -339,7 +339,7 @@ include '../includes/header.php';
                     </ul>
                 </div>
                 <div style="text-align: center;">
-                    <a href="subscriptions/subscribe.php?package=<?php echo $package['id']; ?>" class="btn btn-primary">
+                    <a href="../subscriptions/subscribe.php?package=<?php echo $package['id']; ?>" class="btn btn-primary">
                         <i class="fas fa-credit-card"></i>
                         Subscribe Now
                     </a>

@@ -17,8 +17,9 @@ if (!isset($_SESSION['admin_id'])) {
     
     <!-- CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="../public/css/main.css">
-    <link rel="stylesheet" href="../public/css/components.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/admin-analytics.css">
     
     <!-- Admin Specific CSS -->
     <style>
@@ -485,6 +486,12 @@ if (!isset($_SESSION['admin_id'])) {
                         </a>
                     </div>
                     <div class="nav-item">
+                        <a href="manual-payments.php" class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'manual-payments.php' ? 'active' : ''; ?>">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Manual M-Pesa</span>
+                        </a>
+                    </div>
+                    <div class="nav-item">
                         <a href="analytics.php" class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'analytics.php' ? 'active' : ''; ?>">
                             <i class="fas fa-chart-bar"></i>
                             <span>Analytics</span>
@@ -515,7 +522,7 @@ if (!isset($_SESSION['admin_id'])) {
             <!-- Top Bar -->
             <header class="admin-topbar">
                 <div class="topbar-left">
-                    <button class="sidebar-toggle" id="sidebarToggle">
+                    <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar" aria-expanded="false">
                         <i class="fas fa-bars"></i>
                     </button>
                     <h1 class="page-title"><?php echo isset($page_title) ? $page_title : 'Dashboard'; ?></h1>

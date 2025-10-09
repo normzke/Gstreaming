@@ -154,8 +154,8 @@ $faq_data = SEO::getFAQData();
                 </div>
                 
                 <div class="hero-actions">
-                    <a href="package-selection.php" class="btn btn-primary btn-large">Choose Your Plan</a>
-                    <a href="channels.php" class="btn btn-secondary btn-large">Browse Channels</a>
+                    <a href="/user/subscriptions/subscribe.php" class="btn btn-primary btn-large">Choose Your Plan</a>
+                    <a href="/user/channels.php" class="btn btn-secondary btn-large">Browse Channels</a>
                 </div>
             </div>
         </div>

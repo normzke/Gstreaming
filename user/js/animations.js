@@ -307,3 +307,5 @@ window.BingeTVAnimations = {
     initRippleEffect,
     initLoadingAnimation
 };
+
+

@@ -1,12 +1,12 @@
 <?php
-require_once '../../config/config.php';
-require_once '../../config/database.php';
-require_once '../../lib/functions.php';
-require_once '../../lib/mpesa_integration.php';
+require_once __DIR__ . '/../../config/config.php';
+require_once __DIR__ . '/../../config/database.php';
+require_once __DIR__ . '/../../lib/functions.php';
+require_once __DIR__ . '/../../lib/mpesa_integration.php';
 
 // Check if user is logged in
 if (!isLoggedIn()) {
-    header('Location: ../login.php');
+    header('Location: ../../login.php');
     exit();
 }
 
@@ -393,9 +393,34 @@ $payment = $paymentStmt->fetch();
                 <input type="hidden" name="action" value="initiate_mpesa">
                 <button type="submit" class="btn btn-primary">
                     <i class="fas fa-mobile-alt"></i>
-                    Pay with M-PESA
+                    Pay with M-PESA (Automatic)
                 </button>
             </form>
+            
+            <div style="text-align: center; margin: 1.5rem 0; color: #666;">
+                <strong>OR</strong>
+            </div>
+            
+            <div style="background: #fff3cd; border-left: 4px solid #ffc107; padding: 1.5rem; margin: 1.5rem 0; border-radius: 8px;">
+                <h4 style="margin: 0 0 1rem 0; color: #856404;">
+                    <i class="fas fa-university"></i> Manual Payment Option
+                </h4>
+                <div style="background: white; padding: 1rem; border-radius: 4px; margin-bottom: 1rem;">
+                    <p style="margin: 0.25rem 0; color: #333;"><strong>Bank:</strong> The Family Bank</p>
+                    <p style="margin: 0.25rem 0; color: #333;"><strong>Paybill Number:</strong> <span style="color: #8B0000; font-size: 1.2em; font-weight: bold;">222111</span></p>
+                    <p style="margin: 0.25rem 0; color: #333;"><strong>Account Number:</strong> <span style="color: #8B0000; font-size: 1.2em; font-weight: bold;">085000092737</span></p>
+                    <p style="margin: 0.5rem 0 0 0; color: #666; font-size: 0.85em;">
+                        <i class="fas fa-info-circle"></i> Go to M-Pesa → Pay Bill → Enter details above
+                    </p>
+                </div>
+                <a href="submit-mpesa.php?payment_id=<?php echo $paymentId; ?>" class="btn btn-secondary" style="width: 100%; display: inline-block; text-align: center; padding: 1rem; background: #6c757d; color: white; text-decoration: none; border-radius: 8px;">
+                    <i class="fas fa-paste"></i>
+                    Already Paid? Submit M-PESA Confirmation
+                </a>
+                <p style="font-size: 0.9rem; color: #666; margin-top: 0.5rem; text-align: center;">
+                    After paying to the account above, paste your M-Pesa confirmation message
+                </p>
+            </div>
         <?php elseif ($payment['status'] === 'pending' && $payment['mpesa_checkout_request_id']): ?>
             <div class="mpesa-instructions">
                 <h4><i class="fas fa-clock"></i> Payment in Progress</h4>

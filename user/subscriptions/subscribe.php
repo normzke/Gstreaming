@@ -1,16 +1,17 @@
 <?php
-require_once '../../config/config.php';
-require_once '../../config/database.php';
-require_once '../../lib/functions.php';
+require_once __DIR__ . '/../../config/config.php';
+require_once __DIR__ . '/../../config/database.php';
+require_once __DIR__ . '/../../lib/functions.php';
 
 $db = new Database();
 $conn = $db->getConnection();
 
-// Get selected package
+// Read inputs and persist selection
 $package_id = isset($_GET['package']) ? (int)$_GET['package'] : 0;
-$package = null;
-// selections from homepage
-$selectedDevices = isset($_SESSION['selected_devices']) ? (int)$_SESSION['selected_devices'] : 1;
+$selectedDevices = isset($_GET['devices']) ? (int)$_GET['devices'] : (isset($_SESSION['selected_devices']) ? (int)$_SESSION['selected_devices'] : 1);
+$_SESSION['selected_devices'] = max(1, $selectedDevices);
+
+// Default months to 1; duration is taken from package for pricing
 $selectedMonths = isset($_SESSION['selected_months']) ? (int)$_SESSION['selected_months'] : 1;
 
 if ($package_id > 0) {
@@ -21,15 +22,46 @@ if ($package_id > 0) {
 }
 
 if (!$package) {
-    header('Location: index.php');
-                exit();
+    header('Location: /');
+    exit();
 }
 
-// Compute pricing based on selections
-$minDevices = (int)($package['max_devices'] ?? 1);
-$extraDevices = max(0, $selectedDevices - $minDevices);
-$perMonth = (float)$package['price'] + ($extraDevices * 500);
-$totalPrice = $perMonth * max(1, $selectedMonths);
+// Redirect unauthenticated users to login, preserving intended destination
+if (!isLoggedIn()) {
+    $_SESSION['post_login_redirect'] = "user/subscriptions/subscribe.php?package=" . $package_id . "&devices=" . $_SESSION['selected_devices'];
+    header('Location: ../../login.php');
+    exit();
+}
+
+// Fixed Pricing Table - matches exactly what admin sees
+require_once __DIR__ . '/../../lib/pricing.php';
+
+// Get package duration in months
+$packageMonths = round($package['duration_days'] / 30);
+
+// Enforce device limits (1-3 devices only)
+$maxAllowedDevices = 3;
+$deviceLimitMessage = "Maximum 3 devices per package. For more devices, please contact us for a custom package.";
+
+if ($selectedDevices > $maxAllowedDevices) {
+    $selectedDevices = $maxAllowedDevices;
+    $_SESSION['device_limit_warning'] = $deviceLimitMessage;
+}
+
+if ($selectedDevices < 1) {
+    $selectedDevices = 1;
+}
+
+// Get price from fixed pricing table
+$totalPrice = PricingCalculator::getPackagePrice($package['duration_days'], $selectedDevices);
+
+// Fallback if price not found
+if (!$totalPrice) {
+    $totalPrice = $package['price'] * $packageMonths;
+}
+
+// Calculate per month for display
+$perMonth = $totalPrice / $packageMonths;
 
 // Get package channels
 $channelsQuery = "SELECT c.* FROM channels c 
@@ -338,7 +370,34 @@ include '../includes/header.php';
                                     </button>
                                     <button type="button" class="btn btn-primary btn-lg" onclick="initiatePayment()">
                                         <i class="fas fa-mobile-alt"></i>
-                                        Pay with M-PESA
+                                        Pay with M-PESA (Automatic)
+                                    </button>
+                                </div>
+                                
+                                <!-- Manual Payment Option -->
+                                <div style="margin-top: 2rem; padding-top: 2rem; border-top: 2px dashed #e0e0e0;">
+                                    <div style="text-align: center; margin-bottom: 1.5rem;">
+                                        <p style="color: #666; font-weight: 600;">OR</p>
+                                    </div>
+                                    
+                                    <div style="background: #fff3cd; border-left: 4px solid #ffc107; padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem;">
+                                        <h4 style="margin: 0 0 1rem 0; color: #856404;">
+                                            <i class="fas fa-university"></i> Manual Payment Option
+                                        </h4>
+                                        <div style="background: white; padding: 1rem; border-radius: 6px; margin-bottom: 1rem;">
+                                            <p style="margin: 0.25rem 0; color: #333;"><strong>Bank:</strong> The Family Bank</p>
+                                            <p style="margin: 0.25rem 0; color: #333;"><strong>Paybill Number:</strong> <span style="color: #8B0000; font-size: 1.3em; font-weight: bold;">222111</span></p>
+                                            <p style="margin: 0.25rem 0; color: #333;"><strong>Account Number:</strong> <span style="color: #8B0000; font-size: 1.3em; font-weight: bold;">085000092737</span></p>
+                                            <p style="margin: 0.25rem 0; color: #333;"><strong>Amount:</strong> <span style="color: #8B0000; font-size: 1.3em; font-weight: bold;">KES <?php echo number_format($totalPrice, 0); ?></span></p>
+                                        </div>
+                                        <p style="margin: 0; color: #856404; font-size: 0.9rem;">
+                                            <i class="fas fa-info-circle"></i> Go to M-Pesa → Lipa Na M-Pesa → Pay Bill → Enter details above
+                                        </p>
+                                    </div>
+                                    
+                                    <button type="button" class="btn btn-secondary btn-lg" onclick="proceedToManualPayment()" style="width: 100%; background: #6c757d;">
+                                        <i class="fas fa-paste"></i>
+                                        Already Paid? Submit M-PESA Confirmation
                                     </button>
                                 </div>
                             </div>
@@ -774,7 +833,97 @@ include '../includes/header.php';
         };
         
         const userData = <?php echo $user ? json_encode($user) : 'null'; ?>;
+        
+        // Manual payment function
+        function proceedToManualPayment() {
+            // Create payment record first, then redirect to manual submission
+            window.location.href = '../payments/submit-mpesa.php?package_id=<?php echo $package_id; ?>&amount=<?php echo $totalPrice; ?>&devices=<?php echo $selectedDevices; ?>';
+        }
     </script>
+    
+    <style>
+    /* Mobile Responsive Styles for Subscribe Page */
+    @media (max-width: 1024px) {
+        .package-details {
+            grid-template-columns: 1fr !important;
+        }
+        
+        .payment-section {
+            grid-template-columns: 1fr !important;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .subscription-page {
+            padding: 1rem !important;
+        }
+        
+        .package-overview,
+        .subscription-steps {
+            margin: 0 0.5rem 2rem !important;
+        }
+        
+        .step-indicator {
+            flex-wrap: wrap !important;
+            gap: 0.5rem !important;
+        }
+        
+        .step {
+            flex: 1 1 calc(50% - 0.5rem) !important;
+            min-width: 120px !important;
+        }
+        
+        .step-label {
+            font-size: 0.8rem !important;
+        }
+        
+        .channels-grid {
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)) !important;
+        }
+        
+        .payment-actions {
+            flex-direction: column !important;
+            gap: 1rem !important;
+        }
+        
+        .payment-actions .btn {
+            width: 100% !important;
+        }
+        
+        .auth-tabs {
+            flex-direction: column !important;
+        }
+        
+        .auth-tab {
+            width: 100% !important;
+        }
+    }
+    
+    @media (max-width: 480px) {
+        .package-header h1 {
+            font-size: 1.5rem !important;
+        }
+        
+        .step-number {
+            width: 30px !important;
+            height: 30px !important;
+            font-size: 0.9rem !important;
+        }
+        
+        .btn-lg {
+            font-size: 1rem !important;
+            padding: 0.75rem 1.5rem !important;
+        }
+        
+        .payment-summary {
+            padding: 1rem !important;
+        }
+        
+        .summary-row {
+            font-size: 0.9rem !important;
+        }
+    }
+    </style>
 </body>
 </html>
 

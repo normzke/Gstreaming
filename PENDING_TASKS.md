@@ -146,3 +146,5 @@ SELECT * FROM packages;
 - **Remote Path**: public_html/bingetv/
 - **Domain**: bingetv.co.ke
 - **Database**: PostgreSQL (configured in config/config.php)
+
+
