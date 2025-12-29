@@ -1,0 +1,26 @@
+{
+  "id": "com.bingetv.app",
+  "version": "1.0.0",
+  "vendor": "BingeTV",
+  "type": "web",
+  "main": "index.html",
+  "title": "BingeTV",
+  "icon": "icon.png",
+  "largeIcon": "icon.png",
+  "bgImage": "bg.png",
+  "splashBackground": "bg.png",
+  "bgColor": "#000000",
+  "iconColor": "#00A8FF",
+  "handlesRelaunch": true,
+  "disableBackHistoryAPI": true,
+  "requiredMemory": 50,
+  "resolution": "1920x1080",
+  "appSize": 5,
+  "noWindow": false,
+  "trustLevel": "trusted",
+  "accessibility": {
+    "supportsAudioGuidance": false
+  },
+  "uiRevision": 2
+}
+

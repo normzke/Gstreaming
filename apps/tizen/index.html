@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>BingeTV</title>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+
+<body>
+    <div class="splash-screen" id="splashScreen">
+        <img src="icon.png" alt="BingeTV" class="logo">
+        <h1>BingeTV</h1>
+        <p>Professional IPTV Player</p>
+        <div class="loading"></div>
+    </div>
+
+    <div class="login-screen" id="loginScreen" style="display: none;">
+        <div class="login-container">
+            <img src="icon.png" alt="BingeTV" class="logo-small">
+            <h1>BingeTV</h1>
+            <p class="subtitle">Add Your Playlist</p>
+
+            <div class="tab-group">
+                <button class="tab-button active" onclick="showTab('m3u')">M3U URL</button>
+                <button class="tab-button" onclick="showTab('xtream')">Xtream Codes</button>
+            </div>
+
+            <div id="m3uTab" class="tab-content">
+                <input type="text" id="m3uUrl" placeholder="Enter M3U URL" class="input-field">
+                <button onclick="loadM3uPlaylist()" class="btn-primary">Load Playlist</button>
+            </div>
+
+            <div id="xtreamTab" class="tab-content" style="display: none;">
+                <input type="text" id="serverUrl" placeholder="Server URL (http://example.com:8080)"
+                    class="input-field">
+                <input type="text" id="username" placeholder="Username" class="input-field">
+                <input type="password" id="password" placeholder="Password" class="input-field">
+                <button onclick="loadXtreamPlaylist()" class="btn-primary">Connect</button>
+            </div>
+
+            <label class="checkbox-label">
+                <input type="checkbox" id="rememberMe">
+                Remember me (Auto-login)
+            </label>
+
+            <div id="errorMessage" class="error-message" style="display: none;"></div>
+            <div id="loadingMessage" class="loading-message" style="display: none;">Loading...</div>
+        </div>
+    </div>
+
+    <script src="js/storage.js"></script>
+    <script src="js/parser.js"></script>
+    <script src="js/xtream.js"></script>
+    <script src="js/app.js"></script>
+</body>
+
+</html>

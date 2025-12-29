@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BingeTV - Platform Detection Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 40px;
+            background: #f5f5f5;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #8B0000;
+        }
+
+        .info {
+            background: #f0f0f0;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            font-family: monospace;
+        }
+
+        .button {
+            background: #8B0000;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px;
+        }
+
+        .button:hover {
+            background: #660000;
+        }
+
+        .success {
+            color: green;
+            font-weight: bold;
+        }
+
+        .error {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>🔍 BingeTV Platform Detection Test</h1>
+
+        <h2>Your Device Information:</h2>
+        <div class="info" id="userAgent"></div>
+
+        <h2>Detected Platform:</h2>
+        <div class="info" id="platform"></div>
+
+        <h2>Download Prompt Status:</h2>
+        <div class="info" id="promptStatus"></div>
+
+        <h2>Actions:</h2>
+        <button class="button" onclick="clearDismissed()">Clear Dismissed Status</button>
+        <button class="button" onclick="testPrompt()">Test Download Prompt</button>
+        <button class="button" onclick="location.href='/'">Go to Homepage</button>
+
+        <h2>Download Links:</h2>
+        <div id="downloadLinks"></div>
+    </div>
+
+    <script>
+        // Display User Agent
+        document.getElementById('userAgent').textContent = navigator.userAgent;
+
+        // Detect Platform
+        function detectPlatform() {
+            const ua = navigator.userAgent.toLowerCase();
+            const platform = {
+                isAndroidTV: (ua.indexOf('android') !== -1 && (ua.indexOf('tv') !== -1 || ua.indexOf('smart-tv') !== -1 || ua.indexOf('aft') !== -1)),
+                isWebOS: (ua.indexOf('webos') !== -1 || ua.indexOf('lg') !== -1),
+                isTizen: (ua.indexOf('tizen') !== -1 || (ua.indexOf('samsung') !== -1 && ua.indexOf('smart-tv') !== -1)),
+                isTV: (ua.indexOf('tv') !== -1 || ua.indexOf('smart-tv') !== -1 || ua.indexOf('smarttv') !== -1)
+            };
+
+            if (platform.isAndroidTV) return 'android';
+            if (platform.isWebOS) return 'webos';
+            if (platform.isTizen) return 'tizen';
+            if (platform.isTV) return 'tv';
+            return 'unknown';
+        }
+
+        const detectedPlatform = detectPlatform();
+        const platformEl = document.getElementById('platform');
+
+        if (detectedPlatform === 'unknown') {
+            platformEl.innerHTML = '<span class="error">❌ NOT DETECTED - Not a TV browser</span>';
+        } else {
+            platformEl.innerHTML = '<span class="success">✅ ' + detectedPlatform.toUpperCase() + ' DETECTED!</span>';
+        }
+
+        // Check if dismissed
+        const dismissed = localStorage.getItem('bingetv_download_dismissed');
+        const statusEl = document.getElementById('promptStatus');
+        if (dismissed) {
+            statusEl.innerHTML = '<span class="error">⚠️ DISMISSED for platform: ' + dismissed + '</span>';
+        } else {
+            statusEl.innerHTML = '<span class="success">✅ Ready to show</span>';
+        }
+
+        // Show download links
+        const downloadUrls = {
+            'android': '/apps/android/bingetv-android-tv.apk',
+            'webos': '/apps/webos/com.bingetv.app_1.0.0_all.ipk',
+            'tizen': '/apps/tizen/com.bingetv.app-1.0.0.tpk'
+        };
+
+        let linksHTML = '';
+        if (detectedPlatform !== 'unknown' && detectedPlatform !== 'tv') {
+            linksHTML = `<a href="${downloadUrls[detectedPlatform]}" class="button" download>Download ${detectedPlatform.toUpperCase()} App</a>`;
+        } else {
+            linksHTML = '<p>No specific app detected for your platform. Visit from a TV browser to see download links.</p>';
+        }
+        document.getElementById('downloadLinks').innerHTML = linksHTML;
+
+        function clearDismissed() {
+            localStorage.removeItem('bingetv_download_dismissed');
+            alert('✅ Dismissed status cleared! Refresh the page or go to homepage to see the prompt.');
+            location.reload();
+        }
+
+        function testPrompt() {
+            if (detectedPlatform === 'unknown' || detectedPlatform === 'tv') {
+                alert('❌ Cannot show prompt - not a supported TV platform');
+                return;
+            }
+            alert('✅ Platform detected: ' + detectedPlatform.toUpperCase() + '\n\nRedirecting to homepage to show prompt...');
+            localStorage.removeItem('bingetv_download_dismissed');
+            location.href = '/';
+        }
+    </script>
+</body>
+
+</html>

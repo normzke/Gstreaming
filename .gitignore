@@ -11,10 +11,6 @@ public/uploads/*
 .env.local
 .env.production
 
-# Database files
-*.sql
-*.db
-
 # Log files
 *.log
 

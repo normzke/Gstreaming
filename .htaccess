@@ -9,18 +9,26 @@ RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
 
 # Root directory - serve public/index.php
 RewriteRule ^$ public/index.php [L]
-RewriteRule ^index\.php$ public/index.php [L]
 
 # Allow direct access to portals and their assets
-# /user/, /admin/, /api/, /public/ should work as-is
+# /user/, /admin/, /api/ should work as-is
 RewriteCond %{REQUEST_FILENAME} -f [OR]
 RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^ - [L]
 
-# Route clean URLs to public directory
-# /register.php -> /public/register.php
+# Route static assets to public directory
+RewriteRule ^(css|js|images|assets|gateway|apps)/(.*)$ public/$1/$2 [L]
+
+# Remove .php extension - check if file exists in public/
+RewriteCond %{DOCUMENT_ROOT}/public/$1.php -f
+RewriteRule ^([^/]+)/?$ public/$1.php [L]
+
+# Redirect .php URLs to clean URLs
+RewriteCond %{THE_REQUEST} \s/+(.+?)\.php[\s?] [NC]
+RewriteRule ^ /%1 [R=301,L]
+
+# Fallback for .php files
 RewriteRule ^([^/]+\.php)$ public/$1 [L]
-RewriteRule ^(css|js|images|gateway)/(.*)$ public/$1/$2 [L]
 
 # Prevent directory listing
 Options -Indexes
@@ -29,4 +37,14 @@ Options -Indexes
 <IfModule mod_headers.c>
     Header set X-Content-Type-Options "nosniff"
     Header set X-Frame-Options "SAMEORIGIN"
+    Header set X-XSS-Protection "1; mode=block"
+</IfModule>
+
+# Cache control for static assets
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType text/css "access plus 1 week"
+    ExpiresByType application/javascript "access plus 1 week"
+    ExpiresByType image/png "access plus 1 month"
+    ExpiresByType image/jpeg "access plus 1 month"
 </IfModule>

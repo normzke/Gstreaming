@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">BingeTV</string>
+    
+    <!-- Existing -->
+    <string name="browse_title">Channels</string>
+    <string name="error_message">An error occurred</string>
+    <string name="dismiss_error">Dismiss</string>
+    <string name="load_playlist">Load Playlist</string>
+    <string name="playlist_url">Playlist URL</string>
+    <string name="enter_playlist_url">Enter M3U playlist URL</string>
+    <string name="load">Load</string>
+    <string name="cancel">Cancel</string>
+    <string name="no_channels">No channels available</string>
+    <string name="loading">Loading...</string>
+    <string name="play">Play</string>
+    <string name="pause">Pause</string>
+    <string name="buffering">Buffering...</string>
+    
+    <!-- Login -->
+    <string name="add_playlist">Add Your Playlist</string>
+    <string name="m3u_url">M3U URL</string>
+    <string name="xtream_codes">Xtream Codes</string>
+    <string name="enter_m3u_url">Enter M3U URL</string>
+    <string name="server_url">Server URL</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="connect">Connect</string>
+    <string name="remember_me">Remember me (Auto-login)</string>
+    
+    <!-- Main -->
+    <string name="all_channels">All Channels</string>
+    <string name="favorites">Favorites</string>
+    <string name="search">Search</string>
+    <string name="settings">Settings</string>
+    <string name="loading_channels">Loading channels…</string>
+    
+    <!-- Player -->
+    <string name="now_playing">Now Playing</string>
+    <string name="next_program">Next</string>
+    
+    <!-- Settings -->
+    <string name="general">General</string>
+    <string name="playback">Playback</string>
+    <string name="parental_control">Parental Control</string>
+    <string name="account">Account</string>
+    <string name="about">About</string>
+    
+    <!-- Errors -->
+    <string name="error_loading">Error loading data</string>
+    <string name="error_no_connection">No internet connection</string>
+    <string name="error_invalid_url">Invalid URL</string>
+    <string name="error_auth_failed">Authentication failed</string>
+</resources>

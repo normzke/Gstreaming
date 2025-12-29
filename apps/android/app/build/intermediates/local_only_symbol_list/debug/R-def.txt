@@ -1,0 +1,31 @@
+R_DEF: Internal format may change without notice
+local
+color ic_launcher_background
+color lb_background
+color lb_default_brand_color
+color lb_tv_white_transparent_50
+drawable app_banner
+drawable icon
+id cancel_button
+id load_button
+id main_browse_fragment
+id playlist_url_edit
+layout activity_main
+layout dialog_playlist_input
+mipmap ic_launcher
+string app_name
+string browse_title
+string buffering
+string cancel
+string dismiss_error
+string enter_playlist_url
+string error_message
+string load
+string load_playlist
+string loading
+string no_channels
+string pause
+string play
+string playlist_url
+style Theme.Leanback
+xml network_security_config

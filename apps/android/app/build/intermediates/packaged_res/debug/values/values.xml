@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="ic_launcher_background">#000000</color>
+    <color name="lb_background">#303030</color>
+    <color name="lb_default_brand_color">#009688</color>
+    <color name="lb_tv_white_transparent_50">#80FFFFFF</color>
+    <string name="app_name">BingeTV</string>
+    <string name="browse_title">Channels</string>
+    <string name="buffering">Buffering...</string>
+    <string name="cancel">Cancel</string>
+    <string name="dismiss_error">Dismiss</string>
+    <string name="enter_playlist_url">Enter M3U playlist URL</string>
+    <string name="error_message">An error occurred</string>
+    <string name="load">Load</string>
+    <string name="load_playlist">Load Playlist</string>
+    <string name="loading">Loading...</string>
+    <string name="no_channels">No channels available</string>
+    <string name="pause">Pause</string>
+    <string name="play">Play</string>
+    <string name="playlist_url">Playlist URL</string>
+    <style name="Theme.Leanback" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@color/lb_background</item>
+        <item name="android:colorPrimary">@color/lb_default_brand_color</item>
+    </style>
+</resources>

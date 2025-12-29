@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>BingeTV - Channels</title>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+
+<body>
+    <div class="main-screen">
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <img src="icon.png" alt="BingeTV" class="logo-tiny">
+            <h2>BingeTV</h2>
+            <div class="top-bar-actions">
+                <button onclick="showSearch()" class="icon-btn" title="Search">🔍</button>
+                <button onclick="showFavorites()" class="icon-btn" title="Favorites">⭐</button>
+                <button onclick="showSettings()" class="icon-btn" title="Settings">⚙️</button>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Category Sidebar -->
+            <div class="category-sidebar" id="categorySidebar">
+                <div class="category-item active" data-category="all" onclick="filterByCategory('all')">
+                    All Channels
+                </div>
+                <div class="category-item" data-category="favorites" onclick="filterByCategory('favorites')">
+                    ⭐ Favorites
+                </div>
+                <!-- Dynamic categories will be added here -->
+            </div>
+
+            <!-- Channel Grid -->
+            <div class="channel-grid-container">
+                <div id="channelGrid" class="channel-grid">
+                    <!-- Channels will be dynamically added here -->
+                </div>
+                <div id="loadingView" class="loading-view" style="display: none;">
+                    <div class="loading"></div>
+                    <p>Loading channels...</p>
+                </div>
+                <div id="errorView" class="error-view" style="display: none;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Search Modal -->
+    <div id="searchModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <h2>Search Channels</h2>
+            <input type="text" id="searchInput" placeholder="Search..." class="input-field" oninput="performSearch()">
+            <div id="searchResults" class="channel-grid"></div>
+            <button onclick="closeSearch()" class="btn-secondary">Close</button>
+        </div>
+    </div>
+
+    <!-- Context Menu -->
+    <div id="contextMenu" class="modal" style="display: none;">
+        <div class="modal-content context-menu">
+            <img id="contextLogo" src="" alt="Channel" class="context-logo">
+            <h3 id="contextName"></h3>
+            <p id="contextCategory"></p>
+            <button onclick="playFromContext()" class="btn-primary">Play Now</button>
+            <button id="contextFavoriteBtn" onclick="toggleFavoriteFromContext()" class="btn-secondary"></button>
+            <button onclick="closeContextMenu()" class="btn-secondary">Close</button>
+        </div>
+    </div>
+
+    <script src="js/storage.js"></script>
+    <script src="js/parser.js"></script>
+    <script src="js/xtream.js"></script>
+    <script src="js/favorites.js"></script>
+    <script src="js/search.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>

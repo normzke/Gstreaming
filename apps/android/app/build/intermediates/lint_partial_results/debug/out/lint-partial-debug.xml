@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<incidents format="6" by="lint 8.1.0" type="partial_results">
+    <map id="UnsafeIntentLaunch">
+            <map id="unprotected">
+                <entry
+                    name="com.bingetv.app.MainActivity"
+                    boolean="true"/>
+            </map>
+    </map>
+    <map id="NotificationPermission">
+        <entry
+            name="className"
+            string="com/google/android/exoplayer2/offline/DownloadService$ForegroundNotificationUpdater"/>
+        <location id="class"
+            file="$GRADLE_USER_HOME/caches/transforms-3/b89a2e7cfa47c6a6d2b1a30de5dd5fbc/transformed/jetified-exoplayer-core-2.19.1/jars/classes.jar"/>
+    </map>
+    <map id="UnusedResources">
+        <location id="R.string.pause"
+            file="${:app*debug*sourceProvider*0*resDir*0}/values/strings.xml"
+            line="15"
+            column="13"
+            startOffset="675"
+            endLine="15"
+            endColumn="25"
+            endOffset="687"/>
+        <location id="R.string.error_message"
+            file="${:app*debug*sourceProvider*0*resDir*0}/values/strings.xml"
+            line="5"
+            column="13"
+            startOffset="158"
+            endLine="5"
+            endColumn="33"
+            endOffset="178"/>
+        <location id="R.string.no_channels"
+            file="${:app*debug*sourceProvider*0*resDir*0}/values/strings.xml"
+            line="12"
+            column="13"
+            startOffset="528"
+            endLine="12"
+            endColumn="31"
+            endOffset="546"/>
+        <location id="R.string.load_playlist"
+            file="${:app*debug*sourceProvider*0*resDir*0}/values/strings.xml"
+            line="7"
+            column="13"
+            startOffset="268"
+            endLine="7"
+            endColumn="33"
+            endOffset="288"/>
+        <location id="R.string.loading"
+            file="${:app*debug*sourceProvider*0*resDir*0}/values/strings.xml"
+            line="13"
+            column="13"
+            startOffset="590"
+            endLine="13"
+            endColumn="27"
+            endOffset="604"/>
+        <location id="R.string.browse_title"
+            file="${:app*debug*sourceProvider*0*resDir*0}/values/strings.xml"
+            line="4"
+            column="13"
+            startOffset="108"
+            endLine="4"
+            endColumn="32"
+            endOffset="127"/>
+        <entry
+            name="model"
+            string="color[lb_background(U),lb_tv_white(R),ic_launcher_background(U),lb_default_brand_color(U),lb_tv_white_transparent_50(U)],drawable[icon(U),app_banner(U)],id[cancel_button(U),load_button(U),playlist_url_edit(U),main_browse_fragment(U)],layout[dialog_playlist_input(U),activity_main(U)],mipmap[ic_launcher(U)],string[cancel(U),error_message(D),dismiss_error(D),play(D),no_channels(D),buffering(D),loading(D),browse_title(D),pause(D),app_name(U),load(U),playlist_url(U),load_playlist(D),enter_playlist_url(U)],style[Theme_AppCompat_NoActionBar(R),Theme_Leanback(U)],xml[network_security_config(U)];b^0^1b^1^19^4^e^18,d^2^5,1d^1c^0^3;;;"/>
+        <location id="R.string.buffering"
+            file="${:app*debug*sourceProvider*0*resDir*0}/values/strings.xml"
+            line="16"
+            column="13"
+            startOffset="715"
+            endLine="16"
+            endColumn="29"
+            endOffset="731"/>
+        <location id="R.string.dismiss_error"
+            file="${:app*debug*sourceProvider*0*resDir*0}/values/strings.xml"
+            line="6"
+            column="13"
+            startOffset="218"
+            endLine="6"
+            endColumn="33"
+            endOffset="238"/>
+        <location id="R.string.play"
+            file="${:app*debug*sourceProvider*0*resDir*0}/values/strings.xml"
+            line="14"
+            column="13"
+            startOffset="637"
+            endLine="14"
+            endColumn="24"
+            endOffset="648"/>
+    </map>
+
+</incidents>

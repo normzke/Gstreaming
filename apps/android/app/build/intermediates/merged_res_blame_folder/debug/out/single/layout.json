@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "com.bingetv.app-mergeDebugResources-39:/layout/activity_main.xml",
+        "source": "com.bingetv.app-main-42:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.bingetv.app-mergeDebugResources-39:/layout/dialog_playlist_input.xml",
+        "source": "com.bingetv.app-main-42:/layout/dialog_playlist_input.xml"
+    }
+]

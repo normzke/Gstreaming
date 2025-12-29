@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_primary"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="60dp"
+        android:gravity="center_horizontal">
+
+        <!-- Logo -->
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:src="@drawable/ic_launcher"
+            android:contentDescription="@string/app_name"
+            android:layout_marginBottom="24dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:textSize="40sp"
+            android:textColor="@color/bingetv_red"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add Your Playlist"
+            android:textSize="20sp"
+            android:textColor="@color/text_secondary"
+            android:layout_marginBottom="40dp" />
+
+        <!-- Tab Selection -->
+        <RadioGroup
+            android:id="@+id/tab_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="32dp">
+
+            <RadioButton
+                android:id="@+id/tab_m3u"
+                android:layout_width="200dp"
+                android:layout_height="60dp"
+                android:text="M3U URL"
+                android:textSize="20sp"
+                android:textColor="@color/text_primary"
+                android:buttonTint="@color/bingetv_red"
+                android:checked="true"
+                android:layout_marginEnd="20dp" />
+
+            <RadioButton
+                android:id="@+id/tab_xtream"
+                android:layout_width="200dp"
+                android:layout_height="60dp"
+                android:text="Xtream Codes"
+                android:textSize="20sp"
+                android:textColor="@color/text_primary"
+                android:buttonTint="@color/bingetv_red" />
+
+        </RadioGroup>
+
+        <!-- M3U Layout -->
+        <LinearLayout
+            android:id="@+id/m3u_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <EditText
+                android:id="@+id/m3u_url_input"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:hint="Enter M3U URL"
+                android:textSize="20sp"
+                android:textColor="@color/text_primary"
+                android:textColorHint="@color/text_muted"
+                android:background="@color/background_card"
+                android:padding="20dp"
+                android:inputType="textUri"
+                android:imeOptions="actionDone"
+                android:layout_marginBottom="20dp" />
+
+            <Button
+                android:id="@+id/m3u_load_button"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:text="Load Playlist"
+                android:textSize="22sp"
+                android:textColor="@color/text_primary"
+                android:background="@color/bingetv_red"
+                android:focusable="true"
+                android:focusableInTouchMode="true" />
+
+        </LinearLayout>
+
+        <!-- Xtream Layout -->
+        <LinearLayout
+            android:id="@+id/xtream_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <EditText
+                android:id="@+id/server_url_input"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:hint="Server URL (http://example.com:8080)"
+                android:textSize="20sp"
+                android:textColor="@color/text_primary"
+                android:textColorHint="@color/text_muted"
+                android:background="@color/background_card"
+                android:padding="20dp"
+                android:inputType="textUri"
+                android:layout_marginBottom="16dp" />
+
+            <EditText
+                android:id="@+id/username_input"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:hint="Username"
+                android:textSize="20sp"
+                android:textColor="@color/text_primary"
+                android:textColorHint="@color/text_muted"
+                android:background="@color/background_card"
+                android:padding="20dp"
+                android:inputType="text"
+                android:layout_marginBottom="16dp" />
+
+            <EditText
+                android:id="@+id/password_input"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:hint="Password"
+                android:textSize="20sp"
+                android:textColor="@color/text_primary"
+                android:textColorHint="@color/text_muted"
+                android:background="@color/background_card"
+                android:padding="20dp"
+                android:inputType="textPassword"
+                android:layout_marginBottom="20dp" />
+
+            <Button
+                android:id="@+id/xtream_load_button"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:text="Connect"
+                android:textSize="22sp"
+                android:textColor="@color/text_primary"
+                android:background="@color/bingetv_red"
+                android:focusable="true"
+                android:focusableInTouchMode="true" />
+
+        </LinearLayout>
+
+        <!-- Remember Me -->
+        <CheckBox
+            android:id="@+id/remember_me_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Remember me (Auto-login)"
+            android:textSize="18sp"
+            android:textColor="@color/text_secondary"
+            android:buttonTint="@color/bingetv_red"
+            android:layout_marginTop="24dp" />
+
+        <!-- Progress Bar -->
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:indeterminateTint="@color/bingetv_red"
+            android:visibility="gone" />
+
+        <!-- Error Text -->
+        <TextView
+            android:id="@+id/error_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textColor="@color/error"
+            android:layout_marginTop="16dp"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+</ScrollView>
