@@ -1669,9 +1669,9 @@ $faq_data = SEO::getFAQData();
                 <div class="footer-bottom-content">
                     <p>&copy; <?php echo date('Y'); ?> BingeTV. All rights reserved.</p>
                     <div class="footer-bottom-links">
-                        <a href="privacy.php">Privacy Policy</a>
-                        <a href="terms.php">Terms of Service</a>
-                        <a href="refund.php">Refund Policy</a>
+                        <a href="/privacy">Privacy Policy</a>
+                        <a href="/terms">Terms of Service</a>
+                        <a href="/refund">Refund Policy</a>
                     </div>
                 </div>
             </div>
