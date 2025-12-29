@@ -92,6 +92,7 @@ $faq_data = SEO::getFAQData();
     <!-- CSS -->
     <link rel="stylesheet" href="css/main.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/responsive-fixes.css?v=<?php echo time(); ?>">
 
     <!-- Inline CSS for visibility fixes -->
     <style>

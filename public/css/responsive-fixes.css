@@ -1,0 +1,161 @@
+/* BingeTV - Responsive Fixes for Index Page */
+/* Add this to fix responsive issues on mobile/tablet */
+
+/* Fix grid layouts on mobile */
+@media (max-width: 768px) {
+
+    /* Hero section */
+    .hero-section {
+        padding: 2rem 1rem !important;
+        min-height: auto !important;
+    }
+
+    .hero-content {
+        text-align: center;
+    }
+
+    .title-main {
+        font-size: 2rem !important;
+    }
+
+    .title-sub {
+        font-size: 1.25rem !important;
+    }
+
+    /* Stats grid */
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 1rem !important;
+    }
+
+    /* Features grid */
+    .features-grid,
+    [style*="grid-template-columns"] {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Packages grid */
+    .packages-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Download buttons grid */
+    div[style*="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr))"] {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Navigation */
+    .nav-container {
+        padding: 1rem !important;
+    }
+
+    .nav-menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--bg-dark);
+        flex-direction: column;
+        padding: 1rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Buttons */
+    .btn-primary,
+    .btn-secondary {
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* Cards */
+    .package-card,
+    .feature-card,
+    .device-card {
+        margin-bottom: 1rem;
+    }
+
+    /* Spacing */
+    section {
+        padding: 2rem 1rem !important;
+    }
+
+    .container {
+        padding: 0 1rem !important;
+    }
+
+    /* Text sizes */
+    h1 {
+        font-size: 2rem !important;
+    }
+
+    h2 {
+        font-size: 1.75rem !important;
+    }
+
+    h3 {
+        font-size: 1.5rem !important;
+    }
+
+    /* Images */
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+}
+
+/* Tablet adjustments */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    .features-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    .packages-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    div[style*="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr))"] {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+}
+
+/* Small mobile devices */
+@media (max-width: 480px) {
+    .stats-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    .title-main {
+        font-size: 1.75rem !important;
+    }
+
+    .title-sub {
+        font-size: 1.1rem !important;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+        padding: 0.75rem 1rem !important;
+        font-size: 0.9rem !important;
+    }
+}
+
+/* Fix overflow issues */
+* {
+    max-width: 100%;
+}
+
+.container,
+.section {
+    overflow-x: hidden;
+}
+
+/* Ensure proper box-sizing */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
