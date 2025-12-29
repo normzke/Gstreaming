@@ -1,10 +1,42 @@
 [
     {
-        "merged": "com.bingetv.app-mergeDebugResources-39:/layout/activity_main.xml",
-        "source": "com.bingetv.app-main-42:/layout/activity_main.xml"
+        "merged": "com.bingetv.app-mergeDebugResources-59:/layout/activity_login.xml",
+        "source": "com.bingetv.app-main-62:/layout/activity_login.xml"
     },
     {
-        "merged": "com.bingetv.app-mergeDebugResources-39:/layout/dialog_playlist_input.xml",
-        "source": "com.bingetv.app-main-42:/layout/dialog_playlist_input.xml"
+        "merged": "com.bingetv.app-mergeDebugResources-59:/layout/dialog_search.xml",
+        "source": "com.bingetv.app-main-62:/layout/dialog_search.xml"
+    },
+    {
+        "merged": "com.bingetv.app-mergeDebugResources-59:/layout/dialog_channel_context.xml",
+        "source": "com.bingetv.app-main-62:/layout/dialog_channel_context.xml"
+    },
+    {
+        "merged": "com.bingetv.app-mergeDebugResources-59:/layout/activity_splash.xml",
+        "source": "com.bingetv.app-main-62:/layout/activity_splash.xml"
+    },
+    {
+        "merged": "com.bingetv.app-mergeDebugResources-59:/layout/activity_settings.xml",
+        "source": "com.bingetv.app-main-62:/layout/activity_settings.xml"
+    },
+    {
+        "merged": "com.bingetv.app-mergeDebugResources-59:/layout/item_category.xml",
+        "source": "com.bingetv.app-main-62:/layout/item_category.xml"
+    },
+    {
+        "merged": "com.bingetv.app-mergeDebugResources-59:/layout/dialog_playlist_input.xml",
+        "source": "com.bingetv.app-main-62:/layout/dialog_playlist_input.xml"
+    },
+    {
+        "merged": "com.bingetv.app-mergeDebugResources-59:/layout/activity_main.xml",
+        "source": "com.bingetv.app-main-62:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.bingetv.app-mergeDebugResources-59:/layout/item_channel_card.xml",
+        "source": "com.bingetv.app-main-62:/layout/item_channel_card.xml"
+    },
+    {
+        "merged": "com.bingetv.app-mergeDebugResources-59:/layout/activity_main_enhanced.xml",
+        "source": "com.bingetv.app-main-62:/layout/activity_main_enhanced.xml"
     }
 ]

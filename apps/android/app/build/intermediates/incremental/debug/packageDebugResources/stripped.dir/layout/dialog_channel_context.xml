@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="600dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/background_secondary"
+    android:padding="40dp"
+    android:gravity="center">
+
+    <ImageView
+        android:id="@+id/channel_logo"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:scaleType="centerCrop"
+        android:contentDescription="Channel Logo"
+        android:layout_marginBottom="20dp" />
+
+    <TextView
+        android:id="@+id/channel_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="28sp"
+        android:textColor="@color/text_primary"
+        android:textStyle="bold"
+        android:layout_marginBottom="8dp"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:textAlignment="center" />
+
+    <TextView
+        android:id="@+id/channel_category"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textColor="@color/text_secondary"
+        android:layout_marginBottom="30dp" />
+
+    <Button
+        android:id="@+id/play_button"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="Play Now"
+        android:textSize="20sp"
+        android:textColor="@color/text_primary"
+        android:background="@color/bingetv_red"
+        android:layout_marginBottom="12dp"
+        android:focusable="true" />
+
+    <Button
+        android:id="@+id/favorite_button"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="Add to Favorites"
+        android:textSize="20sp"
+        android:textColor="@color/text_primary"
+        android:background="@color/background_card"
+        android:layout_marginBottom="12dp"
+        android:focusable="true" />
+
+    <Button
+        android:id="@+id/close_button"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="Close"
+        android:textSize="20sp"
+        android:textColor="@color/text_secondary"
+        android:background="@color/background_card"
+        android:focusable="true" />
+
+</LinearLayout>

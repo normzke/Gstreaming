@@ -1,0 +1,26 @@
+package com.bingetv.app.data.database;
+
+@kotlin.Metadata(mv = {1, 9, 0}, k = 1, xi = 48, d1 = {"\u00000\n\u0002\u0018\u0002\n\u0002\u0010\u0000\n\u0000\n\u0002\u0010\u0002\n\u0002\b\u0002\n\u0002\u0010\t\n\u0000\n\u0002\u0018\u0002\n\u0000\n\u0002\u0010\u000e\n\u0000\n\u0002\u0018\u0002\n\u0002\u0010 \n\u0002\b\u0004\bg\u0018\u00002\u00020\u0001J\b\u0010\u0002\u001a\u00020\u0003H\'J\u0010\u0010\u0004\u001a\u00020\u00032\u0006\u0010\u0005\u001a\u00020\u0006H\'J\u001a\u0010\u0007\u001a\u0004\u0018\u00010\b2\u0006\u0010\t\u001a\u00020\n2\u0006\u0010\u0005\u001a\u00020\u0006H\'J$\u0010\u000b\u001a\u000e\u0012\n\u0012\b\u0012\u0004\u0012\u00020\b0\r0\f2\u0006\u0010\t\u001a\u00020\n2\u0006\u0010\u000e\u001a\u00020\u0006H\'J\u0016\u0010\u000f\u001a\u00020\u00032\f\u0010\u0010\u001a\b\u0012\u0004\u0012\u00020\b0\rH\'\u00a8\u0006\u0011"}, d2 = {"Lcom/bingetv/app/data/database/EpgDao;", "", "deleteAllPrograms", "", "deleteOldPrograms", "time", "", "getCurrentProgram", "Lcom/bingetv/app/data/database/EpgProgramEntity;", "channelId", "", "getProgramsForChannel", "Landroidx/lifecycle/LiveData;", "", "currentTime", "insertPrograms", "programs", "app_debug"})
+@androidx.room.Dao
+public abstract interface EpgDao {
+    
+    @androidx.room.Query(value = "SELECT * FROM epg_programs WHERE channelId = :channelId AND endTime > :currentTime ORDER BY startTime ASC")
+    @org.jetbrains.annotations.NotNull
+    public abstract androidx.lifecycle.LiveData<java.util.List<com.bingetv.app.data.database.EpgProgramEntity>> getProgramsForChannel(@org.jetbrains.annotations.NotNull
+    java.lang.String channelId, long currentTime);
+    
+    @androidx.room.Query(value = "SELECT * FROM epg_programs WHERE channelId = :channelId AND startTime <= :time AND endTime > :time LIMIT 1")
+    @org.jetbrains.annotations.Nullable
+    public abstract com.bingetv.app.data.database.EpgProgramEntity getCurrentProgram(@org.jetbrains.annotations.NotNull
+    java.lang.String channelId, long time);
+    
+    @androidx.room.Insert(onConflict = 1)
+    public abstract void insertPrograms(@org.jetbrains.annotations.NotNull
+    java.util.List<com.bingetv.app.data.database.EpgProgramEntity> programs);
+    
+    @androidx.room.Query(value = "DELETE FROM epg_programs WHERE endTime < :time")
+    public abstract void deleteOldPrograms(long time);
+    
+    @androidx.room.Query(value = "DELETE FROM epg_programs")
+    public abstract void deleteAllPrograms();
+}

@@ -66,18 +66,3 @@ data class PlaylistEntity(
     val lastSync: Long = 0,
     val createdAt: Long = System.currentTimeMillis()
 )
-
-@Entity(tableName = "user_preferences")
-data class UserPreferencesEntity(
-    @PrimaryKey
-    val id: Int = 1,
-    val gridColumns: Int = 5,
-    val logoSize: String = "medium", // small, medium, large
-    val showChannelNumbers: Boolean = true,
-    val showNowPlaying: Boolean = true,
-    val parentalControlEnabled: Boolean = false,
-    val parentalControlPin: String? = null,
-    val defaultQuality: String = "auto",
-    val autoPlayNext: Boolean = false,
-    val theme: String = "dark" // dark, light, auto
-)

@@ -1,38 +1,66 @@
 [
     {
-        "merged": "/Users/la/.gradle/daemon/8.5/com.bingetv.app-merged_res-40:/drawable_app_banner.xml.flat",
-        "source": "/Users/la/.gradle/daemon/8.5/com.bingetv.app-main-42:/drawable/app_banner.xml"
+        "merged": "com.bingetv.app-merged_res-60:/layout_activity_main_enhanced.xml.flat",
+        "source": "com.bingetv.app-main-62:/layout/activity_main_enhanced.xml"
     },
     {
-        "merged": "/Users/la/.gradle/daemon/8.5/com.bingetv.app-merged_res-40:/drawable_red_satellite_icon.png.flat",
-        "source": "/Users/la/.gradle/daemon/8.5/com.bingetv.app-main-42:/drawable/red_satellite_icon.png"
+        "merged": "com.bingetv.app-merged_res-60:/layout_activity_splash.xml.flat",
+        "source": "com.bingetv.app-main-62:/layout/activity_splash.xml"
     },
     {
-        "merged": "com.bingetv.app-merged_res-40:/xml_network_security_config.xml.flat",
-        "source": "com.bingetv.app-main-42:/xml/network_security_config.xml"
+        "merged": "com.bingetv.app-merged_res-60:/layout_item_channel_card.xml.flat",
+        "source": "com.bingetv.app-main-62:/layout/item_channel_card.xml"
     },
     {
-        "merged": "/Users/la/.gradle/daemon/8.5/com.bingetv.app-merged_res-40:/drawable_icon.png.flat",
-        "source": "/Users/la/.gradle/daemon/8.5/com.bingetv.app-main-42:/drawable/icon.png"
+        "merged": "com.bingetv.app-merged_res-60:/layout_activity_main.xml.flat",
+        "source": "com.bingetv.app-main-62:/layout/activity_main.xml"
     },
     {
-        "merged": "/Users/la/.gradle/daemon/8.5/com.bingetv.app-merged_res-40:/drawable_ic_launcher.png.flat",
-        "source": "/Users/la/.gradle/daemon/8.5/com.bingetv.app-main-42:/drawable/ic_launcher.png"
+        "merged": "com.bingetv.app-merged_res-60:/drawable_ic_placeholder_channel.xml.flat",
+        "source": "com.bingetv.app-main-62:/drawable/ic_placeholder_channel.xml"
     },
     {
-        "merged": "/Users/la/.gradle/daemon/8.5/com.bingetv.app-merged_res-40:/mipmap-anydpi-v26_ic_launcher.xml.flat",
-        "source": "/Users/la/.gradle/daemon/8.5/com.bingetv.app-main-42:/mipmap-anydpi-v26/ic_launcher.xml"
+        "merged": "com.bingetv.app-merged_res-60:/layout_activity_login.xml.flat",
+        "source": "com.bingetv.app-main-62:/layout/activity_login.xml"
     },
     {
-        "merged": "/Users/la/.gradle/daemon/8.5/com.bingetv.app-merged_res-40:/layout_dialog_playlist_input.xml.flat",
-        "source": "/Users/la/.gradle/daemon/8.5/com.bingetv.app-main-42:/layout/dialog_playlist_input.xml"
+        "merged": "com.bingetv.app-merged_res-60:/layout_dialog_playlist_input.xml.flat",
+        "source": "com.bingetv.app-main-62:/layout/dialog_playlist_input.xml"
     },
     {
-        "merged": "/Users/la/.gradle/daemon/8.5/com.bingetv.app-merged_res-40:/layout_activity_main.xml.flat",
-        "source": "/Users/la/.gradle/daemon/8.5/com.bingetv.app-main-42:/layout/activity_main.xml"
+        "merged": "com.bingetv.app-merged_res-60:/xml_network_security_config.xml.flat",
+        "source": "com.bingetv.app-main-62:/xml/network_security_config.xml"
     },
     {
-        "merged": "/Users/la/.gradle/daemon/8.5/com.bingetv.app-merged_res-40:/mipmap_ic_launcher.xml.flat",
-        "source": "/Users/la/.gradle/daemon/8.5/com.bingetv.app-main-42:/mipmap/ic_launcher.xml"
+        "merged": "com.bingetv.app-merged_res-60:/layout_activity_settings.xml.flat",
+        "source": "com.bingetv.app-main-62:/layout/activity_settings.xml"
+    },
+    {
+        "merged": "com.bingetv.app-merged_res-60:/drawable_icon.png.flat",
+        "source": "com.bingetv.app-main-62:/drawable/icon.png"
+    },
+    {
+        "merged": "com.bingetv.app-merged_res-60:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "com.bingetv.app-main-62:/mipmap-anydpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "com.bingetv.app-merged_res-60:/layout_dialog_search.xml.flat",
+        "source": "com.bingetv.app-main-62:/layout/dialog_search.xml"
+    },
+    {
+        "merged": "com.bingetv.app-merged_res-60:/drawable_ic_placeholder_epg.xml.flat",
+        "source": "com.bingetv.app-main-62:/drawable/ic_placeholder_epg.xml"
+    },
+    {
+        "merged": "com.bingetv.app-merged_res-60:/layout_item_category.xml.flat",
+        "source": "com.bingetv.app-main-62:/layout/item_category.xml"
+    },
+    {
+        "merged": "com.bingetv.app-merged_res-60:/layout_dialog_channel_context.xml.flat",
+        "source": "com.bingetv.app-main-62:/layout/dialog_channel_context.xml"
+    },
+    {
+        "merged": "com.bingetv.app-merged_res-60:/drawable_app_banner.xml.flat",
+        "source": "com.bingetv.app-main-62:/drawable/app_banner.xml"
     }
 ]

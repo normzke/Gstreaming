@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.bingetv.app-mergeDebugResources-38:/values-sw600dp-v13/values-sw600dp-v13.xml",
+            "outputFile": "com.bingetv.app-mergeDebugResources-58:/values-sw600dp-v13/values-sw600dp-v13.xml",
             "map": [
                 {
-                    "source": "/Users/la/.gradle/caches/transforms-3/9f1b2dc1214567043803347b9a0ae742/transformed/material-1.5.0/res/values-sw600dp-v13/values-sw600dp-v13.xml",
+                    "source": "/Users/la/.gradle/caches/transforms-3/9143fa5f1274468e96f4aee74c2f2a5f/transformed/material-1.9.0/res/values-sw600dp-v13/values-sw600dp-v13.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,10,11,12,13,14",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4",
@@ -23,7 +23,7 @@
                     }
                 },
                 {
-                    "source": "/Users/la/.gradle/caches/transforms-3/df0cd03a14f2fe9204e11ea3400d1502/transformed/appcompat-1.6.1/res/values-sw600dp-v13/values-sw600dp-v13.xml",
+                    "source": "/Users/la/.gradle/caches/transforms-3/dc935da7424cde3096d258823833512d/transformed/appcompat-1.6.1/res/values-sw600dp-v13/values-sw600dp-v13.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9",
                         "startColumns": "4,4,4,4,4,4,4,4",

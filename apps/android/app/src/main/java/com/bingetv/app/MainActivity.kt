@@ -2,6 +2,7 @@ package com.bingetv.app
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
@@ -74,6 +75,7 @@ class MainActivity : FragmentActivity() {
                 setupRowsAdapter()
                 Toast.makeText(this@MainActivity, "Loaded ${channels.size} channels", Toast.LENGTH_SHORT).show()
             } catch (e: Exception) {
+                Log.e("MainActivity", "Error loading playlist from URL: $url", e)
                 Toast.makeText(this@MainActivity, "Error loading playlist: ${e.message}", Toast.LENGTH_LONG).show()
                 e.printStackTrace()
             }
@@ -132,4 +134,3 @@ class MainActivity : FragmentActivity() {
         scope.cancel()
     }
 }
-

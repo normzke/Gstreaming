@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.bingetv.app-mergeDebugResources-38:/values-v26/values-v26.xml",
+            "outputFile": "com.bingetv.app-mergeDebugResources-58:/values-v26/values-v26.xml",
             "map": [
                 {
-                    "source": "/Users/la/.gradle/caches/transforms-3/df0cd03a14f2fe9204e11ea3400d1502/transformed/appcompat-1.6.1/res/values-v26/values-v26.xml",
+                    "source": "/Users/la/.gradle/caches/transforms-3/dc935da7424cde3096d258823833512d/transformed/appcompat-1.6.1/res/values-v26/values-v26.xml",
                     "from": {
                         "startLines": "2,3,4,8,12,16",
                         "startColumns": "4,4,4,4,4,4",

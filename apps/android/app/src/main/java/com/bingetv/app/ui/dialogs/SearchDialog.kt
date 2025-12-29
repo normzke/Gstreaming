@@ -34,10 +34,12 @@ class SearchDialog(
     }
     
     private fun setupRecyclerView() {
-        adapter = ChannelGridAdapter { channel ->
-            onChannelSelected(channel)
-            dismiss()
-        }
+        adapter = ChannelGridAdapter(
+            onChannelClick = { channel ->
+                onChannelSelected(channel)
+                dismiss()
+            }
+        )
         
         resultsRecyclerView.apply {
             this.adapter = this@SearchDialog.adapter

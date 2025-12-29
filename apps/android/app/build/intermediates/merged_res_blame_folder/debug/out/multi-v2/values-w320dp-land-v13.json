@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.bingetv.app-mergeDebugResources-38:/values-w320dp-land-v13/values-w320dp-land-v13.xml",
+            "outputFile": "com.bingetv.app-mergeDebugResources-58:/values-w320dp-land-v13/values-w320dp-land-v13.xml",
             "map": [
                 {
-                    "source": "/Users/la/.gradle/caches/transforms-3/9f1b2dc1214567043803347b9a0ae742/transformed/material-1.5.0/res/values-w320dp-land-v13/values-w320dp-land-v13.xml",
+                    "source": "/Users/la/.gradle/caches/transforms-3/9143fa5f1274468e96f4aee74c2f2a5f/transformed/material-1.9.0/res/values-w320dp-land-v13/values-w320dp-land-v13.xml",
                     "from": {
                         "startLines": "2,3",
                         "startColumns": "4,4",
