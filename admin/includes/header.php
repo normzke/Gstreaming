@@ -7,20 +7,23 @@ if (!isset($_SESSION['admin_id'])) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo isset($page_title) ? $page_title . ' - ' : ''; ?>Admin Dashboard - BingeTV</title>
-    
+
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Orbitron:wght@400;700;900&display=swap"
+        rel="stylesheet">
+
     <!-- CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/components.css">
     <link rel="stylesheet" href="../css/admin-analytics.css">
-    
+
     <!-- Admin Specific CSS -->
     <style>
         :root {
@@ -423,6 +426,7 @@ if (!isset($_SESSION['admin_id'])) {
         }
     </style>
 </head>
+
 <body>
     <div class="admin-layout">
         <!-- Sidebar -->
@@ -433,90 +437,114 @@ if (!isset($_SESSION['admin_id'])) {
                     <span>BingeTV Admin</span>
                 </div>
             </div>
-            
+
             <nav class="sidebar-nav">
                 <div class="nav-section">
                     <div class="nav-section-title">Dashboard</div>
                     <div class="nav-item">
-                        <a href="index.php" class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'index.php' ? 'active' : ''; ?>">
+                        <a href="index.php"
+                            class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'index.php' ? 'active' : ''; ?>">
                             <i class="fas fa-tachometer-alt"></i>
                             <span>Overview</span>
                         </a>
                     </div>
                 </div>
-                
+
                 <div class="nav-section">
                     <div class="nav-section-title">Content</div>
                     <div class="nav-item">
-                        <a href="packages.php" class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'packages.php' ? 'active' : ''; ?>">
+                        <a href="packages.php"
+                            class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'packages.php' ? 'active' : ''; ?>">
                             <i class="fas fa-box"></i>
                             <span>Packages</span>
                         </a>
                     </div>
                     <div class="nav-item">
-                        <a href="channels.php" class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'channels.php' ? 'active' : ''; ?>">
+                        <a href="channels.php"
+                            class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'channels.php' ? 'active' : ''; ?>">
                             <i class="fas fa-tv"></i>
                             <span>Channels</span>
                         </a>
                     </div>
                 </div>
-                
+
                 <div class="nav-section">
                     <div class="nav-section-title">Users</div>
                     <div class="nav-item">
-                        <a href="users.php" class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'users.php' ? 'active' : ''; ?>">
+                        <a href="users.php"
+                            class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'users.php' ? 'active' : ''; ?>">
                             <i class="fas fa-users"></i>
                             <span>All Users</span>
                         </a>
                     </div>
                     <div class="nav-item">
-                        <a href="subscriptions.php" class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'subscriptions.php' ? 'active' : ''; ?>">
+                        <a href="subscriptions.php"
+                            class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'subscriptions.php' ? 'active' : ''; ?>">
                             <i class="fas fa-credit-card"></i>
                             <span>Subscriptions</span>
                         </a>
                     </div>
+                    <div class="nav-item">
+                        <a href="streaming-users.php"
+                            class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'streaming-users.php' ? 'active' : ''; ?>">
+                            <i class="fas fa-satellite-dish"></i>
+                            <span>Streaming Users</span>
+                        </a>
+                    </div>
                 </div>
-                
+
                 <div class="nav-section">
                     <div class="nav-section-title">Financial</div>
                     <div class="nav-item">
-                        <a href="payments.php" class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'payments.php' ? 'active' : ''; ?>">
+                        <a href="payments.php"
+                            class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'payments.php' ? 'active' : ''; ?>">
                             <i class="fas fa-money-bill-wave"></i>
                             <span>Payments</span>
                         </a>
                     </div>
                     <div class="nav-item">
-                        <a href="manual-payments.php" class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'manual-payments.php' ? 'active' : ''; ?>">
+                        <a href="manual-payments.php"
+                            class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'manual-payments.php' ? 'active' : ''; ?>">
                             <i class="fas fa-check-circle"></i>
                             <span>Manual M-Pesa</span>
                         </a>
                     </div>
                     <div class="nav-item">
-                        <a href="analytics.php" class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'analytics.php' ? 'active' : ''; ?>">
+                        <a href="analytics.php"
+                            class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'analytics.php' ? 'active' : ''; ?>">
                             <i class="fas fa-chart-bar"></i>
                             <span>Analytics</span>
                         </a>
                     </div>
                 </div>
-                
+
                 <div class="nav-section">
                     <div class="nav-section-title">Settings</div>
                     <div class="nav-item">
-                        <a href="mpesa-config.php" class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'mpesa-config.php' ? 'active' : ''; ?>">
+                        <a href="mpesa-config.php"
+                            class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'mpesa-config.php' ? 'active' : ''; ?>">
                             <i class="fas fa-cog"></i>
                             <span>M-PESA Config</span>
                         </a>
                     </div>
                     <div class="nav-item">
-                        <a href="social-media.php" class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'social-media.php' ? 'active' : ''; ?>">
+                        <a href="social-media.php"
+                            class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'social-media.php' ? 'active' : ''; ?>">
                             <i class="fas fa-share-alt"></i>
                             <span>Social Media</span>
+                        </a>
+                    </div>
+                    <div class="nav-item">
+                        <a href="migrate.php"
+                            class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'migrate.php' ? 'active' : ''; ?>">
+                            <i class="fas fa-database"></i>
+                            <span>Database Migration</span>
                         </a>
                     </div>
                 </div>
             </nav>
         </aside>
-        
+
         <!-- Main Content -->
         <main class="admin-main" id="mainContent">
             <!-- Top Bar -->
@@ -527,7 +555,7 @@ if (!isset($_SESSION['admin_id'])) {
                     </button>
                     <h1 class="page-title"><?php echo isset($page_title) ? $page_title : 'Dashboard'; ?></h1>
                 </div>
-                
+
                 <div class="topbar-right">
                     <div class="admin-user">
                         <div class="user-avatar">
@@ -544,6 +572,6 @@ if (!isset($_SESSION['admin_id'])) {
                     </div>
                 </div>
             </header>
-            
+
             <!-- Content Area -->
             <div class="admin-content">
