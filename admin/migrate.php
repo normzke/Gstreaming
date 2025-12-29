@@ -5,13 +5,14 @@
  * Access: /admin/migrate.php
  */
 
-require_once __DIR__ . '/../config/config.php';
-require_once __DIR__ . '/../config/database.php';
-require_once __DIR__ . '/../lib/functions.php';
+require_once '../config/config.php';
+require_once '../config/database.php';
+require_once '../lib/functions.php';
 
-// Security: Only allow admin access
-if (!isLoggedIn() || !isset($_SESSION['admin_id'])) {
-    die('Unauthorized access');
+// Check admin authentication
+if (!isset($_SESSION['admin_id'])) {
+    header('Location: login.php');
+    exit();
 }
 
 $db = new Database();
