@@ -1,5 +1,5 @@
 # BingeTV .htaccess Configuration
-# Clean URLs for all public pages
+# Routes clean URLs while preserving portal-specific assets
 
 RewriteEngine On
 
@@ -7,38 +7,40 @@ RewriteEngine On
 RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
 RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
 
-# Remove trailing slashes (except for actual directories)
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_URI} (.+)/$
-RewriteRule ^ %1 [R=301,L]
+# Root directory - serve public/index.php
+RewriteRule ^$ public/index.php [L]
 
-# Allow direct access to existing files and directories
+# Allow direct access to portals and their assets
+# /user/, /admin/, /api/ should work as-is
 RewriteCond %{REQUEST_FILENAME} -f [OR]
 RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^ - [L]
 
-# Route static assets and apps to public directory
+# Route static assets to public directory
 RewriteRule ^(css|js|images|assets|gateway|apps)/(.*)$ public/$1/$2 [L]
 
-# Root - serve public/index.php
-RewriteRule ^$ public/index.php [L]
-
-# Clean URLs - route to public/*.php files
-# Examples: /apps -> public/apps.php, /support -> public/support.php
+# Remove .php extension - check if file exists in public/
 RewriteCond %{DOCUMENT_ROOT}/public/$1.php -f
-RewriteRule ^([^/]+)$ public/$1.php [L]
+RewriteRule ^([^/]+)/?$ public/$1.php [L]
+
+# Redirect .php URLs to clean URLs
+RewriteCond %{THE_REQUEST} \s/+(.+?)\.php[\s?] [NC]
+RewriteRule ^ /%1 [R=301,L]
+
+# Fallback for .php files
+RewriteRule ^([^/]+\.php)$ public/$1 [L]
 
 # Prevent directory listing
 Options -Indexes
 
-# Security Headers
+# Security
 <IfModule mod_headers.c>
     Header set X-Content-Type-Options "nosniff"
     Header set X-Frame-Options "SAMEORIGIN"
     Header set X-XSS-Protection "1; mode=block"
 </IfModule>
 
-# Cache Control
+# Cache control for static assets
 <IfModule mod_expires.c>
     ExpiresActive On
     ExpiresByType text/css "access plus 1 week"
