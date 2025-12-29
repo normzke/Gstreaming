@@ -5,7 +5,7 @@ require_once __DIR__ . '/../lib/functions.php';
 
 // Check if user is admin
 if (!isLoggedIn() || !isAdmin()) {
-    header('Location: ../public/login.php');
+    header('Location: login.php');
     exit;
 }
 
