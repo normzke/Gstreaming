@@ -1,10 +1,4 @@
 <?php
-/**
- * BingeTV Database Migration Runner
- * Web-based script to run database migrations
- * Access: /admin/migrate.php
- */
-
 require_once '../config/config.php';
 require_once '../config/database.php';
 require_once '../lib/functions.php';
@@ -15,7 +9,10 @@ if (!isset($_SESSION['admin_id'])) {
     exit();
 }
 
-$db = new Database();
+$page_title = 'Database Migrations';
+include 'includes/header.php';
+
+$db = Database::getInstance();
 $conn = $db->getConnection();
 
 // Migration status
@@ -27,16 +24,16 @@ $success = [];
 try {
     $conn->query("SELECT 1 FROM migrations LIMIT 1");
 } catch (Exception $e) {
-    // Create migrations table
+    // Create migrations table using PostgreSQL syntax
     $createMigrationsTable = "
-        CREATE TABLE IF NOT EXISTS migrations (
-            id INT AUTO_INCREMENT PRIMARY KEY,
-            migration_name VARCHAR(255) NOT NULL UNIQUE,
-            executed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-            status ENUM('pending', 'success', 'failed') DEFAULT 'pending',
-            error_message TEXT NULL
-        )
-    ";
+CREATE TABLE IF NOT EXISTS migrations (
+id SERIAL PRIMARY KEY,
+migration_name VARCHAR(255) NOT NULL UNIQUE,
+executed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+status VARCHAR(50) DEFAULT 'pending',
+error_message TEXT NULL
+)
+";
     $conn->exec($createMigrationsTable);
 }
 
@@ -78,24 +75,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['run_migrations'])) {
                 }
             }
 
-            // Record success
+            // Record success using PostgreSQL syntax
             $stmt = $conn->prepare("
-                INSERT INTO migrations (migration_name, status) 
-                VALUES (?, 'success')
-                ON DUPLICATE KEY UPDATE status = 'success', executed_at = NOW()
-            ");
+INSERT INTO migrations (migration_name, status)
+VALUES (?, 'success')
+ON CONFLICT (migration_name) DO UPDATE SET status = 'success', executed_at = NOW()
+");
             $stmt->execute([$migrationName]);
 
             $migrations[$migrationName] = ['status' => 'success', 'message' => 'Executed successfully'];
             $success[] = $migrationName;
 
         } catch (Exception $e) {
-            // Record failure
+            // Record failure using PostgreSQL syntax
             $stmt = $conn->prepare("
-                INSERT INTO migrations (migration_name, status, error_message) 
-                VALUES (?, 'failed', ?)
-                ON DUPLICATE KEY UPDATE status = 'failed', error_message = ?, executed_at = NOW()
-            ");
+INSERT INTO migrations (migration_name, status, error_message)
+VALUES (?, 'failed', ?)
+ON CONFLICT (migration_name) DO UPDATE SET status = 'failed', error_message = ?, executed_at = NOW()
+");
             $stmt->execute([$migrationName, $e->getMessage(), $e->getMessage()]);
 
             $migrations[$migrationName] = ['status' => 'failed', 'message' => $e->getMessage()];
@@ -110,219 +107,63 @@ $stmt = $conn->query("SELECT * FROM migrations ORDER BY executed_at DESC");
 while ($row = $stmt->fetch()) {
     $executedMigrations[$row['migration_name']] = $row;
 }
+
+$page_title = 'Database Migrations';
+include 'includes/header.php';
 ?>
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Database Migrations - BingeTV Admin</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<div class="header-actions mb-4 d-flex justify-content-between align-items-center">
+    <div>
+        <h2 class="h4 mb-1">Database Migrations</h2>
+        <p class="text-muted small mb-0">Manage and execute database schema changes</p>
+    </div>
+    <form method="POST">
+        <button type="submit" name="run_migrations" class="btn btn-primary"
+            onclick="return confirm('Are you sure you want to run all pending migrations?')">
+            <i class="fas fa-play mr-2"></i> Run Pending Migrations
+        </button>
+    </form>
+</div>
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #0f0f1e 0%, #1a1a2e 100%);
-            color: #fff;
-            min-height: 100vh;
-            padding: 20px;
-        }
+<?php if (is_array($success) && count($success) > 0): ?>
+    <div class="alert alert-success alert-dismissible fade show">
+        <i class="fas fa-check-circle mr-2"></i>
+        Successfully executed <?php echo count($success); ?> migration(s)
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+    </div>
+<?php endif; ?>
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+<?php if (!empty($errors)): ?>
+    <div class="alert alert-danger alert-dismissible fade show">
+        <i class="fas fa-exclamation-circle mr-2"></i>
+        <strong>Migration errors:</strong>
+        <ul class="mb-0 mt-2 pl-3 small">
+            <?php foreach ($errors as $error): ?>
+                <li><?php echo htmlspecialchars($error); ?></li>
+            <?php endforeach; ?>
+        </ul>
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+    </div>
+<?php endif; ?>
 
-        .header {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            padding: 30px;
-            border-radius: 15px;
-            margin-bottom: 30px;
-            border: 2px solid #00A8FF;
-            box-shadow: 0 10px 30px rgba(0, 168, 255, 0.2);
-        }
-
-        .header h1 {
-            color: #00A8FF;
-            font-size: 32px;
-            margin-bottom: 10px;
-        }
-
-        .alert {
-            padding: 15px 20px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .alert-success {
-            background: rgba(0, 255, 0, 0.1);
-            border: 2px solid rgba(0, 255, 0, 0.3);
-            color: #0f0;
-        }
-
-        .alert-error {
-            background: rgba(255, 0, 0, 0.1);
-            border: 2px solid rgba(255, 0, 0, 0.3);
-            color: #f00;
-        }
-
-        .alert-warning {
-            background: rgba(255, 170, 0, 0.1);
-            border: 2px solid rgba(255, 170, 0, 0.3);
-            color: #ffaa00;
-        }
-
-        .card {
-            background: rgba(0, 168, 255, 0.05);
-            border: 2px solid rgba(0, 168, 255, 0.2);
-            border-radius: 12px;
-            padding: 30px;
-            margin-bottom: 20px;
-        }
-
-        .btn {
-            padding: 12px 24px;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .btn-primary {
-            background: #00A8FF;
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background: #0099E6;
-            transform: scale(1.05);
-        }
-
-        .btn-secondary {
-            background: #666;
-            color: white;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-
-        th,
-        td {
-            padding: 15px;
-            text-align: left;
-            border-bottom: 1px solid rgba(0, 168, 255, 0.1);
-        }
-
-        th {
-            background: rgba(0, 168, 255, 0.2);
-            color: #00A8FF;
-            font-weight: 600;
-        }
-
-        .badge {
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 600;
-            display: inline-block;
-        }
-
-        .badge-success {
-            background: rgba(0, 255, 0, 0.2);
-            color: #0f0;
-            border: 1px solid #0f0;
-        }
-
-        .badge-failed {
-            background: rgba(255, 0, 0, 0.2);
-            color: #f00;
-            border: 1px solid #f00;
-        }
-
-        .badge-pending {
-            background: rgba(255, 170, 0, 0.2);
-            color: #ffaa00;
-            border: 1px solid #ffaa00;
-        }
-
-        .badge-skipped {
-            background: rgba(128, 128, 128, 0.2);
-            color: #888;
-            border: 1px solid #888;
-        }
-
-        code {
-            background: rgba(0, 0, 0, 0.3);
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-family: monospace;
-            color: #0f0;
-        }
-    </style>
-</head>
-
-<body>
-    <div class="container">
-        <div class="header">
-            <h1><i class="fas fa-database"></i> Database Migrations</h1>
-            <p>Manage and execute database schema changes</p>
-        </div>
-
-        <?php if (!empty($success)): ?>
-            <div class="alert alert-success">
-                <i class="fas fa-check-circle"></i>
-                Successfully executed <?php echo count($success); ?> migration(s)
+<div class="admin-card mb-4">
+    <div class="card-header border-bottom">
+        <h3 class="card-title h6 mb-0">Available Migrations</h3>
+    </div>
+    <div class="card-body p-0">
+        <?php if (empty($migrationFiles)): ?>
+            <div class="p-4 text-center text-muted">
+                <i class="fas fa-info-circle mb-2 d-block fa-2x"></i>
+                No migration files found in <code>/database/</code>
             </div>
-        <?php endif; ?>
-
-        <?php if (!empty($errors)): ?>
-            <div class="alert alert-error">
-                <i class="fas fa-exclamation-circle"></i>
-                <div>
-                    <strong>Migration errors:</strong>
-                    <ul style="margin-top: 10px; padding-left: 20px;">
-                        <?php foreach ($errors as $error): ?>
-                            <li><?php echo htmlspecialchars($error); ?></li>
-                        <?php endforeach; ?>
-                    </ul>
-                </div>
-            </div>
-        <?php endif; ?>
-
-        <div class="card">
-            <h2 style="color: #00A8FF; margin-bottom: 20px;">Available Migrations</h2>
-
-            <?php if (empty($migrationFiles)): ?>
-                <div class="alert alert-warning">
-                    <i class="fas fa-info-circle"></i>
-                    No migration files found in <code>/database/</code> directory
-                </div>
-            <?php else: ?>
-
-                <table>
+        <?php else: ?>
+            <div class="table-responsive">
+                <table class="admin-table mb-0">
                     <thead>
                         <tr>
                             <th>Migration File</th>
                             <th>Status</th>
-                            <th>Executed At</th>
+                            <th class="text-right">Executed At</th>
                             <th>Message</th>
                         </tr>
                     </thead>
@@ -334,7 +175,7 @@ while ($row = $stmt->fetch()) {
                             $status = $migrations[$name] ?? null;
                             ?>
                             <tr>
-                                <td><code><?php echo htmlspecialchars($name); ?></code></td>
+                                <td><code class="text-primary"><?php echo htmlspecialchars($name); ?></code></td>
                                 <td>
                                     <?php if ($status): ?>
                                         <span class="badge badge-<?php echo $status['status']; ?>">
@@ -345,61 +186,50 @@ while ($row = $stmt->fetch()) {
                                             <?php echo strtoupper($executed['status']); ?>
                                         </span>
                                     <?php else: ?>
-                                        <span class="badge badge-pending">PENDING</span>
+                                        <span class="badge badge-warning">PENDING</span>
                                     <?php endif; ?>
                                 </td>
-                                <td>
-                                    <?php
-                                    if ($executed) {
-                                        echo date('Y-m-d H:i:s', strtotime($executed['executed_at']));
-                                    } else {
-                                        echo '-';
-                                    }
-                                    ?>
+                                <td class="text-right text-muted small">
+                                    <?php echo $executed ? date('Y-m-d H:i:s', strtotime($executed['executed_at'])) : '-'; ?>
                                 </td>
                                 <td>
-                                    <?php
-                                    if ($status) {
-                                        echo htmlspecialchars($status['message']);
-                                    } elseif ($executed && $executed['error_message']) {
-                                        echo htmlspecialchars($executed['error_message']);
-                                    } else {
-                                        echo '-';
-                                    }
-                                    ?>
+                                    <div class="small text-truncate" style="max-width: 300px;">
+                                        <?php
+                                        if ($status)
+                                            echo htmlspecialchars($status['message']);
+                                        elseif ($executed && $executed['error_message'])
+                                            echo htmlspecialchars($executed['error_message']);
+                                        else
+                                            echo '<span class="text-muted">-</span>';
+                                        ?>
+                                    </div>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
                 </table>
-
-                <form method="POST" style="margin-top: 30px;">
-                    <button type="submit" name="run_migrations" class="btn btn-primary"
-                        onclick="return confirm('Are you sure you want to run all pending migrations?')">
-                        <i class="fas fa-play"></i>
-                        Run Pending Migrations
-                    </button>
-                    <a href="index.php" class="btn btn-secondary">
-                        <i class="fas fa-arrow-left"></i>
-                        Back to Dashboard
-                    </a>
-                </form>
-            <?php endif; ?>
-        </div>
-
-        <div class="card">
-            <h3 style="color: #00A8FF; margin-bottom: 15px;">
-                <i class="fas fa-info-circle"></i> Migration Instructions
-            </h3>
-            <ol style="line-height: 2; color: #ccc;">
-                <li>Place SQL migration files in <code>/database/</code> directory</li>
-                <li>Name files descriptively (e.g., <code>tivimate_migration.sql</code>)</li>
-                <li>Click "Run Pending Migrations" to execute</li>
-                <li>Migrations are tracked and won't run twice</li>
-                <li>Check status and error messages in the table above</li>
-            </ol>
-        </div>
+            </div>
+        <?php endif; ?>
     </div>
-</body>
+</div>
 
-</html>
+<div class="admin-card">
+    <div class="card-header border-bottom">
+        <h3 class="card-title h6 mb-0">
+            <i class="fas fa-info-circle mr-2"></i>Instructions
+        </h3>
+    </div>
+    <div class="card-body">
+        <ul class="text-muted small mb-0 pl-3">
+            <li class="mb-2">Place SQL migration files in the <code>/database/</code> directory.</li>
+            <li class="mb-2">Ensure files use PostgreSQL compatible syntax (e.g. <code>SERIAL</code>, not
+                <code>AUTO_INCREMENT</code>).
+            </li>
+            <li class="mb-2">Click <strong>Run Pending Migrations</strong> to apply new changes.</li>
+            <li>Executed migrations are tracked and will not be re-run.</li>
+        </ul>
+    </div>
+</div>
+
+<?php include 'includes/footer.php'; ?>
+```

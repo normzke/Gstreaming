@@ -1,6 +1,6 @@
 // Channels Page JavaScript
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // Initialize channels page functionality
     initChannelPreview();
     initChannelFavorites();
@@ -13,39 +13,39 @@ function initChannelPreview() {
     const modal = document.getElementById('channelPreviewModal');
     const closeBtn = document.querySelector('.modal-close');
     const modalChannelName = document.getElementById('modalChannelName');
-    
+
     // Close modal when clicking outside
-    window.addEventListener('click', function(event) {
+    window.addEventListener('click', function (event) {
         if (event.target === modal) {
             closeModal();
         }
     });
-    
+
     // Close modal with close button
     if (closeBtn) {
         closeBtn.addEventListener('click', closeModal);
     }
-    
+
     // Close modal with Escape key
-    document.addEventListener('keydown', function(event) {
+    document.addEventListener('keydown', function (event) {
         if (event.key === 'Escape') {
             closeModal();
         }
     });
-    
+
     function closeModal() {
         modal.style.display = 'none';
         document.body.style.overflow = 'auto';
     }
-    
+
     // Make functions globally available
-    window.previewChannel = function(channelId) {
+    window.previewChannel = function (channelId) {
         // In a real implementation, you would fetch channel data via AJAX
         // For now, we'll show a generic preview
         modalChannelName.textContent = 'Channel Preview';
         modal.style.display = 'block';
         document.body.style.overflow = 'hidden';
-        
+
         // Add some animation
         setTimeout(() => {
             modal.querySelector('.modal-content').style.transform = 'scale(1)';
@@ -57,7 +57,7 @@ function initChannelPreview() {
 function initChannelFavorites() {
     // Load saved favorites from localStorage
     const savedFavorites = JSON.parse(localStorage.getItem('channelFavorites') || '[]');
-    
+
     // Update favorite buttons based on saved state
     savedFavorites.forEach(channelId => {
         const button = document.querySelector(`button[onclick="addToFavorites(${channelId})"]`);
@@ -66,12 +66,12 @@ function initChannelFavorites() {
             button.innerHTML = '<i class="fas fa-heart"></i> Favorited';
         }
     });
-    
+
     // Make function globally available
-    window.addToFavorites = function(channelId) {
+    window.addToFavorites = function (channelId) {
         const button = document.querySelector(`button[onclick="addToFavorites(${channelId})"]`);
         const savedFavorites = JSON.parse(localStorage.getItem('channelFavorites') || '[]');
-        
+
         if (savedFavorites.includes(channelId)) {
             // Remove from favorites
             const index = savedFavorites.indexOf(channelId);
@@ -86,7 +86,7 @@ function initChannelFavorites() {
             button.innerHTML = '<i class="fas fa-heart"></i> Favorited';
             showNotification('Channel added to favorites', 'success');
         }
-        
+
         localStorage.setItem('channelFavorites', JSON.stringify(savedFavorites));
     };
 }
@@ -95,11 +95,11 @@ function initChannelFavorites() {
 function initSearchFilters() {
     const searchInput = document.getElementById('search');
     const filterForm = document.querySelector('.filter-form');
-    
+
     // Auto-submit form on filter changes (with debounce for search)
     if (searchInput) {
         let searchTimeout;
-        searchInput.addEventListener('input', function() {
+        searchInput.addEventListener('input', function () {
             clearTimeout(searchTimeout);
             searchTimeout = setTimeout(() => {
                 if (searchInput.value.length >= 3 || searchInput.value.length === 0) {
@@ -108,17 +108,17 @@ function initSearchFilters() {
             }, 500);
         });
     }
-    
+
     // Auto-submit form on select changes
     const selectElements = filterForm.querySelectorAll('select');
     selectElements.forEach(select => {
-        select.addEventListener('change', function() {
+        select.addEventListener('change', function () {
             filterForm.submit();
         });
     });
-    
+
     // Add loading state to form submission
-    filterForm.addEventListener('submit', function() {
+    filterForm.addEventListener('submit', function () {
         const submitBtn = filterForm.querySelector('button[type="submit"]');
         if (submitBtn) {
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Searching...';
@@ -130,20 +130,20 @@ function initSearchFilters() {
 // Channel Cards Animation and Interactions
 function initChannelCards() {
     const channelCards = document.querySelectorAll('.channel-card');
-    
+
     // Add hover effects and animations
     channelCards.forEach(card => {
         // Add click animation
-        card.addEventListener('click', function(e) {
+        card.addEventListener('click', function (e) {
             // Don't trigger if clicking on buttons
             if (e.target.closest('.channel-actions')) return;
-            
+
             card.style.transform = 'scale(0.98)';
             setTimeout(() => {
                 card.style.transform = '';
             }, 150);
         });
-        
+
         // Add intersection observer for animation
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -153,15 +153,15 @@ function initChannelCards() {
                 }
             });
         }, { threshold: 0.1 });
-        
+
         // Set initial state for animation
         card.style.opacity = '0';
         card.style.transform = 'translateY(20px)';
         card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        
+
         observer.observe(card);
     });
-    
+
     // Add staggered animation delay
     channelCards.forEach((card, index) => {
         card.style.transitionDelay = `${index * 0.1}s`;
@@ -173,7 +173,7 @@ function showNotification(message, type = 'info') {
     // Remove existing notifications
     const existingNotifications = document.querySelectorAll('.notification');
     existingNotifications.forEach(notification => notification.remove());
-    
+
     // Create notification element
     const notification = document.createElement('div');
     notification.className = `notification notification-${type}`;
@@ -186,7 +186,7 @@ function showNotification(message, type = 'info') {
             </button>
         </div>
     `;
-    
+
     // Add styles
     notification.style.cssText = `
         position: fixed;
@@ -202,15 +202,15 @@ function showNotification(message, type = 'info') {
         transition: transform 0.3s ease;
         max-width: 400px;
     `;
-    
+
     // Add to page
     document.body.appendChild(notification);
-    
+
     // Animate in
     setTimeout(() => {
         notification.style.transform = 'translateX(0)';
     }, 10);
-    
+
     // Auto remove after 3 seconds
     setTimeout(() => {
         notification.style.transform = 'translateX(100%)';
@@ -254,7 +254,7 @@ function debounce(func, wait) {
 // Channel Search with Highlighting
 function highlightSearchTerm(text, searchTerm) {
     if (!searchTerm) return text;
-    
+
     const regex = new RegExp(`(${searchTerm})`, 'gi');
     return text.replace(regex, '<mark>$1</mark>');
 }
@@ -298,6 +298,6 @@ const notificationStyles = `
 `;
 
 // Inject notification styles
-const styleSheet = document.createElement('style');
-styleSheet.textContent = notificationStyles;
-document.head.appendChild(styleSheet);
+const bingetvChannelStyleSheet = document.createElement('style');
+bingetvChannelStyleSheet.textContent = notificationStyles;
+document.head.appendChild(bingetvChannelStyleSheet);

@@ -26,7 +26,7 @@ try {
     
     if ($result['success']) {
         // Update payment status in database
-        $db = new Database();
+        $db = Database::getInstance();
         $conn = $db->getConnection();
         
         $checkoutRequestId = $result['checkout_request_id'];
@@ -102,7 +102,7 @@ try {
         ]);
     } else {
         // Payment failed - update status
-        $db = new Database();
+        $db = Database::getInstance();
         $conn = $db->getConnection();
         
         $checkoutRequestId = $result['checkout_request_id'];

@@ -21,7 +21,7 @@ try {
         exit();
     }
     
-    $db = new Database();
+    $db = Database::getInstance();
     $conn = $db->getConnection();
     
     $query = "SELECT * FROM users WHERE id = ?";

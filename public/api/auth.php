@@ -5,7 +5,7 @@ require_once __DIR__ . '/../../lib/functions.php';
 
 header('Content-Type: application/json');
 
-$db = new Database();
+$db = Database::getInstance();
 $conn = $db->getConnection();
 
 if (!$conn) {

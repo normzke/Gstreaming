@@ -1,0 +1,21 @@
+# BingeTV Public Directory .htaccess
+
+# Enable URL rewriting
+RewriteEngine On
+
+# Set the base directory
+RewriteBase /
+
+# Allow direct access to files and directories that exist
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Route all requests through index.php
+RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
+
+
+# Disable directory listing
+Options -Indexes
+
+# Disable server signature
+ServerSignature Off

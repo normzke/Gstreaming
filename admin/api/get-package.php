@@ -21,7 +21,7 @@ try {
         exit();
     }
     
-    $db = new Database();
+    $db = Database::getInstance();
     $conn = $db->getConnection();
     
     $query = "SELECT * FROM packages WHERE id = ?";

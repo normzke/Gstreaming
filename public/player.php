@@ -16,7 +16,7 @@ if (isLoggedIn()) {
     $user = $_SESSION['user'] ?? null;
     
     // Get user's playlist URL from database
-    $db = new Database();
+    $db = Database::getInstance();
     $conn = $db->getConnection();
     if ($conn && $user) {
         $stmt = $conn->prepare("SELECT playlist_url, mac_address FROM users WHERE id = ?");
@@ -32,7 +32,7 @@ if (isLoggedIn()) {
 // Check MAC address authentication
 if (!$isAuthenticated && isset($_GET['mac'])) {
     $macAddress = $_GET['mac'];
-    $db = new Database();
+    $db = Database::getInstance();
     $conn = $db->getConnection();
     if ($conn) {
         $stmt = $conn->prepare("SELECT * FROM users WHERE mac_address = ? AND is_active = true");
@@ -48,7 +48,7 @@ if (!$isAuthenticated && isset($_GET['mac'])) {
 // Check streaming link authentication (TiviMate format)
 if (!$isAuthenticated && isset($_GET['stream'])) {
     $streamLink = $_GET['stream'];
-    $db = new Database();
+    $db = Database::getInstance();
     $conn = $db->getConnection();
     if ($conn) {
         // Check if stream link matches user's playlist URL pattern
@@ -526,7 +526,7 @@ $canonical_url = SEO::getCanonicalUrl('player');
             </div>
             <div class="player-controls">
                 <span style="color: #00A8FF;">Welcome, <?php echo htmlspecialchars($user['username'] ?? 'User'); ?></span>
-                <a href="logout.php" style="color: #fff; text-decoration: none; margin-left: 20px;">
+                <a href="logout" style="color: #fff; text-decoration: none; margin-left: 20px;">
                     <i class="fas fa-sign-out-alt"></i> Logout
                 </a>
             </div>

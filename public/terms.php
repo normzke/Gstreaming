@@ -108,19 +108,19 @@ $canonical_url = SEO::getCanonicalUrl('terms');
                     <a href="/" class="nav-link">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a href="channels.php" class="nav-link">Channels</a>
+                    <a href="channels" class="nav-link">Channels</a>
                 </li>
                 <li class="nav-item">
-                    <a href="gallery.php" class="nav-link">Gallery</a>
+                    <a href="gallery" class="nav-link">Gallery</a>
                 </li>
                 <li class="nav-item">
-                    <a href="support.php" class="nav-link">Support</a>
+                    <a href="support" class="nav-link">Support</a>
                 </li>
                 <li class="nav-item">
-                    <a href="login.php" class="nav-link btn-login">Login</a>
+                    <a href="login" class="nav-link btn-login">Login</a>
                 </li>
                 <li class="nav-item">
-                    <a href="register.php" class="nav-link btn-register">Get Started</a>
+                    <a href="register" class="nav-link btn-register">Get Started</a>
                 </li>
             </ul>
         </div>
@@ -229,19 +229,19 @@ $canonical_url = SEO::getCanonicalUrl('terms');
                     <h4>Quick Links</h4>
                     <ul class="footer-links">
                         <li><a href="/">Home</a></li>
-                        <li><a href="channels.php">Channels</a></li>
-                        <li><a href="gallery.php">Gallery</a></li>
-                        <li><a href="support.php">Support</a></li>
+                        <li><a href="channels">Channels</a></li>
+                        <li><a href="gallery">Gallery</a></li>
+                        <li><a href="support">Support</a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-section">
                     <h4>Account</h4>
                     <ul class="footer-links">
-                        <li><a href="login.php">Login</a></li>
-                        <li><a href="register.php">Register</a></li>
-                        <li><a href="packages.php">Packages</a></li>
-                        <li><a href="support.php">Support</a></li>
+                        <li><a href="login">Login</a></li>
+                        <li><a href="register">Register</a></li>
+                        <li><a href="packages">Packages</a></li>
+                        <li><a href="support">Support</a></li>
                     </ul>
                 </div>
             </div>

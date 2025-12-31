@@ -9,7 +9,7 @@ if (!isset($_SESSION['admin_id'])) {
     exit();
 }
 
-$db = new Database();
+$db = Database::getInstance();
 $conn = $db->getConnection();
 
 // Handle form submissions
@@ -38,12 +38,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $playlist_url = SITE_URL . "/api/playlist.php?token=" . $streaming_token;
 
                 $stmt = $conn->prepare("
-                    INSERT INTO users (username, password, email, subscription_tier, device_limit, 
-                                     streaming_token, playlist_url, is_active, created_at,
-                                     tivimate_server, tivimate_username, tivimate_password, 
-                                     tivimate_expires_at, tivimate_active) 
-                    VALUES (?, ?, ?, ?, ?, ?, ?, 1, NOW(), ?, ?, ?, ?, ?)
-                ");
+INSERT INTO users (username, password, email, subscription_tier, device_limit,
+streaming_token, playlist_url, is_active, created_at,
+tivimate_server, tivimate_username, tivimate_password,
+tivimate_expires_at, tivimate_active)
+VALUES (?, ?, ?, ?, ?, ?, ?, 1, NOW(), ?, ?, ?, ?, ?)
+");
 
                 if (
                     $stmt->execute([
@@ -83,12 +83,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $tivimate_active = isset($_POST['tivimate_active']) ? 1 : 0;
 
                 $stmt = $conn->prepare("
-                    UPDATE users 
-                    SET subscription_tier = ?, device_limit = ?, is_active = ?,
-                        tivimate_server = ?, tivimate_username = ?, tivimate_password = ?,
-                        tivimate_expires_at = ?, tivimate_active = ?
-                    WHERE id = ?
-                ");
+UPDATE users
+SET subscription_tier = ?, device_limit = ?, is_active = ?,
+tivimate_server = ?, tivimate_username = ?, tivimate_password = ?,
+tivimate_expires_at = ?, tivimate_active = ?
+WHERE id = ?
+");
 
                 if (
                     $stmt->execute([
@@ -117,10 +117,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $playlist_url = SITE_URL . "/api/playlist.php?token=" . $streaming_token;
 
                 $stmt = $conn->prepare("
-                    UPDATE users 
-                    SET streaming_token = ?, playlist_url = ?
-                    WHERE id = ?
-                ");
+UPDATE users
+SET streaming_token = ?, playlist_url = ?
+WHERE id = ?
+");
 
                 if ($stmt->execute([$streaming_token, $playlist_url, $user_id])) {
                     $message = "New streaming URL generated: " . $playlist_url;
@@ -138,10 +138,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $mac_address = $_POST['mac_address'];
 
                 $stmt = $conn->prepare("
-                    INSERT INTO user_devices (user_id, device_name, device_type, mac_address, 
-                                            last_active, is_active) 
-                    VALUES (?, ?, ?, ?, NOW(), 1)
-                ");
+INSERT INTO user_devices (user_id, device_name, device_type, mac_address,
+last_active, is_active)
+VALUES (?, ?, ?, ?, NOW(), 1)
+");
 
                 if ($stmt->execute([$user_id, $device_name, $device_type, $mac_address])) {
                     $message = "Device added successfully!";
@@ -168,16 +168,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 // Get all streaming users
-$stmt = $conn->query("
-    SELECT u.*, 
-           COUNT(DISTINCT ud.id) as device_count,
-           MAX(ud.last_active) as last_device_active
-    FROM users u
-    LEFT JOIN user_devices ud ON u.id = ud.user_id AND ud.is_active = 1
-    GROUP BY u.id
-    ORDER BY u.created_at DESC
+$users = [];
+$error_msg = '';
+
+try {
+    $stmt = $conn->query("
+SELECT u.*,
+COUNT(DISTINCT ud.id) as device_count,
+MAX(ud.last_active) as last_device_active
+FROM users u
+LEFT JOIN user_devices ud ON u.id = ud.user_id AND ud.is_active = 1
+GROUP BY u.id
+ORDER BY u.created_at DESC
 ");
-$users = $stmt->fetchAll();
+    $users = $stmt->fetchAll();
+} catch (Exception $e) {
+    $error_msg = "Database error: " . $e->getMessage();
+}
 
 // Get subscription tiers
 $tiers = [
@@ -188,595 +195,461 @@ $tiers = [
 ];
 
 $device_types = ['Android TV', 'WebOS', 'Tizen', 'Fire TV', 'Apple TV', 'Web Browser', 'Mobile'];
+
+$page_title = 'Streaming Users';
+include 'includes/header.php';
 ?>
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Streaming Users Management - BingeTV Admin</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #0f0f1e 0%, #1a1a2e 100%);
-            color: #fff;
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .header {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            padding: 30px;
-            border-radius: 15px;
-            margin-bottom: 30px;
-            border: 2px solid #00A8FF;
-            box-shadow: 0 10px 30px rgba(0, 168, 255, 0.2);
-        }
-
-        .header h1 {
-            color: #00A8FF;
-            font-size: 32px;
-            margin-bottom: 10px;
-        }
-
-        .header p {
-            color: #ccc;
-            font-size: 16px;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-
-        .stat-card {
-            background: rgba(0, 168, 255, 0.1);
-            border: 2px solid rgba(0, 168, 255, 0.3);
-            border-radius: 12px;
-            padding: 25px;
-            text-align: center;
-            transition: all 0.3s;
-        }
-
-        .stat-card:hover {
-            border-color: #00A8FF;
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 168, 255, 0.3);
-        }
-
-        .stat-card i {
-            font-size: 36px;
-            color: #00A8FF;
-            margin-bottom: 15px;
-        }
-
-        .stat-card .value {
-            font-size: 32px;
-            font-weight: bold;
-            color: #fff;
-            margin-bottom: 5px;
-        }
-
-        .stat-card .label {
-            color: #ccc;
-            font-size: 14px;
-        }
-
-        .message {
-            padding: 15px 20px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .message.success {
-            background: rgba(0, 255, 0, 0.1);
-            border: 2px solid rgba(0, 255, 0, 0.3);
-            color: #0f0;
-        }
-
-        .message.error {
-            background: rgba(255, 0, 0, 0.1);
-            border: 2px solid rgba(255, 0, 0, 0.3);
-            color: #f00;
-        }
-
-        .btn {
-            padding: 12px 24px;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .btn-primary {
-            background: #00A8FF;
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background: #0099E6;
-            transform: scale(1.05);
-        }
-
-        .btn-success {
-            background: #00ff00;
-            color: #000;
-        }
-
-        .btn-danger {
-            background: #ff4444;
-            color: white;
-        }
-
-        .btn-warning {
-            background: #ffaa00;
-            color: #000;
-        }
-
-        .btn-sm {
-            padding: 8px 16px;
-            font-size: 14px;
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal.active {
-            display: flex;
-        }
-
-        .modal-content {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            border-radius: 15px;
-            padding: 30px;
-            max-width: 600px;
-            width: 90%;
-            border: 2px solid #00A8FF;
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-        }
-
-        .modal-header h2 {
-            color: #00A8FF;
-            font-size: 24px;
-        }
-
-        .close-modal {
-            background: none;
-            border: none;
-            color: #fff;
-            font-size: 24px;
-            cursor: pointer;
-            padding: 0;
-            width: 30px;
-            height: 30px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            color: #00A8FF;
-            margin-bottom: 8px;
-            font-weight: 500;
-        }
-
-        .form-group input,
-        .form-group select {
-            width: 100%;
-            padding: 12px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 2px solid rgba(0, 168, 255, 0.3);
-            border-radius: 8px;
-            color: #fff;
-            font-size: 16px;
-        }
-
-        .form-group input:focus,
-        .form-group select:focus {
-            outline: none;
-            border-color: #00A8FF;
-            background: rgba(255, 255, 255, 0.15);
-        }
-
-        .users-table {
-            background: rgba(0, 168, 255, 0.05);
-            border-radius: 12px;
-            overflow: hidden;
-            border: 2px solid rgba(0, 168, 255, 0.2);
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        thead {
-            background: rgba(0, 168, 255, 0.2);
-        }
-
-        th {
-            padding: 15px;
-            text-align: left;
-            color: #00A8FF;
-            font-weight: 600;
-            border-bottom: 2px solid rgba(0, 168, 255, 0.3);
-        }
-
-        td {
-            padding: 15px;
-            border-bottom: 1px solid rgba(0, 168, 255, 0.1);
-        }
-
-        tr:hover {
-            background: rgba(0, 168, 255, 0.1);
-        }
-
-        .badge {
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 600;
-            display: inline-block;
-        }
-
-        .badge-success {
-            background: rgba(0, 255, 0, 0.2);
-            color: #0f0;
-            border: 1px solid #0f0;
-        }
-
-        .badge-danger {
-            background: rgba(255, 0, 0, 0.2);
-            color: #f00;
-            border: 1px solid #f00;
-        }
-
-        .badge-warning {
-            background: rgba(255, 170, 0, 0.2);
-            color: #ffaa00;
-            border: 1px solid #ffaa00;
-        }
-
-        .badge-info {
-            background: rgba(0, 168, 255, 0.2);
-            color: #00A8FF;
-            border: 1px solid #00A8FF;
-        }
-
-        .streaming-url {
-            font-family: monospace;
-            font-size: 12px;
-            color: #0f0;
-            background: rgba(0, 255, 0, 0.1);
-            padding: 5px 10px;
-            border-radius: 5px;
-            display: inline-block;
-            max-width: 300px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-
-        .copy-btn {
-            background: none;
-            border: none;
-            color: #00A8FF;
-            cursor: pointer;
-            padding: 5px;
-            margin-left: 5px;
-        }
-
-        .copy-btn:hover {
-            color: #0099E6;
-        }
-
-        .checkbox-group {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .checkbox-group input[type="checkbox"] {
-            width: auto;
-        }
-    </style>
-</head>
-
-<body>
-    <div class="container">
-        <div class="header">
-            <h1><i class="fas fa-satellite-dish"></i> TiviMate 8K Pro - Streaming Users</h1>
-            <p>Manage user accounts, credentials, and streaming access</p>
+<div class="admin-main">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="h3 mb-0">Streaming Users</h1>
+            <p class="text-muted mb-0">Manage user streaming access, tokens, and active devices</p>
         </div>
-
-        <?php if ($message): ?>
-            <div class="message <?php echo $messageType; ?>">
-                <i class="fas fa-<?php echo $messageType === 'success' ? 'check-circle' : 'exclamation-circle'; ?>"></i>
-                <?php echo htmlspecialchars($message); ?>
-            </div>
-        <?php endif; ?>
-
-        <div class="stats-grid">
-            <div class="stat-card">
-                <i class="fas fa-users"></i>
-                <div class="value"><?php echo count($users); ?></div>
-                <div class="label">Total Users</div>
-            </div>
-            <div class="stat-card">
-                <i class="fas fa-check-circle"></i>
-                <div class="value"><?php echo count(array_filter($users, fn($u) => $u['is_active'])); ?></div>
-                <div class="label">Active Users</div>
-            </div>
-            <div class="stat-card">
-                <i class="fas fa-mobile-alt"></i>
-                <div class="value"><?php echo array_sum(array_column($users, 'device_count')); ?></div>
-                <div class="label">Total Devices</div>
-            </div>
-            <div class="stat-card">
-                <i class="fas fa-crown"></i>
-                <div class="value">
-                    <?php echo count(array_filter($users, fn($u) => $u['subscription_tier'] === 'premium' || $u['subscription_tier'] === 'family')); ?>
-                </div>
-                <div class="label">Premium Users</div>
-            </div>
-        </div>
-
-        <div style="margin-bottom: 20px;">
-            <button class="btn btn-primary" onclick="openModal('createUserModal')">
-                <i class="fas fa-plus"></i> Create New User
+        <div>
+            <button class="btn btn-primary" data-modal="createUserModal">
+                <i class="fas fa-plus mr-2"></i> Add New User
             </button>
-            <a href="index.php" class="btn btn-warning">
-                <i class="fas fa-arrow-left"></i> Back to Dashboard
-            </a>
         </div>
+    </div>
+</div>
+<button class="btn btn-primary" onclick="openModal('createUserModal')">
+    <i class="fas fa-plus"></i> Create New User
+</button>
+</div>
 
-        <div class="users-table">
-            <table>
+<style>
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .stat-card.streaming-stat {
+        background: white;
+        border-radius: var(--admin-radius);
+        padding: 1.5rem;
+        box-shadow: var(--admin-shadow);
+        border-left: 4px solid var(--admin-primary);
+        text-align: center;
+        transition: transform 0.2s;
+    }
+
+    .stat-card.streaming-stat:hover {
+        transform: translateY(-5px);
+    }
+
+    .stat-card.streaming-stat i {
+        font-size: 2rem;
+        color: var(--admin-primary);
+        margin-bottom: 1rem;
+    }
+
+    .stat-card.streaming-stat .value {
+        font-size: 1.75rem;
+        font-weight: 700;
+        color: var(--admin-text);
+        margin-bottom: 0.25rem;
+    }
+
+    .stat-card.streaming-stat .label {
+        color: var(--admin-text-light);
+        font-size: 0.875rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+
+    .streaming-url-box {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: var(--admin-bg);
+        padding: 0.25rem 0.5rem;
+        border-radius: 4px;
+        max-width: 250px;
+    }
+
+    .streaming-url {
+        font-family: monospace;
+        font-size: 0.875rem;
+        color: var(--admin-primary);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .copy-btn {
+        background: none;
+        border: none;
+        color: var(--admin-text-light);
+        cursor: pointer;
+        padding: 0.25rem;
+        transition: color 0.2s;
+    }
+
+    .copy-btn:hover {
+        color: var(--admin-primary);
+    }
+
+    /* Modal Styles */
+    .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1100;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .modal.active {
+        display: flex;
+    }
+
+    .modal-content {
+        background: white;
+        border-radius: var(--admin-radius);
+        padding: 2rem;
+        max-width: 600px;
+        width: 90%;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+
+    .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+        border-bottom: 1px solid var(--admin-border);
+        padding-bottom: 1rem;
+    }
+
+    .modal-header h2 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: var(--admin-text);
+        margin: 0;
+    }
+
+    .close-modal {
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: var(--admin-text-light);
+    }
+
+    .form-group {
+        margin-bottom: 1rem;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+        font-size: 0.875rem;
+    }
+
+    .form-group input,
+    .form-group select {
+        width: 100%;
+        padding: 0.625rem;
+        border: 1px solid var(--admin-border);
+        border-radius: var(--admin-radius);
+        font-family: inherit;
+    }
+
+    .checkbox-group {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-top: 1rem;
+    }
+
+    .checkbox-group input[type="checkbox"] {
+        width: auto;
+    }
+</style>
+
+<div class="header-actions mb-4 d-flex justify-content-between align-items-center">
+    <div>
+        <h2 class="h4 mb-1">Streaming Users</h2>
+        <p class="text-muted small mb-0">Manage user accounts and streaming access</p>
+    </div>
+    <button class="btn btn-primary" onclick="openModal('createUserModal')">
+        <i class="fas fa-plus"></i> Create New User
+    </button>
+</div>
+
+<?php if ($message): ?>
+    <div class="alert alert-<?php echo $messageType === 'success' ? 'success' : 'danger'; ?> alert-dismissible fade show">
+        <i class="fas fa-<?php echo $messageType === 'success' ? 'check-circle' : 'exclamation-circle'; ?> mr-2"></i>
+        <?php echo htmlspecialchars($message); ?>
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+    </div>
+<?php endif; ?>
+
+<div class="stats-grid">
+    <div class="stat-card streaming-stat">
+        <i class="fas fa-users"></i>
+        <div class="value"><?php echo count($users); ?></div>
+        <div class="label">Total Users</div>
+    </div>
+    <div class="stat-card streaming-stat">
+        <i class="fas fa-check-circle"></i>
+        <div class="value"><?php echo count(array_filter($users, fn($u) => $u['is_active'])); ?></div>
+        <div class="label">Active Users</div>
+    </div>
+    <div class="stat-card streaming-stat">
+        <i class="fas fa-mobile-alt"></i>
+        <div class="value"><?php echo array_sum(array_column($users, 'device_count')); ?></div>
+        <div class="label">Living Devices</div>
+    </div>
+    <div class="stat-card streaming-stat">
+        <i class="fas fa-crown"></i>
+        <div class="value">
+            <?php echo count(array_filter($users, fn($u) => ($u['subscription_tier'] ?? '') === 'premium' || ($u['subscription_tier'] ?? '') === 'family')); ?>
+        </div>
+        <div class="label">Premium Plans</div>
+    </div>
+</div>
+
+<div class="admin-card">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="admin-table mb-0">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Username</th>
-                        <th>Email</th>
-                        <th>Tier</th>
+                        <th>User</th>
+                        <th>Contact</th>
+                        <th>Plan</th>
                         <th>Devices</th>
                         <th>Streaming URL</th>
                         <th>Status</th>
-                        <th>Created</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach ($users as $user): ?>
                         <tr>
-                            <td><?php echo $user['id']; ?></td>
-                            <td><strong><?php echo htmlspecialchars($user['username']); ?></strong></td>
-                            <td><?php echo htmlspecialchars($user['email']); ?></td>
+                            <td>
+                                <div class="font-weight-bold"><?php echo htmlspecialchars($user['username']); ?></div>
+                                <small class="text-muted">ID: #<?php echo $user['id']; ?></small>
+                            </td>
+                            <td>
+                                <div class="small"><?php echo htmlspecialchars($user['email']); ?></div>
+                                <div class="text-muted smallest">Joined:
+                                    <?php echo date('M d, Y', strtotime($user['created_at'])); ?></div>
+                            </td>
                             <td>
                                 <span class="badge badge-info">
                                     <?php echo strtoupper($user['subscription_tier'] ?? 'basic'); ?>
                                 </span>
                             </td>
                             <td>
-                                <?php echo $user['device_count']; ?> / <?php echo $user['device_limit'] ?? 1; ?>
+                                <div class="small"><?php echo $user['device_count']; ?> /
+                                    <?php echo $user['device_limit'] ?? 1; ?></div>
+                                <div class="progress progress-xs mt-1" style="height: 4px;">
+                                    <div class="progress-bar bg-success"
+                                        style="width: <?php echo (($user['device_count'] / ($user['device_limit'] ?: 1)) * 100); ?>%">
+                                    </div>
+                                </div>
                             </td>
                             <td>
-                                <span class="streaming-url" title="<?php echo htmlspecialchars($user['playlist_url']); ?>">
-                                    <?php echo htmlspecialchars($user['playlist_url']); ?>
-                                </span>
-                                <button class="copy-btn"
-                                    onclick="copyToClipboard('<?php echo htmlspecialchars($user['playlist_url']); ?>')">
-                                    <i class="fas fa-copy"></i>
-                                </button>
+                                <div class="streaming-url-box">
+                                    <span class="streaming-url"
+                                        title="<?php echo htmlspecialchars($user['playlist_url']); ?>">
+                                        <?php echo htmlspecialchars($user['playlist_url']); ?>
+                                    </span>
+                                    <button class="copy-btn"
+                                        onclick="copyToClipboard('<?php echo htmlspecialchars($user['playlist_url']); ?>')"
+                                        title="Copy URL">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                </div>
                             </td>
                             <td>
                                 <span class="badge badge-<?php echo $user['is_active'] ? 'success' : 'danger'; ?>">
                                     <?php echo $user['is_active'] ? 'Active' : 'Inactive'; ?>
                                 </span>
                             </td>
-                            <td><?php echo date('Y-m-d', strtotime($user['created_at'])); ?></td>
                             <td>
-                                <button class="btn btn-sm btn-primary" onclick="editUser(<?php echo $user['id']; ?>)">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                                <button class="btn btn-sm btn-success" onclick="manageDevices(<?php echo $user['id']; ?>)">
-                                    <i class="fas fa-mobile-alt"></i>
-                                </button>
-                                <button class="btn btn-sm btn-warning"
-                                    onclick="regenerateToken(<?php echo $user['id']; ?>)">
-                                    <i class="fas fa-sync"></i>
-                                </button>
-                                <button class="btn btn-sm btn-danger" onclick="deleteUser(<?php echo $user['id']; ?>)">
-                                    <i class="fas fa-trash"></i>
-                                </button>
+                                <div class="btn-group btn-group-sm">
+                                    <button class="btn btn-outline-primary" onclick="editUser(<?php echo $user['id']; ?>)"
+                                        title="Edit">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn btn-outline-success"
+                                        onclick="manageDevices(<?php echo $user['id']; ?>)" title="Devices">
+                                        <i class="fas fa-mobile-alt"></i>
+                                    </button>
+                                    <button class="btn btn-outline-warning"
+                                        onclick="regenerateToken(<?php echo $user['id']; ?>)" title="Regenerate Token">
+                                        <i class="fas fa-sync"></i>
+                                    </button>
+                                    <button class="btn btn-outline-danger" onclick="deleteUser(<?php echo $user['id']; ?>)"
+                                        title="Delete">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
                             </td>
                         </tr>
                     <?php endforeach; ?>
+                    <?php if (empty($users)): ?>
+                        <tr>
+                            <td colspan="7" class="text-center py-4 text-muted">No streaming users found</td>
+                        </tr>
+                    <?php endif; ?>
                 </tbody>
             </table>
         </div>
     </div>
+</div>
 
-    <!-- Create User Modal -->
-    <div class="modal" id="createUserModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2><i class="fas fa-user-plus"></i> Create New Streaming User</h2>
-                <button class="close-modal" onclick="closeModal('createUserModal')">×</button>
-            </div>
-            <form method="POST">
-                <input type="hidden" name="action" value="create_user">
-
-                <div class="form-group">
-                    <label><i class="fas fa-user"></i> Username</label>
-                    <input type="text" name="username" required>
-                </div>
-
-                <div class="form-group">
-                    <label><i class="fas fa-lock"></i> Password</label>
-                    <input type="password" name="password" required>
-                </div>
-
-                <div class="form-group">
-                    <label><i class="fas fa-envelope"></i> Email</label>
-                    <input type="email" name="email" required>
-                </div>
-
-                <div class="form-group">
-                    <label><i class="fas fa-crown"></i> Subscription Tier</label>
-                    <select name="subscription_tier" required>
-                        <?php foreach ($tiers as $key => $label): ?>
-                            <option value="<?php echo $key; ?>"><?php echo $label; ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label><i class="fas fa-mobile-alt"></i> Device Limit</label>
-                    <input type="number" name="device_limit" value="1" min="1" max="10" required>
-                </div>
-
-                <div
-                    style="margin-top: 20px; padding: 15px; background: rgba(0, 168, 255, 0.1); border-radius: 8px; border: 1px solid rgba(0, 168, 255, 0.3);">
-                    <h3 style="color: #00A8FF; font-size: 18px; margin-bottom: 15px;"><i
-                            class="fas fa-satellite-dish"></i> TiviMate Credentials</h3>
-
-                    <div class="form-group">
-                        <label>TiviMate Server</label>
-                        <input type="text" name="tivimate_server" placeholder="http://example.com:8080">
-                    </div>
-
-                    <div class="form-group">
-                        <label>TiviMate Username</label>
-                        <input type="text" name="tivimate_username">
-                    </div>
-
-                    <div class="form-group">
-                        <label>TiviMate Password</label>
-                        <input type="text" name="tivimate_password">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Expires At</label>
-                        <input type="date" name="tivimate_expires_at">
-                    </div>
-
-                    <div class="checkbox-group">
-                        <input type="checkbox" name="tivimate_active" id="tivimate_active" checked>
-                        <label for="tivimate_active">Activate TiviMate Credentials</label>
-                    </div>
-                </div>
-
-                <button type="submit" class="btn btn-primary">
-                    <i class="fas fa-save"></i> Create User
-                </button>
-            </form>
+<!-- Create User Modal -->
+<div class="modal" id="createUserModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Create New Streaming User</h2>
+            <button class="close-modal" onclick="closeModal('createUserModal')">&times;</button>
         </div>
+        <form method="POST">
+            <input type="hidden" name="action" value="create_user">
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Username</label>
+                        <input type="text" name="username" class="form-control" required>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" name="email" class="form-control" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" name="password" class="form-control" required>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Subscription Tier</label>
+                        <select name="subscription_tier" class="form-control" required>
+                            <?php foreach ($tiers as $key => $label): ?>
+                                <option value="<?php echo $key; ?>"><?php echo $label; ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Device Limit</label>
+                        <input type="number" name="device_limit" class="form-control" value="1" min="1" max="10"
+                            required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-4 p-3 bg-light rounded border">
+                <h6 class="text-primary mb-3"><i class="fas fa-satellite-dish mr-2"></i>TiviMate Credentials (Optional)
+                </h6>
+                <div class="form-group">
+                    <label class="small">Server URL</label>
+                    <input type="text" name="tivimate_server" class="form-control form-control-sm"
+                        placeholder="http://example.com:8080">
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label class="small">Username</label>
+                            <input type="text" name="tivimate_username" class="form-control form-control-sm">
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label class="small">Password</label>
+                            <input type="text" name="tivimate_password" class="form-control form-control-sm">
+                        </div>
+                    </div>
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" name="tivimate_active" id="tivimate_active" checked>
+                    <label for="tivimate_active" class="small mb-0">Activate TiviMate profile</label>
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <button type="submit" class="btn btn-primary btn-block">Create User Account</button>
+            </div>
+        </form>
     </div>
+</div>
 
-    <script>
-        function openModal(modalId) {
-            document.getElementById(modalId).classList.add('active');
-        }
+<script>
+    function openModal(modalId) {
+        document.getElementById(modalId).classList.add('active');
+    }
 
-        function closeModal(modalId) {
-            document.getElementById(modalId).classList.remove('active');
-        }
+    function closeModal(modalId) {
+        document.getElementById(modalId).classList.remove('active');
+    }
 
-        function copyToClipboard(text) {
-            navigator.clipboard.writeText(text).then(() => {
-                alert('Streaming URL copied to clipboard!');
-            });
-        }
-
-        function editUser(userId) {
-            // Implement edit functionality
-            alert('Edit user ' + userId);
-        }
-
-        function manageDevices(userId) {
-            // Implement device management
-            alert('Manage devices for user ' + userId);
-        }
-
-        function regenerateToken(userId) {
-            if (confirm('Are you sure you want to regenerate the streaming URL? The old URL will stop working.')) {
-                const form = document.createElement('form');
-                form.method = 'POST';
-                form.innerHTML = `
-                    <input type="hidden" name="action" value="regenerate_token">
-                    <input type="hidden" name="user_id" value="${userId}">
-                `;
-                document.body.appendChild(form);
-                form.submit();
-            }
-        }
-
-        function deleteUser(userId) {
-            if (confirm('Are you sure you want to delete this user? This action cannot be undone.')) {
-                const form = document.createElement('form');
-                form.method = 'POST';
-                form.innerHTML = `
-                    <input type="hidden" name="action" value="delete_user">
-                    <input type="hidden" name="user_id" value="${userId}">
-                `;
-                document.body.appendChild(form);
-                form.submit();
-            }
-        }
-
-        // Close modal when clicking outside
-        document.querySelectorAll('.modal').forEach(modal => {
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) {
-                    modal.classList.remove('active');
-                }
-            });
+    function copyToClipboard(text) {
+        navigator.clipboard.writeText(text).then(() => {
+            const toast = document.createElement('div');
+            toast.className = 'alert alert-info position-fixed';
+            toast.style.cssText = 'bottom: 20px; right: 20px; z-index: 2000; min-width: 250px;';
+            toast.innerHTML = '<i class="fas fa-check-circle mr-2"></i> Streaming URL copied!';
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 2000);
         });
-    </script>
-</body>
+    }
 
-</html>
+    function editUser(userId) { alert('Edit functionality to be implemented for ID: ' + userId); }
+    function manageDevices(userId) { alert('Device management to be implemented for ID: ' + userId); }
+
+    function regenerateToken(userId) {
+        if (confirm('Regenerate streaming URL? Existing players will stop working immediately.')) {
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.innerHTML = `<input type="hidden" name="action" value="regenerate_token"><input type="hidden" name="user_id" value="${userId}">`;
+            document.body.appendChild(form);
+            form.submit();
+        }
+    }
+
+    function deleteUser(userId) {
+        if (confirm('Permanently delete this user? This cannot be undone.')) {
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.innerHTML = `<input type="hidden" name="action" value="delete_user"><input type="hidden" name="user_id" value="${userId}">`;
+            document.body.appendChild(form);
+            form.submit();
+        }
+    }
+
+    window.onclick = function (event) {
+        if (event.target.classList.contains('modal')) {
+            event.target.classList.remove('active');
+        }
+    };
+</script>
+
+</div><!-- /.admin-main -->
+</div><!-- /.admin-layout -->
+
+<!-- Include modals and other HTML here -->
+
+<?php include 'includes/footer.php'; ?>

@@ -1,8 +1,8 @@
 <?php
-require_once __DIR__ . '/../config/config.php';
-require_once __DIR__ . '/../config/database.php';
-require_once __DIR__ . '/../lib/functions.php';
-require_once __DIR__ . '/../lib/seo.php';
+require_once '../config/config.php';
+require_once '../config/database.php';
+require_once '../lib/functions.php';
+require_once '../lib/seo.php';
 
 // Enhanced TV platform detection from User-Agent
 $user_agent = $_SERVER['HTTP_USER_AGENT'] ?? '';
@@ -30,7 +30,7 @@ elseif (stripos($user_agent, 'Tizen') !== false || stripos($user_agent, 'SmartTV
     $is_tv_browser = true;
 }
 
-$seo_meta = SEO::getMetaTags('apps');
+$seo_meta = class_exists('SEO') ? SEO::getMetaTags('apps') : ['title' => 'Apps', 'keywords' => '', 'description' => ''];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -38,6 +38,9 @@ $seo_meta = SEO::getMetaTags('apps');
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Base HREF to ensure relative links work from /apps/ clean URL -->
+    <base href="https://bingetv.co.ke/">
+
     <title>Download BingeTV Apps - Stream on Any TV Platform</title>
     <meta name="description"
         content="Download BingeTV streaming apps for Android TV, LG WebOS, Samsung Tizen, and more. Stream 8K content on your Smart TV.">
@@ -48,6 +51,11 @@ $seo_meta = SEO::getMetaTags('apps');
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/main.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/responsive-fixes.css?v=<?php echo time(); ?>">
+
     <style>
         * {
             margin: 0;
@@ -57,12 +65,15 @@ $seo_meta = SEO::getMetaTags('apps');
 
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #ffffff 100%);
-            color: #1a1a2e;
+            background: #0f172a;
+            color: #ffffff;
             min-height: 100vh;
+            padding-top: 80px;
+            /* Space for fixed navbar */
         }
 
-        .header {
+        /* Renamed to avoid conflicts with global header */
+        .apps-hero {
             background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
             padding: 40px 20px;
             text-align: center;
@@ -70,7 +81,24 @@ $seo_meta = SEO::getMetaTags('apps');
             box-shadow: 0 10px 30px rgba(139, 0, 0, 0.1);
         }
 
-        .header h1 {
+        .apps-hero h1 {
+            font-family: 'Orbitron', sans-serif;
+            background: #0f172a;
+            color: #ffffff;
+            min-height: 100vh;
+            padding-top: 80px;
+            /* Account for fixed navbar */
+        }
+
+        .apps-hero {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            padding: 40px 20px;
+            text-align: center;
+            border-bottom: 3px solid #8B0000;
+            box-shadow: 0 10px 30px rgba(139, 0, 0, 0.1);
+        }
+
+        .apps-hero h1 {
             font-family: 'Orbitron', sans-serif;
             font-size: 48px;
             color: #8B0000;
@@ -78,7 +106,7 @@ $seo_meta = SEO::getMetaTags('apps');
             text-shadow: 0 2px 4px rgba(139, 0, 0, 0.1);
         }
 
-        .header p {
+        .apps-hero p {
             font-size: 20px;
             color: #6b7280;
             max-width: 800px;
@@ -99,15 +127,15 @@ $seo_meta = SEO::getMetaTags('apps');
         }
 
         .platform-card {
-            background: #ffffff;
-            border: 2px solid #e5e7eb;
+            background: #1e293b;
+            border: 2px solid #334155;
             border-radius: 20px;
             padding: 30px;
             text-align: center;
             transition: all 0.3s;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
         }
 
         .platform-card::before {
@@ -117,7 +145,7 @@ $seo_meta = SEO::getMetaTags('apps');
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(0, 168, 255, 0.1) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(139, 0, 0, 0.1) 0%, transparent 70%);
             opacity: 0;
             transition: opacity 0.4s;
         }
@@ -128,37 +156,37 @@ $seo_meta = SEO::getMetaTags('apps');
 
         .platform-card:hover {
             transform: translateY(-10px) scale(1.02);
-            border-color: #8B0000;
-            box-shadow: 0 20px 40px rgba(0, 168, 255, 0.4);
+            border-color: #ef4444;
+            box-shadow: 0 20px 40px rgba(139, 0, 0, 0.2);
         }
 
         .platform-card.detected {
-            border-color: #A52A2A;
-            background: linear-gradient(135deg, rgba(0, 255, 0, 0.1) 0%, rgba(0, 168, 255, 0.05) 100%);
+            border-color: #ef4444;
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(30, 41, 59, 1) 100%);
         }
 
         .platform-icon {
             font-size: 64px;
-            color: #8B0000;
+            color: #ef4444;
             margin-bottom: 20px;
             display: block;
             text-align: center;
         }
 
         .platform-card.detected .platform-icon {
-            color: #A52A2A;
+            color: #f87171;
         }
 
         .platform-name {
             font-size: 28px;
             font-weight: bold;
-            color: #1a1a2e;
+            color: #f1f5f9;
             margin-bottom: 10px;
             text-align: center;
         }
 
         .platform-desc {
-            color: #6b7280;
+            color: #94a3b8;
             margin-bottom: 20px;
             text-align: center;
             font-size: 14px;
@@ -171,12 +199,12 @@ $seo_meta = SEO::getMetaTags('apps');
 
         .platform-features li {
             padding: 8px 0;
-            color: #aaa;
+            color: #cbd5e1;
             font-size: 14px;
         }
 
         .platform-features li i {
-            color: #8B0000;
+            color: #ef4444;
             margin-right: 10px;
         }
 
@@ -184,8 +212,8 @@ $seo_meta = SEO::getMetaTags('apps');
             display: block;
             width: 100%;
             padding: 15px;
-            background: linear-gradient(135deg, #8B0000 0%, #660000 100%);
-            color: #1a1a2e;
+            background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);
+            color: #ffffff;
             text-align: center;
             text-decoration: none;
             border-radius: 12px;
@@ -194,12 +222,12 @@ $seo_meta = SEO::getMetaTags('apps');
             transition: all 0.3s;
             border: none;
             cursor: pointer;
-            box-shadow: 0 5px 15px rgba(0, 168, 255, 0.3);
+            box-shadow: 0 5px 15px rgba(239, 68, 68, 0.3);
         }
 
         .download-btn:hover {
             transform: scale(1.05);
-            box-shadow: 0 8px 25px rgba(0, 168, 255, 0.5);
+            box-shadow: 0 8px 25px rgba(239, 68, 68, 0.5);
         }
 
         .download-btn i {
@@ -207,8 +235,8 @@ $seo_meta = SEO::getMetaTags('apps');
         }
 
         .detected-badge {
-            background: #A52A2A;
-            color: #000;
+            background: #ef4444;
+            color: #ffffff;
             padding: 5px 15px;
             border-radius: 20px;
             font-size: 12px;
@@ -220,27 +248,27 @@ $seo_meta = SEO::getMetaTags('apps');
         .section-title {
             font-family: 'Orbitron', sans-serif;
             font-size: 36px;
-            color: #8B0000;
+            color: #f1f5f9;
             margin-bottom: 30px;
             text-align: center;
         }
 
         .instructions {
-            background: rgba(0, 168, 255, 0.05);
-            border: 2px solid rgba(0, 168, 255, 0.2);
+            background: #1e293b;
+            border: 2px solid #334155;
             border-radius: 15px;
             padding: 30px;
             margin-bottom: 40px;
         }
 
         .instructions h3 {
-            color: #8B0000;
+            color: #f87171;
             margin-bottom: 15px;
             font-size: 24px;
         }
 
         .instructions ol {
-            color: #6b7280;
+            color: #cbd5e1;
             padding-left: 25px;
         }
 
@@ -435,6 +463,9 @@ $seo_meta = SEO::getMetaTags('apps');
 </head>
 
 <body>
+    <!-- Navigation -->
+    <?php include __DIR__ . '/includes/navigation.php'; ?>
+
     <?php if ($is_tv_browser && $detected_platform !== 'unknown'): ?>
         <!-- Auto-download Modal for TV Browsers -->
         <div class="auto-download-modal active" id="autoDownloadModal">
@@ -485,14 +516,15 @@ $seo_meta = SEO::getMetaTags('apps');
             </div>
         </div>
     <?php endif; ?>
-    <div class="header">
+    <div class="apps-hero">
         <h1><i class="fas fa-satellite-dish"></i> BingeTV Apps</h1>
         <p>Download our streaming apps for your Smart TV platform and enjoy unlimited entertainment in stunning 8K
             quality</p>
     </div>
 
     <div class="container">
-        <a href="index.php" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Home</a>
+        <a href="index" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Home</a>
+
 
         <h2 class="section-title">Choose Your Platform</h2>
 
@@ -741,17 +773,7 @@ $seo_meta = SEO::getMetaTags('apps');
             const modal = document.getElementById('autoDownloadModal');
             if (modal) {
                 modal.classList.remove('active');
-            }
-        }
-
-        // Close modal when clicking outside
-        document.addEventListener('click', function (e) {
-            const modal = document.getElementById('autoDownloadModal');
-            if (modal && e.target === modal) {
-                closeModal();
-            }
-        });
-    </script>
-</body>
-
-</html>
+                <!-- Footer -->
+                <?php include 'includes/footer.php'; ?>
+</body >
+</html >

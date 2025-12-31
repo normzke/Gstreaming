@@ -349,6 +349,11 @@ a:hover {
     overflow: hidden;
 }
 
+.hero-compact {
+    min-height: 60vh;
+    padding-top: 80px;
+}
+
 .hero-background {
     position: absolute;
     top: 0;
@@ -425,7 +430,7 @@ a:hover {
     font-size: 2rem;
     font-weight: 400;
     color: var(--white);
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
 }
 
 .hero-description {
@@ -490,16 +495,22 @@ a:hover {
     flex-direction: column;
     align-items: center;
     gap: var(--spacing-sm);
-    padding: var(--spacing-lg);
-    background: rgba(255, 255, 255, 0.9);
-    border-radius: var(--radius-xl);
-    box-shadow: var(--shadow-lg);
+    padding: var(--spacing-xl);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--radius-2xl);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
     transition: all var(--transition-normal);
-    animation: float 3s ease-in-out infinite;
+    animation: float 4s ease-in-out infinite;
+    min-width: 120px;
 }
 
 .device:nth-child(2) {
     animation-delay: 1s;
+    background: rgba(139, 0, 0, 0.15);
+    /* Subtle brand tint for central item */
 }
 
 .device:nth-child(3) {
@@ -507,19 +518,181 @@ a:hover {
 }
 
 .device:hover {
-    transform: translateY(-10px);
-    box-shadow: var(--shadow-xl);
+    transform: translateY(-15px) scale(1.05);
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 15px 45px 0 rgba(0, 0, 0, 0.4);
 }
 
 .device i {
-    font-size: 2rem;
-    color: var(--primary-color);
+    font-size: 2.5rem;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0 8px rgba(139, 0, 0, 0.3));
 }
 
 .device span {
-    font-size: 0.875rem;
-    font-weight: 600;
-    color: var(--text-primary);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+/* Download Buttons Styling */
+.download-grid {
+    display: flex;
+    gap: var(--spacing-lg);
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.download-btn {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.5rem;
+    border-radius: 12px;
+    text-decoration: none;
+    transition: all var(--transition-normal);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    min-width: 220px;
+}
+
+.download-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-xl);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.download-btn i {
+    font-size: 2.25rem;
+}
+
+.btn-platform {
+    display: block;
+    font-size: 1.125rem;
+    font-weight: 700;
+}
+
+.btn-label {
+    display: block;
+    font-size: 0.75rem;
+    opacity: 0.8;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+/* Platform Colors */
+.btn-apple {
+    background: linear-gradient(135deg, #000000, #333333);
+    color: white;
+}
+
+.btn-lg {
+    background: linear-gradient(135deg, #A50034, #8B0000);
+    color: white;
+}
+
+.btn-roku {
+    background: linear-gradient(135deg, #662D91, #4E1A6B);
+    color: white;
+}
+
+.btn-microsoft {
+    background: linear-gradient(135deg, #0078D4, #005A9E);
+    color: white;
+}
+
+.btn-android {
+    background: linear-gradient(135deg, #3DDC84, #1D9154);
+    color: white;
+}
+
+.btn-google-play {
+    background: linear-gradient(135deg, #3DDC84, #1D9154);
+    color: white;
+}
+
+/* Direct Downloads Styling */
+.direct-downloads-box {
+    margin-top: 4rem;
+    padding: 3rem;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+}
+
+.box-title {
+    margin: 0 0 2.5rem 0;
+    text-align: center;
+    color: var(--white);
+    font-size: 1.75rem;
+    letter-spacing: 1px;
+}
+
+.download-grid-v2 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.download-card {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 1.75rem;
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all var(--transition-normal);
+}
+
+.download-card:hover {
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateY(-5px);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.card-label {
+    margin: 0 0 1rem 0;
+    color: var(--white);
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 1.1rem;
+}
+
+.apk-link {
+    color: #FFD700;
+    word-break: break-all;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-family: monospace;
+    display: block;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    transition: color 0.3s;
+}
+
+.apk-link:hover {
+    color: #FFF;
+}
+
+.card-info {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.85rem;
+    font-style: italic;
+}
+
+.help-link-wrapper {
+    grid-column: 1 / -1;
+    text-align: center;
+    margin-top: 1.5rem;
 }
 
 .scroll-indicator {
@@ -1843,12 +2016,12 @@ section {
 .device-icon i,
 .support-icon i,
 .stat-icon i {
-    color: var(--white) !important;
+    color: var(--white);
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 .nav-logo i {
-    color: var(--white) !important;
+    color: var(--white);
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
@@ -1859,7 +2032,7 @@ section {
 /* Ensure all icons in maroon backgrounds are white */
 [class*="gradient-primary"] i,
 [class*="primary"] i {
-    color: var(--white) !important;
+    color: var(--white);
 }
 
 /* Floating WhatsApp Button */

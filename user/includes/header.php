@@ -1,27 +1,28 @@
 <?php
 // User Header - Common layout for all user pages
-if (!isLoggedIn()) {
-    header('Location: ../login.php');
-    exit();
-}
+require_once dirname(dirname(__DIR__)) . '/includes/auth.php';
+requireLogin();
 
 $user = getCurrentUser();
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo isset($page_title) ? $page_title . ' - ' : ''; ?>BingeTV User Portal</title>
-    
+
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Orbitron:wght@400;700;900&display=swap"
+        rel="stylesheet">
+
     <!-- CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="/user/css/main.css">
     <link rel="stylesheet" href="/user/css/components.css">
-    
+
     <!-- User Portal Specific CSS -->
     <style>
         :root {
@@ -424,6 +425,7 @@ $user = getCurrentUser();
         }
     </style>
 </head>
+
 <body>
     <div class="user-layout">
         <!-- Sidebar -->
@@ -434,58 +436,65 @@ $user = getCurrentUser();
                     <span>BingeTV</span>
                 </div>
             </div>
-            
+
             <nav class="sidebar-nav">
                 <div class="nav-section">
                     <div class="nav-section-title">Main</div>
                     <div class="nav-item">
-                        <a href="/user/dashboard/" class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'index.php' && strpos($_SERVER['REQUEST_URI'], '/dashboard') !== false ? 'active' : ''; ?>">
+                        <a href="/user/dashboard/"
+                            class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'index.php' && strpos($_SERVER['REQUEST_URI'], '/dashboard') !== false ? 'active' : ''; ?>">
                             <i class="fas fa-tachometer-alt"></i>
                             <span>Dashboard</span>
                         </a>
                     </div>
                     <div class="nav-item">
-                        <a href="/user/channels.php" class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'channels.php' ? 'active' : ''; ?>">
+                        <a href="/user/channels"
+                            class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'channels.php' ? 'active' : ''; ?>">
                             <i class="fas fa-tv"></i>
                             <span>Watch Channels</span>
                         </a>
                     </div>
                     <div class="nav-item">
-                        <a href="/user/downloads.php" class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'downloads.php' ? 'active' : ''; ?>">
+                        <a href="/user/downloads"
+                            class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'downloads.php' ? 'active' : ''; ?>">
                             <i class="fas fa-download"></i>
                             <span>Download Apps</span>
                         </a>
                     </div>
                     <div class="nav-item">
-                        <a href="/user/gallery.php" class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'gallery.php' ? 'active' : ''; ?>">
+                        <a href="/user/gallery"
+                            class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'gallery.php' ? 'active' : ''; ?>">
                             <i class="fas fa-images"></i>
                             <span>Gallery</span>
                         </a>
                     </div>
                 </div>
-                
+
                 <div class="nav-section">
                     <div class="nav-section-title">My Account</div>
                     <div class="nav-item">
-                        <a href="/user/subscriptions.php" class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'subscriptions.php' ? 'active' : ''; ?>">
+                        <a href="/user/subscriptions"
+                            class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'subscriptions.php' ? 'active' : ''; ?>">
                             <i class="fas fa-credit-card"></i>
                             <span>Subscriptions</span>
                         </a>
                     </div>
                     <div class="nav-item">
-                        <a href="/user/payments.php" class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'payments.php' ? 'active' : ''; ?>">
+                        <a href="/user/payments"
+                            class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'payments.php' ? 'active' : ''; ?>">
                             <i class="fas fa-receipt"></i>
                             <span>Payments</span>
                         </a>
                     </div>
                     <div class="nav-item">
-                        <a href="/user/support.php" class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'support.php' ? 'active' : ''; ?>">
+                        <a href="/user/support"
+                            class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'support.php' ? 'active' : ''; ?>">
                             <i class="fas fa-headset"></i>
                             <span>Support</span>
                         </a>
                     </div>
                 </div>
-                
+
                 <div class="nav-section">
                     <div class="nav-section-title">Quick Actions</div>
                     <div class="nav-item">
@@ -495,22 +504,24 @@ $user = getCurrentUser();
                         </a>
                     </div>
                     <div class="nav-item">
-                        <a href="/user/payments/submit-mpesa.php" class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'submit-mpesa.php' ? 'active' : ''; ?>">
+                        <a href="/user/payments/submit-mpesa"
+                            class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'submit-mpesa.php' ? 'active' : ''; ?>">
                             <i class="fas fa-mobile-alt"></i>
                             <span>Pay via M-Pesa</span>
                         </a>
                     </div>
                     <div class="nav-item">
-                        <a href="/help.php" class="nav-link" target="_blank">
+                        <a href="/help" class="nav-link" target="_blank">
                             <i class="fas fa-question-circle"></i>
                             <span>Help & FAQs</span>
                         </a>
                     </div>
                 </div>
-                
-                <div class="nav-section" style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem; margin-top: 1rem;">
+
+                <div class="nav-section"
+                    style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem; margin-top: 1rem;">
                     <div class="nav-item">
-                        <a href="/user/logout.php" class="nav-link">
+                        <a href="/user/logout" class="nav-link">
                             <i class="fas fa-sign-out-alt"></i>
                             <span>Logout</span>
                         </a>
@@ -518,7 +529,7 @@ $user = getCurrentUser();
                 </div>
             </nav>
         </aside>
-        
+
         <!-- Main Content -->
         <main class="user-main" id="mainContent">
             <!-- Top Bar -->
@@ -529,20 +540,21 @@ $user = getCurrentUser();
                     </button>
                     <h1 class="page-title"><?php echo isset($page_title) ? $page_title : 'Dashboard'; ?></h1>
                 </div>
-                
+
                 <div class="topbar-right">
                     <div class="user-info">
                         <div class="user-avatar">
                             <?php echo strtoupper(substr($user['first_name'], 0, 1)); ?>
                         </div>
                         <div class="user-details">
-                            <div class="user-name"><?php echo htmlspecialchars($user['first_name'] . ' ' . $user['last_name']); ?></div>
+                            <div class="user-name">
+                                <?php echo htmlspecialchars($user['first_name'] . ' ' . $user['last_name']); ?>
+                            </div>
                             <div class="user-email"><?php echo htmlspecialchars($user['email']); ?></div>
                         </div>
                     </div>
                 </div>
             </header>
-            
+
             <!-- Content Area -->
             <div class="user-content">
-

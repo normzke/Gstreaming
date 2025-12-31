@@ -24,6 +24,35 @@ function isLoggedIn()
 }
 
 /**
+ * Require user to be logged in
+ */
+function requireLogin($redirect = '')
+{
+    if (!isLoggedIn()) {
+        if ($redirect) {
+            $_SESSION['post_login_redirect'] = $redirect;
+        } else {
+            $_SESSION['post_login_redirect'] = $_SERVER['REQUEST_URI'];
+        }
+
+    }
+}
+
+/**
+ * Require admin privileges
+ */
+function requireAdmin()
+{
+    // Check if admin is logged in
+    if (!isAdmin()) {
+        $_SESSION['post_login_redirect'] = $_SERVER['REQUEST_URI'];
+
+        // Use global redirect function
+        redirect('/admin/login.php', 'Please log in as an administrator to access this page.');
+    }
+}
+
+/**
  * Get current user data
  */
 function getCurrentUser()
@@ -34,7 +63,7 @@ function getCurrentUser()
 
     global $conn;
     if (!$conn) {
-        $db = new Database();
+        $db = Database::getInstance();
         $conn = $db->getConnection();
     }
 
@@ -79,15 +108,17 @@ function generateRandomString($length = 32)
 /**
  * Send email notification
  */
-function sendEmail($to, $subject, $message, $headers = '')
-{
-    if (empty($headers)) {
-        $headers = 'From: ' . SITE_EMAIL . "\r\n" .
-            'Reply-To: ' . SITE_EMAIL . "\r\n" .
-            'X-Mailer: PHP/' . phpversion();
-    }
+if (!function_exists('sendEmail')) {
+    function sendEmail($to, $subject, $message, $headers = '')
+    {
+        if (empty($headers)) {
+            $headers = 'From: ' . SITE_EMAIL . "\r\n" .
+                'Reply-To: ' . SITE_EMAIL . "\r\n" .
+                'X-Mailer: PHP/' . phpversion();
+        }
 
-    return mail($to, $subject, $message, $headers);
+        return mail($to, $subject, $message, $headers);
+    }
 }
 
 /**
@@ -95,11 +126,10 @@ function sendEmail($to, $subject, $message, $headers = '')
  */
 function logActivity($userId, $action, $details = '')
 {
-    // Activity logging temporarily disabled per requirements
-    return;
+    // Activity logging re-enabled
     global $conn;
     if (!$conn) {
-        $db = new Database();
+        $db = Database::getInstance();
         $conn = $db->getConnection();
     }
 
@@ -133,7 +163,7 @@ function getUserNotifications($userId, $limit = 10)
 {
     global $conn;
     if (!$conn) {
-        $db = new Database();
+        $db = Database::getInstance();
         $conn = $db->getConnection();
     }
 
@@ -150,7 +180,7 @@ function createNotification($userId, $title, $message, $type = 'info')
 {
     global $conn;
     if (!$conn) {
-        $db = new Database();
+        $db = Database::getInstance();
         $conn = $db->getConnection();
     }
 
@@ -219,6 +249,7 @@ function redirectWithMessage($url, $message, $type = 'info')
 {
     $_SESSION['flash_message'] = $message;
     $_SESSION['flash_type'] = $type;
+    session_write_close();
     header('Location: ' . $url);
     exit();
 }
@@ -245,7 +276,7 @@ function hasActiveSubscription($userId)
 {
     global $conn;
     if (!$conn) {
-        $db = new Database();
+        $db = Database::getInstance();
         $conn = $db->getConnection();
     }
 
@@ -262,7 +293,7 @@ function getUserSubscription($userId)
 {
     global $conn;
     if (!$conn) {
-        $db = new Database();
+        $db = Database::getInstance();
         $conn = $db->getConnection();
     }
 
@@ -283,7 +314,7 @@ function cleanOldSessions()
 {
     global $conn;
     if (!$conn) {
-        $db = new Database();
+        $db = Database::getInstance();
         $conn = $db->getConnection();
     }
 
@@ -303,7 +334,7 @@ function getSiteStats()
 {
     global $conn;
     if (!$conn) {
-        $db = new Database();
+        $db = Database::getInstance();
         $conn = $db->getConnection();
     }
 
@@ -387,6 +418,7 @@ function redirect($url, $message = '')
     if ($message) {
         redirectWithMessage($url, $message);
     } else {
+        session_write_close();
         header('Location: ' . $url);
         exit();
     }
@@ -418,7 +450,7 @@ function processMPesaPayment($userId, $packageId, $phone, $amount)
 {
     global $conn;
     if (!$conn) {
-        $db = new Database();
+        $db = Database::getInstance();
         $conn = $db->getConnection();
     }
 
@@ -454,5 +486,40 @@ function processMPesaPayment($userId, $packageId, $phone, $amount)
             'error' => 'Payment processing failed: ' . $e->getMessage()
         ];
     }
+}
+/**
+ * Get relative time (e.g., "2 hours ago")
+ */
+function timeAgo($timestamp)
+{
+    if (!is_numeric($timestamp)) {
+        $timestamp = strtotime($timestamp);
+    }
+
+    $diff = time() - $timestamp;
+
+    if ($diff < 1) {
+        return 'just now';
+    }
+
+    $intervals = [
+        31536000 => 'year',
+        2592000 => 'month',
+        604800 => 'week',
+        86400 => 'day',
+        3600 => 'hour',
+        60 => 'minute',
+        1 => 'second'
+    ];
+
+    foreach ($intervals as $seconds => $label) {
+        $count = floor($diff / $seconds);
+        if ($count >= 1) {
+            $plural = ($count > 1) ? 's' : '';
+            return "$count $label$plural ago";
+        }
+    }
+
+    return 'just now';
 }
 ?>

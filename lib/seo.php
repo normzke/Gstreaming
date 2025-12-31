@@ -4,7 +4,8 @@
  * Comprehensive SEO features for search engine visibility
  */
 
-class SEO {
+class SEO
+{
     private static $site_data = [
         'name' => 'BingeTV',
         'description' => 'Premium TV Streaming for Kenya - Watch Premier League, National Geographic, and 150+ channels in 4K quality',
@@ -15,48 +16,54 @@ class SEO {
         'twitter' => '@BingeTVKenya',
         'facebook' => 'BingeTVKenya'
     ];
-    
+
     /**
      * Generate page-specific meta tags
      */
-    public static function getMetaTags($page = 'home', $data = []) {
+    public static function getMetaTags($page = 'home', $data = [])
+    {
         $meta = self::$site_data;
-        
+
         switch ($page) {
             case 'home':
                 $meta['title'] = 'BingeTV - Premium TV Streaming for Kenya | Premier League & Sports';
                 $meta['description'] = 'Never miss Premier League & Premium Sports. Watch 150+ channels including National Geographic, ESPN, and more in 4K quality. M-PESA payments accepted.';
                 $meta['keywords'] = 'TV streaming Kenya, Premier League streaming, National Geographic Kenya, online TV Kenya, streaming service Kenya, BingeTV, live TV Kenya, sports streaming Kenya, 4K TV Kenya';
                 break;
-                
+
             case 'channels':
                 $meta['title'] = 'TV Channels - BingeTV Kenya | 150+ Premium Channels';
                 $meta['description'] = 'Watch 150+ premium TV channels including Premier League, National Geographic, ESPN, BBC, CNN, and more. HD and 4K quality streaming in Kenya.';
                 $meta['keywords'] = 'TV channels Kenya, Premier League channels, National Geographic Kenya, ESPN Kenya, BBC Kenya, CNN Kenya, HD channels Kenya, 4K channels Kenya';
                 break;
-                
+
             case 'gallery':
                 $meta['title'] = 'Video Gallery - BingeTV Kenya | High-Quality Sports & Documentaries';
                 $meta['description'] = 'Explore our video gallery featuring Premier League highlights, National Geographic documentaries, and premium sports content in high resolution.';
                 $meta['keywords'] = 'video gallery Kenya, Premier League highlights, National Geographic videos, sports videos Kenya, documentary streaming Kenya, high resolution videos';
                 break;
-                
+
             case 'subscribe':
                 $meta['title'] = 'Subscribe to BingeTV - Premium TV Streaming Plans | Kenya';
                 $meta['description'] = 'Choose from our flexible subscription plans. Sports Starter, Sports Pro, and Sports Elite packages. M-PESA payments accepted. Start your free trial today!';
                 $meta['keywords'] = 'BingeTV subscription, TV streaming plans Kenya, M-PESA payment, sports streaming subscription, premium TV Kenya, free trial Kenya';
                 break;
-                
+
             case 'login':
                 $meta['title'] = 'Login - BingeTV Kenya | Access Your Account';
                 $meta['description'] = 'Login to your BingeTV account to access premium TV streaming, manage your subscription, and enjoy uninterrupted entertainment.';
                 break;
-                
+
             case 'register':
                 $meta['title'] = 'Sign Up - BingeTV Kenya | Create Your Account';
                 $meta['description'] = 'Create your BingeTV account and start streaming premium TV channels. Quick registration with M-PESA payment support.';
                 break;
-                
+
+            case 'forgot-password':
+                $meta['title'] = 'Reset Password - BingeTV Kenya';
+                $meta['description'] = 'Reset your BingeTV account password.';
+                break;
+
             case 'packages':
                 $meta['title'] = 'Choose Your Plan - BingeTV Kenya | Premium TV Streaming Packages';
                 $meta['description'] = 'Select the perfect BingeTV package for your streaming needs. Flexible plans with M-PESA payment. Start your premium TV experience today.';
@@ -87,19 +94,20 @@ class SEO {
                 $meta['keywords'] = 'BingeTV terms of service, user agreement, subscription terms, legal terms';
                 break;
         }
-        
+
         // Merge with custom data
         if (!empty($data)) {
             $meta = array_merge($meta, $data);
         }
-        
+
         return $meta;
     }
-    
+
     /**
      * Generate structured data (JSON-LD)
      */
-    public static function getStructuredData($page = 'home', $data = []) {
+    public static function getStructuredData($page = 'home', $data = [])
+    {
         $base_data = [
             '@context' => 'https://schema.org',
             '@type' => 'Organization',
@@ -124,7 +132,7 @@ class SEO {
                 'https://instagram.com/BingeTVKenya'
             ]
         ];
-        
+
         switch ($page) {
             case 'home':
                 $base_data['@type'] = 'WebSite';
@@ -134,29 +142,30 @@ class SEO {
                     'query-input' => 'required name=search_term_string'
                 ];
                 break;
-                
+
             case 'channels':
                 $base_data['@type'] = 'ItemList';
                 $base_data['name'] = 'TV Channels - BingeTV Kenya';
                 $base_data['description'] = 'Premium TV channels available on BingeTV';
                 break;
-                
+
             case 'subscribe':
                 $base_data['@type'] = 'Product';
                 $base_data['name'] = 'BingeTV Subscription Plans';
                 $base_data['description'] = 'Premium TV streaming subscription plans for Kenya';
                 break;
         }
-        
+
         return json_encode($base_data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
     }
-    
+
     /**
      * Generate Open Graph tags
      */
-    public static function getOpenGraphTags($page = 'home', $data = []) {
+    public static function getOpenGraphTags($page = 'home', $data = [])
+    {
         $meta = self::getMetaTags($page, $data);
-        
+
         return [
             'og:title' => $meta['title'],
             'og:description' => $meta['description'],
@@ -172,13 +181,14 @@ class SEO {
             'twitter:site' => $meta['twitter']
         ];
     }
-    
+
     /**
      * Generate canonical URL
      */
-    public static function getCanonicalUrl($page = 'home') {
+    public static function getCanonicalUrl($page = 'home')
+    {
         $base_url = 'https://bingetv.co.ke';
-        
+
         switch ($page) {
             case 'home':
                 return $base_url . '/';
@@ -206,17 +216,18 @@ class SEO {
                 return $base_url . $_SERVER['REQUEST_URI'];
         }
     }
-    
+
     /**
      * Generate breadcrumb structured data
      */
-    public static function getBreadcrumbData($items = []) {
+    public static function getBreadcrumbData($items = [])
+    {
         $breadcrumb = [
             '@context' => 'https://schema.org',
             '@type' => 'BreadcrumbList',
             'itemListElement' => []
         ];
-        
+
         $position = 1;
         foreach ($items as $item) {
             $breadcrumb['itemListElement'][] = [
@@ -227,14 +238,15 @@ class SEO {
             ];
             $position++;
         }
-        
+
         return json_encode($breadcrumb, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
     }
-    
+
     /**
      * Generate FAQ structured data
      */
-    public static function getFAQData($faqs = []) {
+    public static function getFAQData($faqs = [])
+    {
         if (empty($faqs)) {
             $faqs = [
                 [
@@ -259,13 +271,13 @@ class SEO {
                 ]
             ];
         }
-        
+
         $faq_data = [
             '@context' => 'https://schema.org',
             '@type' => 'FAQPage',
             'mainEntity' => []
         ];
-        
+
         foreach ($faqs as $faq) {
             $faq_data['mainEntity'][] = [
                 '@type' => 'Question',
@@ -276,17 +288,18 @@ class SEO {
                 ]
             ];
         }
-        
+
         return json_encode($faq_data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
     }
-    
+
     /**
      * Generate sitemap data
      */
-    public static function getSitemapData() {
-        $db = new Database();
+    public static function getSitemapData()
+    {
+        $db = Database::getInstance();
         $conn = $db->getConnection();
-        
+
         $sitemap = [
             [
                 'url' => 'https://bingetv.co.ke/',
@@ -325,14 +338,14 @@ class SEO {
                 'priority' => '0.7'
             ]
         ];
-        
+
         // Add channel pages
         try {
             $channelsQuery = "SELECT id, name FROM channels WHERE is_active = true ORDER BY sort_order";
             $channelsStmt = $conn->prepare($channelsQuery);
             $channelsStmt->execute();
             $channels = $channelsStmt->fetchAll();
-            
+
             foreach ($channels as $channel) {
                 $sitemap[] = [
                     'url' => 'https://bingetv.co.ke/channel.php?id=' . $channel['id'],
@@ -344,14 +357,15 @@ class SEO {
         } catch (Exception $e) {
             // Continue without channel pages if error
         }
-        
+
         return $sitemap;
     }
-    
+
     /**
      * Generate robots.txt content
      */
-    public static function getRobotsTxt() {
+    public static function getRobotsTxt()
+    {
         return "User-agent: *
 Allow: /
 

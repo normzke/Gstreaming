@@ -9,7 +9,7 @@ if (!isLoggedIn()) {
     exit();
 }
 
-$db = new Database();
+$db = Database::getInstance();
 $conn = $db->getConnection();
 $user = getCurrentUser();
 $userId = $user['id'];
@@ -114,11 +114,11 @@ include __DIR__ . '/includes/header.php';
     </div>
     <div class="card-body">
         <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-            <a href="/user/subscriptions.php" class="btn btn-primary">
+            <a href="/user/subscriptions" class="btn btn-primary">
                 <i class="fas fa-shopping-cart"></i>
                 New Subscription
             </a>
-            <a href="/user/payments/submit-mpesa.php" class="btn btn-secondary">
+            <a href="/user/payments/submit-mpesa" class="btn btn-secondary">
                 <i class="fas fa-mobile-alt"></i>
                 Submit M-Pesa Confirmation
             </a>
@@ -192,7 +192,7 @@ include __DIR__ . '/includes/header.php';
                                 </td>
                                 <td>
                                     <?php if ($payment['status'] === 'pending'): ?>
-                                        <a href="/user/payments/process.php?payment_id=<?php echo $payment['id']; ?>" class="btn btn-primary" style="font-size: 0.85rem; padding: 0.5rem 1rem;">
+                                        <a href="/user/payments/process?payment_id=<?php echo $payment['id']; ?>" class="btn btn-primary" style="font-size: 0.85rem; padding: 0.5rem 1rem;">
                                             <i class="fas fa-arrow-right"></i>
                                             Complete
                                         </a>
@@ -222,7 +222,7 @@ include __DIR__ . '/includes/header.php';
                 <p style="color: var(--user-text-light); margin-bottom: 2rem;">
                     You haven't made any payments yet
                 </p>
-                <a href="/user/subscriptions.php" class="btn btn-primary">
+                <a href="/user/subscriptions" class="btn btn-primary">
                     <i class="fas fa-plus"></i>
                     Subscribe to a Package
                 </a>

@@ -236,7 +236,7 @@ include __DIR__ . '/includes/header.php';
 <div style="text-align: center; margin-top: 2rem; padding: 2rem; background: linear-gradient(135deg, #8B0000, #660000); border-radius: 12px; color: white;">
     <h3 style="margin: 0 0 1rem 0; font-size: 1.5rem;">Need Help Getting Started?</h3>
     <p style="margin: 0 0 1.5rem 0; opacity: 0.9;">Our support team is ready to assist you with installation and setup</p>
-    <a href="/user/support.php" class="btn" style="background: white; color: #8B0000; padding: 1rem 2rem; text-decoration: none; display: inline-block; border-radius: 8px; font-weight: 600;">
+    <a href="/user/support" class="btn" style="background: white; color: #8B0000; padding: 1rem 2rem; text-decoration: none; display: inline-block; border-radius: 8px; font-weight: 600;">
         <i class="fas fa-headset"></i> Contact Support
     </a>
 </div>

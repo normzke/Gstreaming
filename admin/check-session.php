@@ -131,11 +131,11 @@ if (!isset($_SESSION['admin_id'])) {
 
         <h2>Test Admin Pages:</h2>
         <p>Click these links to test if you can access admin pages:</p>
-        <a href="index.php" class="test-link">Dashboard</a>
-        <a href="packages.php" class="test-link">Packages</a>
-        <a href="users.php" class="test-link">Users</a>
-        <a href="streaming-users.php" class="test-link">Streaming Users</a>
-        <a href="migrate.php" class="test-link">Database Migration</a>
+        <a href="index" class="test-link">Dashboard</a>
+        <a href="packages" class="test-link">Packages</a>
+        <a href="users" class="test-link">Users</a>
+        <a href="streaming-users" class="test-link">Streaming Users</a>
+        <a href="migrate" class="test-link">Database Migration</a>
 
         <h2>PHP Info:</h2>
         <table>
@@ -161,8 +161,8 @@ if (!isset($_SESSION['admin_id'])) {
             </tr>
         </table>
 
-        <p><a href="clear-cache.php" class="test-link">Clear Server Cache</a></p>
-        <p><a href="index.php">← Back to Dashboard</a></p>
+        <p><a href="clear-cache" class="test-link">Clear Server Cache</a></p>
+        <p><a href="index">← Back to Dashboard</a></p>
     </div>
 </body>
 

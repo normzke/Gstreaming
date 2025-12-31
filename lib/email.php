@@ -16,11 +16,13 @@ define('PHPMAILER_AVAILABLE', $phpmailer_available);
 /**
  * Send email using SMTP
  */
-function sendEmailSMTP($to, $subject, $message, $isHTML = true) {
-    if (!PHPMAILER_AVAILABLE) {
+function sendEmailSMTP($to, $subject, $message, $isHTML = true)
+{
+    // Check if PHPMailer class actually exists even if autoloader is present
+    if (!PHPMAILER_AVAILABLE || !class_exists('PHPMailer\PHPMailer\PHPMailer')) {
         return sendEmailFallback($to, $subject, $message);
     }
-    
+
     $mail = new \PHPMailer\PHPMailer\PHPMailer(true);
 
     try {
@@ -57,7 +59,8 @@ function sendEmailSMTP($to, $subject, $message, $isHTML = true) {
 /**
  * Send welcome email to new users
  */
-function sendWelcomeEmail($userEmail, $firstName) {
+function sendWelcomeEmail($userEmail, $firstName)
+{
     $subject = 'Welcome to BingeTV - Your Streaming Journey Begins!';
 
     $message = "
@@ -101,7 +104,8 @@ function sendWelcomeEmail($userEmail, $firstName) {
 /**
  * Send email verification email
  */
-function sendEmailVerification($userEmail, $verificationToken, $firstName) {
+function sendEmailVerification($userEmail, $verificationToken, $firstName)
+{
     $subject = 'Verify Your BingeTV Email Address';
 
     $verificationLink = SITE_URL . "/verify-email.php?token=" . $verificationToken;
@@ -149,7 +153,8 @@ function sendEmailVerification($userEmail, $verificationToken, $firstName) {
 /**
  * Send password reset email
  */
-function sendPasswordResetEmail($userEmail, $resetToken, $firstName) {
+function sendPasswordResetEmail($userEmail, $resetToken, $firstName)
+{
     $subject = 'Reset Your BingeTV Password';
 
     $resetLink = SITE_URL . "/reset-password.php?token=" . $resetToken;
@@ -197,17 +202,19 @@ function sendPasswordResetEmail($userEmail, $resetToken, $firstName) {
 /**
  * Generate email verification token
  */
-function generateEmailVerificationToken() {
+function generateEmailVerificationToken()
+{
     return bin2hex(random_bytes(32));
 }
 
 /**
  * Verify email token and activate user account
  */
-function verifyEmailToken($token) {
+function verifyEmailToken($token)
+{
     global $conn;
     if (!$conn) {
-        $db = new Database();
+        $db = Database::getInstance();
         $conn = $db->getConnection();
     }
 
@@ -242,11 +249,12 @@ function verifyEmailToken($token) {
  * Fallback email function using basic mail() for simple text emails
  * Use only when SMTP is not available
  */
-function sendEmailFallback($to, $subject, $message) {
+function sendEmailFallback($to, $subject, $message)
+{
     $headers = 'From: ' . SMTP_FROM_EMAIL . "\r\n" .
-               'Reply-To: ' . SMTP_FROM_EMAIL . "\r\n" .
-               'X-Mailer: PHP/' . phpversion() . "\r\n" .
-               'Content-type: text/html; charset=UTF-8';
+        'Reply-To: ' . SMTP_FROM_EMAIL . "\r\n" .
+        'X-Mailer: PHP/' . phpversion() . "\r\n" .
+        'Content-type: text/html; charset=UTF-8';
 
     return mail($to, $subject, $message, $headers);
 }

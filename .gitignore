@@ -31,3 +31,7 @@ Thumbs.db
 # Backup files
 *.bak
 *.backup
+
+# Local config and cookies
+*_cookie.txt
+deploy-config.json

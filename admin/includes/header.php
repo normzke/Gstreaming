@@ -1,9 +1,7 @@
 <?php
 // Admin Header - Common layout for all admin pages
-if (!isset($_SESSION['admin_id'])) {
-    header('Location: login.php');
-    exit();
-}
+require_once dirname(dirname(__DIR__)) . '/includes/auth.php';
+Auth::getInstance()->requireAdmin();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,9 +18,9 @@ if (!isset($_SESSION['admin_id'])) {
 
     <!-- CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="../css/main.css">
-    <link rel="stylesheet" href="../css/components.css">
-    <link rel="stylesheet" href="../css/admin-analytics.css">
+    <link rel="stylesheet" href="<?php echo SITE_URL; ?>/css/main.css">
+    <link rel="stylesheet" href="<?php echo SITE_URL; ?>/css/components.css">
+    <link rel="stylesheet" href="<?php echo SITE_URL; ?>/css/admin.css">
 
     <!-- Admin Specific CSS -->
     <style>
@@ -442,8 +440,8 @@ if (!isset($_SESSION['admin_id'])) {
                 <div class="nav-section">
                     <div class="nav-section-title">Dashboard</div>
                     <div class="nav-item">
-                        <a href="index.php"
-                            class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'index.php' ? 'active' : ''; ?>">
+                        <a href="index"
+                            class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'index.php' && strpos($_SERVER['REQUEST_URI'], '/admin') !== false ? 'active' : ''; ?>">
                             <i class="fas fa-tachometer-alt"></i>
                             <span>Overview</span>
                         </a>
@@ -453,14 +451,14 @@ if (!isset($_SESSION['admin_id'])) {
                 <div class="nav-section">
                     <div class="nav-section-title">Content</div>
                     <div class="nav-item">
-                        <a href="packages.php"
+                        <a href="packages"
                             class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'packages.php' ? 'active' : ''; ?>">
                             <i class="fas fa-box"></i>
                             <span>Packages</span>
                         </a>
                     </div>
                     <div class="nav-item">
-                        <a href="channels.php"
+                        <a href="channels"
                             class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'channels.php' ? 'active' : ''; ?>">
                             <i class="fas fa-tv"></i>
                             <span>Channels</span>
@@ -471,21 +469,21 @@ if (!isset($_SESSION['admin_id'])) {
                 <div class="nav-section">
                     <div class="nav-section-title">Users</div>
                     <div class="nav-item">
-                        <a href="users.php"
+                        <a href="users"
                             class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'users.php' ? 'active' : ''; ?>">
                             <i class="fas fa-users"></i>
                             <span>All Users</span>
                         </a>
                     </div>
                     <div class="nav-item">
-                        <a href="subscriptions.php"
+                        <a href="subscriptions"
                             class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'subscriptions.php' ? 'active' : ''; ?>">
                             <i class="fas fa-credit-card"></i>
                             <span>Subscriptions</span>
                         </a>
                     </div>
                     <div class="nav-item">
-                        <a href="streaming-users.php"
+                        <a href="streaming-users"
                             class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'streaming-users.php' ? 'active' : ''; ?>">
                             <i class="fas fa-satellite-dish"></i>
                             <span>Streaming Users</span>
@@ -496,21 +494,21 @@ if (!isset($_SESSION['admin_id'])) {
                 <div class="nav-section">
                     <div class="nav-section-title">Financial</div>
                     <div class="nav-item">
-                        <a href="payments.php"
+                        <a href="payments"
                             class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'payments.php' ? 'active' : ''; ?>">
                             <i class="fas fa-money-bill-wave"></i>
                             <span>Payments</span>
                         </a>
                     </div>
                     <div class="nav-item">
-                        <a href="manual-payments.php"
+                        <a href="manual-payments"
                             class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'manual-payments.php' ? 'active' : ''; ?>">
                             <i class="fas fa-check-circle"></i>
                             <span>Manual M-Pesa</span>
                         </a>
                     </div>
                     <div class="nav-item">
-                        <a href="analytics.php"
+                        <a href="analytics"
                             class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'analytics.php' ? 'active' : ''; ?>">
                             <i class="fas fa-chart-bar"></i>
                             <span>Analytics</span>
@@ -521,21 +519,21 @@ if (!isset($_SESSION['admin_id'])) {
                 <div class="nav-section">
                     <div class="nav-section-title">Settings</div>
                     <div class="nav-item">
-                        <a href="mpesa-config.php"
+                        <a href="mpesa-config"
                             class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'mpesa-config.php' ? 'active' : ''; ?>">
                             <i class="fas fa-cog"></i>
                             <span>M-PESA Config</span>
                         </a>
                     </div>
                     <div class="nav-item">
-                        <a href="social-media.php"
+                        <a href="social-media"
                             class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'social-media.php' ? 'active' : ''; ?>">
                             <i class="fas fa-share-alt"></i>
                             <span>Social Media</span>
                         </a>
                     </div>
                     <div class="nav-item">
-                        <a href="migrate.php"
+                        <a href="migrate"
                             class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'migrate.php' ? 'active' : ''; ?>">
                             <i class="fas fa-database"></i>
                             <span>Database Migration</span>
@@ -563,9 +561,10 @@ if (!isset($_SESSION['admin_id'])) {
                         </div>
                         <div class="user-info">
                             <div class="user-name"><?php echo htmlspecialchars($_SESSION['admin_name']); ?></div>
-                            <div class="user-role"><?php echo htmlspecialchars($_SESSION['admin_role']); ?></div>
+                            <div class="user-role"><?php echo htmlspecialchars($_SESSION['admin_role'] ?? 'Admin'); ?>
+                            </div>
                         </div>
-                        <a href="logout.php" class="btn btn-danger" style="margin-left: 1rem;">
+                        <a href="logout" class="btn btn-danger" style="margin-left: 1rem;">
                             <i class="fas fa-sign-out-alt"></i>
                             Logout
                         </a>

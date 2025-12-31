@@ -103,7 +103,7 @@ echo "sdk.dir=$ANDROID_HOME" > local.properties
         <div style="margin-top: 40px; padding: 20px; background: #e3f2fd; border-radius: 8px;">
             <h3><i class="fas fa-info-circle"></i> Need Help?</h3>
             <p>See detailed guide: <a href="../apps/android/QUICK_BUILD.md">QUICK_BUILD.md</a></p>
-            <p>Or contact support: <a href="support.php">support@bingetv.co.ke</a></p>
+            <p>Or contact support: <a href="support">support@bingetv.co.ke</a></p>
         </div>
     </div>
     

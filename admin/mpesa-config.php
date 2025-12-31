@@ -9,7 +9,7 @@ if (!isset($_SESSION['admin_id'])) {
     exit();
 }
 
-$db = new Database();
+$db = Database::getInstance();
 $conn = $db->getConnection();
 
 // Initialize message variables
@@ -339,7 +339,7 @@ include 'includes/header.php';
             <div class="admin-card">
                 <div class="card-header">
         <h3 class="card-title">Recent M-PESA Transactions</h3>
-        <a href="mpesa-transactions.php" class="btn btn-secondary">View All</a>
+        <a href="mpesa-transactions" class="btn btn-secondary">View All</a>
                 </div>
     <div class="card-body">
         <?php

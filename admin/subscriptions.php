@@ -9,7 +9,7 @@ if (!isset($_SESSION['admin_id'])) {
     exit();
 }
 
-$db = new Database();
+$db = Database::getInstance();
 $conn = $db->getConnection();
 
 $page_title = 'Subscriptions';
@@ -18,7 +18,7 @@ include 'includes/header.php';
 
 <?php
 // Get pagination parameters
-$page = (int)($_GET['page'] ?? 1);
+$page = (int) ($_GET['page'] ?? 1);
 $limit = 20;
 $offset = ($page - 1) * $limit;
 
@@ -103,10 +103,10 @@ $messageType = '';
 // Handle form submissions
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $action = $_POST['action'] ?? '';
-    
+
     switch ($action) {
         case 'cancel_subscription':
-            $subscription_id = (int)($_POST['subscription_id'] ?? 0);
+            $subscription_id = (int) ($_POST['subscription_id'] ?? 0);
             if ($subscription_id > 0) {
                 $updateQuery = "UPDATE user_subscriptions SET status = 'cancelled', updated_at = NOW() WHERE id = ?";
                 $updateStmt = $conn->prepare($updateQuery);
@@ -125,14 +125,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <!-- Messages -->
 <?php if ($message): ?>
-<div class="admin-card" style="margin-bottom: 1.5rem;">
-    <div class="card-body">
-        <div class="alert alert-<?php echo $messageType; ?>" style="display: flex; align-items: center; gap: 0.5rem; padding: 1rem; border-radius: var(--admin-radius); background: <?php echo $messageType === 'success' ? '#D1FAE5' : '#FEE2E2'; ?>; color: <?php echo $messageType === 'success' ? '#065F46' : '#991B1B'; ?>;">
-            <i class="fas fa-<?php echo $messageType === 'success' ? 'check-circle' : 'exclamation-circle'; ?>"></i>
-            <?php echo htmlspecialchars($message); ?>
+    <div class="admin-card" style="margin-bottom: 1.5rem;">
+        <div class="card-body">
+            <div class="alert alert-<?php echo $messageType; ?>"
+                style="display: flex; align-items: center; gap: 0.5rem; padding: 1rem; border-radius: var(--admin-radius); background: <?php echo $messageType === 'success' ? '#D1FAE5' : '#FEE2E2'; ?>; color: <?php echo $messageType === 'success' ? '#065F46' : '#991B1B'; ?>;">
+                <i class="fas fa-<?php echo $messageType === 'success' ? 'check-circle' : 'exclamation-circle'; ?>"></i>
+                <?php echo htmlspecialchars($message); ?>
+            </div>
         </div>
     </div>
-</div>
 <?php endif; ?>
 
 <!-- Subscription Statistics -->
@@ -179,7 +180,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <option value="all" <?php echo $status_filter === 'all' ? 'selected' : ''; ?>>All Status</option>
                     <option value="active" <?php echo $status_filter === 'active' ? 'selected' : ''; ?>>Active</option>
                     <option value="expired" <?php echo $status_filter === 'expired' ? 'selected' : ''; ?>>Expired</option>
-                    <option value="cancelled" <?php echo $status_filter === 'cancelled' ? 'selected' : ''; ?>>Cancelled</option>
+                    <option value="cancelled" <?php echo $status_filter === 'cancelled' ? 'selected' : ''; ?>>Cancelled
+                    </option>
                 </select>
             </div>
             <div class="form-group">
@@ -187,9 +189,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <select id="package" name="package">
                     <option value="all" <?php echo $package_filter === 'all' ? 'selected' : ''; ?>>All Packages</option>
                     <?php foreach ($packages as $package): ?>
-                    <option value="<?php echo $package['id']; ?>" <?php echo $package_filter == $package['id'] ? 'selected' : ''; ?>>
-                        <?php echo htmlspecialchars($package['name']); ?>
-                    </option>
+                        <option value="<?php echo $package['id']; ?>" <?php echo $package_filter == $package['id'] ? 'selected' : ''; ?>>
+                            <?php echo htmlspecialchars($package['name']); ?>
+                        </option>
                     <?php endforeach; ?>
                 </select>
             </div>
@@ -231,183 +233,321 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </thead>
             <tbody>
                 <?php foreach ($subscriptions as $subscription): ?>
-                <tr>
-                    <td>#<?php echo $subscription['id']; ?></td>
-                    <td>
-                        <div>
-                            <strong><?php echo htmlspecialchars($subscription['first_name'] . ' ' . $subscription['last_name']); ?></strong>
-                            <br>
-                            <small class="text-muted"><?php echo htmlspecialchars($subscription['email']); ?></small>
-                        </div>
-                    </td>
-                    <td>
-                        <div>
-                            <strong><?php echo htmlspecialchars($subscription['package_name']); ?></strong>
-                            <br>
-                            <small class="text-muted"><?php echo $subscription['currency']; ?> <?php echo number_format($subscription['price'], 2); ?></small>
-                        </div>
-                    </td>
-                    <td>
-                        <span class="badge badge-<?php echo $subscription['status'] === 'active' ? 'success' : ($subscription['status'] === 'expired' ? 'warning' : 'danger'); ?>">
-                            <?php echo ucfirst($subscription['status']); ?>
-                        </span>
-                    </td>
-                    <td><?php echo date('M j, Y', strtotime($subscription['start_date'])); ?></td>
-                    <td><?php echo date('M j, Y', strtotime($subscription['end_date'])); ?></td>
-                    <td>
-                        <button class="btn btn-secondary" onclick="viewSubscription(<?php echo $subscription['id']; ?>)" title="View Details">
-                            <i class="fas fa-eye"></i>
-                        </button>
-                        <?php if ($subscription['status'] === 'active'): ?>
-                        <button class="btn btn-warning" onclick="cancelSubscription(<?php echo $subscription['id']; ?>)" title="Cancel">
-                            <i class="fas fa-times"></i>
-                        </button>
-                        <?php endif; ?>
-                    </td>
-                </tr>
+                    <tr>
+                        <td>#<?php echo $subscription['id']; ?></td>
+                        <td>
+                            <div>
+                                <strong><?php echo htmlspecialchars($subscription['first_name'] . ' ' . $subscription['last_name']); ?></strong>
+                                <br>
+                                <small class="text-muted"><?php echo htmlspecialchars($subscription['email']); ?></small>
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                <strong><?php echo htmlspecialchars($subscription['package_name']); ?></strong>
+                                <br>
+                                <small class="text-muted"><?php echo $subscription['currency']; ?>
+                                    <?php echo number_format($subscription['price'], 2); ?></small>
+                            </div>
+                        </td>
+                        <td>
+                            <span
+                                class="badge badge-<?php echo $subscription['status'] === 'active' ? 'success' : ($subscription['status'] === 'expired' ? 'warning' : 'danger'); ?>">
+                                <?php echo ucfirst($subscription['status']); ?>
+                            </span>
+                        </td>
+                        <td><?php echo date('M j, Y', strtotime($subscription['start_date'])); ?></td>
+                        <td><?php echo date('M j, Y', strtotime($subscription['end_date'])); ?></td>
+                        <td>
+                        <td>
+                            <button class="btn btn-secondary" onclick="viewSubscription(this)"
+                                data-id="<?php echo $subscription['id']; ?>"
+                                data-user="<?php echo htmlspecialchars($subscription['first_name'] . ' ' . $subscription['last_name']); ?>"
+                                data-email="<?php echo htmlspecialchars($subscription['email']); ?>"
+                                data-package="<?php echo htmlspecialchars($subscription['package_name']); ?>"
+                                data-price="<?php echo $subscription['currency'] . ' ' . number_format($subscription['price'], 2); ?>"
+                                data-status="<?php echo ucfirst($subscription['status']); ?>"
+                                data-start="<?php echo date('M j, Y', strtotime($subscription['start_date'])); ?>"
+                                data-end="<?php echo date('M j, Y', strtotime($subscription['end_date'])); ?>">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <?php if ($subscription['status'] === 'active'): ?>
+                                <button class="btn btn-warning" onclick="cancelSubscription(<?php echo $subscription['id']; ?>)"
+                                    title="Cancel">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            <?php endif; ?>
+                        </td>
+                    </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
     </div>
 </div>
+</div>
 
-<!-- Pagination -->
-<?php if ($total_pages > 1): ?>
-<div class="admin-card">
-    <div class="card-body">
-        <div class="pagination">
-            <?php if ($page > 1): ?>
-                <a href="?page=<?php echo $page - 1; ?>&status=<?php echo urlencode($status_filter); ?>&package=<?php echo urlencode($package_filter); ?>&date_from=<?php echo urlencode($date_from); ?>&date_to=<?php echo urlencode($date_to); ?>" class="btn btn-secondary">
-                    <i class="fas fa-chevron-left"></i>
-                    Previous
-                </a>
-            <?php endif; ?>
-            
-            <span class="pagination-info">
-                Page <?php echo $page; ?> of <?php echo $total_pages; ?>
-            </span>
-            
-            <?php if ($page < $total_pages): ?>
-                <a href="?page=<?php echo $page + 1; ?>&status=<?php echo urlencode($status_filter); ?>&package=<?php echo urlencode($package_filter); ?>&date_from=<?php echo urlencode($date_from); ?>&date_to=<?php echo urlencode($date_to); ?>" class="btn btn-secondary">
-                    Next
-                    <i class="fas fa-chevron-right"></i>
-                </a>
-            <?php endif; ?>
+<!-- View Subscription Modal -->
+<div id="viewSubscriptionModal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Subscription Details</h3>
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="details-grid">
+                <div class="detail-item">
+                    <label>Subscriber</label>
+                    <p id="view_user"></p>
+                    <small id="view_email" class="text-muted"></small>
+                </div>
+                <div class="detail-item">
+                    <label>Package</label>
+                    <p id="view_package"></p>
+                </div>
+                <div class="detail-item">
+                    <label>Price</label>
+                    <p id="view_price"></p>
+                </div>
+                <div class="detail-item">
+                    <label>Status</label>
+                    <p id="view_status"></p>
+                </div>
+                <div class="detail-group" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div class="detail-item">
+                        <label>Start Date</label>
+                        <p id="view_start"></p>
+                    </div>
+                    <div class="detail-item">
+                        <label>End Date</label>
+                        <p id="view_end"></p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+
+<!-- Pagination -->
+<?php if ($total_pages > 1): ?>
+    <div class="admin-card">
+        <div class="card-body">
+            <div class="pagination">
+                <?php if ($page > 1): ?>
+                    <a href="?page=<?php echo $page - 1; ?>&status=<?php echo urlencode($status_filter); ?>&package=<?php echo urlencode($package_filter); ?>&date_from=<?php echo urlencode($date_from); ?>&date_to=<?php echo urlencode($date_to); ?>"
+                        class="btn btn-secondary">
+                        <i class="fas fa-chevron-left"></i>
+                        Previous
+                    </a>
+                <?php endif; ?>
+
+                <span class="pagination-info">
+                    Page <?php echo $page; ?> of <?php echo $total_pages; ?>
+                </span>
+
+                <?php if ($page < $total_pages): ?>
+                    <a href="?page=<?php echo $page + 1; ?>&status=<?php echo urlencode($status_filter); ?>&package=<?php echo urlencode($package_filter); ?>&date_from=<?php echo urlencode($date_from); ?>&date_to=<?php echo urlencode($date_to); ?>"
+                        class="btn btn-secondary">
+                        Next
+                        <i class="fas fa-chevron-right"></i>
+                    </a>
+                <?php endif; ?>
+            </div>
+        </div>
+    </div>
 <?php endif; ?>
 
 <style>
-.stat-item {
-    text-align: center;
-    padding: 1rem;
-    background: #f8f9fa;
-    border-radius: var(--admin-radius);
-}
+    .stat-item {
+        text-align: center;
+        padding: 1rem;
+        background: #f8f9fa;
+        border-radius: var(--admin-radius);
+    }
 
-.stat-item h4 {
-    margin: 0 0 0.5rem 0;
-    font-size: 1.5rem;
-    color: var(--admin-primary);
-}
+    .stat-item h4 {
+        margin: 0 0 0.5rem 0;
+        font-size: 1.5rem;
+        color: var(--admin-primary);
+    }
 
-.stat-item p {
-    margin: 0;
-    color: var(--admin-text-light);
-    font-size: 0.875rem;
-}
+    .stat-item p {
+        margin: 0;
+        color: var(--admin-text-light);
+        font-size: 0.875rem;
+    }
 
-.filter-form {
-    display: flex;
-    gap: 1rem;
-    align-items: end;
-}
+    .filter-form {
+        display: flex;
+        gap: 1rem;
+        align-items: end;
+    }
 
-.filter-form .form-group {
-    margin-bottom: 0;
-}
+    .filter-form .form-group {
+        margin-bottom: 0;
+    }
 
-.pagination {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    margin-top: 1rem;
-}
+    .pagination {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        margin-top: 1rem;
+    }
 
-.pagination-info {
-    color: var(--admin-text-light);
-    font-size: 0.875rem;
-}
+    .pagination-info {
+        color: var(--admin-text-light);
+        font-size: 0.875rem;
+    }
 
-.badge {
-    padding: 0.25rem 0.75rem;
-    border-radius: 9999px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-}
+    .badge {
+        padding: 0.25rem 0.75rem;
+        border-radius: 9999px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
 
-.badge-success {
-    background: #D1FAE5;
-    color: #065F46;
-}
+    .badge-success {
+        background: #D1FAE5;
+        color: #065F46;
+    }
 
-.badge-warning {
-    background: #FEF3C7;
-    color: #92400E;
-}
+    .badge-warning {
+        background: #FEF3C7;
+        color: #92400E;
+    }
 
-.badge-danger {
-    background: #FEE2E2;
-    color: #991B1B;
-}
+    .badge-danger {
+        background: #FEE2E2;
+        color: #991B1B;
+    }
 
-.text-muted {
-    color: var(--admin-text-light);
-}
+    .text-muted {
+        color: var(--admin-text-light);
+    }
 
-.form-group {
-    margin-bottom: 1rem;
-}
+    .form-group {
+        margin-bottom: 1rem;
+    }
 
-.form-group label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: 500;
-    color: var(--admin-text);
-}
+    .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+        color: var(--admin-text);
+    }
 
-.form-group input,
-.form-group select {
-    width: 100%;
-    padding: 0.75rem;
-    border: 1px solid var(--admin-border);
-    border-radius: var(--admin-radius);
-    font-size: 1rem;
-}
+    .form-group input,
+    .form-group select {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid var(--admin-border);
+        border-radius: var(--admin-radius);
+        font-size: 1rem;
+    }
 
-.form-group input:focus,
-.form-group select:focus {
-    outline: none;
-    border-color: var(--admin-primary);
-    box-shadow: 0 0 0 3px rgba(139, 0, 0, 0.1);
-}
+    .form-group input:focus,
+    .form-group select:focus {
+        outline: none;
+        border-color: var(--admin-primary);
+        box-shadow: 0 0 0 3px rgba(139, 0, 0, 0.1);
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+        outline: none;
+        border-color: var(--admin-primary);
+        box-shadow: 0 0 0 3px rgba(139, 0, 0, 0.1);
+    }
+
+    /* Modal Styles */
+    .modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .modal-content {
+        background: white;
+        border-radius: var(--admin-radius);
+        width: 90%;
+        max-width: 500px;
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+
+    .modal-header {
+        padding: 1.5rem;
+        border-bottom: 1px solid var(--admin-border);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .modal-close {
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: var(--admin-text-light);
+    }
+
+    .modal-body {
+        padding: 1.5rem;
+    }
+
+    .details-grid {
+        display: grid;
+        gap: 1.5rem;
+    }
+
+    .detail-item label {
+        display: block;
+        font-size: 0.875rem;
+        color: var(--admin-text-light);
+        margin-bottom: 0.25rem;
+    }
+
+    .detail-item p {
+        font-weight: 600;
+        color: var(--admin-text);
+        margin: 0;
+    }
 </style>
 
 <script>
-function viewSubscription(id) {
-    console.log('View subscription:', id);
+
+        function viewSubscription(btn) {
+    const dataset = btn.dataset;
+        document.getElementById('view_user').textContent = dataset.user;
+        document.getElementById('view_email').textContent = dataset.email;
+        document.getElementById('view_package').textContent = dataset.package;
+        document.getElementById('view_price').textContent = dataset.price;
+        document.getElementById('view_status').textContent = dataset.status;
+        document.getElementById('view_start').textContent = dataset.start;
+        document.getElementById('view_end').textContent = dataset.end;
+
+        document.getElementById('viewSubscriptionModal').style.display = 'flex';
 }
 
-function cancelSubscription(id) {
+        function closeModal() {
+            document.getElementById('viewSubscriptionModal').style.display = 'none';
+}
+
+        function cancelSubscription(id) {
     if (confirm('Are you sure you want to cancel this subscription?')) {
         const form = document.createElement('form');
         form.method = 'POST';
         form.innerHTML = `
-            <input type="hidden" name="action" value="cancel_subscription">
+        <input type="hidden" name="action" value="cancel_subscription">
             <input type="hidden" name="subscription_id" value="${id}">
         `;
         document.body.appendChild(form);

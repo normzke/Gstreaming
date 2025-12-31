@@ -9,7 +9,7 @@ if (!isLoggedIn()) {
     exit();
 }
 
-$db = new Database();
+$db = Database::getInstance();
 $conn = $db->getConnection();
 $user = getCurrentUser();
 
@@ -259,7 +259,7 @@ $page_title = 'Submit M-Pesa Payment';
             </form>
             
             <p style="text-align: center; margin-top: 2rem; color: #666;">
-                Need help? <a href="/user/support.php" style="color: #8B0000;">Contact Support</a>
+                Need help? <a href="/user/support" style="color: #8B0000;">Contact Support</a>
             </p>
         </div>
     </div>

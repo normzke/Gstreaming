@@ -1,0 +1,45 @@
+# BingeTV Root .htaccess Configuration
+Options -Indexes -MultiViews
+
+# Enable URL rewriting
+RewriteEngine On
+RewriteBase /
+
+# Redirect www to non-www
+RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+
+# 1. Handle root specifically
+RewriteRule ^$ public/index.php [L]
+
+# 2. Prevent directory listing redirects from interfering with our .php files
+# If /apps is a dir AND /public/apps.php exists, we want to serve the .php file.
+# By checking the PHP file presence FIRST, we override mod_dir's behavior.
+
+# Top-level extensionless PHP files in public/ (e.g. /channels, /gallery, /apps)
+RewriteCond %{DOCUMENT_ROOT}/public/$1.php -f
+RewriteRule ^([^/]+)/?$ public/$1.php [L]
+
+# Top-level extensionless PHP files in root (e.g. /login, /admin - if they were files)
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^([^/]+)/?$ $1.php [L]
+
+# 3. Handle NESTED extensionless PHP (e.g. /admin/analytics, /user/dashboard)
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^(.+?)/?$ $1.php [L]
+
+# 4. Route to public/ for existing static files and directories
+# This handles /css/main.css, /images/logo.png, etc.
+RewriteCond %{DOCUMENT_ROOT}/public/$1 -f [OR]
+RewriteCond %{DOCUMENT_ROOT}/public/$1 -d
+RewriteRule ^(.*)$ public/$1 [L]
+
+# 5. Final recovery: If the requested path doesn't exist in root and wasn't a PHP file,
+# pass it to public/index.php to handle routing or 404s.
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ public/index.php?url=$1 [L,QSA]
+
+# Disable server signature
+ServerSignature Off

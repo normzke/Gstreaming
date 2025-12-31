@@ -18,7 +18,7 @@ try {
         throw new Exception('Invalid callback data');
     }
     
-    $db = new Database();
+    $db = Database::getInstance();
     $conn = $db->getConnection();
     
     $orderId = (int)$data['order_id'];

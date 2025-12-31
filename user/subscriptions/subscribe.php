@@ -3,26 +3,28 @@ require_once __DIR__ . '/../../config/config.php';
 require_once __DIR__ . '/../../config/database.php';
 require_once __DIR__ . '/../../lib/functions.php';
 
-$db = new Database();
+$db = Database::getInstance();
 $conn = $db->getConnection();
 
 // Read inputs and persist selection
-$package_id = isset($_GET['package']) ? (int)$_GET['package'] : 0;
-$selectedDevices = isset($_GET['devices']) ? (int)$_GET['devices'] : (isset($_SESSION['selected_devices']) ? (int)$_SESSION['selected_devices'] : 1);
+$package_id = isset($_GET['package']) ? (int) $_GET['package'] : 0;
+$selectedDevices = isset($_GET['devices']) ? (int) $_GET['devices'] : (isset($_SESSION['selected_devices']) ? (int) $_SESSION['selected_devices'] : 1);
 $_SESSION['selected_devices'] = max(1, $selectedDevices);
 
 // Default months to 1; duration is taken from package for pricing
-$selectedMonths = isset($_SESSION['selected_months']) ? (int)$_SESSION['selected_months'] : 1;
+$selectedMonths = isset($_SESSION['selected_months']) ? (int) $_SESSION['selected_months'] : 1;
 
+$package = null;
 if ($package_id > 0) {
-            $packageQuery = "SELECT * FROM packages WHERE id = ? AND is_active = true";
-            $packageStmt = $conn->prepare($packageQuery);
+    $packageQuery = "SELECT * FROM packages WHERE id = ? AND is_active = true";
+    $packageStmt = $conn->prepare($packageQuery);
     $packageStmt->execute([$package_id]);
-            $package = $packageStmt->fetch();
+    $package = $packageStmt->fetch();
 }
 
 if (!$package) {
-    header('Location: /');
+    // Redirect to packages section if package invalid
+    header('Location: /index.php#packages');
     exit();
 }
 
@@ -85,26 +87,31 @@ $page_title = 'Subscribe';
 include '../includes/header.php';
 ?>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Subscribe to <?php echo htmlspecialchars($package['name']); ?> - BingeTV</title>
-    <meta name="description" content="Subscribe to <?php echo htmlspecialchars($package['name']); ?> and enjoy premium TV streaming">
-    
+    <meta name="description"
+        content="Subscribe to <?php echo htmlspecialchars($package['name']); ?> and enjoy premium TV streaming">
+
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
-    
+
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
     <!-- CSS -->
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/components.css">
     <link rel="stylesheet" href="../css/subscribe.css">
-    
+
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
+
 <body>
     <!-- Navigation -->
     <nav class="navbar">
@@ -113,13 +120,13 @@ include '../includes/header.php';
                 <i class="fas fa-satellite-dish"></i>
                 <span class="logo-text">BingeTV</span>
             </div>
-            
+
             <ul class="nav-menu">
                 <li class="nav-item">
-                    <a href="index.php" class="nav-link">Home</a>
+                    <a href="index" class="nav-link">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a href="channels.php" class="nav-link">Channels</a>
+                    <a href="channels" class="nav-link">Channels</a>
                 </li>
                 <li class="nav-item">
                     <a href="index.php#packages" class="nav-link">Packages</a>
@@ -128,28 +135,28 @@ include '../includes/header.php';
                     <a href="index.php#devices" class="nav-link">Devices</a>
                 </li>
                 <li class="nav-item">
-                    <a href="gallery.php" class="nav-link">Gallery</a>
+                    <a href="gallery" class="nav-link">Gallery</a>
                 </li>
                 <li class="nav-item">
                     <a href="index.php#support" class="nav-link">Support</a>
                 </li>
                 <?php if ($user): ?>
                     <li class="nav-item">
-                        <a href="dashboard.php" class="nav-link">Dashboard</a>
+                        <a href="dashboard" class="nav-link">Dashboard</a>
                     </li>
                     <li class="nav-item">
-                        <a href="logout.php" class="nav-link btn-login">Logout</a>
+                        <a href="logout" class="nav-link btn-login">Logout</a>
                     </li>
                 <?php else: ?>
                     <li class="nav-item">
-                        <a href="login.php" class="nav-link btn-login">Login</a>
+                        <a href="login" class="nav-link btn-login">Login</a>
                     </li>
                     <li class="nav-item">
-                        <a href="register.php" class="nav-link btn-register">Get Started</a>
+                        <a href="register" class="nav-link btn-register">Get Started</a>
                     </li>
                 <?php endif; ?>
             </ul>
-            
+
             <div class="hamburger">
                 <span class="bar"></span>
                 <span class="bar"></span>
@@ -160,7 +167,7 @@ include '../includes/header.php';
 
     <!-- Subscription Page -->
     <section class="subscription-page">
-    <div class="container">
+        <div class="container">
             <!-- Package Overview -->
             <div class="package-overview">
                 <div class="package-header">
@@ -172,12 +179,13 @@ include '../includes/header.php';
                         <p class="package-description"><?php echo htmlspecialchars($package['description']); ?></p>
                         <div class="package-price">
                             <span class="price-amount">KES <?php echo number_format($totalPrice); ?></span>
-                            <span class="price-period">for <?php echo (int)$selectedMonths; ?> month(s), <?php echo (int)$selectedDevices; ?> device(s)</span>
+                            <span class="price-period">for <?php echo (int) $selectedMonths; ?> month(s),
+                                <?php echo (int) $selectedDevices; ?> device(s)</span>
+                        </div>
                     </div>
-                    </div>
-                    </div>
-                    
-                    <div class="package-features">
+                </div>
+
+                <div class="package-features">
                     <div class="feature-grid">
                         <div class="feature-item">
                             <i class="fas fa-tv"></i>
@@ -185,15 +193,18 @@ include '../includes/header.php';
                         </div>
                         <div class="feature-item">
                             <i class="fas fa-mobile-alt"></i>
-                            <span><?php echo $package['max_devices']; ?> Device<?php echo $package['max_devices'] > 1 ? 's' : ''; ?></span>
+                            <span><?php echo $package['max_devices']; ?>
+                                Device<?php echo $package['max_devices'] > 1 ? 's' : ''; ?></span>
                         </div>
                         <div class="feature-item">
                             <i class="fas fa-hd-video"></i>
-                            <span><?php echo json_decode($package['features'], true)['quality'] ?? 'HD'; ?> Quality</span>
+                            <span><?php echo json_decode($package['features'], true)['quality'] ?? 'HD'; ?>
+                                Quality</span>
                         </div>
                         <div class="feature-item">
                             <i class="fas fa-headset"></i>
-                            <span><?php echo json_decode($package['features'], true)['support'] ?? 'Email'; ?> Support</span>
+                            <span><?php echo json_decode($package['features'], true)['support'] ?? 'Email'; ?>
+                                Support</span>
                         </div>
                     </div>
                 </div>
@@ -226,20 +237,20 @@ include '../includes/header.php';
                         <h2>Package Selected</h2>
                         <p>You have selected the <?php echo htmlspecialchars($package['name']); ?> package</p>
                     </div>
-                    
+
                     <div class="package-details">
                         <div class="channels-preview">
                             <h3>Available Channels</h3>
                             <div class="channels-grid">
-                                <?php 
+                                <?php
                                 $displayChannels = array_slice($packageChannels, 0, 8);
-                                foreach ($displayChannels as $channel): 
-                                ?>
+                                foreach ($displayChannels as $channel):
+                                    ?>
                                     <div class="channel-item">
                                         <?php if ($channel['logo_url']): ?>
-                                            <img src="<?php echo htmlspecialchars($channel['logo_url']); ?>" 
-                                                 alt="<?php echo htmlspecialchars($channel['name']); ?>"
-                                                 onerror="this.src='../images/default-channel.svg'">
+                                            <img src="<?php echo htmlspecialchars($channel['logo_url']); ?>"
+                                                alt="<?php echo htmlspecialchars($channel['name']); ?>"
+                                                onerror="this.src='../images/default-channel.svg'">
                                         <?php else: ?>
                                             <div class="default-logo">
                                                 <i class="fas fa-tv"></i>
@@ -248,7 +259,7 @@ include '../includes/header.php';
                                         <span><?php echo htmlspecialchars($channel['name']); ?></span>
                                     </div>
                                 <?php endforeach; ?>
-                                
+
                                 <?php if (count($packageChannels) > 8): ?>
                                     <div class="channel-item more-channels">
                                         <div class="more-logo">
@@ -258,7 +269,7 @@ include '../includes/header.php';
                                     </div>
                                 <?php endif; ?>
                             </div>
-                            
+
                             <?php if (count($packageChannels) > 8): ?>
                                 <button type="button" class="btn btn-secondary" onclick="showAllChannels()">
                                     <i class="fas fa-eye"></i>
@@ -266,7 +277,7 @@ include '../includes/header.php';
                                 </button>
                             <?php endif; ?>
                         </div>
-                        
+
                         <div class="package-summary">
                             <h3>Package Summary</h3>
                             <div class="summary-item">
@@ -291,7 +302,7 @@ include '../includes/header.php';
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="step-actions">
                         <?php if ($user): ?>
                             <button type="button" class="btn btn-primary btn-lg" onclick="proceedToPayment()">
@@ -319,9 +330,9 @@ include '../includes/header.php';
                             <h2>Payment Details</h2>
                             <p>Complete your subscription payment</p>
                         </div>
-                        
+
                         <div class="payment-section">
-                        <div class="payment-methods">
+                            <div class="payment-methods">
                                 <h3>Choose Payment Method</h3>
                                 <div class="payment-options">
                                     <div class="payment-option active" data-method="mpesa">
@@ -338,16 +349,16 @@ include '../includes/header.php';
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="payment-form">
                                 <div class="form-group">
                                     <label for="phone_number">M-PESA Phone Number</label>
-                                    <input type="tel" id="phone_number" name="phone_number" 
-                                           value="<?php echo htmlspecialchars($user['phone']); ?>" 
-                                           placeholder="254XXXXXXXXX" required>
+                                    <input type="tel" id="phone_number" name="phone_number"
+                                        value="<?php echo htmlspecialchars($user['phone']); ?>" placeholder="254XXXXXXXXX"
+                                        required>
                                     <small>Enter your M-PESA registered phone number</small>
                                 </div>
-                                
+
                                 <div class="payment-summary">
                                     <div class="summary-row">
                                         <span>Package:</span>
@@ -362,7 +373,7 @@ include '../includes/header.php';
                                         <span>KES <?php echo number_format($perMonth); ?></span>
                                     </div>
                                 </div>
-                                
+
                                 <div class="payment-actions">
                                     <button type="button" class="btn btn-secondary" onclick="goBack()">
                                         <i class="fas fa-arrow-left"></i>
@@ -373,29 +384,42 @@ include '../includes/header.php';
                                         Pay with M-PESA (Automatic)
                                     </button>
                                 </div>
-                                
+
                                 <!-- Manual Payment Option -->
                                 <div style="margin-top: 2rem; padding-top: 2rem; border-top: 2px dashed #e0e0e0;">
                                     <div style="text-align: center; margin-bottom: 1.5rem;">
                                         <p style="color: #666; font-weight: 600;">OR</p>
                                     </div>
-                                    
-                                    <div style="background: #fff3cd; border-left: 4px solid #ffc107; padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem;">
+
+                                    <div
+                                        style="background: #fff3cd; border-left: 4px solid #ffc107; padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem;">
                                         <h4 style="margin: 0 0 1rem 0; color: #856404;">
                                             <i class="fas fa-university"></i> Manual Payment Option
                                         </h4>
-                                        <div style="background: white; padding: 1rem; border-radius: 6px; margin-bottom: 1rem;">
-                                            <p style="margin: 0.25rem 0; color: #333;"><strong>Bank:</strong> The Family Bank</p>
-                                            <p style="margin: 0.25rem 0; color: #333;"><strong>Paybill Number:</strong> <span style="color: #8B0000; font-size: 1.3em; font-weight: bold;">222111</span></p>
-                                            <p style="margin: 0.25rem 0; color: #333;"><strong>Account Number:</strong> <span style="color: #8B0000; font-size: 1.3em; font-weight: bold;">085000092737</span></p>
-                                            <p style="margin: 0.25rem 0; color: #333;"><strong>Amount:</strong> <span style="color: #8B0000; font-size: 1.3em; font-weight: bold;">KES <?php echo number_format($totalPrice, 0); ?></span></p>
+                                        <div
+                                            style="background: white; padding: 1rem; border-radius: 6px; margin-bottom: 1rem;">
+                                            <p style="margin: 0.25rem 0; color: #333;"><strong>Bank:</strong> The Family
+                                                Bank</p>
+                                            <p style="margin: 0.25rem 0; color: #333;"><strong>Paybill Number:</strong>
+                                                <span
+                                                    style="color: #8B0000; font-size: 1.3em; font-weight: bold;">222111</span>
+                                            </p>
+                                            <p style="margin: 0.25rem 0; color: #333;"><strong>Account Number:</strong>
+                                                <span
+                                                    style="color: #8B0000; font-size: 1.3em; font-weight: bold;">085000092737</span>
+                                            </p>
+                                            <p style="margin: 0.25rem 0; color: #333;"><strong>Amount:</strong> <span
+                                                    style="color: #8B0000; font-size: 1.3em; font-weight: bold;">KES
+                                                    <?php echo number_format($totalPrice, 0); ?></span></p>
                                         </div>
                                         <p style="margin: 0; color: #856404; font-size: 0.9rem;">
-                                            <i class="fas fa-info-circle"></i> Go to M-Pesa → Lipa Na M-Pesa → Pay Bill → Enter details above
+                                            <i class="fas fa-info-circle"></i> Go to M-Pesa → Lipa Na M-Pesa → Pay Bill →
+                                            Enter details above
                                         </p>
                                     </div>
-                                    
-                                    <button type="button" class="btn btn-secondary btn-lg" onclick="proceedToManualPayment()" style="width: 100%; background: #6c757d;">
+
+                                    <button type="button" class="btn btn-secondary btn-lg"
+                                        onclick="proceedToManualPayment()" style="width: 100%; background: #6c757d;">
                                         <i class="fas fa-paste"></i>
                                         Already Paid? Submit M-PESA Confirmation
                                     </button>
@@ -410,7 +434,7 @@ include '../includes/header.php';
                             <h2>Create Account or Login</h2>
                             <p>You need an account to subscribe to this package</p>
                         </div>
-                        
+
                         <div class="auth-options">
                             <div class="auth-tabs">
                                 <button type="button" class="auth-tab active" data-tab="register">
@@ -422,7 +446,7 @@ include '../includes/header.php';
                                     Login
                                 </button>
                             </div>
-                            
+
                             <div class="auth-content">
                                 <!-- Registration Form -->
                                 <div class="auth-form active" id="register-form">
@@ -437,27 +461,29 @@ include '../includes/header.php';
                                                 <input type="text" id="reg_last_name" name="last_name" required>
                                             </div>
                                         </div>
-                                        
+
                                         <div class="form-group">
                                             <label for="reg_email">Email Address *</label>
                                             <input type="email" id="reg_email" name="email" required>
                                         </div>
-                                        
+
                                         <div class="form-group">
                                             <label for="reg_phone">Phone Number *</label>
-                                            <input type="tel" id="reg_phone" name="phone" placeholder="254XXXXXXXXX" required>
+                                            <input type="tel" id="reg_phone" name="phone" placeholder="254XXXXXXXXX"
+                                                required>
                                         </div>
-                                        
+
                                         <div class="form-group">
                                             <label for="reg_password">Password *</label>
                                             <input type="password" id="reg_password" name="password" required>
                                         </div>
-                                        
+
                                         <div class="form-group">
                                             <label for="reg_confirm_password">Confirm Password *</label>
-                                            <input type="password" id="reg_confirm_password" name="confirm_password" required>
+                                            <input type="password" id="reg_confirm_password" name="confirm_password"
+                                                required>
                                         </div>
-                                        
+
                                         <div class="form-actions">
                                             <button type="button" class="btn btn-secondary" onclick="goBack()">
                                                 <i class="fas fa-arrow-left"></i>
@@ -470,7 +496,7 @@ include '../includes/header.php';
                                         </div>
                                     </form>
                                 </div>
-                                
+
                                 <!-- Login Form -->
                                 <div class="auth-form" id="login-form">
                                     <form id="loginForm">
@@ -478,12 +504,12 @@ include '../includes/header.php';
                                             <label for="login_email">Email Address</label>
                                             <input type="email" id="login_email" name="email" required>
                                         </div>
-                                        
+
                                         <div class="form-group">
                                             <label for="login_password">Password</label>
                                             <input type="password" id="login_password" name="password" required>
                                         </div>
-                                        
+
                                         <div class="form-actions">
                                             <button type="button" class="btn btn-secondary" onclick="goBack()">
                                                 <i class="fas fa-arrow-left"></i>
@@ -507,11 +533,11 @@ include '../includes/header.php';
                         <h2>Payment Confirmation</h2>
                         <p>Please complete your M-PESA payment</p>
                     </div>
-                    
+
                     <div class="payment-instructions">
                         <div class="instruction-card">
                             <div class="instruction-icon">
-                                    <i class="fas fa-mobile-alt"></i>
+                                <i class="fas fa-mobile-alt"></i>
                             </div>
                             <div class="instruction-content">
                                 <h3>M-PESA Payment Steps</h3>
@@ -521,13 +547,14 @@ include '../includes/header.php';
                                     <li>Select "Paybill"</li>
                                     <li>Enter Paybill Number: <strong><?php echo MPESA_SHORTCODE; ?></strong></li>
                                     <li>Enter Account Number: <strong id="account-number">Loading...</strong></li>
-                                    <li>Enter Amount: <strong>KES <?php echo number_format($totalPrice); ?></strong></li>
+                                    <li>Enter Amount: <strong>KES <?php echo number_format($totalPrice); ?></strong>
+                                    </li>
                                     <li>Enter your M-PESA PIN</li>
                                     <li>Confirm the transaction</li>
                                 </ol>
                             </div>
                         </div>
-                        
+
                         <div class="payment-status">
                             <div class="status-indicator">
                                 <i class="fas fa-clock"></i>
@@ -549,7 +576,7 @@ include '../includes/header.php';
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="step-actions">
                         <button type="button" class="btn btn-secondary" onclick="cancelPayment()">
                             <i class="fas fa-times"></i>
@@ -568,25 +595,26 @@ include '../includes/header.php';
                         <h2>Welcome to BingeTV!</h2>
                         <p>Your subscription is now active. Here are your streaming details:</p>
                     </div>
-                    
+
                     <div class="streaming-access">
                         <div class="access-card">
                             <div class="access-header">
                                 <i class="fas fa-tv"></i>
                                 <h3>Your Streaming Access</h3>
                             </div>
-                            
+
                             <div class="access-details">
                                 <div class="detail-group">
                                     <label>Streaming URL:</label>
                                     <div class="url-container">
                                         <input type="text" id="streaming-url" value="Loading..." readonly>
-                                        <button type="button" class="btn btn-sm btn-secondary" onclick="copyStreamingUrl()">
+                                        <button type="button" class="btn btn-sm btn-secondary"
+                                            onclick="copyStreamingUrl()">
                                             <i class="fas fa-copy"></i>
                                         </button>
                                     </div>
                                 </div>
-                                
+
                                 <div class="detail-group">
                                     <label>Username:</label>
                                     <div class="url-container">
@@ -596,12 +624,13 @@ include '../includes/header.php';
                                         </button>
                                     </div>
                                 </div>
-                                
+
                                 <div class="detail-group">
                                     <label>Password:</label>
                                     <div class="url-container">
                                         <input type="password" id="streaming-password" value="Loading..." readonly>
-                                        <button type="button" class="btn btn-sm btn-secondary" onclick="togglePassword()">
+                                        <button type="button" class="btn btn-sm btn-secondary"
+                                            onclick="togglePassword()">
                                             <i class="fas fa-eye"></i>
                                         </button>
                                         <button type="button" class="btn btn-sm btn-secondary" onclick="copyPassword()">
@@ -611,7 +640,7 @@ include '../includes/header.php';
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="device-instructions">
                             <h3>How to Access on Your Devices</h3>
                             <div class="device-tabs">
@@ -632,7 +661,7 @@ include '../includes/header.php';
                                     Mobile
                                 </button>
                             </div>
-                            
+
                             <div class="device-content">
                                 <div class="device-instruction active" id="smart-tv">
                                     <ol>
@@ -643,7 +672,7 @@ include '../includes/header.php';
                                         <li>Enjoy your channels!</li>
                                     </ol>
                                 </div>
-                                
+
                                 <div class="device-instruction" id="firestick">
                                     <ol>
                                         <li>Go to Firestick home screen</li>
@@ -653,7 +682,7 @@ include '../includes/header.php';
                                         <li>Enter your credentials and start watching!</li>
                                     </ol>
                                 </div>
-                                
+
                                 <div class="device-instruction" id="roku">
                                     <ol>
                                         <li>Go to Roku Channel Store</li>
@@ -663,7 +692,7 @@ include '../includes/header.php';
                                         <li>Start streaming your favorite channels!</li>
                                     </ol>
                                 </div>
-                                
+
                                 <div class="device-instruction" id="mobile">
                                     <ol>
                                         <li>Download "IPTV Smarters" or "VLC" from app store</li>
@@ -676,13 +705,13 @@ include '../includes/header.php';
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="step-actions">
-                        <a href="dashboard.php" class="btn btn-primary">
+                        <a href="dashboard" class="btn btn-primary">
                             <i class="fas fa-tachometer-alt"></i>
                             Go to Dashboard
                         </a>
-                        <a href="channels.php" class="btn btn-secondary">
+                        <a href="channels" class="btn btn-secondary">
                             <i class="fas fa-tv"></i>
                             Browse Channels
                         </a>
@@ -704,9 +733,9 @@ include '../includes/header.php';
                     <?php foreach ($packageChannels as $channel): ?>
                         <div class="channel-list-item">
                             <?php if ($channel['logo_url']): ?>
-                                <img src="<?php echo htmlspecialchars($channel['logo_url']); ?>" 
-                                     alt="<?php echo htmlspecialchars($channel['name']); ?>"
-                                     onerror="this.src='../images/default-channel.svg'">
+                                <img src="<?php echo htmlspecialchars($channel['logo_url']); ?>"
+                                    alt="<?php echo htmlspecialchars($channel['name']); ?>"
+                                    onerror="this.src='../images/default-channel.svg'">
                             <?php else: ?>
                                 <div class="default-logo">
                                     <i class="fas fa-tv"></i>
@@ -739,7 +768,8 @@ include '../includes/header.php';
 
     <!-- Floating WhatsApp Button -->
     <div class="whatsapp-float">
-        <a href="https://wa.me/254768704834?text=Hello%2C%20I%20need%20help%20with%20my%20subscription" target="_blank" class="whatsapp-btn">
+        <a href="https://wa.me/254768704834?text=Hello%2C%20I%20need%20help%20with%20my%20subscription" target="_blank"
+            class="whatsapp-btn">
             <i class="fab fa-whatsapp"></i>
             <span class="whatsapp-text">Need Help?</span>
         </a>
@@ -755,7 +785,7 @@ include '../includes/header.php';
                         <span>BingeTV</span>
                     </div>
                     <p>Premium TV streaming service for Kenya. Stream thousands of channels on any device.</p>
-                    
+
                     <div class="social-links">
                         <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
                         <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
@@ -763,29 +793,29 @@ include '../includes/header.php';
                         <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
                     </div>
                 </div>
-                
+
                 <div class="footer-section">
                     <h4>Quick Links</h4>
                     <ul class="footer-links">
-                        <li><a href="channels.php">Channels</a></li>
+                        <li><a href="channels">Channels</a></li>
                         <li><a href="index.php#packages">Packages</a></li>
                         <li><a href="index.php#devices">Supported Devices</a></li>
-                        <li><a href="gallery.php">Gallery</a></li>
+                        <li><a href="gallery">Gallery</a></li>
                         <li><a href="index.php#support">Support</a></li>
                     </ul>
                 </div>
-                
+
                 <div class="footer-section">
                     <h4>Account</h4>
                     <ul class="footer-links">
-                        <li><a href="login.php">Login</a></li>
-                        <li><a href="register.php">Register</a></li>
+                        <li><a href="login">Login</a></li>
+                        <li><a href="register">Register</a></li>
                         <?php if ($user): ?>
-                            <li><a href="dashboard.php">Dashboard</a></li>
+                            <li><a href="dashboard">Dashboard</a></li>
                         <?php endif; ?>
                     </ul>
                 </div>
-                
+
                 <div class="footer-section">
                     <h4>Contact Info</h4>
                     <div class="contact-info">
@@ -804,14 +834,14 @@ include '../includes/header.php';
                     </div>
                 </div>
             </div>
-            
+
             <div class="footer-bottom">
                 <div class="footer-bottom-content">
                     <p>&copy; <?php echo date('Y'); ?> BingeTV. All rights reserved.</p>
                     <div class="footer-bottom-links">
-                        <a href="privacy.php">Privacy Policy</a>
-                        <a href="terms.php">Terms of Service</a>
-                        <a href="refund.php">Refund Policy</a>
+                        <a href="privacy">Privacy Policy</a>
+                        <a href="terms">Terms of Service</a>
+                        <a href="refund">Refund Policy</a>
                     </div>
                 </div>
             </div>
@@ -821,7 +851,7 @@ include '../includes/header.php';
     <!-- JavaScript -->
     <script src="../js/main.js"></script>
     <script src="../js/subscribe.js"></script>
-    
+
     <script>
         // Package data for JavaScript
         const packageData = {
@@ -831,99 +861,99 @@ include '../includes/header.php';
             duration_days: <?php echo $package['duration_days']; ?>,
             max_devices: <?php echo $package['max_devices']; ?>
         };
-        
+
         const userData = <?php echo $user ? json_encode($user) : 'null'; ?>;
-        
+
         // Manual payment function
         function proceedToManualPayment() {
             // Create payment record first, then redirect to manual submission
             window.location.href = '../payments/submit-mpesa.php?package_id=<?php echo $package_id; ?>&amount=<?php echo $totalPrice; ?>&devices=<?php echo $selectedDevices; ?>';
         }
     </script>
-    
+
     <style>
-    /* Mobile Responsive Styles for Subscribe Page */
-    @media (max-width: 1024px) {
-        .package-details {
-            grid-template-columns: 1fr !important;
+        /* Mobile Responsive Styles for Subscribe Page */
+        @media (max-width: 1024px) {
+            .package-details {
+                grid-template-columns: 1fr !important;
+            }
+
+            .payment-section {
+                grid-template-columns: 1fr !important;
+            }
         }
-        
-        .payment-section {
-            grid-template-columns: 1fr !important;
+
+        @media (max-width: 768px) {
+            .subscription-page {
+                padding: 1rem !important;
+            }
+
+            .package-overview,
+            .subscription-steps {
+                margin: 0 0.5rem 2rem !important;
+            }
+
+            .step-indicator {
+                flex-wrap: wrap !important;
+                gap: 0.5rem !important;
+            }
+
+            .step {
+                flex: 1 1 calc(50% - 0.5rem) !important;
+                min-width: 120px !important;
+            }
+
+            .step-label {
+                font-size: 0.8rem !important;
+            }
+
+            .channels-grid {
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)) !important;
+            }
+
+            .payment-actions {
+                flex-direction: column !important;
+                gap: 1rem !important;
+            }
+
+            .payment-actions .btn {
+                width: 100% !important;
+            }
+
+            .auth-tabs {
+                flex-direction: column !important;
+            }
+
+            .auth-tab {
+                width: 100% !important;
+            }
         }
-    }
-    
-    @media (max-width: 768px) {
-        .subscription-page {
-            padding: 1rem !important;
+
+        @media (max-width: 480px) {
+            .package-header h1 {
+                font-size: 1.5rem !important;
+            }
+
+            .step-number {
+                width: 30px !important;
+                height: 30px !important;
+                font-size: 0.9rem !important;
+            }
+
+            .btn-lg {
+                font-size: 1rem !important;
+                padding: 0.75rem 1.5rem !important;
+            }
+
+            .payment-summary {
+                padding: 1rem !important;
+            }
+
+            .summary-row {
+                font-size: 0.9rem !important;
+            }
         }
-        
-        .package-overview,
-        .subscription-steps {
-            margin: 0 0.5rem 2rem !important;
-        }
-        
-        .step-indicator {
-            flex-wrap: wrap !important;
-            gap: 0.5rem !important;
-        }
-        
-        .step {
-            flex: 1 1 calc(50% - 0.5rem) !important;
-            min-width: 120px !important;
-        }
-        
-        .step-label {
-            font-size: 0.8rem !important;
-        }
-        
-        .channels-grid {
-            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)) !important;
-        }
-        
-        .payment-actions {
-            flex-direction: column !important;
-            gap: 1rem !important;
-        }
-        
-        .payment-actions .btn {
-            width: 100% !important;
-        }
-        
-        .auth-tabs {
-            flex-direction: column !important;
-        }
-        
-        .auth-tab {
-            width: 100% !important;
-        }
-    }
-    
-    @media (max-width: 480px) {
-        .package-header h1 {
-            font-size: 1.5rem !important;
-        }
-        
-        .step-number {
-            width: 30px !important;
-            height: 30px !important;
-            font-size: 0.9rem !important;
-        }
-        
-        .btn-lg {
-            font-size: 1rem !important;
-            padding: 0.75rem 1.5rem !important;
-        }
-        
-        .payment-summary {
-            padding: 1rem !important;
-        }
-        
-        .summary-row {
-            font-size: 0.9rem !important;
-        }
-    }
     </style>
 </body>
-</html>
 
+</html>

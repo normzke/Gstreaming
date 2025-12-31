@@ -5,7 +5,7 @@ require_once __DIR__ . '/../lib/functions.php';
 require_once __DIR__ . '/../lib/seo.php';
 
 // Get channels from database
-$db = new Database();
+$db = Database::getInstance();
 $conn = $db->getConnection();
 
 // Handle search and filter parameters
@@ -84,11 +84,12 @@ foreach ($channels as $channel) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <base href="https://bingetv.co.ke/">
-    
+
     <!-- SEO Meta Tags -->
     <title><?php echo htmlspecialchars($seo_meta['title']); ?></title>
     <meta name="description" content="<?php echo htmlspecialchars($seo_meta['description']); ?>">
@@ -96,7 +97,7 @@ foreach ($channels as $channel) {
     <meta name="author" content="<?php echo htmlspecialchars($seo_meta['author']); ?>">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="<?php echo $canonical_url; ?>">
-    
+
     <!-- Open Graph Tags -->
     <meta property="og:title" content="<?php echo htmlspecialchars($og_tags['og:title']); ?>">
     <meta property="og:description" content="<?php echo htmlspecialchars($og_tags['og:description']); ?>">
@@ -105,14 +106,14 @@ foreach ($channels as $channel) {
     <meta property="og:image" content="<?php echo htmlspecialchars($og_tags['og:image']); ?>">
     <meta property="og:site_name" content="<?php echo htmlspecialchars($og_tags['og:site_name']); ?>">
     <meta property="og:locale" content="<?php echo htmlspecialchars($og_tags['og:locale']); ?>">
-    
+
     <!-- Twitter Card Tags -->
     <meta name="twitter:card" content="<?php echo htmlspecialchars($og_tags['twitter:card']); ?>">
     <meta name="twitter:title" content="<?php echo htmlspecialchars($og_tags['twitter:title']); ?>">
     <meta name="twitter:description" content="<?php echo htmlspecialchars($og_tags['twitter:description']); ?>">
     <meta name="twitter:image" content="<?php echo htmlspecialchars($og_tags['twitter:image']); ?>">
     <meta name="twitter:site" content="<?php echo htmlspecialchars($og_tags['twitter:site']); ?>">
-    
+
     <!-- Additional SEO Meta Tags -->
     <meta name="geo.region" content="KE">
     <meta name="geo.placename" content="Kenya">
@@ -123,80 +124,54 @@ foreach ($channels as $channel) {
     <meta name="rating" content="general">
     <meta name="distribution" content="global">
     <meta name="target" content="all">
-    
+
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="images/favicon.ico">
     <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
     <link rel="manifest" href="images/site.webmanifest">
-    
+
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
     <!-- CSS -->
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/components.css">
     <link rel="stylesheet" href="css/channels.css">
-    
+
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
+
 <body>
     <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <i class="fas fa-satellite-dish"></i>
-                <span class="logo-text">BingeTV</span>
-            </div>
-            
-            <ul class="nav-menu">
-                <li class="nav-item">
-                    <a href="/" class="nav-link">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a href="channels.php" class="nav-link active">Channels</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#packages" class="nav-link">Packages</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#devices" class="nav-link">Devices</a>
-                </li>
-                <li class="nav-item">
-                    <a href="gallery.php" class="nav-link">Gallery</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#support" class="nav-link">Support</a>
-                </li>
-                <li class="nav-item">
-                    <a href="login.php" class="nav-link btn-login">Login</a>
-                </li>
-                <li class="nav-item">
-                    <a href="register.php" class="nav-link btn-register">Get Started</a>
-                </li>
-            </ul>
-            
-            <div class="hamburger">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </div>
-        </div>
-    </nav>
+    <?php include 'includes/navigation.php'; ?>
 
-    <!-- Page Header -->
-    <section class="page-header">
-        <div class="container">
-            <div class="page-header-content">
-                <nav class="breadcrumb">
-                    <a href="/">Home</a>
-                    <span class="breadcrumb-separator">/</span>
-                    <span class="breadcrumb-current">Channels</span>
-                </nav>
-                <h1 class="page-title">Channel List</h1>
-                <p class="page-subtitle">Browse our complete collection of local and international TV channels</p>
+    <!-- Hero Section -->
+    <section class="hero hero-compact">
+        <div class="hero-background">
+            <div class="hero-overlay"></div>
+        </div>
+        <div class="hero-content">
+            <div class="container">
+                <div class="hero-text">
+                    <nav class="breadcrumb">
+                        <a href="/">Home</a>
+                        <span class="breadcrumb-separator">/</span>
+                        <span class="breadcrumb-current">Channels</span>
+                    </nav>
+                    <h1 class="hero-title">
+                        <span class="title-main">Live TV</span>
+                        <span class="title-highlight">Channel List</span>
+                    </h1>
+                    <p class="hero-description">
+                        Browse our complete collection of local and international TV channels.
+                        Stream in stunning 4K and HD on any device.
+                    </p>
+                </div>
             </div>
         </div>
     </section>
@@ -211,11 +186,13 @@ foreach ($channels as $channel) {
                         <div class="filter-group">
                             <label for="search">Search Channels</label>
                             <div class="search-input">
-                                <input type="text" id="search" name="search" value="<?php echo htmlspecialchars($search); ?>" placeholder="Search by channel name...">
+                                <input type="text" id="search" name="search"
+                                    value="<?php echo htmlspecialchars($search); ?>"
+                                    placeholder="Search by channel name...">
                                 <i class="fas fa-search"></i>
                             </div>
                         </div>
-                        
+
                         <div class="filter-group">
                             <label for="category">Category</label>
                             <select id="category" name="category">
@@ -227,7 +204,7 @@ foreach ($channels as $channel) {
                                 <?php endforeach; ?>
                             </select>
                         </div>
-                        
+
                         <div class="filter-group">
                             <label for="country">Country</label>
                             <select id="country" name="country">
@@ -239,7 +216,7 @@ foreach ($channels as $channel) {
                                 <?php endforeach; ?>
                             </select>
                         </div>
-                        
+
                         <div class="filter-group">
                             <label for="quality">Quality</label>
                             <select id="quality" name="quality">
@@ -248,20 +225,20 @@ foreach ($channels as $channel) {
                                 <option value="SD" <?php echo $quality === 'SD' ? 'selected' : ''; ?>>SD</option>
                             </select>
                         </div>
-                        
+
                         <div class="filter-actions">
                             <button type="submit" class="btn btn-primary">
                                 <i class="fas fa-filter"></i>
                                 Filter
                             </button>
-                            <a href="channels.php" class="btn btn-secondary">
+                            <a href="channels" class="btn btn-secondary">
                                 <i class="fas fa-times"></i>
                                 Clear
                             </a>
                         </div>
                     </div>
                 </form>
-                
+
                 <div class="channels-stats">
                     <span class="stat">
                         <i class="fas fa-tv"></i>
@@ -287,21 +264,21 @@ foreach ($channels as $channel) {
                                 <span class="channel-count">(<?php echo count($categoryChannels); ?>)</span>
                             </h2>
                         </div>
-                        
+
                         <div class="channels-grid">
                             <?php foreach ($categoryChannels as $channel): ?>
                                 <div class="channel-card" data-aos="fadeInUp">
                                     <div class="channel-logo">
                                         <?php if ($channel['logo_url']): ?>
-                                            <img src="<?php echo htmlspecialchars($channel['logo_url']); ?>" 
-                                                 alt="<?php echo htmlspecialchars($channel['name']); ?>"
-                                                 onerror="this.src='images/default-channel.svg'">
+                                            <img src="<?php echo htmlspecialchars($channel['logo_url']); ?>"
+                                                alt="<?php echo htmlspecialchars($channel['name']); ?>"
+                                                onerror="this.src='images/default-channel.svg'">
                                         <?php else: ?>
                                             <div class="default-logo">
                                                 <i class="fas fa-tv"></i>
                                             </div>
                                         <?php endif; ?>
-                                        
+
                                         <?php if (isset($channel['is_hd']) && $channel['is_hd']): ?>
                                             <div class="quality-badge hd">
                                                 <i class="fas fa-hd-video"></i>
@@ -309,17 +286,17 @@ foreach ($channels as $channel) {
                                             </div>
                                         <?php endif; ?>
                                     </div>
-                                    
+
                                     <div class="channel-info">
                                         <h3 class="channel-name"><?php echo htmlspecialchars($channel['name']); ?></h3>
-                                        
+
                                         <?php if ($channel['description']): ?>
                                             <p class="channel-description">
                                                 <?php echo htmlspecialchars(substr($channel['description'], 0, 100)); ?>
                                                 <?php if (strlen($channel['description']) > 100): ?>...<?php endif; ?>
                                             </p>
                                         <?php endif; ?>
-                                        
+
                                         <div class="channel-meta">
                                             <?php if ($channel['country']): ?>
                                                 <span class="meta-item">
@@ -327,7 +304,7 @@ foreach ($channels as $channel) {
                                                     <?php echo htmlspecialchars($channel['country']); ?>
                                                 </span>
                                             <?php endif; ?>
-                                            
+
                                             <?php if (isset($channel['language']) && $channel['language']): ?>
                                                 <span class="meta-item">
                                                     <i class="fas fa-language"></i>
@@ -336,13 +313,15 @@ foreach ($channels as $channel) {
                                             <?php endif; ?>
                                         </div>
                                     </div>
-                                    
+
                                     <div class="channel-actions">
-                                        <button class="btn btn-primary btn-sm" onclick="previewChannel(<?php echo $channel['id']; ?>)">
+                                        <button class="btn btn-primary btn-sm"
+                                            onclick="previewChannel(<?php echo $channel['id']; ?>)">
                                             <i class="fas fa-play"></i>
                                             Preview
                                         </button>
-                                        <button class="btn btn-secondary btn-sm" onclick="addToFavorites(<?php echo $channel['id']; ?>)">
+                                        <button class="btn btn-secondary btn-sm"
+                                            onclick="addToFavorites(<?php echo $channel['id']; ?>)">
                                             <i class="fas fa-heart"></i>
                                             Favorite
                                         </button>
@@ -358,7 +337,7 @@ foreach ($channels as $channel) {
                         <i class="fas fa-search"></i>
                         <h3>No Channels Found</h3>
                         <p>Try adjusting your search criteria or filters to find the channels you're looking for.</p>
-                        <a href="channels.php" class="btn btn-primary">View All Channels</a>
+                        <a href="channels" class="btn btn-primary">View All Channels</a>
                     </div>
                 </div>
             <?php endif; ?>
@@ -377,105 +356,25 @@ foreach ($channels as $channel) {
                     <div class="preview-placeholder">
                         <i class="fas fa-tv"></i>
                         <p>Channel preview will be available after subscription</p>
-                        <a href="register.php" class="btn btn-primary">Subscribe Now</a>
+                        <a href="register" class="btn btn-primary">Subscribe Now</a>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-
-    <!-- Floating WhatsApp Button -->
-    <div class="whatsapp-float">
-        <a href="https://wa.me/254768704834?text=Hello%2C%20I%20need%20help%20with%20BingeTV" target="_blank" class="whatsapp-btn">
-            <i class="fab fa-whatsapp"></i>
-            <span class="whatsapp-text">Chat with us</span>
-        </a>
     </div>
 
     <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <div class="footer-logo">
-                        <i class="fas fa-satellite-dish"></i>
-                        <span>BingeTV</span>
-                    </div>
-                    <p>Premium TV streaming service for Kenya. Stream thousands of channels on any device.</p>
-                    
-                    <div class="social-links">
-                        <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
-                    </div>
-                </div>
-                
-                <div class="footer-section">
-                    <h4>Quick Links</h4>
-                    <ul class="footer-links">
-                        <li><a href="channels.php">Channels</a></li>
-                        <li><a href="#packages">Packages</a></li>
-                        <li><a href="#devices">Supported Devices</a></li>
-                        <li><a href="gallery.php">Gallery</a></li>
-                        <li><a href="#support">Support</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-section">
-                    <h4>Account</h4>
-                    <ul class="footer-links">
-                        <li><a href="login.php">Login</a></li>
-                        <li><a href="register.php">Register</a></li>
-                        <li><a href="user/dashboard/">Dashboard</a></li>
-                        <li><a href="user/payments/">Payments</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-section">
-                    <h4>Contact Info</h4>
-                    <div class="contact-info">
-                        <div class="contact-item">
-                            <i class="fas fa-envelope"></i>
-                            <span>support@BingeTV.com</span>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-phone"></i>
-                            <span>+254 768 704 834</span>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span>Nairobi, Kenya</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="footer-bottom">
-                <div class="footer-bottom-content">
-                    <p>&copy; <?php echo date('Y'); ?> BingeTV. All rights reserved.</p>
-                    <div class="footer-bottom-links">
-                        <a href="privacy.php">Privacy Policy</a>
-                        <a href="terms.php">Terms of Service</a>
-                        <a href="refund.php">Refund Policy</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <!-- JavaScript -->
-    <script src="js/main.js"></script>
-    <script src="js/enhanced.js"></script>
+    <?php include 'includes/footer.php'; ?>
     <script src="js/channels.js"></script>
-    
+
     <!-- Structured Data -->
     <script type="application/ld+json">
     <?php echo $structured_data; ?>
     </script>
-    
+
     <script type="application/ld+json">
     <?php echo $breadcrumb_data; ?>
     </script>
 </body>
+
 </html>

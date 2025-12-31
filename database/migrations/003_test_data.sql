@@ -115,8 +115,8 @@ ON CONFLICT DO NOTHING;
 
 -- Insert test gallery items for comprehensive testing
 INSERT INTO gallery_items (title, description, image_url, category, sort_order) VALUES
-('Test Image 1', 'Test description for image 1', '/assets/images/test/test1.jpg', 'Test', 100),
-('Test Image 2', 'Test description for image 2', '/assets/images/test/test2.jpg', 'Test', 101),
-('Test Video 1', 'Test description for video 1', '/assets/images/test/test-video1.jpg', 'Test', 102),
-('Test Video 2', 'Test description for video 2', '/assets/images/test/test-video2.jpg', 'Test', 103)
+('Test Image 1', 'Test description for image 1', '/images/test/test1.jpg', 'Test', 100),
+('Test Image 2', 'Test description for image 2', '/images/test/test2.jpg', 'Test', 101),
+('Test Video 1', 'Test description for video 1', '/images/test/test-video1.jpg', 'Test', 102),
+('Test Video 2', 'Test description for video 2', '/images/test/test-video2.jpg', 'Test', 103)
 ON CONFLICT DO NOTHING;

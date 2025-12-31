@@ -4,7 +4,7 @@ require_once '../config/database.php';
 require_once '../lib/functions.php';
 require_once '../lib/seo.php';
 
-$db = new Database();
+$db = Database::getInstance();
 $conn = $db->getConnection();
 
 // Get filter parameters
@@ -140,7 +140,7 @@ include 'includes/header.php';
             <i class="fas fa-tv"></i>
             <h3>No channels found</h3>
             <p>Try adjusting your search criteria or browse all channels.</p>
-            <a href="channels.php" class="btn btn-primary">View All Channels</a>
+            <a href="channels" class="btn btn-primary">View All Channels</a>
         </div>
         <?php else: ?>
         <div class="channels-grid">

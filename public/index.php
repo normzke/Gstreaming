@@ -5,7 +5,7 @@ require_once '../lib/functions.php';
 require_once '../lib/seo.php';
 
 // Get packages for display (guard against DB connection failure)
-$db = new Database();
+$db = Database::getInstance();
 $conn = $db->getConnection();
 $packages = [];
 if ($conn) {
@@ -363,7 +363,7 @@ $faq_data = SEO::getFAQData();
                     </div>
 
                     <div class="hero-buttons">
-                        <a href="package-selection.php?from_homepage=1" class="btn btn-primary btn-large">
+                        <a href="package-selection?from_homepage=1" class="btn btn-primary btn-large">
                             <i class="fas fa-play"></i>
                             Start Streaming Now
                         </a>
@@ -993,7 +993,7 @@ $faq_data = SEO::getFAQData();
             </div>
             <div style="text-align: center; margin-top: 1rem;">
                 <p style="color: #666; font-size: 0.9rem;">
-                    <i class="fas fa-info-circle"></i> Need more than 3 devices? <a href="support.php"
+                    <i class="fas fa-info-circle"></i> Need more than 3 devices? <a href="support"
                         style="color: #8B0000; font-weight: 600;">Contact us</a> for a custom package
                 </p>
             </div>
@@ -1044,7 +1044,7 @@ $faq_data = SEO::getFAQData();
                         </div>
 
                         <div class="package-footer">
-                            <a href="user/subscriptions/subscribe.php?package=<?php echo (int) $pkg['id']; ?>"
+                            <a href="user/subscriptions/subscribe?package=<?php echo (int) $pkg['id']; ?>"
                                 class="btn btn-primary btn-full subscribe-btn"
                                 data-package-id="<?php echo (int) $pkg['id']; ?>">
                                 <i class="fas fa-credit-card"></i>
@@ -1253,7 +1253,7 @@ $faq_data = SEO::getFAQData();
 
                             <!-- Installation Help Link -->
                             <div style="text-align: center; margin-top: 0.5rem;">
-                                <a href="apps.php"
+                                <a href="apps"
                                     style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.5rem; background: linear-gradient(135deg, #8B0000, #660000); color: white; border-radius: 8px; text-decoration: none; font-weight: 600; transition: all 0.3s;">
                                     <i class="fas fa-question-circle"></i> View Installation Instructions
                                 </a>
@@ -1444,7 +1444,7 @@ $faq_data = SEO::getFAQData();
             </div>
 
             <div class="gallery-cta">
-                <a href="gallery.php" class="btn btn-primary">
+                <a href="gallery" class="btn btn-primary">
                     <i class="fas fa-images"></i>
                     View Full Gallery
                 </a>
@@ -1574,7 +1574,7 @@ $faq_data = SEO::getFAQData();
                     </div>
                     <h3>Live Chat</h3>
                     <p>Get instant help from our support team</p>
-                    <a href="support.php?type=chat" class="support-btn">Start Chat</a>
+                    <a href="support?type=chat" class="support-btn">Start Chat</a>
                 </div>
 
                 <div class="support-card">
@@ -1583,7 +1583,7 @@ $faq_data = SEO::getFAQData();
                     </div>
                     <h3>Email Support</h3>
                     <p>Send us a detailed message and we'll respond quickly</p>
-                    <a href="support.php?type=email" class="support-btn">Send Email</a>
+                    <a href="support?type=email" class="support-btn">Send Email</a>
                 </div>
 
                 <div class="support-card">
@@ -1601,7 +1601,7 @@ $faq_data = SEO::getFAQData();
                     </div>
                     <h3>Help Center</h3>
                     <p>Browse our comprehensive knowledge base</p>
-                    <a href="help.php" class="support-btn">Browse FAQ</a>
+                    <a href="help" class="support-btn">Browse FAQ</a>
                 </div>
             </div>
         </div>
@@ -1631,17 +1631,17 @@ $faq_data = SEO::getFAQData();
                     <ul class="footer-links">
                         <li><a href="#packages">Packages</a></li>
                         <li><a href="#devices">Supported Devices</a></li>
-                        <li><a href="gallery.php">Gallery</a></li>
-                        <li><a href="support.php">Support</a></li>
+                        <li><a href="gallery">Gallery</a></li>
+                        <li><a href="support">Support</a></li>
                     </ul>
                 </div>
 
                 <div class="footer-section">
                     <h4>Account</h4>
                     <ul class="footer-links">
-                        <li><a href="login.php">Login</a></li>
-                        <li><a href="register.php">Register</a></li>
-                        <li><a href="packages.php">Packages</a></li>
+                        <li><a href="login">Login</a></li>
+                        <li><a href="register">Register</a></li>
+                        <li><a href="packages">Packages</a></li>
                         <li><a href="user/dashboard/">Dashboard</a></li>
                     </ul>
                 </div>

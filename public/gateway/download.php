@@ -126,13 +126,13 @@ switch ($platform) {
                     <?php echo htmlspecialchars($message); ?>
                 </div>
 
-                <a href="../support.php" class="btn-primary">
+                <a href="../support" class="btn-primary">
                     <i class="fas fa-headset"></i>
                     Contact Support
                 </a>
 
                 <br><br>
-                <a href="../index.php" style="color: #8B0000; text-decoration: none;">
+                <a href="../index" style="color: #8B0000; text-decoration: none;">
                     <i class="fas fa-arrow-left"></i>
                     Back to Homepage
                 </a>

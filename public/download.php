@@ -224,7 +224,7 @@ $appInfo = [
                     <i class="fas fa-download"></i> Download Now
                 </a>
                 <?php else: ?>
-                <a href="build-<?php echo $platform; ?>.php" class="download-btn" style="background: #666;">
+                <a href="build-<?php echo $platform; ?>" class="download-btn" style="background: #666;">
                     <i class="fas fa-tools"></i> Build Instructions
                 </a>
                 <p style="color: #888; font-size: 12px; margin-top: 10px;">

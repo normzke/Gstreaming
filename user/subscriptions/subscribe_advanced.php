@@ -3,7 +3,7 @@ require_once __DIR__ . '/../../config/config.php';
 require_once __DIR__ . '/../../config/database.php';
 require_once __DIR__ . '/../../lib/functions.php';
 
-$db = new Database();
+$db = Database::getInstance();
 $conn = $db->getConnection();
 
 // Get selected package
@@ -73,10 +73,10 @@ if (isset($_SESSION['user_id'])) {
             
             <ul class="nav-menu">
                 <li class="nav-item">
-                    <a href="index.php" class="nav-link">Home</a>
+                    <a href="index" class="nav-link">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a href="channels.php" class="nav-link">Channels</a>
+                    <a href="channels" class="nav-link">Channels</a>
                 </li>
                 <li class="nav-item">
                     <a href="index.php#packages" class="nav-link">Packages</a>
@@ -85,24 +85,24 @@ if (isset($_SESSION['user_id'])) {
                     <a href="index.php#devices" class="nav-link">Devices</a>
                 </li>
                 <li class="nav-item">
-                    <a href="gallery.php" class="nav-link">Gallery</a>
+                    <a href="gallery" class="nav-link">Gallery</a>
                 </li>
                 <li class="nav-item">
                     <a href="index.php#support" class="nav-link">Support</a>
                 </li>
                 <?php if ($user): ?>
                     <li class="nav-item">
-                        <a href="dashboard.php" class="nav-link">Dashboard</a>
+                        <a href="dashboard" class="nav-link">Dashboard</a>
                     </li>
                     <li class="nav-item">
-                        <a href="logout.php" class="nav-link btn-login">Logout</a>
+                        <a href="logout" class="nav-link btn-login">Logout</a>
                     </li>
                 <?php else: ?>
                     <li class="nav-item">
-                        <a href="login.php" class="nav-link btn-login">Login</a>
+                        <a href="login" class="nav-link btn-login">Login</a>
                     </li>
                     <li class="nav-item">
-                        <a href="register.php" class="nav-link btn-register">Get Started</a>
+                        <a href="register" class="nav-link btn-register">Get Started</a>
                     </li>
                 <?php endif; ?>
             </ul>
@@ -608,11 +608,11 @@ if (isset($_SESSION['user_id'])) {
                     </div>
                     
                     <div class="step-actions">
-                        <a href="dashboard.php" class="btn btn-primary">
+                        <a href="dashboard" class="btn btn-primary">
                             <i class="fas fa-tachometer-alt"></i>
                             Go to Dashboard
                         </a>
-                        <a href="channels.php" class="btn btn-secondary">
+                        <a href="channels" class="btn btn-secondary">
                             <i class="fas fa-tv"></i>
                             Browse Channels
                         </a>
@@ -697,10 +697,10 @@ if (isset($_SESSION['user_id'])) {
                 <div class="footer-section">
                     <h4>Quick Links</h4>
                     <ul class="footer-links">
-                        <li><a href="channels.php">Channels</a></li>
+                        <li><a href="channels">Channels</a></li>
                         <li><a href="index.php#packages">Packages</a></li>
                         <li><a href="index.php#devices">Supported Devices</a></li>
-                        <li><a href="gallery.php">Gallery</a></li>
+                        <li><a href="gallery">Gallery</a></li>
                         <li><a href="index.php#support">Support</a></li>
                     </ul>
                 </div>
@@ -708,10 +708,10 @@ if (isset($_SESSION['user_id'])) {
                 <div class="footer-section">
                     <h4>Account</h4>
                     <ul class="footer-links">
-                        <li><a href="login.php">Login</a></li>
-                        <li><a href="register.php">Register</a></li>
+                        <li><a href="login">Login</a></li>
+                        <li><a href="register">Register</a></li>
                         <?php if ($user): ?>
-                            <li><a href="dashboard.php">Dashboard</a></li>
+                            <li><a href="dashboard">Dashboard</a></li>
                         <?php endif; ?>
                     </ul>
                 </div>
@@ -739,9 +739,9 @@ if (isset($_SESSION['user_id'])) {
                 <div class="footer-bottom-content">
                     <p>&copy; <?php echo date('Y'); ?> BingeTV. All rights reserved.</p>
                     <div class="footer-bottom-links">
-                        <a href="privacy.php">Privacy Policy</a>
-                        <a href="terms.php">Terms of Service</a>
-                        <a href="refund.php">Refund Policy</a>
+                        <a href="privacy">Privacy Policy</a>
+                        <a href="terms">Terms of Service</a>
+                        <a href="refund">Refund Policy</a>
                     </div>
                 </div>
             </div>

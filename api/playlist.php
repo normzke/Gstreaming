@@ -10,7 +10,7 @@ header('Content-Disposition: attachment; filename="bingetv_playlist.m3u"');
 require_once __DIR__ . '/../config/config.php';
 require_once __DIR__ . '/../config/database.php';
 
-$db = new Database();
+$db = Database::getInstance();
 $conn = $db->getConnection();
 
 // Authenticate user

@@ -158,12 +158,12 @@ if ($token) {
                     <div class="countdown">
                         Redirecting to login page in 3 seconds...
                     </div>
-                    <a href="login.php" class="btn-primary">
+                    <a href="login" class="btn-primary">
                         <i class="fas fa-sign-in-alt"></i>
                         Continue to Login
                     </a>
                 <?php else: ?>
-                    <a href="login.php" class="btn-primary">
+                    <a href="login" class="btn-primary">
                         <i class="fas fa-arrow-left"></i>
                         Back to Login
                     </a>

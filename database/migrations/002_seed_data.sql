@@ -31,46 +31,46 @@ ON CONFLICT DO NOTHING;
 -- Insert sample channels
 INSERT INTO channels (name, description, category, language, country, logo_url, is_active, sort_order) VALUES
 -- News Channels
-('BBC News', 'British Broadcasting Corporation News', 'News', 'English', 'UK', '/assets/images/channels/bbc-news.png', true, 1),
-('CNN', 'Cable News Network', 'News', 'English', 'USA', '/assets/images/channels/cnn.png', true, 2),
-('Al Jazeera', 'Al Jazeera English', 'News', 'English', 'Qatar', '/assets/images/channels/al-jazeera.png', true, 3),
-('Sky News', 'Sky News International', 'News', 'English', 'UK', '/assets/images/channels/sky-news.png', true, 4),
-('France 24', 'France 24 English', 'News', 'English', 'France', '/assets/images/channels/france24.png', true, 5),
+('BBC News', 'British Broadcasting Corporation News', 'News', 'English', 'UK', '/images/channels/bbc-news.png', true, 1),
+('CNN', 'Cable News Network', 'News', 'English', 'USA', '/images/channels/cnn.png', true, 2),
+('Al Jazeera', 'Al Jazeera English', 'News', 'English', 'Qatar', '/images/channels/al-jazeera.png', true, 3),
+('Sky News', 'Sky News International', 'News', 'English', 'UK', '/images/channels/sky-news.png', true, 4),
+('France 24', 'France 24 English', 'News', 'English', 'France', '/images/channels/france24.png', true, 5),
 
 -- Sports Channels
-('ESPN', 'Entertainment and Sports Programming Network', 'Sports', 'English', 'USA', '/assets/images/channels/espn.png', true, 10),
-('Sky Sports', 'Sky Sports Network', 'Sports', 'English', 'UK', '/assets/images/channels/sky-sports.png', true, 11),
-('SuperSport', 'SuperSport Network', 'Sports', 'English', 'South Africa', '/assets/images/channels/supersport.png', true, 12),
-('beIN Sports', 'beIN Sports Network', 'Sports', 'English', 'Qatar', '/assets/images/channels/bein-sports.png', true, 13),
-('Eurosport', 'Eurosport Network', 'Sports', 'English', 'Europe', '/assets/images/channels/eurosport.png', true, 14),
+('ESPN', 'Entertainment and Sports Programming Network', 'Sports', 'English', 'USA', '/images/channels/espn.png', true, 10),
+('Sky Sports', 'Sky Sports Network', 'Sports', 'English', 'UK', '/images/channels/sky-sports.png', true, 11),
+('SuperSport', 'SuperSport Network', 'Sports', 'English', 'South Africa', '/images/channels/supersport.png', true, 12),
+('beIN Sports', 'beIN Sports Network', 'Sports', 'English', 'Qatar', '/images/channels/bein-sports.png', true, 13),
+('Eurosport', 'Eurosport Network', 'Sports', 'English', 'Europe', '/images/channels/eurosport.png', true, 14),
 
 -- Entertainment Channels
-('HBO', 'Home Box Office', 'Entertainment', 'English', 'USA', '/assets/images/channels/hbo.png', true, 20),
-('Showtime', 'Showtime Networks', 'Entertainment', 'English', 'USA', '/assets/images/channels/showtime.png', true, 21),
-('Starz', 'Starz Entertainment', 'Entertainment', 'English', 'USA', '/assets/images/channels/starz.png', true, 22),
-('AMC', 'American Movie Classics', 'Entertainment', 'English', 'USA', '/assets/images/channels/amc.png', true, 23),
-('FX', 'FX Network', 'Entertainment', 'English', 'USA', '/assets/images/channels/fx.png', true, 24),
+('HBO', 'Home Box Office', 'Entertainment', 'English', 'USA', '/images/channels/hbo.png', true, 20),
+('Showtime', 'Showtime Networks', 'Entertainment', 'English', 'USA', '/images/channels/showtime.png', true, 21),
+('Starz', 'Starz Entertainment', 'Entertainment', 'English', 'USA', '/images/channels/starz.png', true, 22),
+('AMC', 'American Movie Classics', 'Entertainment', 'English', 'USA', '/images/channels/amc.png', true, 23),
+('FX', 'FX Network', 'Entertainment', 'English', 'USA', '/images/channels/fx.png', true, 24),
 
 -- Kids Channels
-('Cartoon Network', 'Cartoon Network', 'Kids', 'English', 'USA', '/assets/images/channels/cartoon-network.png', true, 30),
-('Disney Channel', 'Disney Channel', 'Kids', 'English', 'USA', '/assets/images/channels/disney-channel.png', true, 31),
-('Nickelodeon', 'Nickelodeon', 'Kids', 'English', 'USA', '/assets/images/channels/nickelodeon.png', true, 32),
-('Boomerang', 'Boomerang', 'Kids', 'English', 'USA', '/assets/images/channels/boomerang.png', true, 33),
-('Disney Junior', 'Disney Junior', 'Kids', 'English', 'USA', '/assets/images/channels/disney-junior.png', true, 34),
+('Cartoon Network', 'Cartoon Network', 'Kids', 'English', 'USA', '/images/channels/cartoon-network.png', true, 30),
+('Disney Channel', 'Disney Channel', 'Kids', 'English', 'USA', '/images/channels/disney-channel.png', true, 31),
+('Nickelodeon', 'Nickelodeon', 'Kids', 'English', 'USA', '/images/channels/nickelodeon.png', true, 32),
+('Boomerang', 'Boomerang', 'Kids', 'English', 'USA', '/images/channels/boomerang.png', true, 33),
+('Disney Junior', 'Disney Junior', 'Kids', 'English', 'USA', '/images/channels/disney-junior.png', true, 34),
 
 -- African Channels
-('NTV Kenya', 'Nation Television Kenya', 'News', 'English', 'Kenya', '/assets/images/channels/ntv-kenya.png', true, 40),
-('KBC', 'Kenya Broadcasting Corporation', 'General', 'English', 'Kenya', '/assets/images/channels/kbc.png', true, 41),
-('Citizen TV', 'Citizen Television', 'General', 'English', 'Kenya', '/assets/images/channels/citizen-tv.png', true, 42),
-('KTN News', 'Kenya Television Network News', 'News', 'English', 'Kenya', '/assets/images/channels/ktn-news.png', true, 43),
-('K24', 'K24 Television', 'News', 'English', 'Kenya', '/assets/images/channels/k24.png', true, 44),
+('NTV Kenya', 'Nation Television Kenya', 'News', 'English', 'Kenya', '/images/channels/ntv-kenya.png', true, 40),
+('KBC', 'Kenya Broadcasting Corporation', 'General', 'English', 'Kenya', '/images/channels/kbc.png', true, 41),
+('Citizen TV', 'Citizen Television', 'General', 'English', 'Kenya', '/images/channels/citizen-tv.png', true, 42),
+('KTN News', 'Kenya Television Network News', 'News', 'English', 'Kenya', '/images/channels/ktn-news.png', true, 43),
+('K24', 'K24 Television', 'News', 'English', 'Kenya', '/images/channels/k24.png', true, 44),
 
 -- Music Channels
-('MTV', 'Music Television', 'Music', 'English', 'USA', '/assets/images/channels/mtv.png', true, 50),
-('VH1', 'Video Hits One', 'Music', 'English', 'USA', '/assets/images/channels/vh1.png', true, 51),
-('BET', 'Black Entertainment Television', 'Music', 'English', 'USA', '/assets/images/channels/bet.png', true, 52),
-('Trace TV', 'Trace Television', 'Music', 'English', 'France', '/assets/images/channels/trace-tv.png', true, 53),
-('Channel O', 'Channel O Africa', 'Music', 'English', 'South Africa', '/assets/images/channels/channel-o.png', true, 54)
+('MTV', 'Music Television', 'Music', 'English', 'USA', '/images/channels/mtv.png', true, 50),
+('VH1', 'Video Hits One', 'Music', 'English', 'USA', '/images/channels/vh1.png', true, 51),
+('BET', 'Black Entertainment Television', 'Music', 'English', 'USA', '/images/channels/bet.png', true, 52),
+('Trace TV', 'Trace Television', 'Music', 'English', 'France', '/images/channels/trace-tv.png', true, 53),
+('Channel O', 'Channel O Africa', 'Music', 'English', 'South Africa', '/images/channels/channel-o.png', true, 54)
 ON CONFLICT DO NOTHING;
 
 -- Create package-channel relationships
@@ -101,12 +101,12 @@ ON CONFLICT DO NOTHING;
 
 -- Insert sample gallery items
 INSERT INTO gallery_items (title, description, image_url, video_url, category, sort_order) VALUES
-('GStreaming Hero Video', 'Welcome to GStreaming - Your Ultimate Streaming Platform', '/assets/images/gallery/hero-video.jpg', 'https://www.youtube.com/embed/dQw4w9WgXcQ', 'Hero', 1),
-('Premium Quality Streaming', 'Experience crystal clear 4K streaming on all your devices', '/assets/images/gallery/premium-quality.jpg', NULL, 'Features', 2),
-('Multi-Device Support', 'Stream on Smart TVs, Firestick, Roku, and mobile devices', '/assets/images/gallery/multi-device.jpg', NULL, 'Features', 3),
-('24/7 Customer Support', 'Get help anytime with our dedicated support team', '/assets/images/gallery/support.jpg', NULL, 'Features', 4),
-('Sports Package', 'Watch all your favorite sports events live', '/assets/images/gallery/sports.jpg', NULL, 'Packages', 5),
-('Kids Package', 'Safe and entertaining content for children', '/assets/images/gallery/kids.jpg', NULL, 'Packages', 6),
-('News Channels', 'Stay updated with the latest news from around the world', '/assets/images/gallery/news.jpg', NULL, 'Packages', 7),
-('Entertainment Channels', 'Enjoy movies, series, and entertainment shows', '/assets/images/gallery/entertainment.jpg', NULL, 'Packages', 8)
+('GStreaming Hero Video', 'Welcome to GStreaming - Your Ultimate Streaming Platform', '/images/gallery/hero-video.jpg', 'https://www.youtube.com/embed/dQw4w9WgXcQ', 'Hero', 1),
+('Premium Quality Streaming', 'Experience crystal clear 4K streaming on all your devices', '/images/gallery/premium-quality.jpg', NULL, 'Features', 2),
+('Multi-Device Support', 'Stream on Smart TVs, Firestick, Roku, and mobile devices', '/images/gallery/multi-device.jpg', NULL, 'Features', 3),
+('24/7 Customer Support', 'Get help anytime with our dedicated support team', '/images/gallery/support.jpg', NULL, 'Features', 4),
+('Sports Package', 'Watch all your favorite sports events live', '/images/gallery/sports.jpg', NULL, 'Packages', 5),
+('Kids Package', 'Safe and entertaining content for children', '/images/gallery/kids.jpg', NULL, 'Packages', 6),
+('News Channels', 'Stay updated with the latest news from around the world', '/images/gallery/news.jpg', NULL, 'Packages', 7),
+('Entertainment Channels', 'Enjoy movies, series, and entertainment shows', '/images/gallery/entertainment.jpg', NULL, 'Packages', 8)
 ON CONFLICT DO NOTHING;

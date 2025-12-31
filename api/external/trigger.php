@@ -17,7 +17,7 @@ if ($apiKey !== $validApiKey) {
 }
 
 try {
-    $db = new Database();
+    $db = Database::getInstance();
     $conn = $db->getConnection();
     
     // Get confirmed orders that need external package generation

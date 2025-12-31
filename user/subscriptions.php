@@ -9,7 +9,7 @@ if (!isLoggedIn()) {
     exit();
 }
 
-$db = new Database();
+$db = Database::getInstance();
 $conn = $db->getConnection();
 $user = getCurrentUser();
 $userId = $user['id'];
@@ -115,11 +115,11 @@ include __DIR__ . '/includes/header.php';
             </div>
             
             <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-                <a href="/user/channels.php" class="btn btn-primary">
+                <a href="/user/channels" class="btn btn-primary">
                     <i class="fas fa-tv"></i>
                     Watch Channels
                 </a>
-                <a href="/user/subscriptions/subscribe.php?package=<?php echo $currentSubscription['package_id']; ?>" class="btn btn-secondary">
+                <a href="/user/subscriptions/subscribe?package=<?php echo $currentSubscription['package_id']; ?>" class="btn btn-secondary">
                     <i class="fas fa-sync"></i>
                     Renew Subscription
                 </a>
@@ -169,7 +169,7 @@ include __DIR__ . '/includes/header.php';
                 </button>
             </div>
             <p style="margin-top: 1rem; color: var(--user-text-light); font-size: 0.9rem;">
-                <i class="fas fa-info-circle"></i> Prices update based on number of devices selected. Need 4+ devices? <a href="/user/support.php" style="color: #8B0000; font-weight: 600;">Contact us</a>
+                <i class="fas fa-info-circle"></i> Prices update based on number of devices selected. Need 4+ devices? <a href="/user/support" style="color: #8B0000; font-weight: 600;">Contact us</a>
             </p>
         </div>
 
@@ -204,7 +204,7 @@ include __DIR__ . '/includes/header.php';
                         </p>
                     <?php endif; ?>
                     
-                    <a href="/user/subscriptions/subscribe.php?package=<?php echo $package['id']; ?>&devices=1" class="btn btn-primary subscribe-btn" style="width: 100%; text-align: center;" data-package-id="<?php echo $package['id']; ?>">
+                    <a href="/user/subscriptions/subscribe?package=<?php echo $package['id']; ?>&devices=1" class="btn btn-primary subscribe-btn" style="width: 100%; text-align: center;" data-package-id="<?php echo $package['id']; ?>">
                         <i class="fas fa-shopping-cart"></i>
                         Subscribe Now
                     </a>

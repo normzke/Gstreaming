@@ -7,28 +7,13 @@
   "background_color": "#000000",
   "theme_color": "#8B0000",
   "orientation": "portrait-primary",
-  "categories": ["entertainment", "streaming"],
+  "categories": [
+    "entertainment",
+    "streaming"
+  ],
   "lang": "en-KE",
   "icons": [
     {
-      "src": "https://bingetv.co.ke/images/apple-touch-icon.png",
-      "sizes": "180x180",
-      "type": "image/png",
-      "purpose": "apple-touch-icon"
-    },
-    {
-      "src": "https://bingetv.co.ke/images/favicon-32x32.png",
-      "sizes": "32x32",
-      "type": "image/png"
-    },
-    {
-      "src": "https://bingetv.co.ke/images/favicon-16x16.png",
-      "sizes": "16x16",
-      "type": "image/png"
-    }
-  ]
-}
-
       "src": "https://bingetv.co.ke/images/apple-touch-icon.png",
       "sizes": "180x180",
       "type": "image/png",

@@ -6,13 +6,13 @@
 // Counter animation for hero stats
 function animateCounters() {
     const counters = document.querySelectorAll('.counter, .stat-number');
-    
+
     counters.forEach(counter => {
         const target = parseFloat(counter.getAttribute('data-target'));
         const duration = 2000; // 2 seconds
         const increment = target / (duration / 16); // 60fps
         let current = 0;
-        
+
         const timer = setInterval(() => {
             current += increment;
             if (current >= target) {
@@ -35,12 +35,12 @@ function initScrollAnimations() {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
     };
-    
+
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('animate-in');
-                
+
                 // Trigger counter animation for stats section
                 if (entry.target.classList.contains('stats-section')) {
                     animateCounters();
@@ -48,7 +48,7 @@ function initScrollAnimations() {
             }
         });
     }, observerOptions);
-    
+
     // Observe elements for animation
     document.querySelectorAll('.package-card, .gallery-item, .stat-item, .feature-card').forEach(el => {
         observer.observe(el);
@@ -58,13 +58,13 @@ function initScrollAnimations() {
 // Smooth scroll for anchor links
 function initSmoothScroll() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
+        anchor.addEventListener('click', function (e) {
             e.preventDefault();
             const target = document.querySelector(this.getAttribute('href'));
-            
+
             if (target) {
                 const offsetTop = target.offsetTop - 80; // Account for fixed navbar
-                
+
                 window.scrollTo({
                     top: offsetTop,
                     behavior: 'smooth'
@@ -78,11 +78,11 @@ function initSmoothScroll() {
 function initParallax() {
     const hero = document.querySelector('.hero');
     if (!hero) return;
-    
+
     window.addEventListener('scroll', () => {
         const scrolled = window.pageYOffset;
         const rate = scrolled * -0.5;
-        
+
         hero.style.transform = `translateY(${rate}px)`;
     });
 }
@@ -90,12 +90,12 @@ function initParallax() {
 // Typing animation
 function initTypingAnimation() {
     const elements = document.querySelectorAll('[data-typing]');
-    
+
     elements.forEach(element => {
         const text = element.textContent;
         element.textContent = '';
         element.style.borderRight = '2px solid var(--primary-color)';
-        
+
         let i = 0;
         const typeWriter = () => {
             if (i < text.length) {
@@ -106,7 +106,7 @@ function initTypingAnimation() {
                 element.style.borderRight = 'none';
             }
         };
-        
+
         // Start animation when element is visible
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -116,7 +116,7 @@ function initTypingAnimation() {
                 }
             });
         });
-        
+
         observer.observe(element);
     });
 }
@@ -124,13 +124,13 @@ function initTypingAnimation() {
 // Package hover effects
 function initPackageHover() {
     const packages = document.querySelectorAll('.package-card');
-    
+
     packages.forEach(package => {
-        package.addEventListener('mouseenter', function() {
+        package.addEventListener('mouseenter', function () {
             this.style.transform = 'translateY(-10px) scale(1.02)';
         });
-        
-        package.addEventListener('mouseleave', function() {
+
+        package.addEventListener('mouseleave', function () {
             this.style.transform = 'translateY(0) scale(1)';
         });
     });
@@ -139,15 +139,15 @@ function initPackageHover() {
 // Button ripple effect
 function initRippleEffect() {
     const buttons = document.querySelectorAll('.btn');
-    
+
     buttons.forEach(button => {
-        button.addEventListener('click', function(e) {
+        button.addEventListener('click', function (e) {
             const ripple = document.createElement('span');
             const rect = this.getBoundingClientRect();
             const size = Math.max(rect.width, rect.height);
             const x = e.clientX - rect.left - size / 2;
             const y = e.clientY - rect.top - size / 2;
-            
+
             ripple.style.cssText = `
                 position: absolute;
                 width: ${size}px;
@@ -160,11 +160,11 @@ function initRippleEffect() {
                 animation: ripple 0.6s linear;
                 pointer-events: none;
             `;
-            
+
             this.style.position = 'relative';
             this.style.overflow = 'hidden';
             this.appendChild(ripple);
-            
+
             setTimeout(() => {
                 ripple.remove();
             }, 600);
@@ -175,7 +175,7 @@ function initRippleEffect() {
 // Loading animation
 function initLoadingAnimation() {
     const loadingElements = document.querySelectorAll('.loading');
-    
+
     loadingElements.forEach(element => {
         const spinner = document.createElement('div');
         spinner.className = 'spinner';
@@ -185,7 +185,7 @@ function initLoadingAnimation() {
             left: 50%;
             transform: translate(-50%, -50%);
         `;
-        
+
         element.style.position = 'relative';
         element.appendChild(spinner);
     });
@@ -285,9 +285,9 @@ const animationStyles = `
 `;
 
 // Inject animation styles
-const styleSheet = document.createElement('style');
-styleSheet.textContent = animationStyles;
-document.head.appendChild(styleSheet);
+const bingetvAnimationsStyles = document.createElement('style');
+bingetvAnimationsStyles.textContent = animationStyles;
+document.head.appendChild(bingetvAnimationsStyles);
 
 // Initialize when DOM is ready
 if (document.readyState === 'loading') {

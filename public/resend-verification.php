@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $message = 'Please enter a valid email address.';
         $messageType = 'error';
     } else {
-        $db = new Database();
+        $db = Database::getInstance();
         $conn = $db->getConnection();
 
         try {
@@ -248,7 +248,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </form>
 
                 <div class="back-link">
-                    <a href="login.php">
+                    <a href="login">
                         <i class="fas fa-arrow-left"></i>
                         Back to Login
                     </a>

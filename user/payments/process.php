@@ -10,7 +10,7 @@ if (!isLoggedIn()) {
     exit();
 }
 
-$db = new Database();
+$db = Database::getInstance();
 $conn = $db->getConnection();
 
 $paymentId = $_GET['payment_id'] ?? 0;
@@ -413,7 +413,7 @@ $payment = $paymentStmt->fetch();
                         <i class="fas fa-info-circle"></i> Go to M-Pesa → Pay Bill → Enter details above
                     </p>
                 </div>
-                <a href="submit-mpesa.php?payment_id=<?php echo $paymentId; ?>" class="btn btn-secondary" style="width: 100%; display: inline-block; text-align: center; padding: 1rem; background: #6c757d; color: white; text-decoration: none; border-radius: 8px;">
+                <a href="submit-mpesa?payment_id=<?php echo $paymentId; ?>" class="btn btn-secondary" style="width: 100%; display: inline-block; text-align: center; padding: 1rem; background: #6c757d; color: white; text-decoration: none; border-radius: 8px;">
                     <i class="fas fa-paste"></i>
                     Already Paid? Submit M-PESA Confirmation
                 </a>
@@ -448,7 +448,7 @@ $payment = $paymentStmt->fetch();
             </div>
         <?php elseif ($payment['status'] === 'failed'): ?>
             <div class="payment-actions">
-                <a href="../subscriptions/subscribe.php" class="btn btn-primary">
+                <a href="../subscriptions/subscribe" class="btn btn-primary">
                     <i class="fas fa-redo"></i>
                     Try Again
                 </a>

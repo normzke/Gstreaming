@@ -11,6 +11,7 @@ if (isset($_COOKIE['remember_token'])) {
 }
 
 // Redirect to public home page
-header('Location: /login.php');
+header('Location: /login');
+session_write_close();
 exit();
 ?>

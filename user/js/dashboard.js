@@ -1,6 +1,6 @@
 // Dashboard JavaScript
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // Initialize dashboard functionality
     initDashboard();
     initSetupTabs();
@@ -16,21 +16,21 @@ function initDashboard() {
         card.style.transform = 'translateY(20px)';
         card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
         card.style.transitionDelay = `${index * 0.1}s`;
-        
+
         setTimeout(() => {
             card.style.opacity = '1';
             card.style.transform = 'translateY(0)';
         }, 100);
     });
-    
+
     // Add hover effects to subscription cards
     const subscriptionCards = document.querySelectorAll('.subscription-card');
     subscriptionCards.forEach(card => {
-        card.addEventListener('mouseenter', function() {
+        card.addEventListener('mouseenter', function () {
             this.style.transform = 'translateY(-5px)';
         });
-        
-        card.addEventListener('mouseleave', function() {
+
+        card.addEventListener('mouseleave', function () {
             this.style.transform = 'translateY(0)';
         });
     });
@@ -40,15 +40,15 @@ function initDashboard() {
 function initSetupTabs() {
     const setupTabs = document.querySelectorAll('.setup-tab');
     const setupInstructions = document.querySelectorAll('.setup-instruction');
-    
+
     setupTabs.forEach(tab => {
-        tab.addEventListener('click', function() {
+        tab.addEventListener('click', function () {
             const deviceName = this.dataset.device;
-            
+
             // Update tab buttons
             setupTabs.forEach(t => t.classList.remove('active'));
             this.classList.add('active');
-            
+
             // Update instructions
             setupInstructions.forEach(instruction => {
                 instruction.classList.remove('active');
@@ -62,26 +62,26 @@ function initSetupTabs() {
 function initModals() {
     const modals = document.querySelectorAll('.modal');
     const closeButtons = document.querySelectorAll('.modal-close');
-    
+
     // Close modal when clicking close button
     closeButtons.forEach(button => {
-        button.addEventListener('click', function() {
+        button.addEventListener('click', function () {
             const modal = this.closest('.modal');
             closeModal(modal);
         });
     });
-    
+
     // Close modal when clicking outside
     modals.forEach(modal => {
-        modal.addEventListener('click', function(event) {
+        modal.addEventListener('click', function (event) {
             if (event.target === this) {
                 closeModal(this);
             }
         });
     });
-    
+
     // Close modal with Escape key
-    document.addEventListener('keydown', function(event) {
+    document.addEventListener('keydown', function (event) {
         if (event.key === 'Escape') {
             const openModal = document.querySelector('.modal[style*="block"]');
             if (openModal) {
@@ -97,7 +97,7 @@ function showRenewalModal() {
     if (modal) {
         modal.style.display = 'block';
         document.body.style.overflow = 'hidden';
-        
+
         // Animate in
         setTimeout(() => {
             modal.querySelector('.modal-content').style.transform = 'scale(1)';
@@ -127,7 +127,7 @@ function copyCredential(inputId) {
     if (input) {
         input.select();
         input.setSelectionRange(0, 99999); // For mobile devices
-        
+
         navigator.clipboard.writeText(input.value).then(() => {
             showNotification('Copied to clipboard!', 'success');
         }).catch(() => {
@@ -143,9 +143,9 @@ function copyAllCredentials() {
     const streamingUrl = document.getElementById('streaming-url')?.value || '';
     const username = document.getElementById('streaming-username')?.value || '';
     const password = document.getElementById('streaming-password')?.value || '';
-    
+
     const credentials = `Streaming URL: ${streamingUrl}\nUsername: ${username}\nPassword: ${password}`;
-    
+
     navigator.clipboard.writeText(credentials).then(() => {
         showNotification('All credentials copied to clipboard!', 'success');
     }).catch(() => {
@@ -164,7 +164,7 @@ function copyAllCredentials() {
 function togglePasswordVisibility(inputId) {
     const input = document.getElementById(inputId);
     const button = input.nextElementSibling;
-    
+
     if (input.type === 'password') {
         input.type = 'text';
         button.innerHTML = '<i class="fas fa-eye-slash"></i>';
@@ -188,7 +188,7 @@ function renewSubscription(subscriptionId) {
 // Proceed with renewal
 function proceedWithRenewal() {
     const selectedMethod = document.querySelector('input[name="renewal_method"]:checked').value;
-    
+
     if (selectedMethod === 'same') {
         // Redirect to payment for same package renewal
         window.location.href = 'subscribe.php?package=1&action=renew'; // Default package
@@ -196,18 +196,18 @@ function proceedWithRenewal() {
         // Redirect to packages page for upgrade
         window.location.href = 'index.php#packages';
     }
-    
+
     closeRenewalModal();
 }
 
 // Renewal method selection
-document.addEventListener('change', function(event) {
+document.addEventListener('change', function (event) {
     if (event.target.name === 'renewal_method') {
         const renewalMethods = document.querySelectorAll('.renewal-method');
         renewalMethods.forEach(method => {
             method.classList.remove('active');
         });
-        
+
         const selectedMethod = document.querySelector(`.renewal-method[data-method="${event.target.value}"]`);
         if (selectedMethod) {
             selectedMethod.classList.add('active');
@@ -220,7 +220,7 @@ function showNotification(message, type = 'info') {
     // Remove existing notifications
     const existingNotifications = document.querySelectorAll('.notification');
     existingNotifications.forEach(notification => notification.remove());
-    
+
     // Create notification element
     const notification = document.createElement('div');
     notification.className = `notification notification-${type}`;
@@ -233,7 +233,7 @@ function showNotification(message, type = 'info') {
             </button>
         </div>
     `;
-    
+
     // Add styles
     notification.style.cssText = `
         position: fixed;
@@ -249,15 +249,15 @@ function showNotification(message, type = 'info') {
         transition: transform 0.3s ease;
         max-width: 400px;
     `;
-    
+
     // Add to page
     document.body.appendChild(notification);
-    
+
     // Animate in
     setTimeout(() => {
         notification.style.transform = 'translateX(0)';
     }, 10);
-    
+
     // Auto remove after 5 seconds
     setTimeout(() => {
         notification.style.transform = 'translateX(100%)';
@@ -292,7 +292,7 @@ function refreshSubscriptionStatus() {
     expiryWarnings.forEach(warning => {
         const daysText = warning.querySelector('span').textContent;
         const days = parseInt(daysText.match(/\d+/)[0]);
-        
+
         if (days <= 3) {
             warning.style.background = 'rgba(239, 68, 68, 0.1)';
             warning.style.borderColor = 'var(--error-color)';
@@ -327,6 +327,6 @@ const notificationStyles = `
 `;
 
 // Inject notification styles
-const styleSheet = document.createElement('style');
-styleSheet.textContent = notificationStyles;
-document.head.appendChild(styleSheet);
+const bingetvUserDashboardStyleSheet = document.createElement('style');
+bingetvUserDashboardStyleSheet.textContent = notificationStyles;
+document.head.appendChild(bingetvUserDashboardStyleSheet);

@@ -9,7 +9,7 @@ if (!isset($_SESSION['admin_id'])) {
     exit();
 }
 
-$db = new Database();
+$db = Database::getInstance();
 $conn = $db->getConnection();
 
 // Handle form submissions
@@ -18,7 +18,7 @@ $messageType = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $action = $_POST['action'] ?? '';
-    
+
     try {
         switch ($action) {
             case 'add':
@@ -31,19 +31,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $language = trim($_POST['language']);
                 $is_hd = isset($_POST['is_hd']) ? 1 : 0;
                 $is_active = isset($_POST['is_active']) ? 1 : 0;
-                $sort_order = (int)$_POST['sort_order'];
-                
+                $sort_order = (int) $_POST['sort_order'];
+
                 $insertQuery = "INSERT INTO channels (name, description, logo_url, stream_url, category, country, language, is_hd, is_active, sort_order) 
                                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
                 $insertStmt = $conn->prepare($insertQuery);
                 $insertStmt->execute([$name, $description, $logo_url, $stream_url, $category, $country, $language, $is_hd, $is_active, $sort_order]);
-                
+
                 $message = 'Channel added successfully!';
                 $messageType = 'success';
                 break;
-                
+
             case 'edit':
-                $id = (int)$_POST['id'];
+                $id = (int) $_POST['id'];
                 $name = trim($_POST['name']);
                 $description = trim($_POST['description']);
                 $logo_url = trim($_POST['logo_url']);
@@ -53,34 +53,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $language = trim($_POST['language']);
                 $is_hd = isset($_POST['is_hd']) ? 1 : 0;
                 $is_active = isset($_POST['is_active']) ? 1 : 0;
-                $sort_order = (int)$_POST['sort_order'];
-                
+                $sort_order = (int) $_POST['sort_order'];
+
                 $updateQuery = "UPDATE channels SET name = ?, description = ?, logo_url = ?, stream_url = ?, category = ?, country = ?, language = ?, is_hd = ?, is_active = ?, sort_order = ? WHERE id = ?";
                 $updateStmt = $conn->prepare($updateQuery);
                 $updateStmt->execute([$name, $description, $logo_url, $stream_url, $category, $country, $language, $is_hd, $is_active, $sort_order, $id]);
-                
+
                 $message = 'Channel updated successfully!';
                 $messageType = 'success';
                 break;
-                
+
             case 'delete':
-                $id = (int)$_POST['id'];
-                
+                $id = (int) $_POST['id'];
+
                 $deleteQuery = "DELETE FROM channels WHERE id = ?";
                 $deleteStmt = $conn->prepare($deleteQuery);
                 $deleteStmt->execute([$id]);
-                
+
                 $message = 'Channel deleted successfully!';
                 $messageType = 'success';
                 break;
-                
+
             case 'toggle_status':
-                $id = (int)$_POST['id'];
-                
+                $id = (int) $_POST['id'];
+
                 $toggleQuery = "UPDATE channels SET is_active = NOT is_active WHERE id = ?";
                 $toggleStmt = $conn->prepare($toggleQuery);
                 $toggleStmt->execute([$id]);
-                
+
                 $message = 'Channel status updated successfully!';
                 $messageType = 'success';
                 break;
@@ -92,7 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 // Get channels with pagination
-$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
 $limit = 20;
 $offset = ($page - 1) * $limit;
 
@@ -145,7 +145,7 @@ $categories = $categoriesStmt->fetchAll(PDO::FETCH_COLUMN);
 // Get channel for editing
 $editChannel = null;
 if (isset($_GET['edit'])) {
-    $editId = (int)$_GET['edit'];
+    $editId = (int) $_GET['edit'];
     $editQuery = "SELECT * FROM channels WHERE id = ?";
     $editStmt = $conn->prepare($editQuery);
     $editStmt->execute([$editId]);
@@ -158,14 +158,15 @@ include 'includes/header.php';
 
 <!-- Messages -->
 <?php if ($message): ?>
-<div class="admin-card" style="margin-bottom: 1.5rem;">
-    <div class="card-body">
-        <div class="alert alert-<?php echo $messageType; ?>" style="display: flex; align-items: center; gap: 0.5rem; padding: 1rem; border-radius: var(--admin-radius); background: <?php echo $messageType === 'success' ? '#D1FAE5' : '#FEE2E2'; ?>; color: <?php echo $messageType === 'success' ? '#065F46' : '#991B1B'; ?>;">
-            <i class="fas fa-<?php echo $messageType === 'success' ? 'check-circle' : 'exclamation-circle'; ?>"></i>
-            <?php echo htmlspecialchars($message); ?>
+    <div class="admin-card" style="margin-bottom: 1.5rem;">
+        <div class="card-body">
+            <div class="alert alert-<?php echo $messageType; ?>"
+                style="display: flex; align-items: center; gap: 0.5rem; padding: 1rem; border-radius: var(--admin-radius); background: <?php echo $messageType === 'success' ? '#D1FAE5' : '#FEE2E2'; ?>; color: <?php echo $messageType === 'success' ? '#065F46' : '#991B1B'; ?>;">
+                <i class="fas fa-<?php echo $messageType === 'success' ? 'check-circle' : 'exclamation-circle'; ?>"></i>
+                <?php echo htmlspecialchars($message); ?>
+            </div>
         </div>
     </div>
-</div>
 <?php endif; ?>
 
 <!-- Add Channel Button -->
@@ -194,34 +195,46 @@ include 'includes/header.php';
             </thead>
             <tbody>
                 <?php foreach ($channels as $channel): ?>
-                <tr>
-                    <td>
-                        <div>
-                            <strong><?php echo htmlspecialchars($channel['name']); ?></strong>
-                            <br>
-                            <small class="text-muted"><?php echo htmlspecialchars($channel['description']); ?></small>
-                        </div>
-                    </td>
-                    <td><?php echo htmlspecialchars($channel['category']); ?></td>
-                    <td>
-                        <code style="font-size: 0.75rem; background: #f1f5f9; padding: 0.25rem 0.5rem; border-radius: 4px;">
-                            <?php echo htmlspecialchars(substr($channel['stream_url'], 0, 50)) . '...'; ?>
-                        </code>
-                    </td>
-                    <td>
-                        <span class="badge badge-<?php echo $channel['is_active'] ? 'success' : 'danger'; ?>">
-                            <?php echo $channel['is_active'] ? 'Active' : 'Inactive'; ?>
-                        </span>
-                    </td>
-                    <td>
-                        <button class="btn btn-secondary" onclick="editChannel(<?php echo $channel['id']; ?>)">
+                    <tr>
+                        <td>
+                            <div>
+                                <strong><?php echo htmlspecialchars($channel['name']); ?></strong>
+                                <br>
+                                <small class="text-muted"><?php echo htmlspecialchars($channel['description']); ?></small>
+                            </div>
+                        </td>
+                        <td><?php echo htmlspecialchars($channel['category']); ?></td>
+                        <td>
+                            <code
+                                style="font-size: 0.75rem; background: #f1f5f9; padding: 0.25rem 0.5rem; border-radius: 4px;">
+                                <?php echo htmlspecialchars(substr($channel['stream_url'], 0, 50)) . '...'; ?>
+                            </code>
+                        </td>
+                        <td>
+                            <span class="badge badge-<?php echo $channel['is_active'] ? 'success' : 'danger'; ?>">
+                                <?php echo $channel['is_active'] ? 'Active' : 'Inactive'; ?>
+                            </span>
+                        </td>
+                        <td>
                             <i class="fas fa-edit"></i>
-                        </button>
-                        <button class="btn btn-danger btn-delete" onclick="deleteChannel(<?php echo $channel['id']; ?>)">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </td>
-                </tr>
+                            </button>
+                            <button class="btn btn-secondary" onclick="editChannel(this)"
+                                data-id="<?php echo $channel['id']; ?>"
+                                data-name="<?php echo htmlspecialchars($channel['name']); ?>"
+                                data-description="<?php echo htmlspecialchars($channel['description']); ?>"
+                                data-category="<?php echo htmlspecialchars($channel['category']); ?>"
+                                data-stream_url="<?php echo htmlspecialchars($channel['stream_url']); ?>"
+                                data-logo_url="<?php echo htmlspecialchars($channel['logo_url']); ?>"
+                                data-sort_order="<?php echo $channel['sort_order']; ?>"
+                                data-is_active="<?php echo $channel['is_active']; ?>">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-danger btn-delete"
+                                onclick="deleteChannel(<?php echo $channel['id']; ?>)">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
@@ -238,17 +251,17 @@ include 'includes/header.php';
         <form id="channelForm" method="POST">
             <input type="hidden" name="action" id="formAction" value="add_channel">
             <input type="hidden" name="channel_id" id="channelId">
-            
+
             <div class="form-group">
                 <label for="name">Channel Name</label>
                 <input type="text" id="name" name="name" required>
             </div>
-            
+
             <div class="form-group">
                 <label for="description">Description</label>
                 <textarea id="description" name="description" rows="3" required></textarea>
             </div>
-            
+
             <div class="form-group">
                 <label for="category">Category</label>
                 <select id="category" name="category" required>
@@ -260,29 +273,29 @@ include 'includes/header.php';
                     <option value="Documentary">Documentary</option>
                 </select>
             </div>
-            
+
             <div class="form-group">
                 <label for="stream_url">Stream URL</label>
                 <input type="url" id="stream_url" name="stream_url" required>
             </div>
-            
+
             <div class="form-group">
                 <label for="logo_url">Logo URL</label>
                 <input type="url" id="logo_url" name="logo_url">
             </div>
-            
+
             <div class="form-group">
                 <label for="sort_order">Sort Order</label>
                 <input type="number" id="sort_order" name="sort_order" value="0">
             </div>
-            
+
             <div class="form-group">
                 <label>
                     <input type="checkbox" id="is_active" name="is_active" checked>
                     Active Channel
                 </label>
             </div>
-            
+
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
                 <button type="submit" class="btn btn-primary">Save Channel</button>
@@ -309,153 +322,165 @@ include 'includes/header.php';
 </div>
 
 <style>
-.modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 1000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+    .modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 
-.modal-content {
-    background: white;
-    border-radius: var(--admin-radius);
-    width: 90%;
-    max-width: 600px;
-    max-height: 90vh;
-    overflow-y: auto;
-}
+    .modal-content {
+        background: white;
+        border-radius: var(--admin-radius);
+        width: 90%;
+        max-width: 600px;
+        max-height: 90vh;
+        overflow-y: auto;
+    }
 
-.modal-header {
-    padding: 1.5rem;
-    border-bottom: 1px solid var(--admin-border);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
+    .modal-header {
+        padding: 1.5rem;
+        border-bottom: 1px solid var(--admin-border);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
 
-.modal-close {
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-    color: var(--admin-text-light);
-}
+    .modal-close {
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: var(--admin-text-light);
+    }
 
-.modal-body {
-    padding: 1.5rem;
-}
+    .modal-body {
+        padding: 1.5rem;
+    }
 
-.modal-footer {
-    padding: 1.5rem;
-    border-top: 1px solid var(--admin-border);
-    display: flex;
-    gap: 1rem;
-    justify-content: flex-end;
-}
+    .modal-footer {
+        padding: 1.5rem;
+        border-top: 1px solid var(--admin-border);
+        display: flex;
+        gap: 1rem;
+        justify-content: flex-end;
+    }
 
-.form-group {
-    margin-bottom: 1rem;
-}
+    .form-group {
+        margin-bottom: 1rem;
+    }
 
-.form-group label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: 500;
-    color: var(--admin-text);
-}
+    .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+        color: var(--admin-text);
+    }
 
-.form-group input,
-.form-group textarea,
-.form-group select {
-    width: 100%;
-    padding: 0.75rem;
-    border: 1px solid var(--admin-border);
-    border-radius: var(--admin-radius);
-    font-size: 1rem;
-}
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid var(--admin-border);
+        border-radius: var(--admin-radius);
+        font-size: 1rem;
+    }
 
-.form-group input:focus,
-.form-group textarea:focus,
-.form-group select:focus {
-    outline: none;
-    border-color: var(--admin-primary);
-    box-shadow: 0 0 0 3px rgba(139, 0, 0, 0.1);
-}
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+        outline: none;
+        border-color: var(--admin-primary);
+        box-shadow: 0 0 0 3px rgba(139, 0, 0, 0.1);
+    }
 
-.text-muted {
-    color: var(--admin-text-light);
-}
+    .text-muted {
+        color: var(--admin-text-light);
+    }
 
-.badge {
-    padding: 0.25rem 0.75rem;
-    border-radius: 9999px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-}
+    .badge {
+        padding: 0.25rem 0.75rem;
+        border-radius: 9999px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
 
-.badge-success {
-    background: #D1FAE5;
-    color: #065F46;
-}
+    .badge-success {
+        background: #D1FAE5;
+        color: #065F46;
+    }
 
-.badge-danger {
-    background: #FEE2E2;
-    color: #991B1B;
-}
+    .badge-danger {
+        background: #FEE2E2;
+        color: #991B1B;
+    }
 </style>
 
 <script>
-let currentChannelId = null;
+    let currentChannelId = null;
 
-function openAddModal() {
-    document.getElementById('modalTitle').textContent = 'Add Channel';
-    document.getElementById('formAction').value = 'add_channel';
-    document.getElementById('channelForm').reset();
-    document.getElementById('channelId').value = '';
-    document.getElementById('channelModal').style.display = 'flex';
-}
+    function openAddModal() {
+        document.getElementById('modalTitle').textContent = 'Add Channel';
+        document.getElementById('formAction').value = 'add_channel';
+        document.getElementById('channelForm').reset();
+        document.getElementById('channelId').value = '';
+        document.getElementById('channelModal').style.display = 'flex';
+    }
 
-function editChannel(id) {
-    document.getElementById('modalTitle').textContent = 'Edit Channel';
-    document.getElementById('formAction').value = 'edit_channel';
-    document.getElementById('channelId').value = id;
-    document.getElementById('channelModal').style.display = 'flex';
-}
+    function editChannel(btn) {
+        document.getElementById('modalTitle').textContent = 'Edit Channel';
+        document.getElementById('formAction').value = 'edit_channel';
 
-function deleteChannel(id) {
-    currentChannelId = id;
-    document.getElementById('deleteModal').style.display = 'flex';
-}
+        // Populate form fields from data attributes
+        const dataset = btn.dataset;
+        document.getElementById('channelId').value = dataset.id;
+        document.getElementById('name').value = dataset.name;
+        document.getElementById('description').value = dataset.description;
+        document.getElementById('category').value = dataset.category;
+        document.getElementById('stream_url').value = dataset.stream_url;
+        document.getElementById('logo_url').value = dataset.logo_url;
+        document.getElementById('sort_order').value = dataset.sort_order;
+        document.getElementById('is_active').checked = dataset.is_active == '1';
 
-function closeModal() {
-    document.getElementById('channelModal').style.display = 'none';
-}
+        document.getElementById('channelModal').style.display = 'flex';
+    }
 
-function closeDeleteModal() {
-    document.getElementById('deleteModal').style.display = 'none';
-    currentChannelId = null;
-}
+    function deleteChannel(id) {
+        currentChannelId = id;
+        document.getElementById('deleteModal').style.display = 'flex';
+    }
 
-function confirmDelete() {
-    if (currentChannelId) {
-        const form = document.createElement('form');
-        form.method = 'POST';
-        form.innerHTML = `
+    function closeModal() {
+        document.getElementById('channelModal').style.display = 'none';
+    }
+
+    function closeDeleteModal() {
+        document.getElementById('deleteModal').style.display = 'none';
+        currentChannelId = null;
+    }
+
+    function confirmDelete() {
+        if (currentChannelId) {
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.innerHTML = `
             <input type="hidden" name="action" value="delete_channel">
             <input type="hidden" name="channel_id" value="${currentChannelId}">
         `;
-        document.body.appendChild(form);
-        form.submit();
+            document.body.appendChild(form);
+            form.submit();
+        }
     }
-}
 </script>
 
 <?php include 'includes/footer.php'; ?>

@@ -6,7 +6,7 @@ require_once '../lib/seo.php';
 
 // Note: This page can be accessed directly, but we encourage users to start from the homepage
 
-$db = new Database();
+$db = Database::getInstance();
 $conn = $db->getConnection();
 
 // Get packages
@@ -256,19 +256,19 @@ $og_tags = SEO::getOpenGraphTags('packages');
             
             <ul class="nav-menu">
                 <li class="nav-item">
-                    <a href="index.php" class="nav-link">Home</a>
+                    <a href="index" class="nav-link">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a href="channels.php" class="nav-link">Channels</a>
+                    <a href="channels" class="nav-link">Channels</a>
                 </li>
                 <li class="nav-item">
-                    <a href="gallery.php" class="nav-link">Gallery</a>
+                    <a href="gallery" class="nav-link">Gallery</a>
                 </li>
                 <li class="nav-item">
-                    <a href="login.php" class="nav-link">Login</a>
+                    <a href="login" class="nav-link">Login</a>
                 </li>
                 <li class="nav-item">
-                    <a href="register.php" class="nav-link btn btn-primary">Sign Up</a>
+                    <a href="register" class="nav-link btn btn-primary">Sign Up</a>
                 </li>
             </ul>
         </div>
@@ -281,7 +281,7 @@ $og_tags = SEO::getOpenGraphTags('packages');
             
             <!-- Back to Homepage CTA -->
             <div class="homepage-cta">
-                <a href="index.php" class="btn btn-secondary">
+                <a href="index" class="btn btn-secondary">
                     <i class="fas fa-home"></i>
                     Back to Homepage
                 </a>
@@ -292,7 +292,7 @@ $og_tags = SEO::getOpenGraphTags('packages');
         <!-- Login Prompt -->
         <div class="login-prompt">
             <i class="fas fa-info-circle"></i>
-            Already have an account? <a href="login.php">Login here</a> to manage your subscription.
+            Already have an account? <a href="login">Login here</a> to manage your subscription.
         </div>
 
         <!-- Packages -->
@@ -352,20 +352,20 @@ $og_tags = SEO::getOpenGraphTags('packages');
                 <div class="footer-section">
                     <h4>Quick Links</h4>
                     <ul class="footer-links">
-                        <li><a href="index.php">Home</a></li>
-                        <li><a href="channels.php">Channels</a></li>
-                        <li><a href="gallery.php">Gallery</a></li>
-                        <li><a href="package-selection.php">Packages</a></li>
+                        <li><a href="index">Home</a></li>
+                        <li><a href="channels">Channels</a></li>
+                        <li><a href="gallery">Gallery</a></li>
+                        <li><a href="package-selection">Packages</a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-section">
                     <h4>Account</h4>
                     <ul class="footer-links">
-                        <li><a href="login.php">Login</a></li>
-                        <li><a href="register.php">Register</a></li>
-                        <li><a href="package-selection.php">Subscribe</a></li>
-                        <li><a href="support.php">Support</a></li>
+                        <li><a href="login">Login</a></li>
+                        <li><a href="register">Register</a></li>
+                        <li><a href="package-selection">Subscribe</a></li>
+                        <li><a href="support">Support</a></li>
                     </ul>
                 </div>
             </div>
