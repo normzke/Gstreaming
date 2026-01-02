@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_primary_light"
+    android:orientation="horizontal">
+
+    <!-- 1. Main Navigation Rail -->
+    <ScrollView
+        android:layout_width="80dp"
+        android:layout_height="match_parent"
+        android:background="#E0E0E0"
+        android:fillViewport="true"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:id="@+id/nav_rail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:paddingTop="24dp"
+            android:paddingBottom="16dp">
+            
+            <TextClock
+                android:id="@+id/clock_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:format12Hour="h:mm a"
+                android:format24Hour="HH:mm"
+                android:textSize="14sp"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                android:layout_marginBottom="16dp" />
+            
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/icon"
+                android:layout_marginBottom="24dp"
+                android:contentDescription="@string/app_name" />
+    
+            <ImageButton
+                android:id="@+id/nav_search"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/ic_nav_search"
+                android:background="?android:attr/selectableItemBackground"
+                android:tint="?android:attr/textColorPrimary"
+                android:contentDescription="@string/search"
+                android:nextFocusDown="@+id/nav_history"
+                android:nextFocusRight="@+id/category_recycler_view"
+                android:focusable="true" />
+    
+            <ImageButton
+                android:id="@+id/nav_history"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/ic_nav_history"
+                android:background="?android:attr/selectableItemBackground"
+                android:tint="?android:attr/textColorPrimary"
+                android:contentDescription="History" 
+                android:nextFocusDown="@+id/nav_live"
+                android:nextFocusRight="@+id/category_recycler_view"
+                android:focusable="true" />
+    
+            <ImageButton
+                android:id="@+id/nav_live"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/ic_nav_live"
+                android:background="?android:attr/selectableItemBackground"
+                android:tint="@color/bingetv_red"
+                android:contentDescription="Live TV" 
+                android:nextFocusDown="@+id/nav_movies"
+                android:nextFocusRight="@+id/category_recycler_view"
+                android:focusable="true" />
+    
+            <ImageButton
+                android:id="@+id/nav_movies"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/ic_nav_movies"
+                android:background="?android:attr/selectableItemBackground"
+                android:tint="?android:attr/textColorPrimary"
+                android:contentDescription="Movies" 
+                android:nextFocusDown="@+id/nav_shows"
+                android:nextFocusRight="@+id/category_recycler_view"
+                android:focusable="true" />
+    
+            <ImageButton
+                android:id="@+id/nav_shows"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/ic_nav_shows"
+                android:background="?android:attr/selectableItemBackground"
+                android:tint="?android:attr/textColorPrimary"
+                android:contentDescription="Shows" 
+                android:nextFocusDown="@+id/nav_recordings"
+                android:nextFocusRight="@+id/category_recycler_view"
+                android:focusable="true" />
+    
+            <ImageButton
+                android:id="@+id/nav_recordings"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/ic_nav_recordings"
+                android:background="?android:attr/selectableItemBackground"
+                android:tint="?android:attr/textColorPrimary"
+                android:contentDescription="Recordings" 
+                android:nextFocusDown="@+id/nav_favorites"
+                android:nextFocusRight="@+id/category_recycler_view"
+                android:focusable="true" />
+    
+            <View android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" />
+    
+            <ImageButton
+                android:id="@+id/nav_favorites"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@android:drawable/btn_star_big_on"
+                android:background="?android:attr/selectableItemBackground"
+                android:tint="@color/bingetv_red"
+                android:contentDescription="@string/favorites"
+                android:nextFocusDown="@+id/nav_settings"
+                android:nextFocusRight="@+id/category_recycler_view"
+                android:focusable="true" />
+    
+            <ImageButton
+                android:id="@+id/nav_settings"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/ic_nav_settings"
+                android:background="?android:attr/selectableItemBackground"
+                android:tint="?android:attr/textColorPrimary"
+                android:contentDescription="@string/settings"
+                android:layout_marginBottom="16dp"
+                android:nextFocusRight="@+id/category_recycler_view"
+                android:focusable="true" />
+    
+        </LinearLayout>
+    </ScrollView>
+
+    <View 
+        android:layout_width="1dp" 
+        android:layout_height="match_parent" 
+        android:background="#CCCCCC"/>
+
+    <!-- 2. Content Area (Categories + Grid + Preview) -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <!-- Top Area: Preview Player (Hidden by default or shown on focus?) -> Let's make it visible on top right -->
+        <FrameLayout
+            android:id="@+id/top_preview_container"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:visibility="gone"
+            android:background="@android:color/black">
+             
+            <com.google.android.exoplayer2.ui.StyledPlayerView
+                android:id="@+id/preview_player_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                 />
+                 
+             <TextView
+                android:id="@+id/preview_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Channel Preview"
+                android:textColor="@android:color/white"
+                android:background="#80000000"
+                android:padding="8dp"
+                android:layout_gravity="bottom|start" />
+        </FrameLayout>
+
+        <!-- Main Content Row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <!-- Category Sidebar -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/category_recycler_view"
+                android:layout_width="220dp"
+                android:layout_height="match_parent"
+                android:background="@color/background_secondary_light"
+                android:padding="16dp"
+                android:nextFocusLeft="@+id/nav_live"
+                android:nextFocusRight="@+id/channel_recycler_view"
+                android:descendantFocusability="afterDescendants"
+                android:clipToPadding="false" />
+
+            <!-- Channel Grid -->
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/channel_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="24dp"
+                    android:nextFocusLeft="@+id/category_recycler_view"
+                    android:descendantFocusability="afterDescendants"
+                    android:clipToPadding="false" />
+
+                <!-- Loading View -->
+                <ProgressBar
+                    android:id="@+id/loading_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:indeterminateTint="@color/bingetv_red"
+                    android:visibility="gone" />
+
+                <!-- Error View -->
+                <TextView
+                    android:id="@+id/error_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textSize="20sp"
+                    android:textColor="@color/error"
+                    android:visibility="gone" />
+
+            </FrameLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

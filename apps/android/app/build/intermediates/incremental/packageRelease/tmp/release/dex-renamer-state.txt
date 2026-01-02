@@ -1,7 +1,13 @@
-#Mon Dec 29 13:29:55 EAT 2025
+#Fri Jan 02 13:53:38 EAT 2026
 base.0=/Users/la/Desktop/android/app/build/intermediates/dex/release/mergeDexRelease/classes.dex
-base.1=/Users/la/Desktop/android/app/build/intermediates/dex/release/mergeDexRelease/classes2.dex
+base.1=/Users/la/Desktop/android/app/build/intermediates/global_synthetics_dex/release/classes.dex
+base.2=/Users/la/Desktop/android/app/build/intermediates/dex/release/mergeDexRelease/classes2.dex
+base.3=/Users/la/Desktop/android/app/build/intermediates/dex/release/mergeDexRelease/classes3.dex
 path.0=classes.dex
-path.1=classes2.dex
+path.1=classes.dex
+path.2=classes2.dex
+path.3=classes3.dex
 renamed.0=classes.dex
 renamed.1=classes2.dex
+renamed.2=classes3.dex
+renamed.3=classes4.dex

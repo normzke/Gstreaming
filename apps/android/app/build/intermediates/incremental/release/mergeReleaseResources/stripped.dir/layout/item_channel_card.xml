@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="@dimen/channel_card_width"
+    android:layout_height="@dimen/channel_card_height"
+    android:layout_margin="@dimen/channel_card_margin"
+    android:focusable="true"
+    android:clickable="true"
+    android:background="@drawable/card_focus_selector">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/channel_card_padding">
+
+        <!-- Channel Logo -->
+        <ImageView
+            android:id="@+id/channel_logo"
+            android:layout_width="@dimen/channel_logo_size"
+            android:layout_height="@dimen/channel_logo_size"
+            android:scaleType="fitCenter"
+            android:contentDescription="Channel Logo"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/channel_name" />
+
+        <!-- Channel Name -->
+        <TextView
+            android:id="@+id/channel_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textSize="@dimen/channel_name_size"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary"
+            android:gravity="center"
+            android:maxLines="1"
+            android:ellipsize="end"
+            app:layout_constraintTop_toBottomOf="@id/channel_logo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/epg_now" />
+
+        <!-- Current Program -->
+        <TextView
+            android:id="@+id/epg_now"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textSize="@dimen/epg_now_size"
+            android:textColor="@color/text_primary"
+            android:gravity="center"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:text="No Program Info"
+            app:layout_constraintTop_toBottomOf="@id/channel_name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/epg_progress" />
+
+        <!-- Progress Bar -->
+        <ProgressBar
+            android:id="@+id/epg_progress"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="0dp"
+            android:layout_height="4dp"
+            android:layout_marginTop="4dp"
+            android:progressTint="@color/bingetv_red"
+            android:progressBackgroundTint="@color/divider"
+            android:progress="0"
+            android:visibility="visible"
+            app:layout_constraintTop_toBottomOf="@id/epg_now"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/epg_next" />
+
+        <!-- Next Program -->
+        <TextView
+            android:id="@+id/epg_next"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textSize="@dimen/epg_next_size"
+            android:textColor="@color/text_secondary"
+            android:gravity="center"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:text=""
+            app:layout_constraintTop_toBottomOf="@id/epg_progress"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <!-- Favorite Icon -->
+        <ImageView
+            android:id="@+id/favorite_icon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@android:drawable/btn_star_big_on"
+            android:tint="@color/bingetv_red"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

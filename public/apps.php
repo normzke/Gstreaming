@@ -517,9 +517,11 @@ $seo_meta = class_exists('SEO') ? SEO::getMetaTags('apps') : ['title' => 'Apps',
         </div>
     <?php endif; ?>
     <div class="apps-hero">
-        <h1><i class="fas fa-satellite-dish"></i> BingeTV Apps</h1>
-        <p>Download our streaming apps for your Smart TV platform and enjoy unlimited entertainment in stunning 8K
-            quality</p>
+        <h1><i class="fas fa-satellite-dish"></i> Native BingeTV Apps</h1>
+        <p><strong>100% Feature Parity</strong> across all platforms - Download our native streaming apps for Android
+            TV, Samsung Tizen, and LG WebOS</p>
+        <p style="margin-top: 0.5rem; font-size: 0.95rem; opacity: 0.9;">Same experience, same features, same quality on
+            every device</p>
     </div>
 
     <div class="container">
@@ -540,11 +542,12 @@ $seo_meta = class_exists('SEO') ? SEO::getMetaTags('apps') : ['title' => 'Apps',
                 <p class="platform-desc">For Android TV, Fire TV, and Android TV boxes</p>
 
                 <ul class="platform-features">
-                    <li><i class="fas fa-check"></i> Native Android TV interface</li>
-                    <li><i class="fas fa-check"></i> Voice search support</li>
-                    <li><i class="fas fa-check"></i> Google Cast integration</li>
-                    <li><i class="fas fa-check"></i> Picture-in-Picture mode</li>
-                    <li><i class="fas fa-check"></i> 4K/8K streaming</li>
+                    <li><i class="fas fa-check"></i> 7-Category Settings System</li>
+                    <li><i class="fas fa-check"></i> Enhanced Player with D-pad Switching</li>
+                    <li><i class="fas fa-check"></i> Preview Player on Channel Hover</li>
+                    <li><i class="fas fa-check"></i> EPG Auto-Refresh (6-hour intervals)</li>
+                    <li><i class="fas fa-check"></i> Dynamic Grid Customization (3-8 columns)</li>
+                    <li><i class="fas fa-check"></i> M3U & Xtream Codes Support</li>
                 </ul>
 
                 <a href="apps/android/bingetv-android-tv.apk" class="download-btn" download>
@@ -569,11 +572,12 @@ $seo_meta = class_exists('SEO') ? SEO::getMetaTags('apps') : ['title' => 'Apps',
                 <p class="platform-desc">For LG Smart TVs (webOS 4.0+)</p>
 
                 <ul class="platform-features">
-                    <li><i class="fas fa-check"></i> Magic Remote support</li>
-                    <li><i class="fas fa-check"></i> LG TV optimized UI</li>
-                    <li><i class="fas fa-check"></i> Quick access from home</li>
-                    <li><i class="fas fa-check"></i> Smooth navigation</li>
-                    <li><i class="fas fa-check"></i> 4K/8K streaming</li>
+                    <li><i class="fas fa-check"></i> 100% Feature Parity with Android</li>
+                    <li><i class="fas fa-check"></i> Same 7-Category Settings</li>
+                    <li><i class="fas fa-check"></i> Enhanced Player & Preview Mode</li>
+                    <li><i class="fas fa-check"></i> EPG Auto-Refresh</li>
+                    <li><i class="fas fa-check"></i> Grid Customization</li>
+                    <li><i class="fas fa-check"></i> Optimized for Magic Remote</li>
                 </ul>
 
                 <a href="apps/webos/com.bingetv.app_1.0.0_all.ipk" class="download-btn" download>
@@ -598,11 +602,12 @@ $seo_meta = class_exists('SEO') ? SEO::getMetaTags('apps') : ['title' => 'Apps',
                 <p class="platform-desc">For Samsung Smart TVs (Tizen 6.0+)</p>
 
                 <ul class="platform-features">
-                    <li><i class="fas fa-check"></i> Samsung Smart Hub</li>
-                    <li><i class="fas fa-check"></i> One Remote support</li>
-                    <li><i class="fas fa-check"></i> Bixby voice control</li>
-                    <li><i class="fas fa-check"></i> QLED optimized</li>
-                    <li><i class="fas fa-check"></i> 4K/8K streaming</li>
+                    <li><i class="fas fa-check"></i> 100% Feature Parity with Android</li>
+                    <li><i class="fas fa-check"></i> Complete Settings System</li>
+                    <li><i class="fas fa-check"></i> Enhanced Player & Preview</li>
+                    <li><i class="fas fa-check"></i> EPG Auto-Refresh</li>
+                    <li><i class="fas fa-check"></i> Grid Customization</li>
+                    <li><i class="fas fa-check"></i> Optimized for One Remote</li>
                 </ul>
 
                 <a href="apps/tizen/com.bingetv.app-1.0.0.tpk" class="download-btn" download>
@@ -617,7 +622,38 @@ $seo_meta = class_exists('SEO') ? SEO::getMetaTags('apps') : ['title' => 'Apps',
             </div>
         </div>
 
-        <h2 class="section-title">App Features</h2>
+        <!-- Alternative App Section -->
+        <div style="margin: 3rem 0; padding: 2rem; background: rgba(255,255,255,0.03); border-radius: 15px; border: 2px solid rgba(255,255,255,0.1);">
+            <h2 class="section-title" style="margin-bottom: 1rem;"><i class="fas fa-info-circle"></i> Alternative Player</h2>
+            <p style="text-align: center; color: rgba(255,255,255,0.7); margin-bottom: 2rem; font-size: 1.05rem;">
+                If our native BingeTV app is not compatible with your device, you can use TiviMate8KPro as an alternative
+            </p>
+            
+            <div class="platform-card" style="max-width: 600px; margin: 0 auto;">
+                <i class="fab fa-android platform-icon"></i>
+                <h3 class="platform-name">TiviMate8KPro</h3>
+                <p class="platform-desc">Third-party IPTV player for Android devices</p>
+
+                <ul class="platform-features">
+                    <li><i class="fas fa-exclamation-triangle"></i> Use only if BingeTV app not compatible</li>
+                    <li><i class="fas fa-check"></i> Works with M3U playlists</li>
+                    <li><i class="fas fa-check"></i> Basic EPG support</li>
+                    <li><i class="fas fa-check"></i> Android TV compatible</li>
+                </ul>
+
+                <a href="apps/alternatives/TiviMate8KPro.apk" class="download-btn" download>
+                    <i class="fas fa-download"></i> Download TiviMate APK
+                </a>
+
+                <div class="qr-code">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=<?php echo urlencode(SITE_URL . '/apps/alternatives/TiviMate8KPro.apk'); ?>"
+                        alt="QR Code">
+                    <p>Scan to download</p>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="section-title">Native App Features</h2>
 
         <div class="features-grid">
             <div class="feature-box">

@@ -1069,7 +1069,7 @@ $faq_data = SEO::getFAQData();
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">Stream on Any Device</h2>
-                <p class="section-subtitle">Download our gateway app and enjoy streaming everywhere</p>
+                <p class="section-subtitle">Download our native BingeTV apps with 100% feature parity</p>
             </div>
 
             <div class="devices-grid">
@@ -1124,81 +1124,37 @@ $faq_data = SEO::getFAQData();
 
             <div class="gateway-app">
                 <div class="gateway-content">
-                    <h3>Download BingeTV Apps</h3>
-                    <p>Our native streaming apps provide secure access to all 16,000+ channels on your Smart TV</p>
+                    <h3>Download Native BingeTV Apps</h3>
+                    <p style="font-size: 1.1rem; margin-bottom: 1rem;"><strong>100% Feature Parity</strong> across all
+                        platforms - Same experience on Android TV, Samsung Tizen, and LG WebOS</p>
 
-                    <div class="download-buttons"
-                        style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-top: 2rem;">
-                        <!-- Google Play -->
-                        <a href="https://play.google.com/store/apps/details?id=ibpro.smart.player" target="_blank"
-                            class="download-btn android"
-                            style="display: flex; align-items: center; gap: 0.75rem; padding: 1rem 1.5rem; background: linear-gradient(135deg, #3DDC84, #2BAF66); color: white; border-radius: 10px; text-decoration: none; transition: all 0.3s;">
-                            <i class="fab fa-google-play" style="font-size: 2rem;"></i>
-                            <div class="btn-text">
-                                <span class="btn-label" style="display: block; font-size: 0.7rem; opacity: 0.9;">GET IT
-                                    ON</span>
-                                <span class="btn-platform"
-                                    style="display: block; font-size: 1rem; font-weight: 700;">Google Play</span>
+                    <!-- Feature Highlights -->
+                    <div
+                        style="background: rgba(139,0,0,0.1); border-left: 4px solid #8B0000; padding: 1.5rem; margin: 2rem 0; border-radius: 8px;">
+                        <h4 style="color: #8B0000; margin: 0 0 1rem 0; font-size: 1.2rem;">✨ Native App Features:</h4>
+                        <div
+                            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 0.75rem; color: white;">
+                            <div><i class="fas fa-check" style="color: #8B0000;"></i> 7-Category Settings System</div>
+                            <div><i class="fas fa-check" style="color: #8B0000;"></i> Enhanced Player with D-pad
+                                Switching</div>
+                            <div><i class="fas fa-check" style="color: #8B0000;"></i> Preview Player on Channel Hover
                             </div>
-                        </a>
-
-                        <!-- Apple App Store -->
-                        <a href="https://apps.apple.com/app/ibo-pro-player/id6449647925" target="_blank"
-                            class="download-btn ios"
-                            style="display: flex; align-items: center; gap: 0.75rem; padding: 1rem 1.5rem; background: linear-gradient(135deg, #000000, #333333); color: white; border-radius: 10px; text-decoration: none; transition: all 0.3s;">
-                            <i class="fab fa-apple" style="font-size: 2rem;"></i>
-                            <div class="btn-text">
-                                <span class="btn-label"
-                                    style="display: block; font-size: 0.7rem; opacity: 0.9;">Download on the</span>
-                                <span class="btn-platform"
-                                    style="display: block; font-size: 1rem; font-weight: 700;">App Store</span>
+                            <div><i class="fas fa-check" style="color: #8B0000;"></i> EPG Auto-Refresh (6-hour
+                                intervals)</div>
+                            <div><i class="fas fa-check" style="color: #8B0000;"></i> Dynamic Grid Customization (3-8
+                                columns)</div>
+                            <div><i class="fas fa-check" style="color: #8B0000;"></i> Advanced Error Handling & Retry
                             </div>
-                        </a>
-
-                        <!-- LG Store -->
-                        <a href="https://us.lgappstv.com/main/tvapp/detail?appId=1209143" target="_blank"
-                            class="download-btn"
-                            style="display: flex; align-items: center; gap: 0.75rem; padding: 1rem 1.5rem; background: linear-gradient(135deg, #A50034, #8B0000); color: white; border-radius: 10px; text-decoration: none; transition: all 0.3s;">
-                            <i class="fas fa-tv" style="font-size: 2rem;"></i>
-                            <div class="btn-text">
-                                <span class="btn-label"
-                                    style="display: block; font-size: 0.7rem; opacity: 0.9;">Available on</span>
-                                <span class="btn-platform" style="display: block; font-size: 1rem; font-weight: 700;">LG
-                                    Store</span>
-                            </div>
-                        </a>
-
-                        <!-- Roku Store -->
-                        <a href="https://channelstore.roku.com/details/8bb2a96953173808e85902295304a2e1:8490a219fcbeecc63b4cc16b6ba9be93/ibo-player-pro"
-                            target="_blank" class="download-btn"
-                            style="display: flex; align-items: center; gap: 0.75rem; padding: 1rem 1.5rem; background: linear-gradient(135deg, #662D91, #4E1A6B); color: white; border-radius: 10px; text-decoration: none; transition: all 0.3s;">
-                            <i class="fas fa-stream" style="font-size: 2rem;"></i>
-                            <div class="btn-text">
-                                <span class="btn-label" style="display: block; font-size: 0.7rem; opacity: 0.9;">Add
-                                    from</span>
-                                <span class="btn-platform"
-                                    style="display: block; font-size: 1rem; font-weight: 700;">Roku Store</span>
-                            </div>
-                        </a>
-
-                        <!-- Microsoft Store -->
-                        <a href="https://www.microsoft.com/store/apps/9MSNK97XPVRK" target="_blank" class="download-btn"
-                            style="display: flex; align-items: center; gap: 0.75rem; padding: 1rem 1.5rem; background: linear-gradient(135deg, #0078D4, #005A9E); color: white; border-radius: 10px; text-decoration: none; transition: all 0.3s;">
-                            <i class="fab fa-windows" style="font-size: 2rem;"></i>
-                            <div class="btn-text">
-                                <span class="btn-label"
-                                    style="display: block; font-size: 0.7rem; opacity: 0.9;">Download from</span>
-                                <span class="btn-platform"
-                                    style="display: block; font-size: 1rem; font-weight: 700;">Microsoft</span>
-                            </div>
-                        </a>
+                            <div><i class="fas fa-check" style="color: #8B0000;"></i> M3U & Xtream Codes Support</div>
+                            <div><i class="fas fa-check" style="color: #8B0000;"></i> Favorites & Real-time Search</div>
+                        </div>
                     </div>
 
                     <!-- Direct Downloads -->
                     <div
-                        style="margin-top: 3rem; padding: 2rem; background: rgba(255,255,255,0.05); border-radius: 12px;">
+                        style="margin-top: 2rem; padding: 2rem; background: rgba(255,255,255,0.05); border-radius: 12px;">
                         <h4 style="margin: 0 0 1.5rem 0; text-align: center; color: white;">
-                            <i class="fas fa-download"></i> Direct Downloads
+                            <i class="fas fa-download"></i> Download Native BingeTV Apps
                         </h4>
 
                         <div style="display: grid; gap: 1rem;">
@@ -1260,8 +1216,38 @@ $faq_data = SEO::getFAQData();
                             </div>
                         </div>
                     </div>
+
+                    <!-- Alternative App Section -->
+                    <div
+                        style="margin-top: 2rem; padding: 1.5rem; background: rgba(255,255,255,0.03); border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);">
+                        <h4
+                            style="margin: 0 0 0.75rem 0; text-align: center; color: rgba(255,255,255,0.8); font-size: 1rem;">
+                            <i class="fas fa-info-circle"></i> Alternative Player (If BingeTV App Not Compatible)
+                        </h4>
+                        <p
+                            style="text-align: center; color: rgba(255,255,255,0.6); font-size: 0.9rem; margin-bottom: 1rem;">
+                            If our native app doesn't work on your device, try TiviMate8KPro
+                        </p>
+                        <div style="background: rgba(255,255,255,0.05); padding: 1.25rem; border-radius: 8px;">
+                            <p
+                                style="margin: 0 0 0.75rem 0; color: white; font-weight: 600; display: flex; align-items: center; gap: 0.5rem;">
+                                <i class="fab fa-android" style="color: #3DDC84;"></i> TiviMate8KPro (Alternative
+                                Player)
+                            </p>
+                            <a href="apps/alternatives/TiviMate8KPro.apk" download
+                                style="color: #FFD700; word-break: break-all; text-decoration: none; font-size: 0.9rem;">
+                                <?php echo SITE_URL; ?>/apps/alternatives/TiviMate8KPro.apk
+                            </a>
+                            <p style="margin: 0.5rem 0 0 0; color: rgba(255,255,255,0.6); font-size: 0.85rem;">
+                                <i class="fas fa-exclamation-triangle"></i> Third-party app - Use only if BingeTV app is
+                                not compatible
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
+        </div>
+        </div>
         </div>
     </section>
 
@@ -1479,9 +1465,9 @@ $faq_data = SEO::getFAQData();
                         <i class="fas fa-chevron-down"></i>
                     </div>
                     <div class="faq-answer">
-                        <p>BingeTV works on Smart TVs (Samsung, LG, Sony, TCL), Amazon Firestick, Roku, Android and iOS
-                            devices, and computers. Simply download our gateway app from the appropriate app store or
-                            our website.</p>
+                        <p>BingeTV works on Smart TVs (Samsung Tizen, LG WebOS), Android TV, Amazon Firestick, and
+                            mobile devices. Download our <strong>native BingeTV apps</strong> with <strong>100% feature
+                                parity</strong> directly from our website for the best experience.</p>
                     </div>
                 </div>
 

@@ -116,3 +116,18 @@ interface UserPreferencesDao {
     @Update
     fun updatePreferences(preferences: UserPreferencesEntity)
 }
+
+@Dao
+interface WatchHistoryDao {
+    @Query("SELECT * FROM watch_history ORDER BY watchedAt DESC LIMIT 50")
+    fun getRecentHistory(): LiveData<List<WatchHistoryEntity>>
+    
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertHistory(history: WatchHistoryEntity)
+    
+    @Query("DELETE FROM watch_history")
+    fun deleteAllHistory()
+    
+    @Query("DELETE FROM watch_history WHERE streamId = :streamId")
+    fun deleteHistoryByStreamId(streamId: String)
+}

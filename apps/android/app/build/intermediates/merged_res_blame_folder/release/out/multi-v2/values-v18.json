@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.bingetv.app-mergeReleaseResources-38:/values-v18/values-v18.xml",
+            "outputFile": "com.bingetv.app-mergeReleaseResources-58:/values-v18/values-v18.xml",
             "map": [
                 {
-                    "source": "/Users/la/.gradle/caches/transforms-3/df0cd03a14f2fe9204e11ea3400d1502/transformed/appcompat-1.6.1/res/values-v18/values-v18.xml",
+                    "source": "/Users/la/.gradle/caches/transforms-3/dc935da7424cde3096d258823833512d/transformed/appcompat-1.6.1/res/values-v18/values-v18.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -14,7 +14,7 @@
                     }
                 },
                 {
-                    "source": "/Users/la/.gradle/caches/transforms-3/3bb8385322bd2de073f85c575b4f845b/transformed/leanback-1.0.0/res/values-v18/values-v18.xml",
+                    "source": "/Users/la/.gradle/caches/transforms-3/8bfe5aac48b41eded70aeee5b40f3877/transformed/leanback-1.0.0/res/values-v18/values-v18.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

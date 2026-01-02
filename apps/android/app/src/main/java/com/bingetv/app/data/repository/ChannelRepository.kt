@@ -1,21 +1,20 @@
 package com.bingetv.app.data.repository
 
 import androidx.lifecycle.LiveData
-import com.bingetv.app.data.database.ChannelDao
-import com.bingetv.app.data.database.ChannelEntity
-import com.bingetv.app.data.database.CategoryDao
-import com.bingetv.app.data.database.CategoryEntity
+import com.bingetv.app.data.database.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class ChannelRepository(
     private val channelDao: ChannelDao,
-    private val categoryDao: CategoryDao
+    private val categoryDao: CategoryDao,
+    private val watchHistoryDao: WatchHistoryDao
 ) {
     // LiveData
     val allChannels: LiveData<List<ChannelEntity>> = channelDao.getAllChannels()
     val allCategories: LiveData<List<CategoryEntity>> = categoryDao.getAllCategories()
     val favoriteChannels: LiveData<List<ChannelEntity>> = channelDao.getFavoriteChannels()
+    val watchHistory: LiveData<List<WatchHistoryEntity>> = watchHistoryDao.getRecentHistory()
     
     // Get channels by category
     fun getChannelsByCategory(category: String): LiveData<List<ChannelEntity>> {
@@ -40,6 +39,17 @@ class ChannelRepository(
     // Toggle favorite
     suspend fun toggleFavorite(channelId: Long, isFavorite: Boolean) = withContext(Dispatchers.IO) {
         channelDao.updateFavoriteStatus(channelId, isFavorite)
+    }
+    
+    // Record History
+    suspend fun recordHistory(streamId: String) = withContext(Dispatchers.IO) {
+        // First remove existing to bring to top
+        watchHistoryDao.deleteHistoryByStreamId(streamId)
+        watchHistoryDao.insertHistory(WatchHistoryEntity(streamId = streamId))
+    }
+
+    suspend fun clearHistory() = withContext(Dispatchers.IO) {
+        watchHistoryDao.deleteAllHistory()
     }
     
     // Clear all data

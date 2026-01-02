@@ -11,9 +11,10 @@ import androidx.room.RoomDatabase
         CategoryEntity::class,
         EpgProgramEntity::class,
         PlaylistEntity::class,
-        UserPreferencesEntity::class
+        UserPreferencesEntity::class,
+        WatchHistoryEntity::class
     ],
-    version = 1,
+    version = 2,
     exportSchema = true
 )
 abstract class BingeTVDatabase : RoomDatabase() {
@@ -22,6 +23,7 @@ abstract class BingeTVDatabase : RoomDatabase() {
     abstract fun epgDao(): EpgDao
     abstract fun playlistDao(): PlaylistDao
     abstract fun userPreferencesDao(): UserPreferencesDao
+    abstract fun watchHistoryDao(): WatchHistoryDao
 
     companion object {
         @Volatile

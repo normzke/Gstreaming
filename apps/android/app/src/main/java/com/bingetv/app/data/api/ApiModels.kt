@@ -97,3 +97,30 @@ data class MovieData(
     @SerializedName("cover_big") val coverBig: String?,
     @SerializedName("backdrop_path") val backdropPath: List<String>?
 )
+
+data class XtreamSeriesInfo(
+    @SerializedName("info") val info: SeriesInfo,
+    @SerializedName("episodes") val episodes: Map<String, List<Episode>>?
+)
+
+data class SeriesInfo(
+    @SerializedName("name") val name: String,
+    @SerializedName("cover") val cover: String?,
+    @SerializedName("plot") val plot: String?,
+    @SerializedName("cast") val cast: String?,
+    @SerializedName("director") val director: String?,
+    @SerializedName("genre") val genre: String?,
+    @SerializedName("releaseDate") val releaseDate: String?,
+    @SerializedName("last_modified") val lastModified: String?,
+    @SerializedName("rating") val rating: String?,
+    @SerializedName("rating_5_control") val rating5: Double?,
+    @SerializedName("backdrop_path") val backdropPath: List<String>?
+)
+
+data class Episode(
+    @SerializedName("id") val id: String,
+    @SerializedName("title") val title: String,
+    @SerializedName("container_extension") val extension: String?,
+    @SerializedName("season") val season: Int?,
+    @SerializedName("episode_num") val episodeNum: Int?
+)

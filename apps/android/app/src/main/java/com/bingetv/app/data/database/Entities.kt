@@ -66,3 +66,11 @@ data class PlaylistEntity(
     val lastSync: Long = 0,
     val createdAt: Long = System.currentTimeMillis()
 )
+
+@Entity(tableName = "watch_history")
+data class WatchHistoryEntity(
+    @PrimaryKey(autoGenerate = true)
+    val id: Long = 0,
+    val streamId: String,
+    val watchedAt: Long = System.currentTimeMillis()
+)

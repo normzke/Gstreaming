@@ -6,6 +6,9 @@ let selectedChannel = null;
 let previewTimeout = null;
 let previewPlayer = null;
 let epgRefreshInterval = null;
+let autoPlayTimeout = null;
+let currentMode = 'live';
+let xtreamApi = null;
 
 // Initialize
 window.onload = function () {
@@ -112,6 +115,7 @@ function switchMode(mode) {
     if (activeBtn) activeBtn.classList.add('active');
 
     // Handle mode-specific logic
+    currentMode = mode;
     const movieKeywords = ["movie", "cinema", "vod", "film"];
     const showKeywords = ["series", "show", "season", "tv"];
 
@@ -193,13 +197,48 @@ function updateTopPreview(channel) {
     name.textContent = channel.name;
 
     // Load preview video
-    video.src = channel.url;
-    video.play().catch(err => console.log('Top preview play failed:', err));
+    if (channel.url) {
+        video.src = channel.url;
+        video.play().catch(err => console.log('Top preview play failed:', err));
+    }
 
-    // Update EPG (placeholder - can be enhanced with real EPG data)
-    if (now) now.textContent = 'Now Playing';
-    if (next) next.textContent = 'Next: --';
-    if (progress) progress.style.width = '0%';
+    // Update EPG / Metadata
+    if (currentMode === 'movies' || currentMode === 'shows') {
+        const rating = channel.rating ? `Rating: ${channel.rating}` : '';
+        now.textContent = channel.plot || 'No Plot Available';
+        if (next) next.textContent = rating;
+        if (progress) progress.style.display = 'none';
+
+        // Fetch detailed info if mission plot
+        if (!channel.plot && xtreamApi) {
+            fetchDetailedInfo(channel);
+        }
+    } else {
+        if (now) now.textContent = 'Now Playing';
+        if (next) next.textContent = 'Next: --';
+        if (progress) {
+            progress.style.display = 'block';
+            progress.style.width = '0%';
+        }
+    }
+
+    // AUTO-PLAY DWELL TIMER (Ported from Android)
+    if (autoPlayTimeout) clearTimeout(autoPlayTimeout);
+    autoPlayTimeout = setTimeout(() => {
+        console.log('Auto-playing channel after dwell:', channel.name);
+        if (channel.url) playChannel(channel);
+    }, 6500);
+}
+
+async function fetchDetailedInfo(channel) {
+    const type = currentMode === 'movies' ? 'movie' : 'series';
+    const info = await xtreamApi.getInfo(channel.id, type);
+    if (info) {
+        const plot = info.info?.plot || info.movie_data?.plot || 'No description';
+        document.getElementById('topPreviewNow').textContent = M3UParser.decodeEpgText(plot);
+        // Cache it in the current object
+        channel.plot = plot;
+    }
 }
 
 function loadChannels() {
@@ -252,7 +291,10 @@ function createChannelCard(channel) {
         updateTopPreview(channel);
         showPreview(channel); // Keep bottom preview too
     };
-    card.onblur = () => hidePreview();
+    card.onblur = () => {
+        hidePreview();
+        if (autoPlayTimeout) clearTimeout(autoPlayTimeout);
+    };
 
     const logo = document.createElement('img');
     logo.className = 'channel-logo';

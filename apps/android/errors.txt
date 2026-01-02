@@ -1,0 +1,45 @@
+12-31 17:46:43.098  2840  2840 E pageboostd: Received HALT command code 2
+12-31 17:46:43.231  2840  2840 E pageboostd: Received HALT command code 2
+12-31 17:46:43.302   872   897 E mtkpower@impl: [setMode] unknown type
+12-31 17:46:43.499   872   897 E mtkpower@impl: [setMode] unknown type
+12-31 17:46:43.781  1511  1527 E WindowManager: win=Window{44463f8 u0 com.bingetv.app/com.bingetv.app.ui.main.EnhancedMainActivity} destroySurfaces: appStopped=true cleanupOnResume=false win.mWindowRemovalAllowed=false win.mRemoveOnExit=false win.mViewVisibility=8 caller=com.android.server.wm.ActivityRecord.destroySurfaces:25 com.android.server.wm.ActivityRecord.activityStopped:204 com.android.server.wm.ActivityClientController.activityStopped:95 android.app.IActivityClientController$Stub.onTransact:722 com.android.server.wm.ActivityClientController.onTransact:1 android.os.Binder.execTransactInternal:1541 android.os.Binder.execTransact:1480 
+12-31 17:46:44.784 22349 22349 E .devicesecurity: Not starting debugger since process cannot load the jdwp agent.
+12-31 17:46:44.923 22369 22369 E ndroid.game.gos: Not starting debugger since process cannot load the jdwp agent.
+12-31 17:46:44.931 20803 22350 E AconfigFlags: Failed to read Aconfig values from /vendor/etc/aconfig_flags.pb
+12-31 17:46:44.931 20803 22350 E AconfigFlags: java.io.FileNotFoundException: /vendor/etc/aconfig_flags.pb: open failed: ENOENT (No such file or directory)
+12-31 17:46:44.931 20803 22350 E AconfigFlags: 	at libcore.io.IoBridge.open(IoBridge.java:574)
+12-31 17:46:44.931 20803 22350 E AconfigFlags: 	at java.io.FileInputStream.<init>(FileInputStream.java:179)
+12-31 17:46:44.931 20803 22350 E AconfigFlags: 	at java.io.FileInputStream.<init>(FileInputStream.java:133)
+12-31 17:46:44.931 20803 22350 E AconfigFlags: 	at com.android.internal.pm.pkg.component.AconfigFlags.<init>(AconfigFlags.java:71)
+12-31 17:46:44.931 20803 22350 E AconfigFlags: 	at com.android.internal.pm.pkg.parsing.ParsingPackageUtils.<clinit>(ParsingPackageUtils.java:307)
+12-31 17:46:44.931 20803 22350 E AconfigFlags: 	at com.android.internal.pm.parsing.PackageParser2.<init>(PackageParser2.java:99)
+12-31 17:46:44.931 20803 22350 E AconfigFlags: 	at android.content.pm.PackageManager.getPackageArchiveInfo(PackageManager.java:9226)
+12-31 17:46:44.931 20803 22350 E AconfigFlags: 	at android.content.pm.PackageManager.getPackageArchiveInfo(PackageManager.java:9200)
+12-31 17:46:44.931 20803 22350 E AconfigFlags: 	at azyy.hO(PG:1)
+12-31 17:46:44.931 20803 22350 E AconfigFlags: 	at abct.mT(PG:189)
+12-31 17:46:44.931 20803 22350 E AconfigFlags: 	at bhup.mT(PG:16)
+12-31 17:46:44.931 20803 22350 E AconfigFlags: 	at com.google.android.finsky.verifier.impl.installtime.VerifyInstallTask.mf(PG:50)
+12-31 17:46:44.931 20803 22350 E AconfigFlags: 	at aymb.run(PG:120)
+12-31 17:46:44.931 20803 22350 E AconfigFlags: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1156)
+12-31 17:46:44.931 20803 22350 E AconfigFlags: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:651)
+12-31 17:46:44.931 20803 22350 E AconfigFlags: 	at bjyk.run(PG:57)
+12-31 17:46:44.931 20803 22350 E AconfigFlags: 	at java.lang.Thread.run(Thread.java:1119)
+12-31 17:46:44.931 20803 22350 E AconfigFlags: Caused by: android.system.ErrnoException: open failed: ENOENT (No such file or directory)
+12-31 17:46:44.931 20803 22350 E AconfigFlags: 	at libcore.io.Linux.open(Native Method)
+12-31 17:46:44.931 20803 22350 E AconfigFlags: 	at libcore.io.ForwardingOs.open(ForwardingOs.java:568)
+12-31 17:46:44.931 20803 22350 E AconfigFlags: 	at libcore.io.BlockGuardOs.open(BlockGuardOs.java:274)
+12-31 17:46:44.931 20803 22350 E AconfigFlags: 	at libcore.io.ForwardingOs.open(ForwardingOs.java:568)
+12-31 17:46:44.931 20803 22350 E AconfigFlags: 	at android.app.ActivityThread$AndroidOs.open(ActivityThread.java:9495)
+12-31 17:46:44.931 20803 22350 E AconfigFlags: 	at libcore.io.IoBridge.open(IoBridge.java:560)
+12-31 17:46:44.931 20803 22350 E AconfigFlags: 	... 16 more
+12-31 17:46:45.024 20803 22350 E AbstractLogEventBuilder: The provided ProductIdOrigin 3 is not one of the process-level expected values: 1 or 2
+12-31 17:46:45.065 20803 20999 E AbstractLogEventBuilder: The provided ProductIdOrigin 3 is not one of the process-level expected values: 1 or 2
+12-31 17:46:45.208  2840  2840 E pageboostd: Received HALT command code 2
+12-31 17:46:45.367  2840  2840 E pageboostd: Received HALT command code 2
+12-31 17:46:45.450   872   897 E mtkpower@impl: [setMode] unknown type
+12-31 17:46:45.486 20803 20999 E AbstractLogEventBuilder: The provided ProductIdOrigin 3 is not one of the process-level expected values: 1 or 2
+12-31 17:46:45.537 22410 22410 E entsScanService: Not starting debugger since process cannot load the jdwp agent.
+12-31 17:46:45.647   872   897 E mtkpower@impl: [setMode] unknown type
+12-31 17:46:45.781 20803 20803 E AbstractLogEventBuilder: The provided ProductIdOrigin 3 is not one of the process-level expected values: 1 or 2
+12-31 17:46:46.451 20803 20952 E AbstractLogEventBuilder: The provided ProductIdOrigin 3 is not one of the process-level expected values: 1 or 2
+12-31 17:46:46.506  1511  1564 E system_server: updateValue is called with a value 936479, which is lower than the previous value 936481

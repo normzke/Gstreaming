@@ -1,16 +1,16 @@
 {
     "logs": [
         {
-            "outputFile": "com.bingetv.app-mergeReleaseResources-38:/values-sw360dp-v13/values-sw360dp-v13.xml",
+            "outputFile": "com.bingetv.app-mergeReleaseResources-58:/values-sw360dp-v13/values-sw360dp-v13.xml",
             "map": [
                 {
-                    "source": "/Users/la/.gradle/caches/transforms-3/7fe5f5c49913a14ac008048442927c9a/transformed/preference-1.0.0/res/values-sw360dp-v13/values-sw360dp-v13.xml",
+                    "source": "/Users/la/.gradle/caches/transforms-3/80fa21a0a84ffa3b357c43b0819bbd08/transformed/preference-1.2.0/res/values-sw360dp-v13/values-sw360dp-v13.xml",
                     "from": {
-                        "startLines": "2,3",
-                        "startColumns": "4,4",
-                        "startOffsets": "55,127",
-                        "endColumns": "71,64",
-                        "endOffsets": "122,187"
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "71",
+                        "endOffsets": "122"
                     }
                 }
             ]

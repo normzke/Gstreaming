@@ -7,6 +7,7 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bingetv.app.R
 import com.bingetv.app.data.database.BingeTVDatabase
@@ -75,6 +76,11 @@ class EnhancedMainActivity : AppCompatActivity() {
     private var CAT_WIDTH_FULL: Int = 0
     private var MINI_WIDTH: Int = 0
     private var COLLAPSED_WIDTH: Int = 0
+    
+    // Focus Persistence
+    private var lastFocusedChannelId: Long? = null
+    private var lastFocusedCategoryId: String? = null
+    private var currentWatchHistory: List<com.bingetv.app.data.database.WatchHistoryEntity> = emptyList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -111,7 +117,11 @@ class EnhancedMainActivity : AppCompatActivity() {
     private fun initializeComponents() {
         prefsManager = PreferencesManager(this)
         database = BingeTVDatabase.getDatabase(this)
-        channelRepository = ChannelRepository(database.channelDao(), database.categoryDao())
+        channelRepository = ChannelRepository(
+            database.channelDao(), 
+            database.categoryDao(),
+            database.watchHistoryDao()
+        )
         playlistRepository = PlaylistRepository(database.playlistDao())
         m3uParser = M3UParser()
         
@@ -211,9 +221,14 @@ class EnhancedMainActivity : AppCompatActivity() {
     
     private fun setupRecyclerViews() {
         // Category sidebar
-        categoryAdapter = CategoryAdapter { category ->
-            onCategorySelected(category)
-        }
+        categoryAdapter = CategoryAdapter(
+            onCategoryClick = { category ->
+                onCategorySelected(category)
+            },
+            onCategoryFocused = { category ->
+                lastFocusedCategoryId = category.categoryId
+            }
+        )
         categoryRecyclerView.apply {
             adapter = categoryAdapter
             layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this@EnhancedMainActivity)
@@ -229,6 +244,7 @@ class EnhancedMainActivity : AppCompatActivity() {
                 showChannelContextMenu(channel)
             },
             onChannelFocused = { channel ->
+                lastFocusedChannelId = channel.id
                 loadPreview(channel)
             }
         )
@@ -239,6 +255,7 @@ class EnhancedMainActivity : AppCompatActivity() {
     }
     
     private var previewJob: kotlinx.coroutines.Job? = null
+    private var autoPlayJob: kotlinx.coroutines.Job? = null
 
     private fun loadPreview(channel: ChannelEntity) {
         // Debounce: Cancel previous request
@@ -286,10 +303,34 @@ class EnhancedMainActivity : AppCompatActivity() {
                     val playlist = playlistRepository.getActivePlaylist()
                     if (playlist != null && playlist.type == Constants.PLAYLIST_TYPE_XTREAM) {
                         try {
-                            previewEpgNow.text = "Loading EPG..."
-                            val api = ApiClient.getXtreamApi(playlist.serverUrl!!)
-                            val streamIdInt = channel.streamId.toIntOrNull() ?: 0
-                            if (streamIdInt != 0) {
+                             val api = ApiClient.getXtreamApi(playlist.serverUrl!!)
+                             val streamIdInt = channel.streamId.toIntOrNull() ?: 0
+                             
+                             if (currentMode == "movies") {
+                                 previewEpgNow.text = "Fetching Movie Info..."
+                                 val response = api.getStreamInfo(playlist.username!!, playlist.password!!, vodId = streamIdInt)
+                                 if (response.isSuccessful && response.body()?.movieData != null) {
+                                     val movie = response.body()!!.movieData!!
+                                     previewEpgNow.text = decodeEpgText(movie.plot ?: movie.description).ifEmpty { "No Plot Available" }
+                                     previewEpgNext.text = "Cast: ${decodeEpgText(movie.cast).ifEmpty { "Unknown" }}"
+                                     previewEpgNext.visibility = View.VISIBLE
+                                     previewEpgProgress.visibility = View.GONE
+                                     return@launch // Skip further EPG processing
+                                 }
+                             } else if (currentMode == "shows") {
+                                 previewEpgNow.text = "Fetching Series Info..."
+                                 val response = api.getSeriesInfo(playlist.username!!, playlist.password!!, seriesId = streamIdInt)
+                                 if (response.isSuccessful && response.body()?.info != null) {
+                                     val series = response.body()!!.info
+                                     previewEpgNow.text = decodeEpgText(series.plot).ifEmpty { "No Plot Available" }
+                                     previewEpgNext.text = "Rating: ${series.rating ?: "N/A"}"
+                                     previewEpgNext.visibility = View.VISIBLE
+                                     previewEpgProgress.visibility = View.GONE
+                                     return@launch // Skip further EPG processing
+                                 }
+                             }
+ else if (streamIdInt != 0) {
+                                previewEpgNow.text = "Loading EPG..."
                                 val response = api.getShortEpg(playlist.username!!, playlist.password!!, streamId = streamIdInt)
                                 if (response.isSuccessful && response.body() != null) {
                                     val listings = response.body()!!.values.flatten()
@@ -366,6 +407,14 @@ class EnhancedMainActivity : AppCompatActivity() {
                 previewPlayer?.prepare()
                 previewPlayer?.playWhenReady = true
                 android.util.Log.d(TAG, "Preview started for: ${channel.name}")
+                
+                // 4. AUTO-PLAY TIMER: If they stay for X seconds, play full screen
+                autoPlayJob?.cancel()
+                autoPlayJob = lifecycleScope.launch {
+                    kotlinx.coroutines.delay(6500) // 5s wait + buffer room
+                    android.util.Log.d(TAG, "Auto-playing channel after dwell: ${channel.name}")
+                    playChannel(channel)
+                }
             } catch (e: Exception) {
                 android.util.Log.e(TAG, "Error loading preview", e)
             }
@@ -400,6 +449,7 @@ class EnhancedMainActivity : AppCompatActivity() {
     private fun setupListeners() {
         navSearch.setOnClickListener { showSearchDialog() }
         navFavorites.setOnClickListener { showFavorites() }
+        navHistory.setOnClickListener { showHistory() }
         navSettings.setOnClickListener { 
             startActivity(Intent(this, com.bingetv.app.ui.settings.SettingsActivity::class.java))
         }
@@ -434,6 +484,13 @@ class EnhancedMainActivity : AppCompatActivity() {
         channelRepository.allCategories.observe(this) { categories ->
             allCategories = categories
             updateDisplay()
+        }
+
+        channelRepository.watchHistory.observe(this) { history ->
+            currentWatchHistory = history
+            if (currentCategory == "history") {
+                updateChannelDisplay()
+            }
         }
         
         setupFocusOptimization()
@@ -477,6 +534,8 @@ class EnhancedMainActivity : AppCompatActivity() {
                         }
                         isInside(newFocus, navRail) -> {
                             // Focus in Nav -> Show Rail, Show Cats
+                            // GUARD: If focus was stolen by a refresh, don't expand unless it's a real user action
+                            // For now, expand normally but we'll monitor if this triggers resets
                             animateViewWidth(navRail, RAIL_WIDTH_FULL)
                             animateViewWidth(catRecycler, CAT_WIDTH_FULL)
                         }
@@ -513,6 +572,17 @@ class EnhancedMainActivity : AppCompatActivity() {
     override fun dispatchKeyEvent(event: android.view.KeyEvent): Boolean {
         if (event.action == android.view.KeyEvent.ACTION_DOWN) {
             val focused = currentFocus
+            
+            // 1. Sidebar -> Categories (Force logic)
+            if (focused != null && isViewInSidebar(focused)) {
+                if (event.keyCode == android.view.KeyEvent.KEYCODE_DPAD_RIGHT) {
+                    android.util.Log.d(TAG, "Sidebar -> Forcing Focus to Categories")
+                    categoryRecyclerView.requestFocus()
+                    return true
+                }
+            }
+
+            // 2. Grid (Left Edge) -> Categories
             if (focused != null && channelRecyclerView.hasFocus()) {
                  if (event.keyCode == android.view.KeyEvent.KEYCODE_DPAD_LEFT) {
                      val layoutManager = channelRecyclerView.layoutManager as? GridLayoutManager
@@ -523,22 +593,62 @@ class EnhancedMainActivity : AppCompatActivity() {
                              val spanCount = layoutManager.spanCount
                              if (pos % spanCount == 0) {
                                  // Left Edge of Grid -> Focus Categories
+                                 android.util.Log.d(TAG, "Navigating LEFT from Grid to Categories")
                                  categoryRecyclerView.requestFocus()
+                                 
+                                 // Extra assurance: If the recycler didn't pick up focus, force it onto the first visible child
+                                 if (!categoryRecyclerView.hasFocus()) {
+                                     categoryRecyclerView.getChildAt(0)?.requestFocus()
+                                 }
                                  return true
                              }
                          }
                      }
                  }
             }
-             if (focused != null && categoryRecyclerView.hasFocus()) {
+            
+            // 3. Categories (Left Edge) -> Sidebar
+            if (focused != null && categoryRecyclerView.hasFocus()) {
                  if (event.keyCode == android.view.KeyEvent.KEYCODE_DPAD_LEFT) {
-                      // Left Edge of Cats -> Focus Nav Rail button
-                      findViewById<View>(R.id.nav_live).requestFocus()
+                      // Left Edge of Cats -> Focus current mode button in rail
+                      android.util.Log.d(TAG, "Navigating LEFT from Categories to Rail")
+                      val railId = when(currentMode) {
+                          "movies" -> R.id.nav_movies
+                          "shows" -> R.id.nav_shows
+                          "history" -> R.id.nav_history
+                          "favorites" -> R.id.nav_favorites
+                          else -> R.id.nav_live
+                      }
+                      findViewById<View>(railId).requestFocus()
                       return true
+                 }
+                 
+                 // 4. Categories (Bottom Edge) -> Guard
+                 if (event.keyCode == android.view.KeyEvent.KEYCODE_DPAD_DOWN) {
+                     val lm = categoryRecyclerView.layoutManager as? LinearLayoutManager
+                     if (lm != null) {
+                         val focusedChild = lm.findContainingItemView(focused)
+                         if (focusedChild != null) {
+                             val pos = lm.getPosition(focusedChild)
+                             if (pos == (categoryAdapter.itemCount - 1)) {
+                                 android.util.Log.d(TAG, "Categories DOWN Guard - Staying in list")
+                                 return true // Consume to prevent jumping to grid
+                             }
+                         }
+                     }
                  }
             }
         }
         return super.dispatchKeyEvent(event)
+    }
+
+    private fun isViewInSidebar(view: View): Boolean {
+        var p = view.parent
+        while (p != null) {
+            if (p is View && (p as View).id == R.id.nav_rail) return true
+            p = p.parent
+        }
+        return false
     }
     
     private fun showSearchDialog() {
@@ -746,10 +856,25 @@ class EnhancedMainActivity : AppCompatActivity() {
                 sortOrder = -2
             )
             
-            val displayCategories = listOf(allCategory, favoritesCategory) + filteredCategories
+            val historyCategory = CategoryEntity(
+                categoryId = "history",
+                categoryName = "History",
+                sortOrder = -1 // Between Favorites and All
+            )
+            
+            val displayCategories = listOf(allCategory, historyCategory, favoritesCategory) + filteredCategories
             
             kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Main) {
-                categoryAdapter.submitList(displayCategories)
+                categoryAdapter.submitList(displayCategories) {
+                    val targetId = lastFocusedCategoryId ?: return@submitList
+                    val position = displayCategories.indexOfFirst { it.categoryId == targetId }
+                    if (position != -1) {
+                         categoryRecyclerView.postDelayed({
+                             val holder = categoryRecyclerView.findViewHolderForAdapterPosition(position)
+                             holder?.itemView?.requestFocus()
+                         }, 100)
+                    }
+                }
             }
         }
     }
@@ -813,6 +938,13 @@ class EnhancedMainActivity : AppCompatActivity() {
                 val filteredChannels = when (categoryId) {
                     null, "all" -> modeChannels
                     "favorites" -> modeChannels.filter { it.isFavorite }
+                    "history" -> {
+                        val historyIds = currentWatchHistory.map { it.streamId }.toSet()
+                        // Order channels by their appearance in history
+                        currentWatchHistory.mapNotNull { hist ->
+                            modeChannels.find { it.streamId == hist.streamId }
+                        }
+                    }
                     else -> modeChannels.filter { it.category == categoryId || it.categoryId == categoryId }
                 }
                 
@@ -820,7 +952,19 @@ class EnhancedMainActivity : AppCompatActivity() {
                 android.util.Log.d(TAG, "updateChannelDisplay FILTERED: ${filteredChannels.size} items in ${diffTime}ms")
 
                 kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Main) {
-                    channelAdapter.submitList(filteredChannels)
+                    channelAdapter.submitList(filteredChannels) {
+                        // After list is submitted, try to restore focus
+                        val targetId = lastFocusedChannelId ?: return@submitList
+                        val position = filteredChannels.indexOfFirst { it.id == targetId }
+                        if (position != -1) {
+                            channelRecyclerView.scrollToPosition(position)
+                            // Use post to ensure the view holder is created/bound
+                            channelRecyclerView.postDelayed({
+                                val holder = channelRecyclerView.findViewHolderForAdapterPosition(position)
+                                holder?.itemView?.requestFocus()
+                            }, 100)
+                        }
+                    }
                 }
             } catch (e: Exception) {
                 android.util.Log.e(TAG, "Error filtering channels", e)
@@ -835,10 +979,19 @@ class EnhancedMainActivity : AppCompatActivity() {
     
     private fun showFavorites() {
         currentCategory = "favorites"
-        updateChannelDisplay()
+        updateDisplay()
+    }
+    
+    private fun showHistory() {
+        currentCategory = "history"
+        updateDisplay()
     }
     
     private fun playChannel(channel: ChannelEntity) {
+        autoPlayJob?.cancel()
+        lifecycleScope.launch {
+            channelRepository.recordHistory(channel.streamId)
+        }
         try {
             android.util.Log.d(TAG, "playChannel called for: ${channel.name}")
             android.util.Log.d(TAG, "Stream URL: ${channel.streamUrl}")

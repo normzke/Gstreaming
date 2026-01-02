@@ -1,12 +1,12 @@
 <variant
     name="release"
     package="com.bingetv.app"
-    minSdkVersion="21"
+    minSdkVersion="23"
     targetSdkVersion="33"
     mergedManifest="build/intermediates/merged_manifest/release/AndroidManifest.xml"
-    proguardFiles="build/intermediates/default_proguard_files/global/proguard-android-optimize.txt-8.1.0:proguard-rules.pro"
+    proguardFiles="build/intermediates/default_proguard_files/global/proguard-android-optimize.txt-8.2.2:proguard-rules.pro"
     partialResultsDir="build/intermediates/lint_vital_partial_results/release/out"
-    desugaredMethodsFiles="/Users/la/.gradle/caches/transforms-3/d8e81360297cbe61bb5a9216aa3463ef/transformed/D8BackportedDesugaredMethods.txt">
+    desugaredMethodsFiles="/Users/la/.gradle/caches/transforms-3/644fc2eb70ed378a9fa9c233d1c239cd/transformed/D8BackportedDesugaredMethods.txt">
   <buildFeatures
       viewBinding="true"
       namespacing="REQUIRED"/>
@@ -21,11 +21,12 @@
   </testSourceProviders>
   <testFixturesSourceProviders>
   </testFixturesSourceProviders>
-  <mainArtifact
-      classOutputs="build/intermediates/javac/release/classes:build/tmp/kotlin-classes/release:build/kotlinToolingMetadata:build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/release/R.jar"
+  <artifact
+      classOutputs="build/intermediates/javac/release/classes:build/tmp/kotlin-classes/release:build/tmp/kapt3/classes/release:build/kotlinToolingMetadata:build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/release/R.jar"
+      type="MAIN"
       applicationId="com.bingetv.app"
-      generatedSourceFolders="build/generated/ap_generated_sources/release/out:build/generated/data_binding_base_class_source_out/release/out"
+      generatedSourceFolders="build/generated/source/kapt/release:build/generated/ap_generated_sources/release/out:build/generated/source/buildConfig/release:build/generated/data_binding_base_class_source_out/release/out"
       generatedResourceFolders="build/generated/res/resValues/release"
-      desugaredMethodsFiles="/Users/la/.gradle/caches/transforms-3/d8e81360297cbe61bb5a9216aa3463ef/transformed/D8BackportedDesugaredMethods.txt">
-  </mainArtifact>
+      desugaredMethodsFiles="/Users/la/.gradle/caches/transforms-3/644fc2eb70ed378a9fa9c233d1c239cd/transformed/D8BackportedDesugaredMethods.txt">
+  </artifact>
 </variant>

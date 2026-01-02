@@ -11,7 +11,8 @@ import com.bingetv.app.R
 import com.bingetv.app.data.database.CategoryEntity
 
 class CategoryAdapter(
-    private val onCategoryClick: (CategoryEntity) -> Unit
+    private val onCategoryClick: (CategoryEntity) -> Unit,
+    private val onCategoryFocused: (CategoryEntity) -> Unit = {}
 ) : ListAdapter<CategoryEntity, CategoryAdapter.CategoryViewHolder>(CategoryDiffCallback()) {
     
     private var selectedPosition = 0
@@ -32,6 +33,12 @@ class CategoryAdapter(
             notifyItemChanged(previousPosition)
             notifyItemChanged(selectedPosition)
             onCategoryClick(category)
+        }
+        
+        holder.itemView.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
+                onCategoryFocused(category)
+            }
         }
     }
     

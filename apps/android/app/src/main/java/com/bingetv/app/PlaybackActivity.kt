@@ -37,6 +37,7 @@ class PlaybackActivity : AppCompatActivity() {
     private lateinit var channelAdapter: com.bingetv.app.ui.adapters.ChannelGridAdapter
     private var allChannels = listOf<com.bingetv.app.data.database.ChannelEntity>()
     private lateinit var tracksButton: android.widget.Button
+    private var playerRetryCount = 0
     
     // Dependencies
     private lateinit var database: com.bingetv.app.data.database.BingeTVDatabase
@@ -49,7 +50,11 @@ class PlaybackActivity : AppCompatActivity() {
         
         // Initialize DB
         database = com.bingetv.app.data.database.BingeTVDatabase.getDatabase(this)
-        repository = com.bingetv.app.data.repository.ChannelRepository(database.channelDao(), database.categoryDao())
+        repository = com.bingetv.app.data.repository.ChannelRepository(
+            database.channelDao(), 
+            database.categoryDao(),
+            database.watchHistoryDao()
+        )
         
         prefsManager = com.bingetv.app.utils.PreferencesManager(this)
 
@@ -354,81 +359,125 @@ class PlaybackActivity : AppCompatActivity() {
         try {
             android.util.Log.d(TAG, "Initializing Player with Robust Config")
             
-            val userAgent = prefsManager.getUserAgent().ifEmpty { "TiviMate/4.7.0" } // Better compatibility
-            val httpDataSourceFactory = com.google.android.exoplayer2.upstream.DefaultHttpDataSource.Factory()
-                .setUserAgent(userAgent)
-                .setAllowCrossProtocolRedirects(true)
-            
-            // 2. Renderers Factory
-            val decoderPref = prefsManager.getVideoDecoder() // "hardware" or "software"
-            val extensionMode = if (decoderPref == "software") {
-                com.google.android.exoplayer2.DefaultRenderersFactory.EXTENSION_RENDERER_MODE_PREFER
-            } else {
-                com.google.android.exoplayer2.DefaultRenderersFactory.EXTENSION_RENDERER_MODE_ON
-            }
-            
-            val renderersFactory = com.google.android.exoplayer2.DefaultRenderersFactory(this)
-                .setExtensionRendererMode(extensionMode)
-            
-            // 3. Performance-Focused Load Control
-            val bufferSize = prefsManager.getBufferSize()
-            val (minBuffer, maxBuffer) = when (bufferSize) {
-                "none" -> 2000 to 5000
-                "small" -> 15000 to 30000
-                "large" -> 120000 to 240000
-                else -> 45000 to 90000 // default aggressive
-            }
+        val userAgents = listOf(
+            prefsManager.getUserAgent().ifEmpty { "VLC/3.0.18 LibVLC/3.0.18" },
+            "AppleCoreMedia/1.0.0.19E241 (Apple TV; U; CPU OS 15_4 like Mac OS X; en_us)",
+            "Mozilla/5.0 (SmartHub; SMART-TV; U; Linux/Tizen) AppleWebKit/538.1 (KHTML, like Gecko) SamsungBrowser/1.0 TV Safari/538.1",
+            "ExoPlayer/2.18.7"
+        )
+        
+        val userAgent = userAgents.getOrElse(playerRetryCount % userAgents.size) { userAgents[0] }
+        android.util.Log.d(TAG, "Using User-Agent (Attempt ${playerRetryCount + 1}): $userAgent")
+        
+        val httpDataSourceFactory = com.google.android.exoplayer2.upstream.DefaultHttpDataSource.Factory()
+            .setUserAgent(userAgent)
+            .setConnectTimeoutMs(15000)
+            .setReadTimeoutMs(15000)
+            .setAllowCrossProtocolRedirects(true)
+            .setKeepPostFor302Redirects(true)
+            .setDefaultRequestProperties(mapOf(
+                "Accept" to "*/*",
+                "Connection" to "keep-alive"
+            ))
+        
+        // 2. Renderers Factory
+        val decoderPref = prefsManager.getVideoDecoder() // "hardware" or "software"
+        val extensionMode = if (decoderPref == "software") {
+            com.google.android.exoplayer2.DefaultRenderersFactory.EXTENSION_RENDERER_MODE_PREFER
+        } else {
+            com.google.android.exoplayer2.DefaultRenderersFactory.EXTENSION_RENDERER_MODE_ON
+        }
+        
+        val renderersFactory = com.google.android.exoplayer2.DefaultRenderersFactory(this)
+            .setExtensionRendererMode(extensionMode)
+        
+        // 3. Performance-Focused Load Control
+        val bufferSize = prefsManager.getBufferSize()
+        val isHighRes = channelUrl?.lowercase()?.let { it.contains("4k") || it.contains("8k") || it.contains("uhd") } ?: false
+        
+        val (minBuffer, maxBuffer) = when {
+            isHighRes -> 60000 to 500000 // Very large for 4K/8K
+            bufferSize == "none" -> 2000 to 5000
+            bufferSize == "small" -> 15000 to 30000
+            bufferSize == "large" -> 120000 to 240000
+            else -> 45000 to 90000 // default aggressive
+        }
 
-            val loadControl = com.google.android.exoplayer2.DefaultLoadControl.Builder()
-                .setBufferDurationsMs(
-                    minBuffer, 
-                    maxBuffer, 
-                    if (bufferSize == "none") 1500 else 3000, // minPlaybackStartBuffer
-                    if (bufferSize == "none") 3000 else 6000  // minPlaybackAfterRebuffer
-                )
-                .setPrioritizeTimeOverSizeThresholds(true)
-                .build()
-                
-            player = ExoPlayer.Builder(this, renderersFactory)
-                .setMediaSourceFactory(com.google.android.exoplayer2.source.DefaultMediaSourceFactory(httpDataSourceFactory))
-                .setLoadControl(loadControl)
-                .build()
+        val loadControl = com.google.android.exoplayer2.DefaultLoadControl.Builder()
+            .setBufferDurationsMs(
+                minBuffer, 
+                maxBuffer, 
+                if (bufferSize == "none") 1500 else 3000, // minPlaybackStartBuffer
+                if (bufferSize == "none") 3000 else 6000  // minPlaybackAfterRebuffer
+            )
+            .setPrioritizeTimeOverSizeThresholds(true)
+            .build()
             
-            playerView.player = player
-            
-            // Listener for loading state / errors
-            player?.addListener(object : Player.Listener {
-                override fun onPlaybackStateChanged(playbackState: Int) {
-                    when (playbackState) {
-                        Player.STATE_BUFFERING -> loadingIndicator.visibility = View.VISIBLE
-                        Player.STATE_READY -> loadingIndicator.visibility = View.GONE
-                        Player.STATE_ENDED -> { /* Do nothing for live stream */ }
-                        Player.STATE_IDLE -> { /* Setup or error */ }
-                    }
-                }
-
-                override fun onPlayerError(error: PlaybackException) {
-                    android.util.Log.e(TAG, "Player Error: ${error.message}", error)
-                    
-                    // Auto-retry once for specific errors?
-                    if (error.errorCode == PlaybackException.ERROR_CODE_DECODER_INIT_FAILED) {
-                        Toast.makeText(this@PlaybackActivity, "Decoder Error - Retrying...", Toast.LENGTH_LONG).show()
-                        player?.prepare()
-                        player?.play()
-                    } else {
+        player = ExoPlayer.Builder(this, renderersFactory)
+            .setMediaSourceFactory(com.google.android.exoplayer2.source.DefaultMediaSourceFactory(httpDataSourceFactory))
+            .setLoadControl(loadControl)
+            .build()
+        
+        playerView.player = player
+        
+        // Listener for loading state / errors
+        player?.addListener(object : Player.Listener {
+            override fun onPlaybackStateChanged(playbackState: Int) {
+                when (playbackState) {
+                    Player.STATE_BUFFERING -> loadingIndicator.visibility = View.VISIBLE
+                    Player.STATE_READY -> {
                         loadingIndicator.visibility = View.GONE
-                        Toast.makeText(this@PlaybackActivity, "Error: ${error.errorCodeName} - ${error.message}", Toast.LENGTH_LONG).show()
+                        playerRetryCount = 0 // Reset on success
+                    }
+                    Player.STATE_ENDED -> { /* Do nothing for live stream */ }
+                    Player.STATE_IDLE -> { /* Setup or error */ }
+                }
+            }
+
+            override fun onPlayerError(error: PlaybackException) {
+                android.util.Log.e(TAG, "Player Error: ${error.message}", error)
+                
+                val cause = error.cause
+                
+                // 1. Handle HTTP 405/403 (Method Not Allowed / Forbidden)
+                if (cause is com.google.android.exoplayer2.upstream.HttpDataSource.InvalidResponseCodeException) {
+                    if ((cause.responseCode == 405 || cause.responseCode == 403) && playerRetryCount < 3) {
+                        android.util.Log.w(TAG, "Detected ${cause.responseCode} - Rotating User-Agent... (Retry ${playerRetryCount + 1})")
+                        playerRetryCount++
+                        Toast.makeText(this@PlaybackActivity, "Stream requires fallback (Error ${cause.responseCode}) - Retrying with different agent...", Toast.LENGTH_SHORT).show()
+                        initializePlayer() 
+                        return
                     }
                 }
-            })
 
-            val mediaItem = MediaItem.Builder()
-                .setUri(Uri.parse(channelUrl))
-                .build()
+                // 2. Handle Decoder Failures (Common for 4K on some SoC)
+                val isDecoderError = error.errorCode == PlaybackException.ERROR_CODE_DECODER_INIT_FAILED || 
+                                   error.errorCode == PlaybackException.ERROR_CODE_DECODER_QUERY_FAILED ||
+                                   cause is com.google.android.exoplayer2.video.MediaCodecVideoDecoderException
+                
+                if (isDecoderError && playerRetryCount < 2) {
+                     android.util.Log.w(TAG, "Decoder failed - Switching to Software Decoding fallback...")
+                     playerRetryCount++
+                     // Force software decoder for this retry
+                     prefsManager.setVideoDecoder("software") 
+                     Toast.makeText(this@PlaybackActivity, "Hardware decoder failed - switching to software...", Toast.LENGTH_LONG).show()
+                     initializePlayer()
+                     return
+                }
 
-            player?.setMediaItem(mediaItem)
-            player?.prepare()
-            player?.playWhenReady = true
+                playerRetryCount = 0 // Reset on success or if limit reached
+                loadingIndicator.visibility = View.GONE
+                Toast.makeText(this@PlaybackActivity, "Error: ${error.errorCodeName} - ${cause?.message ?: error.message}", Toast.LENGTH_LONG).show()
+            }
+        })
+
+        val mediaItem = MediaItem.Builder()
+            .setUri(Uri.parse(channelUrl))
+            .build()
+
+        player?.setMediaItem(mediaItem)
+        player?.prepare()
+        player?.playWhenReady = true
             
         } catch (e: Exception) {
             android.util.Log.e(TAG, "Error initializing player", e)

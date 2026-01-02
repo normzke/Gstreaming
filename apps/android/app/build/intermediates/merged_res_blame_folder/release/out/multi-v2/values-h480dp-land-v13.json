@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.bingetv.app-mergeReleaseResources-38:/values-h480dp-land-v13/values-h480dp-land-v13.xml",
+            "outputFile": "com.bingetv.app-mergeReleaseResources-58:/values-h480dp-land-v13/values-h480dp-land-v13.xml",
             "map": [
                 {
-                    "source": "/Users/la/.gradle/caches/transforms-3/9f1b2dc1214567043803347b9a0ae742/transformed/material-1.5.0/res/values-h480dp-land-v13/values-h480dp-land-v13.xml",
+                    "source": "/Users/la/.gradle/caches/transforms-3/9143fa5f1274468e96f4aee74c2f2a5f/transformed/material-1.9.0/res/values-h480dp-land-v13/values-h480dp-land-v13.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10",
                         "startColumns": "4,4,4,4,4,4,4,4,4",
