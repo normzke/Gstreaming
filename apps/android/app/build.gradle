@@ -32,21 +32,20 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_11
-        targetCompatibility JavaVersion.VERSION_11
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
 
     kotlinOptions {
-        jvmTarget = '11'
+        jvmTarget = '17'
     }
 
     buildFeatures {
         viewBinding true
         dataBinding true
+        buildConfig true
     }
 }
-
-
 
 dependencies {
     def leanback_version = "1.0.0"
@@ -64,7 +63,7 @@ dependencies {
     def okhttp_version = "4.11.0"
     def glide_version = "4.15.1"
     def lottie_version = "6.0.1"
-    def security_crypto_version = "1.0.0"
+    def security_crypto_version = "1.1.0-alpha06"
     def preference_version = "1.2.0"
     def work_manager_version = "2.8.1"
 
@@ -119,14 +118,11 @@ dependencies {
     implementation "com.airbnb.android:lottie:$lottie_version"
     
     // Security (for encrypted credentials)
-    implementation "androidx.security:security-crypto:1.1.0-alpha06"
+    implementation "androidx.security:security-crypto:$security_crypto_version"
     
     // Preferences
     implementation "androidx.preference:preference-ktx:$preference_version"
     
     // Work Manager (for background tasks)
     implementation "androidx.work:work-runtime-ktx:$work_manager_version"
-
-    // Kapt helper
-    kapt "org.jetbrains.kotlin:kotlin-reflect:1.9.0"
 }

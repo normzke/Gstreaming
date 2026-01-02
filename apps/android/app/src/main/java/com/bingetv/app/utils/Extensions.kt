@@ -116,10 +116,10 @@ fun String.isValidM3uUrl(): Boolean {
 }
 
 // Number extensions
-fun Int.dpToPx(context: android.content.Context): Int {
-    return (this * context.resources.displayMetrics.density).toInt()
+fun Int.dpToPx(): Int {
+    return (this * android.content.res.Resources.getSystem().displayMetrics.density).toInt()
 }
 
-fun Int.pxToDp(context: android.content.Context): Int {
-    return (this / context.resources.displayMetrics.density).toInt()
+fun Int.pxToDp(): Int {
+    return (this / android.content.res.Resources.getSystem().displayMetrics.density).toInt()
 }

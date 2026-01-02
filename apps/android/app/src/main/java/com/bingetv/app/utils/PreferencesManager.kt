@@ -97,7 +97,70 @@ class PreferencesManager(context: Context) {
     
     fun getParentalPin(): String? = encryptedPrefs.getString(KEY_PARENTAL_PIN, null)
     
+
+    
+    // General
+    fun setAutoStartBoot(enabled: Boolean) = normalPrefs.edit().putBoolean(KEY_AUTO_START_BOOT, enabled).apply()
+    fun isAutoStartBoot(): Boolean = normalPrefs.getBoolean(KEY_AUTO_START_BOOT, false)
+    
+    fun setTurnOnLastChannel(enabled: Boolean) = normalPrefs.edit().putBoolean(KEY_TURN_ON_LAST_CHANNEL, enabled).apply()
+    fun isTurnOnLastChannel(): Boolean = normalPrefs.getBoolean(KEY_TURN_ON_LAST_CHANNEL, false)
+    
+    fun setPipOnHome(enabled: Boolean) = normalPrefs.edit().putBoolean(KEY_PIP_ON_HOME, enabled).apply()
+    fun isPipOnHome(): Boolean = normalPrefs.getBoolean(KEY_PIP_ON_HOME, false)
+    
+    fun setConfirmExit(enabled: Boolean) = normalPrefs.edit().putBoolean(KEY_CONFIRM_EXIT, enabled).apply()
+    fun isConfirmExit(): Boolean = normalPrefs.getBoolean(KEY_CONFIRM_EXIT, true)
+    
+    fun setUserAgent(ua: String) = normalPrefs.edit().putString(KEY_USER_AGENT, ua).apply()
+    fun getUserAgent(): String = normalPrefs.getString(KEY_USER_AGENT, "BingeTV/1.0") ?: "BingeTV/1.0"
+    
+    // Playback
+    fun setBufferSize(size: String) = normalPrefs.edit().putString(KEY_BUFFER_SIZE, size).apply()
+    fun getBufferSize(): String = normalPrefs.getString(KEY_BUFFER_SIZE, "medium") ?: "medium"
+    
+    fun setAudioDecoder(type: String) = normalPrefs.edit().putString(KEY_AUDIO_DECODER, type).apply()
+    fun getAudioDecoder(): String = normalPrefs.getString(KEY_AUDIO_DECODER, "hardware") ?: "hardware"
+    
+    fun setVideoDecoder(type: String) = normalPrefs.edit().putString(KEY_VIDEO_DECODER, type).apply()
+    fun getVideoDecoder(): String = normalPrefs.getString(KEY_VIDEO_DECODER, "hardware") ?: "hardware"
+    
+    fun setAfrEnabled(enabled: Boolean) = normalPrefs.edit().putBoolean(KEY_AFR, enabled).apply()
+    fun isAfrEnabled(): Boolean = normalPrefs.getBoolean(KEY_AFR, false)
+    
+    // EPG
+    fun setEpgDays(days: Int) = normalPrefs.edit().putInt(KEY_EPG_DAYS, days).apply()
+    fun getEpgDays(): Int = normalPrefs.getInt(KEY_EPG_DAYS, 2)
+    
+    fun setStoreDescriptions(enabled: Boolean) = normalPrefs.edit().putBoolean(KEY_STORE_DESCRIPTIONS, enabled).apply()
+    fun isStoreDescriptions(): Boolean = normalPrefs.getBoolean(KEY_STORE_DESCRIPTIONS, true)
+    
+    fun setEpgUpdateOnStart(enabled: Boolean) = normalPrefs.edit().putBoolean(KEY_EPG_UPDATE_START, enabled).apply()
+    fun isEpgUpdateOnStart(): Boolean = normalPrefs.getBoolean(KEY_EPG_UPDATE_START, true)
+    
+    fun setEpgUpdateOnPlaylistChange(enabled: Boolean) = normalPrefs.edit().putBoolean(KEY_EPG_UPDATE_PLAYLIST_CHANGE, enabled).apply()
+    fun isEpgUpdateOnPlaylistChange(): Boolean = normalPrefs.getBoolean(KEY_EPG_UPDATE_PLAYLIST_CHANGE, true)
+
+    // Last Channel Storage
+    fun setLastChannelId(id: String) = normalPrefs.edit().putString(KEY_LAST_CHANNEL_ID, id).apply()
+    fun getLastChannelId(): String? = normalPrefs.getString(KEY_LAST_CHANNEL_ID, null)
+    
+    // Remote
+    fun setRemoteLeftRightAction(action: String) = normalPrefs.edit().putString(KEY_REMOTE_LEFT_RIGHT, action).apply()
+    fun getRemoteLeftRightAction(): String = normalPrefs.getString(KEY_REMOTE_LEFT_RIGHT, "seek") ?: "seek"
+    
+    fun setRemoteUpDownAction(action: String) = normalPrefs.edit().putString(KEY_REMOTE_UP_DOWN, action).apply()
+    fun getRemoteUpDownAction(): String = normalPrefs.getString(KEY_REMOTE_UP_DOWN, "channel") ?: "channel"
+    
+    // Appearance Extra
+    fun setUiTransparency(percent: Int) = normalPrefs.edit().putInt(KEY_UI_TRANSPARENCY, percent).apply()
+    fun getUiTransparency(): Int = normalPrefs.getInt(KEY_UI_TRANSPARENCY, 0)
+    
+    fun setShowClock(enabled: Boolean) = normalPrefs.edit().putBoolean(KEY_SHOW_CLOCK, enabled).apply()
+    fun isShowClock(): Boolean = normalPrefs.getBoolean(KEY_SHOW_CLOCK, true)
+
     companion object {
+        // ... (Existing keys)
         private const val KEY_SERVER_URL = "server_url"
         private const val KEY_USERNAME = "username"
         private const val KEY_PASSWORD = "password"
@@ -109,5 +172,33 @@ class PreferencesManager(context: Context) {
         private const val KEY_LOGO_SIZE = "logo_size"
         private const val KEY_PARENTAL_CONTROL = "parental_control"
         private const val KEY_PARENTAL_PIN = "parental_pin"
+        
+        // General
+        private const val KEY_AUTO_START_BOOT = "auto_start_boot"
+        private const val KEY_TURN_ON_LAST_CHANNEL = "turn_on_last_channel"
+        private const val KEY_PIP_ON_HOME = "pip_on_home"
+        private const val KEY_CONFIRM_EXIT = "confirm_exit"
+        private const val KEY_USER_AGENT = "user_agent"
+        
+        // Playback
+        private const val KEY_BUFFER_SIZE = "buffer_size"
+        private const val KEY_AUDIO_DECODER = "audio_decoder"
+        private const val KEY_VIDEO_DECODER = "video_decoder"
+        private const val KEY_AFR = "afr"
+        
+        // EPG
+        private const val KEY_EPG_DAYS = "epg_days"
+        private const val KEY_STORE_DESCRIPTIONS = "store_descriptions"
+        private const val KEY_LAST_CHANNEL_ID = "last_channel_id"
+        private const val KEY_EPG_UPDATE_START = "epg_update_start"
+        private const val KEY_EPG_UPDATE_PLAYLIST_CHANGE = "epg_update_change"
+        
+        // Remote
+        private const val KEY_REMOTE_LEFT_RIGHT = "remote_left_right"
+        private const val KEY_REMOTE_UP_DOWN = "remote_up_down"
+        
+        // Appearance
+        private const val KEY_UI_TRANSPARENCY = "ui_transparency"
+        private const val KEY_SHOW_CLOCK = "show_clock"
     }
 }

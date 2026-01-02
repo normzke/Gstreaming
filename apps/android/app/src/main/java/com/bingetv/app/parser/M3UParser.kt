@@ -11,9 +11,9 @@ import java.util.regex.Pattern
 
 class M3UParser {
     private val client = OkHttpClient.Builder()
-        .connectTimeout(30, TimeUnit.SECONDS)
-        .readTimeout(30, TimeUnit.SECONDS)
-        .writeTimeout(30, TimeUnit.SECONDS)
+        .connectTimeout(60, TimeUnit.SECONDS)
+        .readTimeout(60, TimeUnit.SECONDS)
+        .writeTimeout(60, TimeUnit.SECONDS)
         .followRedirects(true)
         .followSslRedirects(true)
         .build()
@@ -26,7 +26,7 @@ class M3UParser {
             
             val request = Request.Builder()
                 .url(url)
-                .header("User-Agent", "Lavf/58.76.100")
+                .header("User-Agent", "TiviMate/4.7.0")
                 .header("Accept", "*/*")
                 .build()
             
@@ -69,73 +69,76 @@ class M3UParser {
                     continue
                 }
                 
-                if (trimmedLine.startsWith("#EXTINF:")) {
-                    // Parse EXTINF line
-                    val extinfContent = trimmedLine.substring(8)
-                    
-                    // Extract attributes
-                    val attributes = extractAttributes(extinfContent)
-                    
-                    // Extract name (after comma)
-                    val nameMatch = Pattern.compile(",(.+)$").matcher(extinfContent)
-                    if (nameMatch.find()) {
-                        currentName = nameMatch.group(1)?.trim()
-                    }
-                    
-                    // Extract attributes
-                    currentLogo = attributes["tvg-logo"] ?: attributes["logo"]
-                    currentGroup = attributes["group-title"] ?: attributes["group"]
-                    currentTvgId = attributes["tvg-id"]
-                    currentTvgName = attributes["tvg-name"]
-                    currentTvgLogo = attributes["tvg-logo"]
-                    currentTvgChno = attributes["tvg-chno"]
-                    currentTvgShift = attributes["tvg-shift"]
-                    isRadio = attributes.containsKey("radio") || 
-                             (attributes["type"]?.equals("radio", ignoreCase = true) == true)
-                    catchup = attributes["catchup"]
-                    catchupDays = attributes["catchup-days"]
-                    catchupSource = attributes["catchup-source"]
-                    
-                    Log.d("M3UParser", "Found channel: $currentName")
-                } else if (trimmedLine.isNotEmpty() && !trimmedLine.startsWith("#")) {
-                    // This is the URL line
-                    currentUrl = trimmedLine
-                    
-                    if (currentName != null && currentUrl != null) {
-                        channels.add(
-                            Channel(
-                                name = currentName,
-                                url = currentUrl,
-                                logo = currentLogo ?: currentTvgLogo,
-                                group = currentGroup,
-                                tvgId = currentTvgId,
-                                tvgName = currentTvgName,
-                                tvgLogo = currentTvgLogo,
-                                tvgChno = currentTvgChno,
-                                tvgShift = currentTvgShift,
-                                radio = isRadio,
-                                catchup = catchup,
-                                catchupDays = catchupDays,
-                                catchupSource = catchupSource
+                try {
+                    if (trimmedLine.startsWith("#EXTINF:")) {
+                        // Parse EXTINF line
+                        val extinfContent = trimmedLine.substring(8)
+                        
+                        // Extract attributes
+                        val attributes = extractAttributes(extinfContent)
+                        
+                        // Extract name (after comma)
+                        val nameMatch = Pattern.compile(",(.+)$").matcher(extinfContent)
+                        if (nameMatch.find()) {
+                            currentName = nameMatch.group(1)?.trim()
+                        }
+                        
+                        // Extract attributes
+                        currentLogo = attributes["tvg-logo"] ?: attributes["logo"]
+                        currentGroup = attributes["group-title"] ?: attributes["group"]
+                        currentTvgId = attributes["tvg-id"]
+                        currentTvgName = attributes["tvg-name"]
+                        currentTvgLogo = attributes["tvg-logo"]
+                        currentTvgChno = attributes["tvg-chno"]
+                        currentTvgShift = attributes["tvg-shift"]
+                        isRadio = attributes.containsKey("radio") || 
+                                 (attributes["type"]?.equals("radio", ignoreCase = true) == true)
+                        catchup = attributes["catchup"]
+                        catchupDays = attributes["catchup-days"]
+                        catchupSource = attributes["catchup-source"]
+                        
+                    } else if (trimmedLine.isNotEmpty() && !trimmedLine.startsWith("#")) {
+                        // This is the URL line
+                        currentUrl = trimmedLine
+                        
+                        if (currentName != null && currentUrl != null) {
+                            channels.add(
+                                Channel(
+                                    name = currentName ?: "Unknown",
+                                    url = currentUrl!!,
+                                    logo = currentLogo ?: currentTvgLogo,
+                                    group = currentGroup ?: "Uncategorized",
+                                    tvgId = currentTvgId,
+                                    tvgName = currentTvgName,
+                                    tvgLogo = currentTvgLogo,
+                                    tvgChno = currentTvgChno,
+                                    tvgShift = currentTvgShift,
+                                    radio = isRadio,
+                                    catchup = catchup,
+                                    catchupDays = catchupDays,
+                                    catchupSource = catchupSource
+                                )
                             )
-                        )
-                        Log.d("M3UParser", "Added channel ${channels.size}: $currentName")
+                        }
+                        
+                        // Reset for next channel
+                        currentName = null
+                        currentUrl = null
+                        currentLogo = null
+                        currentGroup = null
+                        currentTvgId = null
+                        currentTvgName = null
+                        currentTvgLogo = null
+                        currentTvgChno = null
+                        currentTvgShift = null
+                        isRadio = false
+                        catchup = null
+                        catchupDays = null
+                        catchupSource = null
                     }
-                    
-                    // Reset for next channel
-                    currentName = null
-                    currentUrl = null
-                    currentLogo = null
-                    currentGroup = null
-                    currentTvgId = null
-                    currentTvgName = null
-                    currentTvgLogo = null
-                    currentTvgChno = null
-                    currentTvgShift = null
-                    isRadio = false
-                    catchup = null
-                    catchupDays = null
-                    catchupSource = null
+                } catch (e: Exception) {
+                    // Log error but continue parsing other lines
+                    Log.w("M3UParser", "Error parsing line $lineCount: $trimmedLine", e)
                 }
             }
             
@@ -151,7 +154,8 @@ class M3UParser {
     
     private fun extractAttributes(line: String): Map<String, String> {
         val attributes = mutableMapOf<String, String>()
-        val pattern = Pattern.compile("([a-zA-Z0-9-]+)=\"([^\"]+)\"")
+        // Improved regex to handle quoted values better
+        val pattern = Pattern.compile("([a-zA-Z0-9-]+)=\"([^\"]*)\"")
         val matcher = pattern.matcher(line)
         
         while (matcher.find()) {

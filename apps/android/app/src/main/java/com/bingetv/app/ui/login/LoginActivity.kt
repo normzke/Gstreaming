@@ -1,6 +1,7 @@
 package com.bingetv.app.ui.login
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.*
@@ -96,18 +97,36 @@ class LoginActivity : AppCompatActivity() {
             }
         }
         
-        m3uLoadButton.setOnClickListener { loadM3uPlaylist() }
+        m3uLoadButton.setOnClickListener { handleM3uInput() }
         xtreamLoadButton.setOnClickListener { loadXtreamPlaylist() }
     }
     
-    private fun loadM3uPlaylist() {
+    private fun handleM3uInput() {
         val url = m3uUrlInput.text.toString().trim()
         
         if (url.isEmpty()) {
-            showError("Please enter M3U URL")
+            showError("Please enter a URL")
             return
         }
-        
+
+        val uri = Uri.parse(url)
+        val username = uri.getQueryParameter("username")
+        val password = uri.getQueryParameter("password")
+        val serverUrl = uri.scheme + "://" + uri.host + ":" + uri.port
+
+        if (username != null && password != null) {
+            // It's an Xtream Codes URL
+            serverUrlInput.setText(serverUrl)
+            usernameInput.setText(username)
+            passwordInput.setText(password)
+            loadXtreamPlaylist()
+        } else {
+            // It's a direct M3U URL
+            loadM3uPlaylist(url)
+        }
+    }
+
+    private fun loadM3uPlaylist(url: String) {
         if (!url.isValidM3uUrl()) {
             showError("Invalid M3U URL format")
             return
@@ -167,10 +186,10 @@ class LoginActivity : AppCompatActivity() {
         showLoading(true)
         lifecycleScope.launch {
             try {
-                // Test connection
-                val result = playlistRepository.testXtreamConnection(serverUrl, username, password)
-                
-                if (result.isSuccess) {
+                // Test connection & get playlist
+                val channels = playlistRepository.getXtreamPlaylist(serverUrl, username, password)
+
+                if (channels.isNotEmpty()) {
                     // Save playlist
                     val playlist = PlaylistEntity(
                         name = "Xtream Codes",
@@ -190,7 +209,7 @@ class LoginActivity : AppCompatActivity() {
                     // Navigate to main
                     navigateToMain()
                 } else {
-                    showError("Connection failed: ${result.exceptionOrNull()?.message}")
+                    showError("No channels found in playlist")
                     showLoading(false)
                 }
                 

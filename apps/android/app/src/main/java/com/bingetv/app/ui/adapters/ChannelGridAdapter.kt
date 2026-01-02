@@ -14,7 +14,8 @@ import com.bingetv.app.utils.ImageLoader
 
 class ChannelGridAdapter(
     private val onChannelClick: (ChannelEntity) -> Unit,
-    private val onChannelLongClick: ((ChannelEntity) -> Unit)? = null
+    private val onChannelLongClick: ((ChannelEntity) -> Unit)? = null,
+    private val onChannelFocused: ((ChannelEntity) -> Unit)? = null
 ) : ListAdapter<ChannelEntity, ChannelGridAdapter.ChannelViewHolder>(ChannelDiffCallback()) {
     
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChannelViewHolder {
@@ -25,21 +26,27 @@ class ChannelGridAdapter(
     
     override fun onBindViewHolder(holder: ChannelViewHolder, position: Int) {
         val channel = getItem(position)
-        holder.bind(channel)
+        // Try to find EPG using epgChannelId key first, then streamId
+        val programs = if (channel.epgChannelId != null) epgData[channel.epgChannelId] else null
+        holder.bind(channel, programs)
         
         holder.itemView.setOnClickListener {
+            android.util.Log.d("ChannelGridAdapter", "Item Clicked: ${channel.name}")
             onChannelClick(channel)
         }
         
         // Long-press for context menu
         holder.itemView.setOnLongClickListener {
+            android.util.Log.d("ChannelGridAdapter", "Item Long Clicked: ${channel.name}")
             onChannelLongClick?.invoke(channel)
             true
         }
         
-        // Focus animations
+        // Focus animations and callback
         holder.itemView.setOnFocusChangeListener { view, hasFocus ->
             if (hasFocus) {
+                android.util.Log.d("ChannelGridAdapter", "Item Focused: ${channel.name}")
+                onChannelFocused?.invoke(channel)
                 view.animate()
                     .scaleX(1.1f)
                     .scaleY(1.1f)
@@ -55,12 +62,24 @@ class ChannelGridAdapter(
         }
     }
     
+    private var epgData: Map<String, List<com.bingetv.app.data.database.EpgProgramEntity>> = emptyMap()
+    
+    fun submitEpgData(data: Map<String, List<com.bingetv.app.data.database.EpgProgramEntity>>) {
+        epgData = data
+        notifyDataSetChanged() // Refreshes visible items
+    }
+    
     class ChannelViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val logoImage: ImageView = itemView.findViewById(R.id.channel_logo)
         private val nameText: TextView = itemView.findViewById(R.id.channel_name)
         private val favoriteIcon: ImageView = itemView.findViewById(R.id.favorite_icon)
         
-        fun bind(channel: ChannelEntity) {
+        // EPG Views
+        private val epgNow: TextView = itemView.findViewById(R.id.epg_now)
+        private val epgNext: TextView = itemView.findViewById(R.id.epg_next)
+        private val epgProgress: android.widget.ProgressBar = itemView.findViewById(R.id.epg_progress)
+        
+        fun bind(channel: ChannelEntity, epgList: List<com.bingetv.app.data.database.EpgProgramEntity>?) {
             nameText.text = channel.name
             
             // Load logo
@@ -68,6 +87,49 @@ class ChannelGridAdapter(
             
             // Show favorite icon
             favoriteIcon.visibility = if (channel.isFavorite) View.VISIBLE else View.GONE
+            
+            // EPG Logic
+            if (epgList.isNullOrEmpty()) {
+                epgNow.text = "No Information"
+                epgNext.visibility = View.GONE
+                epgProgress.visibility = View.GONE
+            } else {
+                val now = System.currentTimeMillis()
+                // Find current
+                val current = epgList.find { now >= it.startTime && now < it.endTime }
+                val next = epgList.find { it.startTime >= now } // First one after now? Assuming sorted or find min
+                
+                // Sort by start time if not guaranteed
+                // (Optimally this sorting should be done before binding)
+                
+                if (current != null) {
+                    epgNow.text = current.title
+                    epgNow.visibility = View.VISIBLE
+                    
+                    // Progress
+                    val total = current.endTime - current.startTime
+                    if (total > 0) {
+                        val progress = now - current.startTime
+                        val percent = (progress.toFloat() / total * 100).toInt()
+                        epgProgress.progress = percent
+                        epgProgress.visibility = View.VISIBLE
+                    } else {
+                        epgProgress.visibility = View.GONE
+                    }
+                } else {
+                    epgNow.text = "No Information"
+                    epgProgress.visibility = View.GONE
+                }
+                
+                if (next != null) {
+                    // Format Time? e.g. "14:00 - Title"
+                    val timeFormat = java.text.SimpleDateFormat("HH:mm", java.util.Locale.getDefault())
+                    epgNext.text = "${timeFormat.format(java.util.Date(next.startTime))} ${next.title}"
+                    epgNext.visibility = View.VISIBLE
+                } else {
+                    epgNext.visibility = View.GONE
+                }
+            }
         }
     }
     

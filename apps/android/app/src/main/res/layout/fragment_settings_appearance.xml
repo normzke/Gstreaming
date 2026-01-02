@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="32dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Appearance"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/bingetv_red"
+        android:layout_marginBottom="24dp" />
+
+    <TextView
+        android:id="@+id/grid_columns_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Grid Columns: 5"
+        android:textSize="18sp"
+        android:textColor="@color/text_secondary"
+        android:layout_marginBottom="8dp" />
+
+    <SeekBar
+        android:id="@+id/grid_columns_seekbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="5"
+        android:progress="2"
+        android:progressTint="@color/bingetv_red"
+        android:thumbTint="@color/bingetv_red"
+        android:layout_marginBottom="24dp"
+        android:focusable="true" />
+        
+    <TextView
+        android:id="@+id/transparency_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="UI Transparency: 0%"
+        android:textSize="18sp"
+        android:textColor="@color/text_secondary"
+        android:layout_marginBottom="8dp" />
+
+    <SeekBar
+        android:id="@+id/transparency_seekbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="100"
+        android:progress="0"
+        android:progressTint="@color/bingetv_red"
+        android:thumbTint="@color/bingetv_red"
+        android:layout_marginBottom="24dp"
+        android:focusable="true" />
+
+    <CheckBox
+        android:id="@+id/check_show_clock"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Show Clock"
+        android:textSize="18sp"
+        android:padding="12dp"
+        android:textColor="@color/text_primary"
+        android:buttonTint="@color/bingetv_red"
+        android:layout_marginBottom="16dp"
+        android:focusable="true" />
+
+</LinearLayout>

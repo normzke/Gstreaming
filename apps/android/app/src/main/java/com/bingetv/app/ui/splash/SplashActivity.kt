@@ -10,6 +10,10 @@ import com.bingetv.app.ui.login.LoginActivity
 import com.bingetv.app.ui.main.EnhancedMainActivity
 import com.bingetv.app.utils.PreferencesManager
 import com.bingetv.app.utils.Constants
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.Dispatchers
 
 class SplashActivity : AppCompatActivity() {
     
@@ -21,10 +25,16 @@ class SplashActivity : AppCompatActivity() {
         
         prefsManager = PreferencesManager(this)
         
-        // Auto-navigate after splash delay
-        Handler(Looper.getMainLooper()).postDelayed({
-            navigateToNextScreen()
-        }, Constants.SPLASH_DELAY_MS)
+        // 1. Check for updates first
+        lifecycleScope.launch {
+            // Give splash a minimum display time
+            delay(1000) 
+            
+            com.bingetv.app.utils.UpdateManager.checkForUpdates(this@SplashActivity) {
+                // 2. Navigate after update check or if skipped
+                navigateToNextScreen()
+            }
+        }
     }
     
     private fun navigateToNextScreen() {

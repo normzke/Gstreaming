@@ -7,6 +7,8 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     
     <!-- TV features -->
     <uses-feature
@@ -18,7 +20,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/icon"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.Leanback"
@@ -30,8 +32,10 @@
         <activity
             android:name=".ui.splash.SplashActivity"
             android:exported="true"
+            android:banner="@drawable/app_banner"
+            android:logo="@drawable/app_banner"
             android:screenOrientation="landscape"
-            android:theme="@style/Theme.Leanback">
+            android:theme="@style/Theme.BingeTV.Light">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -51,11 +55,11 @@
             android:name=".ui.main.EnhancedMainActivity"
             android:exported="false"
             android:banner="@drawable/app_banner"
-            android:icon="@mipmap/ic_launcher"
+            android:icon="@drawable/icon"
             android:label="@string/app_name"
             android:logo="@drawable/app_banner"
             android:screenOrientation="landscape"
-            android:theme="@style/Theme.Leanback" />
+            android:theme="@style/Theme.BingeTV.Light" />
         
         <!-- Original Main Activity (Keep for now) -->
         <activity
@@ -77,13 +81,23 @@
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize"
             android:launchMode="singleTask"
             android:screenOrientation="landscape"
-            android:theme="@style/Theme.Leanback" />
+            android:supportsPictureInPicture="true"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         
-        <!-- Playlist Browser Activity -->
         <activity
             android:name=".PlaylistBrowserActivity"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.Leanback" />
+            
+        <receiver
+            android:name=".receivers.BootReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

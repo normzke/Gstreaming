@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>BingeTV - Settings</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/settings.css">
+</head>
+
+<body>
+    <div class="settings-screen">
+        <!-- Header -->
+        <div class="settings-header">
+            <img src="icon.png" alt="BingeTV" class="logo-tiny">
+            <h2>Settings</h2>
+            <button onclick="closeSettings()" class="btn-close">✕ Close</button>
+        </div>
+
+        <!-- Main Content -->
+        <div class="settings-main">
+            <!-- Categories Sidebar -->
+            <div class="settings-sidebar">
+                <div class="settings-category active" data-category="general" onclick="showCategory('general')">
+                    <span class="category-icon">⚙️</span>
+                    <span class="category-name">General</span>
+                </div>
+                <div class="settings-category" data-category="playlists" onclick="showCategory('playlists')">
+                    <span class="category-icon">📋</span>
+                    <span class="category-name">Playlists</span>
+                </div>
+                <div class="settings-category" data-category="epg" onclick="showCategory('epg')">
+                    <span class="category-icon">📺</span>
+                    <span class="category-name">EPG</span>
+                </div>
+                <div class="settings-category" data-category="appearance" onclick="showCategory('appearance')">
+                    <span class="category-icon">🎨</span>
+                    <span class="category-name">Appearance</span>
+                </div>
+                <div class="settings-category" data-category="playback" onclick="showCategory('playback')">
+                    <span class="category-icon">▶️</span>
+                    <span class="category-name">Playback</span>
+                </div>
+                <div class="settings-category" data-category="remote" onclick="showCategory('remote')">
+                    <span class="category-icon">🎮</span>
+                    <span class="category-name">Remote Control</span>
+                </div>
+                <div class="settings-category" data-category="account" onclick="showCategory('account')">
+                    <span class="category-icon">👤</span>
+                    <span class="category-name">Account</span>
+                </div>
+            </div>
+
+            <!-- Settings Content -->
+            <div class="settings-content" id="settingsContent">
+                <!-- Dynamic content loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="js/storage.js"></script>
+    <script src="js/settings.js"></script>
+</body>
+
+</html>

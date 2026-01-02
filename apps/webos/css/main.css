@@ -1,15 +1,46 @@
 /* BingeTV - Tizen CSS */
 
 :root {
+    /* Primary Brand Colors */
     --bingetv-red: #8B0000;
     --bingetv-dark-red: #660000;
+    --bingetv-accent: #A52A2A;
+    --bingetv-light-red: #B22222;
+
+    /* Background Colors */
     --background-primary: #0A0A0A;
     --background-secondary: #1A1A1A;
     --background-card: #1E1E1E;
     --background-hover: #2A2A2A;
+    --background-selected: #3A0000;
+    --background-sidebar: #141414;
+
+    /* Light Theme Colors */
+    --background-primary-light: #F5F5F5;
+    --background-secondary-light: #FFFFFF;
+    --text-primary-light: #000000;
+    --text-secondary-light: #333333;
+
+    /* Text Colors */
     --text-primary: #FFFFFF;
     --text-secondary: #CCCCCC;
     --text-muted: #888888;
+    --text-disabled: #555555;
+
+    /* UI Element Colors */
+    --divider: #333333;
+    --border: #444444;
+    --border-focused: #8B0000;
+    --overlay: #CC000000;
+
+    /* Status Colors */
+    --success: #10B981;
+    --warning: #F59E0B;
+    --error: #EF4444;
+    --info: #3B82F6;
+
+    /* Transparent */
+    --transparent: #00000000;
 }
 
 * {
@@ -286,12 +317,43 @@ body {
 
 .channel-name {
     font-size: 16px;
-    margin-bottom: 8px;
+    margin-bottom: 4px;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
     -webkit-box-orient: vertical;
+    font-weight: bold;
+}
+
+/* EPG Info on Cards */
+.epg-card-info {
+    width: 100%;
+    margin-top: 4px;
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+.epg-now-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-bottom: 4px;
+}
+
+.epg-card-progress {
+    width: 100%;
+    height: 4px;
+    background: var(--divider);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.epg-card-progress-bar {
+    height: 100%;
+    background: var(--bingetv-red);
+    width: 0%;
 }
 
 .favorite-badge {

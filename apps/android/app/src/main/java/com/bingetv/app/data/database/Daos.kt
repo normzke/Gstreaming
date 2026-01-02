@@ -44,6 +44,9 @@ interface CategoryDao {
     @Query("SELECT * FROM categories ORDER BY sortOrder ASC, categoryName ASC")
     fun getAllCategories(): LiveData<List<CategoryEntity>>
     
+    @Query("SELECT * FROM categories ORDER BY sortOrder ASC, categoryName ASC")
+    fun getAllCategoriesSync(): List<CategoryEntity>
+    
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertCategory(category: CategoryEntity)
     
@@ -61,6 +64,9 @@ interface EpgDao {
     
     @Query("SELECT * FROM epg_programs WHERE channelId = :channelId AND startTime <= :time AND endTime > :time LIMIT 1")
     fun getCurrentProgram(channelId: String, time: Long): EpgProgramEntity?
+    
+    @Query("SELECT * FROM epg_programs WHERE endTime > :currentTime")
+    fun getAllActivePrograms(currentTime: Long): List<EpgProgramEntity>
     
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertPrograms(programs: List<EpgProgramEntity>)

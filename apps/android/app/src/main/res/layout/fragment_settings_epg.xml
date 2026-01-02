@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="32dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="EPG Settings"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/bingetv_red"
+        android:layout_marginBottom="24dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Past days to keep EPG"
+        android:textSize="18sp"
+        android:textColor="@color/text_secondary"
+        android:layout_marginBottom="8dp" />
+
+    <Spinner
+        android:id="@+id/spinner_epg_days"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp" />
+
+    <CheckBox
+        android:id="@+id/check_store_desc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Store program descriptions"
+        android:textSize="18sp"
+        android:padding="12dp"
+        android:textColor="@color/text_primary"
+        android:buttonTint="@color/bingetv_red"
+        android:layout_marginBottom="16dp" />
+
+    <CheckBox
+        android:id="@+id/check_update_start"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Update on app start"
+        android:textSize="18sp"
+        android:padding="12dp"
+        android:textColor="@color/text_primary"
+        android:buttonTint="@color/bingetv_red"
+        android:layout_marginBottom="16dp" />
+        
+    <CheckBox
+        android:id="@+id/check_update_change"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Update on playlist change"
+        android:textSize="18sp"
+        android:padding="12dp"
+        android:textColor="@color/text_primary"
+        android:buttonTint="@color/bingetv_red"
+        android:layout_marginBottom="24dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_update_epg"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Update EPG"
+            android:background="@color/background_card"
+            android:textColor="@color/text_primary"
+            android:layout_marginEnd="8dp" />
+
+        <Button
+            android:id="@+id/btn_clear_epg"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Clear EPG"
+            android:background="@color/bingetv_red"
+            android:textColor="@color/text_primary"
+            android:layout_marginStart="8dp" />
+    </LinearLayout>
+
+</LinearLayout>

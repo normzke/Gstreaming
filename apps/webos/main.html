@@ -5,44 +5,95 @@
     <meta charset="UTF-8">
     <title>BingeTV - Channels</title>
     <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/nav-rail.css">
+    <link rel="stylesheet" href="css/top-preview.css">
+    <link rel="stylesheet" href="css/preview.css">
 </head>
 
 <body>
-    <div class="main-screen">
-        <!-- Top Bar -->
-        <div class="top-bar">
-            <img src="icon.png" alt="BingeTV" class="logo-tiny">
-            <h2>BingeTV</h2>
-            <div class="top-bar-actions">
-                <button onclick="showSearch()" class="icon-btn" title="Search">🔍</button>
-                <button onclick="showFavorites()" class="icon-btn" title="Favorites">⭐</button>
-                <button onclick="showSettings()" class="icon-btn" title="Settings">⚙️</button>
-            </div>
+    <div class="app-container">
+        <!-- Navigation Rail -->
+        <div class="nav-rail">
+            <div class="nav-clock" id="navClock">00:00</div>
+            <img src="icon.png" class="nav-logo" alt="BingeTV">
+
+            <button class="nav-btn" data-mode="search" title="Search" tabindex="0">
+                <span class="icon">🔍</span>
+            </button>
+            <button class="nav-btn" data-mode="history" title="History" tabindex="0">
+                <span class="icon">🕐</span>
+            </button>
+            <button class="nav-btn active" data-mode="live" title="Live TV" tabindex="0">
+                <span class="icon">📡</span>
+            </button>
+            <button class="nav-btn" data-mode="movies" title="Movies" tabindex="0">
+                <span class="icon">🎬</span>
+            </button>
+            <button class="nav-btn" data-mode="shows" title="TV Shows" tabindex="0">
+                <span class="icon">📺</span>
+            </button>
+            <button class="nav-btn" data-mode="recordings" title="Recordings" tabindex="0">
+                <span class="icon">⏺️</span>
+            </button>
+
+            <div class="nav-spacer"></div>
+
+            <button class="nav-btn" data-mode="favorites" title="Favorites" tabindex="0">
+                <span class="icon">⭐</span>
+            </button>
+            <button class="nav-btn" data-mode="settings" title="Settings" tabindex="0">
+                <span class="icon">⚙️</span>
+            </button>
         </div>
 
-        <!-- Main Content -->
-        <div class="main-content">
-            <!-- Category Sidebar -->
-            <div class="category-sidebar" id="categorySidebar">
-                <div class="category-item active" data-category="all" onclick="filterByCategory('all')">
-                    All Channels
+        <!-- Main Content Wrapper -->
+        <div class="main-content-wrapper">
+            <!-- Top Preview Player -->
+            <div class="top-preview-container" id="topPreviewContainer">
+                <video id="topPreviewVideo" class="top-preview-video" muted></video>
+
+                <div class="preview-overlay">
+                    <div class="preview-header">
+                        <img id="topPreviewLogo" class="preview-logo" src="icon.png" alt="Channel">
+                        <h3 id="topPreviewName" class="preview-name">Select a channel</h3>
+                    </div>
+
+                    <div class="preview-epg">
+                        <p id="topPreviewNow" class="epg-now">No program information</p>
+                        <div class="epg-progress-container">
+                            <div id="topPreviewProgress" class="epg-progress" style="width: 0%"></div>
+                        </div>
+                        <p id="topPreviewNext" class="epg-next">Next: --</p>
+                    </div>
                 </div>
-                <div class="category-item" data-category="favorites" onclick="filterByCategory('favorites')">
-                    ⭐ Favorites
-                </div>
-                <!-- Dynamic categories will be added here -->
             </div>
 
-            <!-- Channel Grid -->
-            <div class="channel-grid-container">
-                <div id="channelGrid" class="channel-grid">
-                    <!-- Channels will be dynamically added here -->
+            <!-- Content Row (Categories + Channel Grid) -->
+            <div class="content-row">
+                <!-- Category Sidebar -->
+                <div class="category-sidebar" id="categorySidebar">
+                    <div class="category-item active" data-category="all" onclick="filterByCategory('all')"
+                        tabindex="0">
+                        All Channels
+                    </div>
+                    <div class="category-item" data-category="favorites" onclick="filterByCategory('favorites')"
+                        tabindex="0">
+                        ⭐ Favorites
+                    </div>
+                    <!-- Dynamic categories will be added here -->
                 </div>
-                <div id="loadingView" class="loading-view" style="display: none;">
-                    <div class="loading"></div>
-                    <p>Loading channels...</p>
+
+                <!-- Channel Grid Container -->
+                <div class="channel-grid-container">
+                    <div id="channelGrid" class="channel-grid">
+                        <!-- Channels will be dynamically added here -->
+                    </div>
+                    <div id="loadingView" class="loading-view" style="display: none;">
+                        <div class="loading"></div>
+                        <p>Loading channels...</p>
+                    </div>
+                    <div id="errorView" class="error-view" style="display: none;"></div>
                 </div>
-                <div id="errorView" class="error-view" style="display: none;"></div>
             </div>
         </div>
     </div>

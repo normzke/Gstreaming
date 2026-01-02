@@ -21,6 +21,30 @@ class M3UParser {
         }
     }
 
+    // Ported from Android: Robust EPG decoding with multiple fallbacks
+    static decodeEpgText(text) {
+        if (!text) return "";
+        let cleanText = text.trim();
+
+        // Remove base64: prefix if present
+        if (cleanText.toLowerCase().startsWith("base64:")) {
+            cleanText = cleanText.substring(7).trim();
+        }
+
+        try {
+            // Standard atob + UTF-8 decoding
+            return decodeURIComponent(escape(window.atob(cleanText)));
+        } catch (e) {
+            try {
+                // Try without URI encoding
+                return window.atob(cleanText);
+            } catch (e2) {
+                // If all fails, return original text
+                return text;
+            }
+        }
+    }
+
     static parseM3UContent(content) {
         const channels = [];
         const lines = content.split('\n');
@@ -37,9 +61,9 @@ class M3UParser {
                 const groupMatch = line.match(/group-title="([^"]+)"/);
 
                 currentChannel = {
-                    name: nameMatch ? nameMatch[1].trim() : 'Unknown',
+                    name: this.decodeEpgText(nameMatch ? nameMatch[1].trim() : 'Unknown'),
                     logo: logoMatch ? logoMatch[1] : '',
-                    group: groupMatch ? groupMatch[1] : 'Uncategorized',
+                    group: this.decodeEpgText(groupMatch ? groupMatch[1] : 'Uncategorized'),
                     url: ''
                 };
             } else if (line && !line.startsWith('#') && currentChannel) {

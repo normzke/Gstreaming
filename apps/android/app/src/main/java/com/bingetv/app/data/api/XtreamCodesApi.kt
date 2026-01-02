@@ -43,6 +43,21 @@ interface XtreamCodesApi {
     ): Response<List<XtreamChannel>>
     
     @GET("player_api.php")
+    suspend fun getSeriesCategories(
+        @Query("username") username: String,
+        @Query("password") password: String,
+        @Query("action") action: String = "get_series_categories"
+    ): Response<List<XtreamCategory>>
+    
+    @GET("player_api.php")
+    suspend fun getSeries(
+        @Query("username") username: String,
+        @Query("password") password: String,
+        @Query("action") action: String = "get_series",
+        @Query("category_id") categoryId: String? = null
+    ): Response<List<XtreamChannel>>
+    
+    @GET("player_api.php")
     suspend fun getEpg(
         @Query("username") username: String,
         @Query("password") password: String,

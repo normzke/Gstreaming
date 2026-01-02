@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>BingeTV - Player</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/player.css">
+</head>
+
+<body>
+    <div class="player-screen">
+        <!-- Video Player -->
+        <video id="videoPlayer" class="video-player"></video>
+
+        <!-- Loading Indicator -->
+        <div id="loadingIndicator" class="loading-overlay" style="display: none;">
+            <div class="loading-spinner"></div>
+            <p>Loading channel...</p>
+        </div>
+
+        <!-- Channel Overlay -->
+        <div id="channelOverlay" class="channel-overlay" style="display: none;">
+            <div class="overlay-content">
+                <img id="overlayLogo" src="" alt="Channel" class="overlay-logo">
+                <div class="overlay-info">
+                    <h2 id="overlayName">Channel Name</h2>
+                    <p id="overlayCategory">Category</p>
+                    <p id="overlayNumber">Channel #</p>
+                </div>
+            </div>
+            <div class="overlay-controls">
+                <p>↑↓ Change Channel | OK Toggle Info | Back Exit</p>
+            </div>
+        </div>
+
+        <!-- Error Message -->
+        <div id="errorMessage" class="overlay" style="display: none;">
+            <div class="message-content">
+                <h2>Playback Error</h2>
+                <p id="errorText"></p>
+                <button onclick="retryPlayback()" class="btn-primary">Retry</button>
+                <button onclick="exitPlayer()" class="btn-secondary">Exit</button>
+            </div>
+        </div>
+
+        <!-- Track Selection Menu -->
+        <div id="trackMenu" class="modal" style="display: none;">
+            <div class="modal-content">
+                <h2>Playback Options</h2>
+                <div id="trackList" class="track-list"></div>
+                <button onclick="PlayerManager.hideTrackMenu()" class="btn-secondary">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/storage.js"></script>
+    <script src="js/player.js"></script>
+</body>
+
+</html>

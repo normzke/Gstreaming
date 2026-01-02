@@ -13,7 +13,8 @@ object ApiClient {
     
     private fun getOkHttpClient(): OkHttpClient {
         val logging = HttpLoggingInterceptor().apply {
-            level = HttpLoggingInterceptor.Level.BODY
+            // Prevent OOM with large responses (playlists/series) by avoiding BODY logging
+            level = HttpLoggingInterceptor.Level.HEADERS 
         }
         
         return OkHttpClient.Builder()

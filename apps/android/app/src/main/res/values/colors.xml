@@ -12,6 +12,13 @@
     <color name="background_card">#1E1E1E</color>
     <color name="background_hover">#2A2A2A</color>
     <color name="background_selected">#3A0000</color>
+    <color name="background_sidebar">#141414</color>
+    
+    <!-- Light Theme Colors -->
+    <color name="background_primary_light">#F5F5F5</color>
+    <color name="background_secondary_light">#FFFFFF</color>
+    <color name="text_primary_light">#000000</color>
+    <color name="text_secondary_light">#333333</color>
     
     <!-- Text Colors -->
     <color name="text_primary">#FFFFFF</color>

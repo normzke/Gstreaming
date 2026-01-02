@@ -33,32 +33,20 @@ class CategoryAdapter(
             notifyItemChanged(selectedPosition)
             onCategoryClick(category)
         }
-        
-        holder.itemView.setOnFocusChangeListener { _, hasFocus ->
-            if (hasFocus) {
-                val previousPosition = selectedPosition
-                selectedPosition = position
-                notifyItemChanged(previousPosition)
-                notifyItemChanged(selectedPosition)
-            }
-        }
     }
     
     class CategoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val nameText: TextView = itemView.findViewById(R.id.category_name)
+        private val iconImage: android.widget.ImageView = itemView.findViewById(R.id.category_icon)
         
         fun bind(category: CategoryEntity, isSelected: Boolean) {
             nameText.text = category.categoryName
-            
-            // Update selection state
             itemView.isSelected = isSelected
-            if (isSelected) {
-                itemView.setBackgroundResource(R.color.background_selected)
-                nameText.setTextColor(itemView.context.getColor(R.color.bingetv_red))
-            } else {
-                itemView.setBackgroundResource(R.color.background_card)
-                nameText.setTextColor(itemView.context.getColor(R.color.text_primary))
-            }
+            
+            // Set icon based on category (optional logic here)
+            // For now, use a generic folder or list icon
+            iconImage.setImageResource(R.drawable.ic_nav_live) 
+            iconImage.alpha = if (isSelected) 1.0f else 0.6f
         }
     }
     

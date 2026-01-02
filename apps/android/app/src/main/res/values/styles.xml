@@ -4,5 +4,14 @@
         <item name="android:windowBackground">@color/lb_background</item>
         <item name="android:colorPrimary">@color/lb_default_brand_color</item>
     </style>
+
+    <style name="Theme.BingeTV.Light" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@color/background_primary</item>
+        <item name="android:colorPrimary">@color/bingetv_red</item>
+        <item name="android:colorPrimaryDark">@color/bingetv_dark_red</item>
+        <item name="colorAccent">@color/bingetv_accent</item>
+        <item name="android:textColorPrimary">@color/text_primary</item>
+        <item name="android:textColorSecondary">@color/text_secondary</item>
+    </style>
 </resources>
 

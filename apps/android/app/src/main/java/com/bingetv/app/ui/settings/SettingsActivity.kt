@@ -2,11 +2,15 @@ package com.bingetv.app.ui.settings
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
-import android.widget.SeekBar
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bingetv.app.R
 import com.bingetv.app.ui.login.LoginActivity
 import com.bingetv.app.utils.PreferencesManager
@@ -14,112 +18,104 @@ import com.bingetv.app.utils.Constants
 
 class SettingsActivity : AppCompatActivity() {
     
-    private lateinit var prefsManager: PreferencesManager
-    
-    // UI Components
-    private lateinit var gridColumnsSeekBar: SeekBar
-    private lateinit var gridColumnsText: TextView
-    private lateinit var logoutButton: Button
-    private lateinit var clearCacheButton: Button
-    private lateinit var aboutButton: Button
+    private lateinit var categoriesList: RecyclerView
+    private val categories = listOf(
+        "General",
+        "Playlists",
+        "EPG",
+        "Appearance",
+        "Playback",
+        "Remote Control",
+        "Account"
+    )
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
         
-        prefsManager = PreferencesManager(this)
+        categoriesList = findViewById(R.id.settings_categories_list)
+        categoriesList.layoutManager = LinearLayoutManager(this)
+        categoriesList.adapter = CategoriesAdapter(categories) { index ->
+            loadFragment(index)
+        }
         
-        initializeViews()
-        loadSettings()
-        setupListeners()
-    }
-    
-    private fun initializeViews() {
-        gridColumnsSeekBar = findViewById(R.id.grid_columns_seekbar)
-        gridColumnsText = findViewById(R.id.grid_columns_text)
-        logoutButton = findViewById(R.id.logout_button)
-        clearCacheButton = findViewById(R.id.clear_cache_button)
-        aboutButton = findViewById(R.id.about_button)
-    }
-    
-    private fun loadSettings() {
-        val currentColumns = prefsManager.getGridColumns()
-        gridColumnsSeekBar.progress = currentColumns - Constants.GRID_COLUMNS_MIN
-        updateGridColumnsText(currentColumns)
-    }
-    
-    private fun setupListeners() {
-        gridColumnsSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                val columns = progress + Constants.GRID_COLUMNS_MIN
-                updateGridColumnsText(columns)
+        // Default to General
+        if (savedInstanceState == null) {
+            loadFragment(0)
+            categoriesList.post {
+                categoriesList.findViewHolderForAdapterPosition(0)?.itemView?.requestFocus()
             }
+        }
+    }
+    
+    private fun loadFragment(index: Int) {
+        val category = categories[index]
+        val fragment: Fragment = when (index) {
+            0 -> SettingsGeneralFragment()
+            1 -> SettingsPlaylistsFragment()
+            2 -> SettingsEpgFragment()
+            3 -> SettingsAppearanceFragment()
+            4 -> SettingsPlaybackFragment()
+            5 -> SettingsRemoteControlFragment()
+            6 -> SettingsAccountFragment()
+            else -> SettingsPlaceholderFragment.newInstance(category)
+        }
+        
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.settings_content_frame, fragment)
+            .commit()
+    }
+    
+    inner class CategoriesAdapter(
+        private val items: List<String>,
+        private val onItemClick: (Int) -> Unit
+    ) : RecyclerView.Adapter<CategoriesAdapter.ViewHolder>() {
+        
+        private var selectedIndex = 0
+        
+        inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+            val textView: TextView = view.findViewById(R.id.category_name)
             
-            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
-            
-            override fun onStopTrackingTouch(seekBar: SeekBar?) {
-                val columns = (seekBar?.progress ?: 0) + Constants.GRID_COLUMNS_MIN
-                prefsManager.setGridColumns(columns)
-                Toast.makeText(this@SettingsActivity, "Grid columns updated. Restart app to apply.", Toast.LENGTH_LONG).show()
+            init {
+                view.setOnClickListener {
+                    val pos = adapterPosition
+                    if (pos != RecyclerView.NO_POSITION) {
+                        setSelectedIndex(pos)
+                        onItemClick(pos)
+                    }
+                }
+                view.setOnFocusChangeListener { _, hasFocus ->
+                    if (hasFocus) {
+                        // Optional: Visualize focus beyond default selector
+                        // For now default selector is fine
+                    }
+                }
             }
-        })
-        
-        logoutButton.setOnClickListener {
-            logout()
         }
         
-        clearCacheButton.setOnClickListener {
-            clearCache()
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+            val view = LayoutInflater.from(parent.context)
+                .inflate(R.layout.item_settings_category, parent, false)
+            return ViewHolder(view)
         }
         
-        aboutButton.setOnClickListener {
-            showAbout()
+        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+            holder.textView.text = items[position]
+            holder.itemView.isSelected = (position == selectedIndex)
+            if (position == selectedIndex) {
+                 holder.textView.setTextColor(getColor(R.color.bingetv_red))
+            } else {
+                 holder.textView.setTextColor(getColor(R.color.text_primary))
+            }
         }
-    }
-    
-    private fun updateGridColumnsText(columns: Int) {
-        gridColumnsText.text = "Grid Columns: $columns"
-    }
-    
-    private fun logout() {
-        // Clear credentials
-        prefsManager.clearCredentials()
-        prefsManager.setAutoLogin(false)
         
-        // Navigate to login
-        val intent = Intent(this, LoginActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        startActivity(intent)
-        finish()
-    }
-    
-    private fun clearCache() {
-        // Clear Glide cache
-        com.bingetv.app.utils.ImageLoader.clearCache(this)
-        Toast.makeText(this, "Cache cleared", Toast.LENGTH_SHORT).show()
-    }
-    
-    private fun showAbout() {
-        val message = """
-            ${Constants.APP_NAME}
-            Version ${Constants.APP_VERSION}
-            
-            Professional IPTV Player
-            
-            Features:
-            • M3U Playlist Support
-            • Xtream Codes API
-            • EPG Support
-            • Favorites
-            • Search
-            
-            © 2024 BingeTV
-        """.trimIndent()
+        override fun getItemCount() = items.size
         
-        android.app.AlertDialog.Builder(this)
-            .setTitle("About")
-            .setMessage(message)
-            .setPositiveButton("OK", null)
-            .show()
+        fun setSelectedIndex(index: Int) {
+            val prev = selectedIndex
+            selectedIndex = index
+            notifyItemChanged(prev)
+            notifyItemChanged(selectedIndex)
+        }
     }
 }

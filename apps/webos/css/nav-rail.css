@@ -1,0 +1,98 @@
+/* Navigation Rail Styles */
+
+.nav-rail {
+    width: 80px;
+    height: 100vh;
+    background: var(--background-sidebar);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px 0 16px;
+    border-right: 1px solid var(--divider);
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 100;
+    transition: width 0.3s ease;
+}
+
+.nav-rail.expanded {
+    width: 200px;
+}
+
+.nav-clock {
+    font-size: 14px;
+    font-weight: bold;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+    text-align: center;
+    line-height: 1.2;
+}
+
+.nav-logo {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 24px;
+    border-radius: 8px;
+}
+
+.nav-btn {
+    width: 60px;
+    height: 60px;
+    background: transparent;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: 8px;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-primary);
+}
+
+.nav-btn .icon {
+    font-size: 24px;
+}
+
+.nav-btn:hover,
+.nav-btn:focus {
+    border-color: var(--bingetv-red);
+    background: var(--background-hover);
+    transform: scale(1.1);
+    outline: none;
+}
+
+.nav-btn.active {
+    background: var(--bingetv-red);
+    border-color: var(--bingetv-red);
+}
+
+.nav-btn[data-mode="live"].active {
+    background: var(--bingetv-red);
+}
+
+.nav-btn[data-mode="favorites"] .icon {
+    color: var(--bingetv-red);
+}
+
+.nav-spacer {
+    flex: 1;
+    min-height: 20px;
+}
+
+/* Adjust main content to account for nav rail */
+.app-container {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.main-content-wrapper {
+    margin-left: 80px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: margin-left 0.3s ease;
+}

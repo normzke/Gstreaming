@@ -13,6 +13,8 @@ data class Channel(
     val radio: Boolean = false,
     val catchup: String? = null,
     val catchupDays: String? = null,
-    val catchupSource: String? = null
+    val catchupSource: String? = null,
+    val streamId: String? = null,
+    val epgChannelId: String? = null
 )
 
