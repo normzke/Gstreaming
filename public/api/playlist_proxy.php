@@ -62,10 +62,11 @@ if ($action === 'stream' && $streamId) {
         ob_end_clean();
     header('X-Accel-Buffering: no'); // Nginx
 
-    // 2. Construct Stream URL
-    // Default to .m3u8 for HLS/Web Player compatibility
-    $ext = $_GET['ext'] ?? 'm3u8';
-    $streamUrl = "$server/live/$username/$password/$streamId.$ext";
+    // 2. Construct Stream URL using get.php format
+    // Format: http://server/get.php?username=X&password=Y&type=m3u_plus&output=ts&stream_id=Z
+    $streamUrl = $server . "/get.php?username=" . urlencode($username)
+        . "&password=" . urlencode($password)
+        . "&type=m3u_plus&output=ts&stream_id=" . urlencode($streamId);
 
     error_log("[STREAM PROXY] Fetching: $streamUrl");
 
@@ -84,12 +85,8 @@ if ($action === 'stream' && $streamId) {
     // Mimic TiviMate (Best compatibility)
     curl_setopt($ch, CURLOPT_USERAGENT, 'TiviMate/4.7.0');
 
-    // Forward Content-Type properly
-    if ($ext === 'm3u8') {
-        header("Content-Type: application/vnd.apple.mpegurl");
-    } else {
-        header("Content-Type: video/mp2t");
-    }
+    // Forward Content-Type properly (TS stream)
+    header("Content-Type: video/mp2t");
 
     // Stream Pass-Through with manual flush
     curl_setopt($ch, CURLOPT_WRITEFUNCTION, function ($ch, $chunk) {
