@@ -62,67 +62,60 @@ $username = trim($freshUser['tivimate_username']);
 $password = trim($freshUser['tivimate_password']);
 
 // ---------------------------------------------------------
-// STREAM PROXY HANDLER (For Playback)
+// STREAM PROXY HANDLER (For M3U8 Playlists)
 // ---------------------------------------------------------
 if ($action === 'stream' && $streamId) {
-    // Log the stream request for debugging
     error_log("[STREAM PROXY] Stream ID: $streamId, User: {$user['id']}");
 
-    // 1. Disable Buffering for Real-Time Streaming
-    if (ob_get_level())
+    // Disable ALL buffering
+    while (ob_get_level()) {
         ob_end_clean();
-    header('X-Accel-Buffering: no'); // Nginx
+    }
 
-    // 2. Construct Stream URL using get.php format
-    // Format: http://server/get.php?username=X&password=Y&type=m3u_plus&output=ts&stream_id=Z
-    $streamUrl = $server . "/get.php?username=" . urlencode($username)
-        . "&password=" . urlencode($password)
-        . "&type=m3u_plus&output=ts&stream_id=" . urlencode($streamId);
+    header('X-Accel-Buffering: no');
+    @apache_setenv('no-gzip', 1);
+    @ini_set('zlib.output_compression', 0);
 
-    error_log("[STREAM PROXY] Fetching: $streamUrl");
+    // Construct M3U8 playlist URL
+    $streamUrl = $server . "/live/" . urlencode($username)
+        . "/" . urlencode($password)
+        . "/" . urlencode($streamId) . ".m3u8";
 
-    // 3. Open Stream with optimized headers
+    error_log("[STREAM PROXY] Fetching M3U8: $streamUrl");
+
+    // Fetch the M3U8 playlist
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $streamUrl);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-    curl_setopt($ch, CURLOPT_HEADER, false);
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
     curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
-
-    // Optimization: Larger chunks (512KB) & No Timeout for 4K stability
-    curl_setopt($ch, CURLOPT_BUFFERSIZE, 512 * 1024);
-    curl_setopt($ch, CURLOPT_TIMEOUT, 0);
-
-    // Mimic TiviMate (Best compatibility)
+    curl_setopt($ch, CURLOPT_TIMEOUT, 10);
     curl_setopt($ch, CURLOPT_USERAGENT, 'TiviMate/4.7.0');
 
-    // Forward Content-Type properly (TS stream)
-    header("Content-Type: video/mp2t");
-
-    // Stream Pass-Through with manual flush
-    curl_setopt($ch, CURLOPT_WRITEFUNCTION, function ($ch, $chunk) {
-        echo $chunk;
-        flush();
-        return strlen($chunk);
-    });
-
-    $result = curl_exec($ch);
+    $m3u8Content = curl_exec($ch);
     $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
     $curlError = curl_error($ch);
     curl_close($ch);
 
-    if ($result === false || $httpCode !== 200) {
-        error_log("[STREAM PROXY] ERROR - HTTP Code: $httpCode, cURL Error: $curlError");
+    if ($httpCode !== 200 || empty($m3u8Content)) {
+        error_log("[STREAM PROXY] ERROR - HTTP $httpCode: $curlError");
         http_response_code(502);
         header("Content-Type: application/json");
         echo json_encode([
             'error' => 'Stream unavailable',
-            'stream_url' => $streamUrl,
             'http_code' => $httpCode,
             'curl_error' => $curlError
         ]);
+        exit;
     }
 
+    // Return M3U8 playlist with proper content type
+    header("Content-Type: application/vnd.apple.mpegurl");
+    header("Cache-Control: no-cache");
+    header("Access-Control-Allow-Origin: *");
+
+    echo $m3u8Content;
     exit;
 }
 
