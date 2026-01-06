@@ -3,6 +3,7 @@
 require_once __DIR__ . '/../config/config.php';
 require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/../lib/functions.php';
+require_once __DIR__ . '/../lib/session_manager.php';
 require_once __DIR__ . '/../lib/seo.php';
 
 // Session is started in config files
@@ -76,41 +77,67 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     }
                 }
 
-                // Check if user has an active subscription
-                $subQuery = "SELECT * FROM user_subscriptions 
-                            WHERE user_id = ? 
-                            AND status = 'active' 
-                            AND end_date > NOW() 
-                            LIMIT 1";
-                $subStmt = $conn->prepare($subQuery);
-                $subStmt->execute([$user['id']]);
-                $activeSubscription = $subStmt->fetch();
+                // Create device session with limit enforcement
+                $deviceId = getDeviceId();
+                $deviceType = getDeviceType();
+                $deviceName = $_POST['device_name'] ?? ucfirst($deviceType) . ' Browser';
 
-                // Redirect to saved destination or appropriate page
-                if (!empty($_SESSION['post_login_redirect'])) {
-                    // Validate internal redirect to prevent open redirect vulnerabilities
-                    $dest = '/' . ltrim($dest, '/');
+                $sessionResult = createUserSession($user['id'], $deviceId, $deviceName, $deviceType);
 
-                    // Force session write before redirect
-                    session_write_close();
+                if (!$sessionResult['success']) {
+                    // Device limit exceeded
+                    $error = $sessionResult['error'];
 
-                    header('Location: ' . $dest);
-                    exit();
-                } elseif (!$activeSubscription) {
-                    // New user without subscription - go to subscriptions page
+                    // Log the attempt
+                    logActivity($user['id'], 'login_blocked', 'Device limit exceeded: ' . $deviceId);
 
-                    // Force session write before redirect
-                    session_write_close();
-
-                    header('Location: /user/subscriptions');
-                    exit();
+                    // Don't proceed with login
+                    unset($_SESSION['user_id']);
+                    unset($_SESSION['user_email']);
+                    unset($_SESSION['user_name']);
                 } else {
-                    // Existing user with subscription - go to dashboard
+                    // Store session token
+                    $_SESSION['session_token'] = $sessionResult['session_token'];
 
-                    // Force session write before redirect
-                    session_write_close();
+                    // Log successful login
+                    logActivity($user['id'], 'login_success', 'Device: ' . $deviceName);
 
-                    redirect('/user/dashboard', 'Welcome back!');
+                    // Log successful login
+                    logActivity($user['id'], 'login_success', 'Device: ' . $deviceName);
+
+                    // Check if user has an active subscription
+                    $subQuery = "SELECT * FROM user_subscriptions 
+                                WHERE user_id = ? 
+                                AND status = 'active' 
+                                AND end_date > NOW() 
+                                LIMIT 1";
+                    $subStmt = $conn->prepare($subQuery);
+                    $subStmt->execute([$user['id']]);
+                    $activeSubscription = $subStmt->fetch();
+
+                    // Redirect to saved destination or appropriate page
+                    if (!empty($_SESSION['post_login_redirect'])) {
+                        $dest = $_SESSION['post_login_redirect'];
+                        unset($_SESSION['post_login_redirect']);
+
+                        // Validate internal redirect to prevent open redirect vulnerabilities
+                        $dest = '/' . ltrim($dest, '/');
+
+                        // Force session write before redirect
+                        session_write_close();
+
+                        header('Location: ' . $dest);
+                        exit();
+                    } elseif (!$activeSubscription) {
+                        // New user without subscription - go to subscriptions page
+                        session_write_close();
+                        header('Location: /user/subscriptions');
+                        exit();
+                    } else {
+                        // Existing user with subscription - go to dashboard
+                        session_write_close();
+                        redirect('/user/dashboard', 'Welcome back!');
+                    }
                 }
             } else {
                 // This else block handles both user not found and bad password
