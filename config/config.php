@@ -53,11 +53,13 @@ function setSecurityHeaders()
     // Content Security Policy
     $csp = [
         "default-src 'self' https:;",
-        "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://code.jquery.com https://cdnjs.cloudflare.com;",
+        "script-src 'self' 'unsafe-inline' 'unsafe-eval' blob: https://cdn.jsdelivr.net https://code.jquery.com https://cdnjs.cloudflare.com;",
         "style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com;",
-        "img-src 'self' data: https:;",
+        "img-src 'self' data: https: http:;",
         "font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com;",
-        "connect-src 'self' https://api.mpesa.co.ke;",
+        "connect-src 'self' blob: https://api.mpesa.co.ke http://irs58130.cdnsilver.me https://irs58130.cdnsilver.me;",
+        "worker-src 'self' blob:;",
+        "media-src 'self' blob: https: http:;",
         "frame-src 'self' https://www.youtube.com https://youtube.com;",
         "frame-ancestors 'none';",
         "form-action 'self';",
@@ -177,6 +179,13 @@ if (file_exists(__DIR__ . '/mpesa_config.php')) {
     define('MPESA_TILL_NUMBER', getenv('MPESA_TILL_NUMBER') ?: 'your_till_number');
     define('MPESA_PAYBILL_NUMBER', getenv('MPESA_PAYBILL_NUMBER') ?: 'your_paybill_number');
 }
+
+// Paystack Configuration
+define('PAYSTACK_PUBLIC_KEY', getenv('PAYSTACK_PUBLIC_KEY') ?: 'pk_test_your_public_key');
+define('PAYSTACK_SECRET_KEY', getenv('PAYSTACK_SECRET_KEY') ?: 'sk_test_your_secret_key');
+define('PAYSTACK_WEBHOOK_SECRET', getenv('PAYSTACK_WEBHOOK_SECRET') ?: 'your_webhook_secret');
+define('PAYSTACK_INITIALIZE_URL', 'https://api.paystack.co/transaction/initialize');
+define('PAYSTACK_VERIFY_URL', 'https://api.paystack.co/transaction/verify/');
 
 // M-PESA API Endpoints
 define('MPESA_AUTH_URL', MPESA_ENVIRONMENT === 'production' ?

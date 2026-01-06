@@ -1,8 +1,7 @@
-#!/usr/bin/env php
 <?php
 /**
  * Cron job to clean expired sessions
- * Run every 30 minutes: */30 * * * * /usr/bin/php /path/to/cron/clean_sessions.php
+ * Run every 30 minutes via cPanel cron interface
  */
 
 require_once __DIR__ . '/../config/config.php';
