@@ -59,6 +59,9 @@ class PlayerManager {
         this.showLoading(true);
         this.updateOverlay();
 
+        // Save last channel for auto-play
+        localStorage.setItem('lastChannelId', this.currentChannel.id);
+
         // Set video source
         this.videoPlayer.src = this.currentChannel.url;
         this.videoPlayer.play().catch(err => {

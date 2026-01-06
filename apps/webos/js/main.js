@@ -1,6 +1,9 @@
 // BingeTV - Main Screen Logic for Tizen (main.html)
 
 let allChannels = [];
+let displayedChannels = []; // For virtual scrolling
+let channelOffset = 0;
+const CHANNEL_BATCH_SIZE = 100; // Load 100 channels at a time
 let currentCategory = 'all';
 let selectedChannel = null;
 let previewTimeout = null;
@@ -21,7 +24,21 @@ window.onload = function () {
     applyGridColumns();
     setupFocusOptimization();
     checkForUpdates();
+    checkLastChannel();
 };
+
+function checkLastChannel() {
+    const lastId = localStorage.getItem('lastChannelId');
+    if (lastId && localStorage.getItem('autoPlayLast') === 'true') {
+        setTimeout(() => {
+            const channel = allChannels.find(ch => ch.id === lastId);
+            if (channel) {
+                console.log('Auto-playing last channel:', channel.name);
+                playChannel(channel);
+            }
+        }, 3000);
+    }
+}
 
 async function checkForUpdates() {
     try {
@@ -362,9 +379,55 @@ function filterByCategory(category) {
 }
 
 function playChannel(channel) {
-    // Navigate to enhanced player with channel ID
-    window.location.href = `player.html?id=${encodeURIComponent(channel.id)}`;
+    // Save last channel for auto-play
+    localStorage.setItem('lastChannelId', channel.id);
+
+    // Check if this is a series/VOD content
+    if (isSeriesContent(channel)) {
+        // Navigate to series detail screen
+        const params = new URLSearchParams({
+            id: channel.id,
+            name: channel.name,
+            poster: channel.logo || ''
+        });
+        window.location.href = `series-detail.html?${params.toString()}`;
+    } else {
+        // Navigate to enhanced player with channel ID
+        window.location.href = `player.html?id=${encodeURIComponent(channel.id)}`;
+    }
 }
+
+function isSeriesContent(channel) {
+    // Detect series based on category or stream type
+    const seriesKeywords = ['series', 'show', 'season', 'episode', 'tv show'];
+    const category = (channel.group || channel.category || '').toLowerCase();
+
+    // Check if category contains series keywords
+    if (seriesKeywords.some(keyword => category.includes(keyword))) {
+        return true;
+    }
+
+    // Check if in 'shows' mode
+    if (currentMode === 'shows') {
+        return true;
+    }
+
+    return false;
+}
+
+let lastBackPress = 0;
+window.addEventListener('keydown', (e) => {
+    if (e.key === 'Back' || e.key === 'Escape') {
+        const now = Date.now();
+        if (now - lastBackPress < 2000) {
+            tizen?.application?.getCurrentApplication()?.exit();
+        } else {
+            lastBackPress = now;
+            // Show toast or hint? For now just log, tizen apps usually need explicit exit
+            console.log('Press back again to exit');
+        }
+    }
+});
 
 function showSearch() {
     document.getElementById('searchModal').style.display = 'flex';

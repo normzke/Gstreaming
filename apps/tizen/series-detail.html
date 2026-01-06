@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Series Details - BingeTV</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/series-detail.css">
+</head>
+
+<body>
+    <div class="series-detail-container">
+        <!-- Header with Series Info -->
+        <div class="series-header">
+            <div class="series-poster-container">
+                <img id="seriesPoster" src="icon.png" alt="Series Poster" class="series-poster">
+            </div>
+            <div class="series-info">
+                <h1 id="seriesTitle" class="series-title">Loading...</h1>
+                <div class="series-meta">
+                    <span id="seriesGenre" class="meta-item">Genre</span>
+                    <span id="seriesRating" class="meta-item">Rating</span>
+                    <span id="seriesReleaseDate" class="meta-item">Year</span>
+                </div>
+                <p id="seriesPlot" class="series-plot">Loading plot...</p>
+                <div class="series-credits">
+                    <p id="seriesCast"><strong>Cast:</strong> Loading...</p>
+                    <p id="seriesDirector"><strong>Director:</strong> Loading...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Season Selector -->
+        <div class="season-section">
+            <h2>Seasons</h2>
+            <div id="seasonList" class="season-list" tabindex="0">
+                <!-- Season buttons will be inserted here -->
+            </div>
+        </div>
+
+        <!-- Episode List -->
+        <div class="episode-section">
+            <h2 id="episodeSectionTitle">Episodes</h2>
+            <div id="episodeList" class="episode-list">
+                <!-- Episode cards will be inserted here -->
+            </div>
+        </div>
+
+        <!-- Loading Indicator -->
+        <div id="loadingIndicator" class="loading-indicator" style="display: none;">
+            <div class="spinner"></div>
+            <p>Loading series details...</p>
+        </div>
+
+        <!-- Error Message -->
+        <div id="errorMessage" class="error-message" style="display: none;">
+            <p id="errorText">Error loading series</p>
+            <button onclick="history.back()" class="btn-primary">Go Back</button>
+        </div>
+    </div>
+
+    <script src="js/storage.js"></script>
+    <script src="js/text-utils.js"></script>
+    <script src="js/series-detail.js"></script>
+</body>
+
+</html>
