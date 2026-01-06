@@ -92,8 +92,8 @@ async function loadPlaylist() {
             icon: stream.stream_icon,
             categoryId: stream.category_id,
             streamType: stream.stream_type,
-            // Use direct M3U8 URL (HLS format) instead of TS proxy
-            url: `${configText.server}/live/${configText.username}/${configText.password}/${stream.stream_id}.m3u8`
+            // Use HTTPS proxy to avoid mixed content blocking
+            url: `api/playlist_proxy.php?action=stream&stream_id=${stream.stream_id}`
         }));
 
         console.log(`Loaded ${allChannels.length} channels.`);
