@@ -88,4 +88,14 @@ class M3UParser {
         }
         return Math.abs(hash).toString();
     }
+
+    static extractCategories(channels) {
+        const categories = new Set();
+        channels.forEach(channel => {
+            if (channel.group) {
+                categories.add(channel.group);
+            }
+        });
+        return Array.from(categories).sort();
+    }
 }
