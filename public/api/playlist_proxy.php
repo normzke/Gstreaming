@@ -11,15 +11,25 @@ ini_set('zlib.output_compression', 0);
 set_time_limit(0); // Unlimited execution time for streams
 
 if (!isLoggedIn()) {
+    error_log("[PLAYLIST PROXY] Unauthorized access attempt");
     http_response_code(403);
     echo json_encode(['error' => 'Unauthorized']);
     exit;
 }
 
-$user = $_SESSION['user'];
+$user = getCurrentUser();
+if (!$user) {
+    error_log("[PLAYLIST PROXY] Could not get current user");
+    http_response_code(403);
+    echo json_encode(['error' => 'User not found']);
+    exit;
+}
+
 $action = $_GET['action'] ?? 'get_live_streams';
 $categoryId = $_GET['category_id'] ?? null;
 $streamId = $_GET['stream_id'] ?? null;
+
+error_log("[PLAYLIST PROXY] Action: $action, User ID: {$user['id']}, Stream ID: $streamId");
 
 // Cache Configuration for API calls
 $CACHE_DIR = __DIR__ . '/../../uploads/cache/';
@@ -38,6 +48,7 @@ $stmt->execute([$user['id']]);
 $freshUser = $stmt->fetch();
 
 if (!$freshUser || empty($freshUser['tivimate_server'])) {
+    error_log("[PLAYLIST PROXY] No streaming credentials for user {$user['id']}");
     http_response_code(404);
     echo json_encode(['error' => 'No streaming credentials found']);
     exit;
