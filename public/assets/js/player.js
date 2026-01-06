@@ -92,8 +92,8 @@ async function loadPlaylist() {
             icon: stream.stream_icon,
             categoryId: stream.category_id,
             streamType: stream.stream_type,
-            // Use Proxy for Stream to fix CORS/Mixed Content
-            url: `api/playlist_proxy.php?action=stream&stream_id=${stream.stream_id}`
+            // Use direct M3U8 URL (HLS format) instead of TS proxy
+            url: `${configText.server}/live/${configText.username}/${configText.password}/${stream.stream_id}.m3u8`
         }));
 
         console.log(`Loaded ${allChannels.length} channels.`);
