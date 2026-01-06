@@ -228,8 +228,13 @@ function renderMoreChannels() {
     displayedCount = end;
 }
 
-// Playback Logic
+// Playback Logic with DEBUGGING
 function playChannel(channel) {
+    console.log('=== PLAYBACK DEBUG ===');
+    console.log('Channel:', channel.name);
+    console.log('Channel ID:', channel.id);
+    console.log('Stream URL:', channel.url);
+
     // Show Video Area
     const videoArea = document.getElementById('videoArea');
     const channelGrid = document.getElementById('channelGrid');
@@ -241,46 +246,93 @@ function playChannel(channel) {
     document.getElementById('currentChannelName').textContent = channel.name;
     document.getElementById('currentChannelDesc').textContent = 'Loading...';
 
-    if (Hls.isSupported()) {
-        if (hls) hls.destroy();
+    // Clean up previous player
+    if (hls) {
+        console.log('Destroying previous HLS instance');
+        hls.destroy();
+        hls = null;
+    }
+    videoPlayer.pause();
+    videoPlayer.src = '';
 
+    console.log('HLS.isSupported():', Hls.isSupported());
+    console.log('Native HLS support:', videoPlayer.canPlayType('application/vnd.apple.mpegurl'));
+
+    if (Hls.isSupported()) {
         const config = {
             enableWorker: true,
             lowLatencyMode: true,
             backBufferLength: 90,
-            maxBufferLength: 60, // Increased for 4K stability (matches Android)
+            maxBufferLength: 60,
             maxMaxBufferLength: 120,
             liveSyncDurationCount: 3,
-            startLevel: -1 // Auto
+            startLevel: -1,
+            debug: true, // Enable HLS.js debugging
+            xhrSetup: function (xhr, url) {
+                console.log('XHR Request to:', url);
+            }
         };
 
         hls = new Hls(config);
+        console.log('Loading source:', channel.url);
         hls.loadSource(channel.url);
         hls.attachMedia(videoPlayer);
 
         hls.on(Hls.Events.MANIFEST_PARSED, () => {
-            videoPlayer.play().catch(e => console.error("Auto-play blocked", e));
-            document.getElementById('currentChannelDesc').textContent = 'Live';
+            console.log('✅ Manifest parsed successfully');
+            console.log('Available levels:', hls.levels);
+            videoPlayer.play().then(() => {
+                console.log('✅ Playback started');
+                document.getElementById('currentChannelDesc').textContent = 'Live';
+            }).catch(e => {
+                console.error('❌ Auto-play blocked:', e);
+                document.getElementById('currentChannelDesc').textContent = 'Click to play';
+            });
         });
 
         hls.on(Hls.Events.ERROR, (event, data) => {
+            console.error('❌ HLS Error:', data.type, data.details);
+            console.error('Error data:', data);
+
             if (data.fatal) {
+                console.error('❌ Fatal error detected');
                 switch (data.type) {
                     case Hls.ErrorTypes.NETWORK_ERROR:
+                        console.log('Network error, attempting recovery...');
+                        document.getElementById('currentChannelDesc').textContent = 'Network error, retrying...';
                         hls.startLoad();
                         break;
                     case Hls.ErrorTypes.MEDIA_ERROR:
+                        console.log('Media error, attempting recovery...');
+                        document.getElementById('currentChannelDesc').textContent = 'Media error, recovering...';
                         hls.recoverMediaError();
                         break;
                     default:
+                        console.error('Unrecoverable error, destroying player');
+                        document.getElementById('currentChannelDesc').textContent = 'Playback failed: ' + data.details;
                         hls.destroy();
+                        showError('Failed to play channel: ' + data.details);
                         break;
                 }
             }
         });
+
+        hls.on(Hls.Events.FRAG_LOADED, (event, data) => {
+            console.log('Fragment loaded:', data.frag.url);
+        });
+
     } else if (videoPlayer.canPlayType('application/vnd.apple.mpegurl')) {
+        console.log('Using native HLS support');
         videoPlayer.src = channel.url;
-        videoPlayer.play();
+        videoPlayer.play().then(() => {
+            console.log('✅ Native playback started');
+        }).catch(e => {
+            console.error('❌ Native playback error:', e);
+            showError('Playback failed: ' + e.message);
+        });
+    } else {
+        console.error('❌ HLS not supported on this browser');
+        showError('HLS playback not supported on this browser');
     }
 
     // Handle Escape Key and Arrow Keys for channel switching
@@ -289,6 +341,8 @@ function playChannel(channel) {
     // Store current channel for switching
     currentPlayingChannel = channel;
     currentChannelIndex = filteredChannels.findIndex(ch => ch.id === channel.id);
+
+    console.log('Current channel index:', currentChannelIndex, '/', filteredChannels.length);
 }
 
 // Channel Switching with Arrow Keys
