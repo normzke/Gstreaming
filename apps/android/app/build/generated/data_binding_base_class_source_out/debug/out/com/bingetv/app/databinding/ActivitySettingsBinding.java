@@ -4,12 +4,11 @@ package com.bingetv.app.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ScrollView;
-import android.widget.SeekBar;
-import android.widget.TextView;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
 import com.bingetv.app.R;
@@ -19,37 +18,24 @@ import java.lang.String;
 
 public final class ActivitySettingsBinding implements ViewBinding {
   @NonNull
-  private final ScrollView rootView;
+  private final LinearLayout rootView;
 
   @NonNull
-  public final Button aboutButton;
+  public final RecyclerView settingsCategoriesList;
 
   @NonNull
-  public final Button clearCacheButton;
+  public final FrameLayout settingsContentFrame;
 
-  @NonNull
-  public final SeekBar gridColumnsSeekbar;
-
-  @NonNull
-  public final TextView gridColumnsText;
-
-  @NonNull
-  public final Button logoutButton;
-
-  private ActivitySettingsBinding(@NonNull ScrollView rootView, @NonNull Button aboutButton,
-      @NonNull Button clearCacheButton, @NonNull SeekBar gridColumnsSeekbar,
-      @NonNull TextView gridColumnsText, @NonNull Button logoutButton) {
+  private ActivitySettingsBinding(@NonNull LinearLayout rootView,
+      @NonNull RecyclerView settingsCategoriesList, @NonNull FrameLayout settingsContentFrame) {
     this.rootView = rootView;
-    this.aboutButton = aboutButton;
-    this.clearCacheButton = clearCacheButton;
-    this.gridColumnsSeekbar = gridColumnsSeekbar;
-    this.gridColumnsText = gridColumnsText;
-    this.logoutButton = logoutButton;
+    this.settingsCategoriesList = settingsCategoriesList;
+    this.settingsContentFrame = settingsContentFrame;
   }
 
   @Override
   @NonNull
-  public ScrollView getRoot() {
+  public LinearLayout getRoot() {
     return rootView;
   }
 
@@ -74,38 +60,20 @@ public final class ActivitySettingsBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
-      id = R.id.about_button;
-      Button aboutButton = ViewBindings.findChildViewById(rootView, id);
-      if (aboutButton == null) {
+      id = R.id.settings_categories_list;
+      RecyclerView settingsCategoriesList = ViewBindings.findChildViewById(rootView, id);
+      if (settingsCategoriesList == null) {
         break missingId;
       }
 
-      id = R.id.clear_cache_button;
-      Button clearCacheButton = ViewBindings.findChildViewById(rootView, id);
-      if (clearCacheButton == null) {
+      id = R.id.settings_content_frame;
+      FrameLayout settingsContentFrame = ViewBindings.findChildViewById(rootView, id);
+      if (settingsContentFrame == null) {
         break missingId;
       }
 
-      id = R.id.grid_columns_seekbar;
-      SeekBar gridColumnsSeekbar = ViewBindings.findChildViewById(rootView, id);
-      if (gridColumnsSeekbar == null) {
-        break missingId;
-      }
-
-      id = R.id.grid_columns_text;
-      TextView gridColumnsText = ViewBindings.findChildViewById(rootView, id);
-      if (gridColumnsText == null) {
-        break missingId;
-      }
-
-      id = R.id.logout_button;
-      Button logoutButton = ViewBindings.findChildViewById(rootView, id);
-      if (logoutButton == null) {
-        break missingId;
-      }
-
-      return new ActivitySettingsBinding((ScrollView) rootView, aboutButton, clearCacheButton,
-          gridColumnsSeekbar, gridColumnsText, logoutButton);
+      return new ActivitySettingsBinding((LinearLayout) rootView, settingsCategoriesList,
+          settingsContentFrame);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

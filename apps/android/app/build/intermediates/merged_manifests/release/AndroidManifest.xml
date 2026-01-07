@@ -103,6 +103,10 @@
             android:name="com.bingetv.app.PlaylistBrowserActivity"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.Leanback" />
+        <activity
+            android:name="com.bingetv.app.ui.details.SeriesDetailActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.Leanback" />
 
         <receiver
             android:name="com.bingetv.app.receivers.BootReceiver"

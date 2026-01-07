@@ -1,6 +1,6 @@
 <lint-module
     format="1"
-    dir="/Users/la/Desktop/android/app"
+    dir="/Users/la/Downloads/Bingetv/apps/android/app"
     name=":app"
     type="APP"
     maven="BingeTV:app:"

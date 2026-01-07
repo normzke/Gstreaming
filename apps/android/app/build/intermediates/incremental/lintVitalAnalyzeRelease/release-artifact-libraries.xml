@@ -411,6 +411,32 @@
       externalAnnotations="annotations.zip"
       proguardRules="proguard.txt"/>
   <library
+      name="androidx.paging:paging-runtime-ktx:3.1.1@aar"
+      jars="/Users/la/.gradle/caches/transforms-3/0b3eb9b8f368d65a76b6d6067bb39192/transformed/jetified-paging-runtime-ktx-3.1.1/jars/classes.jar"
+      resolved="androidx.paging:paging-runtime-ktx:3.1.1"
+      folder="/Users/la/.gradle/caches/transforms-3/0b3eb9b8f368d65a76b6d6067bb39192/transformed/jetified-paging-runtime-ktx-3.1.1"
+      manifest="AndroidManifest.xml"
+      resFolder="res"
+      assetsFolder="assets"
+      lintJar="lint.jar"
+      publicResources="public.txt"
+      symbolFile="R.txt"
+      externalAnnotations="annotations.zip"
+      proguardRules="proguard.txt"/>
+  <library
+      name="androidx.paging:paging-runtime:3.1.1@aar"
+      jars="/Users/la/.gradle/caches/transforms-3/2b0b6843db0b76fc8d4c7b676bf3d6d4/transformed/paging-runtime-3.1.1/jars/classes.jar"
+      resolved="androidx.paging:paging-runtime:3.1.1"
+      folder="/Users/la/.gradle/caches/transforms-3/2b0b6843db0b76fc8d4c7b676bf3d6d4/transformed/paging-runtime-3.1.1"
+      manifest="AndroidManifest.xml"
+      resFolder="res"
+      assetsFolder="assets"
+      lintJar="lint.jar"
+      publicResources="public.txt"
+      symbolFile="R.txt"
+      externalAnnotations="annotations.zip"
+      proguardRules="proguard.txt"/>
+  <library
       name="androidx.recyclerview:recyclerview:1.3.0@aar"
       jars="/Users/la/.gradle/caches/transforms-3/99886c5440c5e34ebef17ed1ddbcc330/transformed/recyclerview-1.3.0/jars/classes.jar"
       resolved="androidx.recyclerview:recyclerview:1.3.0"
@@ -683,6 +709,27 @@
       symbolFile="R.txt"
       externalAnnotations="annotations.zip"
       proguardRules="proguard.txt"/>
+  <library
+      name="androidx.room:room-paging:2.5.2@aar"
+      jars="/Users/la/.gradle/caches/transforms-3/a2a63bf611c6ad5022c70e635b3eee0b/transformed/jetified-room-paging-2.5.2/jars/classes.jar"
+      resolved="androidx.room:room-paging:2.5.2"
+      folder="/Users/la/.gradle/caches/transforms-3/a2a63bf611c6ad5022c70e635b3eee0b/transformed/jetified-room-paging-2.5.2"
+      manifest="AndroidManifest.xml"
+      resFolder="res"
+      assetsFolder="assets"
+      lintJar="lint.jar"
+      publicResources="public.txt"
+      symbolFile="R.txt"
+      externalAnnotations="annotations.zip"
+      proguardRules="proguard.txt"/>
+  <library
+      name="androidx.paging:paging-common-ktx:3.1.1@jar"
+      jars="/Users/la/.gradle/caches/modules-2/files-2.1/androidx.paging/paging-common-ktx/3.1.1/5b8f86fea035328fc9e8c660773037a3401ce25f/paging-common-ktx-3.1.1.jar"
+      resolved="androidx.paging:paging-common-ktx:3.1.1"/>
+  <library
+      name="androidx.paging:paging-common:3.1.1@jar"
+      jars="/Users/la/.gradle/caches/modules-2/files-2.1/androidx.paging/paging-common/3.1.1/586d234381652d6107a0cb5754bd29c0a6807fbe/paging-common-3.1.1.jar"
+      resolved="androidx.paging:paging-common:3.1.1"/>
   <library
       name="org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.7.1@jar"
       jars="/Users/la/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlinx/kotlinx-coroutines-core-jvm/1.7.1/63a0779cf668e2a47d13fda7c3b0c4f8dc7762f4/kotlinx-coroutines-core-jvm-1.7.1.jar"

@@ -18,31 +18,31 @@ $messageType = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $action = $_POST['action'] ?? '';
-    
+
     try {
         switch ($action) {
             case 'update_payment_status':
-                $payment_id = (int)$_POST['payment_id'];
+                $payment_id = (int) $_POST['payment_id'];
                 $status = sanitizeInput($_POST['status']);
-                
+
                 $updateQuery = "UPDATE payments SET status = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?";
                 $updateStmt = $conn->prepare($updateQuery);
                 $updateStmt->execute([$status, $payment_id]);
-                
+
                 $message = 'Payment status updated successfully!';
                 $messageType = 'success';
                 break;
-                
+
             case 'refund_payment':
-                $payment_id = (int)$_POST['payment_id'];
-                $refund_amount = (float)$_POST['refund_amount'];
+                $payment_id = (int) $_POST['payment_id'];
+                $refund_amount = (float) $_POST['refund_amount'];
                 $refund_reason = sanitizeInput($_POST['refund_reason']);
-                
+
                 // Update payment status to refunded
                 $updateQuery = "UPDATE payments SET status = 'refunded', refund_amount = ?, refund_reason = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?";
                 $updateStmt = $conn->prepare($updateQuery);
                 $updateStmt->execute([$refund_amount, $refund_reason, $payment_id]);
-                
+
                 $message = 'Payment refunded successfully!';
                 $messageType = 'success';
                 break;
@@ -54,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 // Get pagination parameters
-$page = (int)($_GET['page'] ?? 1);
+$page = (int) ($_GET['page'] ?? 1);
 $limit = 20;
 $offset = ($page - 1) * $limit;
 
@@ -124,14 +124,15 @@ include 'includes/header.php';
 
 <!-- Messages -->
 <?php if ($message): ?>
-<div class="admin-card" style="margin-bottom: 1.5rem;">
-    <div class="card-body">
-        <div class="alert alert-<?php echo $messageType; ?>" style="display: flex; align-items: center; gap: 0.5rem; padding: 1rem; border-radius: var(--admin-radius); background: <?php echo $messageType === 'success' ? '#D1FAE5' : '#FEE2E2'; ?>; color: <?php echo $messageType === 'success' ? '#065F46' : '#991B1B'; ?>;">
-            <i class="fas fa-<?php echo $messageType === 'success' ? 'check-circle' : 'exclamation-circle'; ?>"></i>
-            <?php echo htmlspecialchars($message); ?>
+    <div class="admin-card" style="margin-bottom: 1.5rem;">
+        <div class="card-body">
+            <div class="alert alert-<?php echo $messageType; ?>"
+                style="display: flex; align-items: center; gap: 0.5rem; padding: 1rem; border-radius: var(--admin-radius); background: <?php echo $messageType === 'success' ? '#D1FAE5' : '#FEE2E2'; ?>; color: <?php echo $messageType === 'success' ? '#065F46' : '#991B1B'; ?>;">
+                <i class="fas fa-<?php echo $messageType === 'success' ? 'check-circle' : 'exclamation-circle'; ?>"></i>
+                <?php echo htmlspecialchars($message); ?>
+            </div>
         </div>
     </div>
-</div>
 <?php endif; ?>
 
 <!-- Payment Statistics -->
@@ -180,10 +181,12 @@ include 'includes/header.php';
                 <label for="status">Status</label>
                 <select id="status" name="status">
                     <option value="all" <?php echo $status_filter === 'all' ? 'selected' : ''; ?>>All Status</option>
-                    <option value="completed" <?php echo $status_filter === 'completed' ? 'selected' : ''; ?>>Completed</option>
+                    <option value="completed" <?php echo $status_filter === 'completed' ? 'selected' : ''; ?>>Completed
+                    </option>
                     <option value="pending" <?php echo $status_filter === 'pending' ? 'selected' : ''; ?>>Pending</option>
                     <option value="failed" <?php echo $status_filter === 'failed' ? 'selected' : ''; ?>>Failed</option>
-                    <option value="refunded" <?php echo $status_filter === 'refunded' ? 'selected' : ''; ?>>Refunded</option>
+                    <option value="refunded" <?php echo $status_filter === 'refunded' ? 'selected' : ''; ?>>Refunded
+                    </option>
                 </select>
             </div>
             <div class="form-group">
@@ -225,42 +228,58 @@ include 'includes/header.php';
             </thead>
             <tbody>
                 <?php foreach ($payments as $payment): ?>
-                <tr>
-                    <td>#<?php echo $payment['id']; ?></td>
-                    <td>
-                        <div>
-                            <strong><?php echo htmlspecialchars($payment['first_name'] . ' ' . $payment['last_name']); ?></strong>
-                            <br>
-                            <small class="text-muted"><?php echo htmlspecialchars($payment['email']); ?></small>
-                        </div>
-                    </td>
-                    <td><?php echo htmlspecialchars($payment['package_name'] ?: '-'); ?></td>
-                    <td>
-                        <strong><?php echo $payment['currency']; ?> <?php echo number_format($payment['amount'], 2); ?></strong>
-                    </td>
-                    <td>
-                        <span class="badge badge-<?php echo $payment['status'] === 'completed' ? 'success' : ($payment['status'] === 'pending' ? 'warning' : 'danger'); ?>">
-                            <?php echo ucfirst($payment['status']); ?>
-                        </span>
-                    </td>
-                    <td><?php echo htmlspecialchars($payment['payment_method'] ?: '-'); ?></td>
-                    <td><?php echo date('M j, Y H:i', strtotime($payment['created_at'])); ?></td>
-                    <td>
-                        <button class="btn btn-secondary" onclick="viewPayment(<?php echo $payment['id']; ?>)" title="View Details">
-                            <i class="fas fa-eye"></i>
-                        </button>
-                        <?php if ($payment['status'] === 'pending'): ?>
-                        <button class="btn btn-success" onclick="updateStatus(<?php echo $payment['id']; ?>, 'completed')" title="Mark Complete">
-                            <i class="fas fa-check"></i>
-                        </button>
-                        <?php endif; ?>
-                        <?php if ($payment['status'] === 'completed'): ?>
-                        <button class="btn btn-warning" onclick="refundPayment(<?php echo $payment['id']; ?>)" title="Refund">
-                            <i class="fas fa-undo"></i>
-                        </button>
-                        <?php endif; ?>
-                    </td>
-                </tr>
+                    <tr>
+                        <td>#<?php echo $payment['id']; ?></td>
+                        <td>
+                            <div>
+                                <strong><?php echo htmlspecialchars($payment['first_name'] . ' ' . $payment['last_name']); ?></strong>
+                                <br>
+                                <small class="text-muted"><?php echo htmlspecialchars($payment['email']); ?></small>
+                            </div>
+                        </td>
+                        <td><?php echo htmlspecialchars($payment['package_name'] ?: '-'); ?></td>
+                        <td>
+                            <strong><?php echo $payment['currency']; ?>
+                                <?php echo number_format($payment['amount'], 2); ?></strong>
+                        </td>
+                        <td>
+                            <span
+                                class="badge badge-<?php echo $payment['status'] === 'completed' ? 'success' : ($payment['status'] === 'pending' ? 'warning' : 'danger'); ?>">
+                                <?php echo ucfirst($payment['status']); ?>
+                            </span>
+                        </td>
+                        <td>
+                            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                <?php if (stripos($payment['payment_method'], 'paystack') !== false): ?>
+                                    <i class="fas fa-credit-card" style="color: #09a5db;"></i>
+                                <?php else: ?>
+                                    <i class="fas fa-mobile-alt" style="color: #10B981;"></i>
+                                <?php endif; ?>
+                                <span style="text-transform: capitalize;">
+                                    <?php echo htmlspecialchars(str_replace(['_', 'paystack'], [' ', 'Card'], $payment['payment_method'] ?: 'M-Pesa')); ?>
+                                </span>
+                            </div>
+                        </td>
+                        <td><?php echo date('M j, Y H:i', strtotime($payment['created_at'])); ?></td>
+                        <td>
+                            <button class="btn btn-secondary" onclick="viewPayment(<?php echo $payment['id']; ?>)"
+                                title="View Details">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <?php if ($payment['status'] === 'pending'): ?>
+                                <button class="btn btn-success"
+                                    onclick="updateStatus(<?php echo $payment['id']; ?>, 'completed')" title="Mark Complete">
+                                    <i class="fas fa-check"></i>
+                                </button>
+                            <?php endif; ?>
+                            <?php if ($payment['status'] === 'completed'): ?>
+                                <button class="btn btn-warning" onclick="refundPayment(<?php echo $payment['id']; ?>)"
+                                    title="Refund">
+                                    <i class="fas fa-undo"></i>
+                                </button>
+                            <?php endif; ?>
+                        </td>
+                    </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
@@ -269,167 +288,169 @@ include 'includes/header.php';
 
 <!-- Pagination -->
 <?php if ($total_pages > 1): ?>
-<div class="admin-card">
-    <div class="card-body">
-        <div class="pagination">
-            <?php if ($page > 1): ?>
-                <a href="?page=<?php echo $page - 1; ?>&status=<?php echo urlencode($status_filter); ?>&date_from=<?php echo urlencode($date_from); ?>&date_to=<?php echo urlencode($date_to); ?>" class="btn btn-secondary">
-                    <i class="fas fa-chevron-left"></i>
-                    Previous
-                </a>
-            <?php endif; ?>
-            
-            <span class="pagination-info">
-                Page <?php echo $page; ?> of <?php echo $total_pages; ?>
-            </span>
-            
-            <?php if ($page < $total_pages): ?>
-                <a href="?page=<?php echo $page + 1; ?>&status=<?php echo urlencode($status_filter); ?>&date_from=<?php echo urlencode($date_from); ?>&date_to=<?php echo urlencode($date_to); ?>" class="btn btn-secondary">
-                    Next
-                    <i class="fas fa-chevron-right"></i>
-                </a>
-            <?php endif; ?>
+    <div class="admin-card">
+        <div class="card-body">
+            <div class="pagination">
+                <?php if ($page > 1): ?>
+                    <a href="?page=<?php echo $page - 1; ?>&status=<?php echo urlencode($status_filter); ?>&date_from=<?php echo urlencode($date_from); ?>&date_to=<?php echo urlencode($date_to); ?>"
+                        class="btn btn-secondary">
+                        <i class="fas fa-chevron-left"></i>
+                        Previous
+                    </a>
+                <?php endif; ?>
+
+                <span class="pagination-info">
+                    Page <?php echo $page; ?> of <?php echo $total_pages; ?>
+                </span>
+
+                <?php if ($page < $total_pages): ?>
+                    <a href="?page=<?php echo $page + 1; ?>&status=<?php echo urlencode($status_filter); ?>&date_from=<?php echo urlencode($date_from); ?>&date_to=<?php echo urlencode($date_to); ?>"
+                        class="btn btn-secondary">
+                        Next
+                        <i class="fas fa-chevron-right"></i>
+                    </a>
+                <?php endif; ?>
+            </div>
         </div>
     </div>
-</div>
 <?php endif; ?>
 
 <style>
-.stat-item {
-    text-align: center;
-    padding: 1rem;
-    background: #f8f9fa;
-    border-radius: var(--admin-radius);
-}
+    .stat-item {
+        text-align: center;
+        padding: 1rem;
+        background: #f8f9fa;
+        border-radius: var(--admin-radius);
+    }
 
-.stat-item h4 {
-    margin: 0 0 0.5rem 0;
-    font-size: 1.5rem;
-    color: var(--admin-primary);
-}
+    .stat-item h4 {
+        margin: 0 0 0.5rem 0;
+        font-size: 1.5rem;
+        color: var(--admin-primary);
+    }
 
-.stat-item p {
-    margin: 0;
-    color: var(--admin-text-light);
-    font-size: 0.875rem;
-}
+    .stat-item p {
+        margin: 0;
+        color: var(--admin-text-light);
+        font-size: 0.875rem;
+    }
 
-.filter-form {
-    display: flex;
-    gap: 1rem;
-    align-items: end;
-}
+    .filter-form {
+        display: flex;
+        gap: 1rem;
+        align-items: end;
+    }
 
-.filter-form .form-group {
-    margin-bottom: 0;
-}
+    .filter-form .form-group {
+        margin-bottom: 0;
+    }
 
-.pagination {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    margin-top: 1rem;
-}
+    .pagination {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        margin-top: 1rem;
+    }
 
-.pagination-info {
-    color: var(--admin-text-light);
-    font-size: 0.875rem;
-}
+    .pagination-info {
+        color: var(--admin-text-light);
+        font-size: 0.875rem;
+    }
 
-.badge {
-    padding: 0.25rem 0.75rem;
-    border-radius: 9999px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-}
+    .badge {
+        padding: 0.25rem 0.75rem;
+        border-radius: 9999px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
 
-.badge-success {
-    background: #D1FAE5;
-    color: #065F46;
-}
+    .badge-success {
+        background: #D1FAE5;
+        color: #065F46;
+    }
 
-.badge-warning {
-    background: #FEF3C7;
-    color: #92400E;
-}
+    .badge-warning {
+        background: #FEF3C7;
+        color: #92400E;
+    }
 
-.badge-danger {
-    background: #FEE2E2;
-    color: #991B1B;
-}
+    .badge-danger {
+        background: #FEE2E2;
+        color: #991B1B;
+    }
 
-.text-muted {
-    color: var(--admin-text-light);
-}
+    .text-muted {
+        color: var(--admin-text-light);
+    }
 
-.form-group {
-    margin-bottom: 1rem;
-}
+    .form-group {
+        margin-bottom: 1rem;
+    }
 
-.form-group label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: 500;
-    color: var(--admin-text);
-}
+    .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+        color: var(--admin-text);
+    }
 
-.form-group input,
-.form-group select {
-    width: 100%;
-    padding: 0.75rem;
-    border: 1px solid var(--admin-border);
-    border-radius: var(--admin-radius);
-    font-size: 1rem;
-}
+    .form-group input,
+    .form-group select {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid var(--admin-border);
+        border-radius: var(--admin-radius);
+        font-size: 1rem;
+    }
 
-.form-group input:focus,
-.form-group select:focus {
-    outline: none;
-    border-color: var(--admin-primary);
-    box-shadow: 0 0 0 3px rgba(139, 0, 0, 0.1);
-}
+    .form-group input:focus,
+    .form-group select:focus {
+        outline: none;
+        border-color: var(--admin-primary);
+        box-shadow: 0 0 0 3px rgba(139, 0, 0, 0.1);
+    }
 </style>
 
 <script>
-function viewPayment(id) {
-    console.log('View payment:', id);
-}
+    function viewPayment(id) {
+        console.log('View payment:', id);
+    }
 
-function updateStatus(id, status) {
-    if (confirm('Are you sure you want to update this payment status?')) {
-        const form = document.createElement('form');
-        form.method = 'POST';
-        form.innerHTML = `
+    function updateStatus(id, status) {
+        if (confirm('Are you sure you want to update this payment status?')) {
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.innerHTML = `
             <input type="hidden" name="action" value="update_payment_status">
             <input type="hidden" name="payment_id" value="${id}">
             <input type="hidden" name="status" value="${status}">
         `;
-        document.body.appendChild(form);
-        form.submit();
+            document.body.appendChild(form);
+            form.submit();
+        }
     }
-}
 
-function refundPayment(id) {
-    const amount = prompt('Enter refund amount:');
-    if (amount && !isNaN(amount)) {
-        const reason = prompt('Enter refund reason:');
-        if (reason) {
-            const form = document.createElement('form');
-            form.method = 'POST';
-            form.innerHTML = `
+    function refundPayment(id) {
+        const amount = prompt('Enter refund amount:');
+        if (amount && !isNaN(amount)) {
+            const reason = prompt('Enter refund reason:');
+            if (reason) {
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.innerHTML = `
                 <input type="hidden" name="action" value="refund_payment">
                 <input type="hidden" name="payment_id" value="${id}">
                 <input type="hidden" name="refund_amount" value="${amount}">
                 <input type="hidden" name="refund_reason" value="${reason}">
             `;
-            document.body.appendChild(form);
-            form.submit();
+                document.body.appendChild(form);
+                form.submit();
+            }
         }
     }
-}
 </script>
 
 <?php include 'includes/footer.php'; ?>

@@ -65,37 +65,18 @@ $seo_meta = class_exists('SEO') ? SEO::getMetaTags('apps') : ['title' => 'Apps',
 
         body {
             font-family: 'Inter', sans-serif;
-            background: #0f172a;
-            color: #ffffff;
+            background: #f8fafc;
+            color: #1e293b;
             min-height: 100vh;
             padding-top: 80px;
-            /* Space for fixed navbar */
-        }
-
-        /* Renamed to avoid conflicts with global header */
-        .apps-hero {
-            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-            padding: 40px 20px;
-            text-align: center;
-            border-bottom: 3px solid #8B0000;
-            box-shadow: 0 10px 30px rgba(139, 0, 0, 0.1);
-        }
-
-        .apps-hero h1 {
-            font-family: 'Orbitron', sans-serif;
-            background: #0f172a;
-            color: #ffffff;
-            min-height: 100vh;
-            padding-top: 80px;
-            /* Account for fixed navbar */
         }
 
         .apps-hero {
-            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-            padding: 40px 20px;
+            background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%);
+            padding: 60px 20px;
             text-align: center;
             border-bottom: 3px solid #8B0000;
-            box-shadow: 0 10px 30px rgba(139, 0, 0, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
         }
 
         .apps-hero h1 {
@@ -103,12 +84,11 @@ $seo_meta = class_exists('SEO') ? SEO::getMetaTags('apps') : ['title' => 'Apps',
             font-size: 48px;
             color: #8B0000;
             margin-bottom: 15px;
-            text-shadow: 0 2px 4px rgba(139, 0, 0, 0.1);
         }
 
         .apps-hero p {
             font-size: 20px;
-            color: #6b7280;
+            color: #64748b;
             max-width: 800px;
             margin: 0 auto;
         }
@@ -127,15 +107,15 @@ $seo_meta = class_exists('SEO') ? SEO::getMetaTags('apps') : ['title' => 'Apps',
         }
 
         .platform-card {
-            background: #1e293b;
-            border: 2px solid #334155;
+            background: #ffffff;
+            border: 2px solid #e2e8f0;
             border-radius: 20px;
             padding: 30px;
             text-align: center;
             transition: all 0.3s;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
         }
 
         .platform-card::before {
@@ -162,7 +142,7 @@ $seo_meta = class_exists('SEO') ? SEO::getMetaTags('apps') : ['title' => 'Apps',
 
         .platform-card.detected {
             border-color: #ef4444;
-            background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(30, 41, 59, 1) 100%);
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.05) 0%, rgba(255, 255, 255, 1) 100%);
         }
 
         .platform-icon {
@@ -180,13 +160,13 @@ $seo_meta = class_exists('SEO') ? SEO::getMetaTags('apps') : ['title' => 'Apps',
         .platform-name {
             font-size: 28px;
             font-weight: bold;
-            color: #f1f5f9;
+            color: #1e293b;
             margin-bottom: 10px;
             text-align: center;
         }
 
         .platform-desc {
-            color: #94a3b8;
+            color: #64748b;
             margin-bottom: 20px;
             text-align: center;
             font-size: 14px;
@@ -199,7 +179,7 @@ $seo_meta = class_exists('SEO') ? SEO::getMetaTags('apps') : ['title' => 'Apps',
 
         .platform-features li {
             padding: 8px 0;
-            color: #cbd5e1;
+            color: #475569;
             font-size: 14px;
         }
 
@@ -248,27 +228,28 @@ $seo_meta = class_exists('SEO') ? SEO::getMetaTags('apps') : ['title' => 'Apps',
         .section-title {
             font-family: 'Orbitron', sans-serif;
             font-size: 36px;
-            color: #f1f5f9;
+            color: #1e293b;
             margin-bottom: 30px;
             text-align: center;
         }
 
         .instructions {
-            background: #1e293b;
-            border: 2px solid #334155;
+            background: #ffffff;
+            border: 2px solid #e2e8f0;
             border-radius: 15px;
             padding: 30px;
             margin-bottom: 40px;
+            box-shadow: var(--shadow-md);
         }
 
         .instructions h3 {
-            color: #f87171;
+            color: #8B0000;
             margin-bottom: 15px;
             font-size: 24px;
         }
 
         .instructions ol {
-            color: #cbd5e1;
+            color: #475569;
             padding-left: 25px;
         }
 
@@ -450,13 +431,28 @@ $seo_meta = class_exists('SEO') ? SEO::getMetaTags('apps') : ['title' => 'Apps',
             color: #A52A2A;
         }
 
-        @media (max-width: 768px) {
-            .header h1 {
+        @media (max-width: 1100px) {
+            .apps-hero h1 {
                 font-size: 32px;
             }
 
             .platform-grid {
                 grid-template-columns: 1fr;
+            }
+        }
+
+        /* Mobile menu display fix */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .nav-menu.active {
+                display: flex !important;
+            }
+
+            .hamburger {
+                display: flex;
             }
         }
     </style>
@@ -550,12 +546,12 @@ $seo_meta = class_exists('SEO') ? SEO::getMetaTags('apps') : ['title' => 'Apps',
                     <li><i class="fas fa-check"></i> M3U & Xtream Codes Support</li>
                 </ul>
 
-                <a href="apps/android/bingetv-android-tv.apk" class="download-btn" download>
+                <a href="/BingeTV.apk" class="download-btn" download>
                     <i class="fas fa-download"></i> Download APK
                 </a>
 
                 <div class="qr-code">
-                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=<?php echo urlencode(SITE_URL . '/apps/android/bingetv-android-tv.apk'); ?>"
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=<?php echo urlencode(SITE_URL . '/BingeTV.apk'); ?>"
                         alt="QR Code">
                     <p>Scan to download</p>
                 </div>
@@ -623,12 +619,15 @@ $seo_meta = class_exists('SEO') ? SEO::getMetaTags('apps') : ['title' => 'Apps',
         </div>
 
         <!-- Alternative App Section -->
-        <div style="margin: 3rem 0; padding: 2rem; background: rgba(255,255,255,0.03); border-radius: 15px; border: 2px solid rgba(255,255,255,0.1);">
-            <h2 class="section-title" style="margin-bottom: 1rem;"><i class="fas fa-info-circle"></i> Alternative Player</h2>
+        <div
+            style="margin: 3rem 0; padding: 2rem; background: rgba(255,255,255,0.03); border-radius: 15px; border: 2px solid rgba(255,255,255,0.1);">
+            <h2 class="section-title" style="margin-bottom: 1rem;"><i class="fas fa-info-circle"></i> Alternative Player
+            </h2>
             <p style="text-align: center; color: rgba(255,255,255,0.7); margin-bottom: 2rem; font-size: 1.05rem;">
-                If our native BingeTV app is not compatible with your device, you can use TiviMate8KPro as an alternative
+                If our native BingeTV app is not compatible with your device, you can use TiviMate8KPro as an
+                alternative
             </p>
-            
+
             <div class="platform-card" style="max-width: 600px; margin: 0 auto;">
                 <i class="fab fa-android platform-icon"></i>
                 <h3 class="platform-name">TiviMate8KPro</h3>
@@ -755,7 +754,7 @@ $seo_meta = class_exists('SEO') ? SEO::getMetaTags('apps') : ['title' => 'Apps',
             window.addEventListener('DOMContentLoaded', function () {
                 const downloadUrl = <?php
                 if ($detected_platform === 'android') {
-                    echo "'/apps/android/bingetv-android-tv.apk'";
+                    echo "'/BingeTV.apk'";
                 } elseif ($detected_platform === 'webos') {
                     echo "'/apps/webos/com.bingetv.app_1.0.0_all.ipk'";
                 } else {
@@ -793,13 +792,12 @@ $seo_meta = class_exists('SEO') ? SEO::getMetaTags('apps') : ['title' => 'Apps',
 
                         console.log('Auto-download triggered for: ' + downloadUrl);
 
-                        // Show success message
+                        // Show success message (console only to avoid blocking UI)
                         setTimeout(function () {
-                            alert('Download started! Check your Downloads folder. If download didn\'t start, use the "Click Here to Download" button above.');
+                            console.log('Download started! Check your Downloads folder.');
                         }, 2000);
                     } catch (error) {
                         console.error('Auto-download failed:', error);
-                        alert('Please use the "Click Here to Download" button to download the app.');
                     }
                 }, 1500); // 1.5 second delay to show the modal first
             });
@@ -809,7 +807,12 @@ $seo_meta = class_exists('SEO') ? SEO::getMetaTags('apps') : ['title' => 'Apps',
             const modal = document.getElementById('autoDownloadModal');
             if (modal) {
                 modal.classList.remove('active');
-                <!-- Footer -->
-                <?php include 'includes/footer.php'; ?>
-</body >
-</html >
+            }
+        }
+    </script>
+
+    <!-- Footer -->
+    <?php include __DIR__ . '/includes/footer.php'; ?>
+</body>
+
+</html>

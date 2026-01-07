@@ -56,8 +56,10 @@ CREATE TABLE payments (
     mpesa_receipt_number VARCHAR(50),
     mpesa_transaction_id VARCHAR(50),
     mpesa_checkout_request_id VARCHAR(100),
-    phone_number VARCHAR(20),
+    paystack_reference VARCHAR(100),
+    paystack_response JSONB,
     status VARCHAR(20) DEFAULT 'pending', -- pending, completed, failed, cancelled
+    failure_reason TEXT,
     transaction_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

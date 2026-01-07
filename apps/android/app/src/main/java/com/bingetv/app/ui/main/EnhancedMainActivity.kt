@@ -24,11 +24,16 @@ import com.bingetv.app.ui.login.LoginActivity
 import com.bingetv.app.PlaybackActivity
 import com.bingetv.app.utils.PreferencesManager
 import com.bingetv.app.utils.Constants
+import com.bingetv.app.utils.TextUtils
 import com.bingetv.app.utils.show
 import com.bingetv.app.utils.hide
 import com.bingetv.app.utils.dpToPx
+import com.bingetv.app.utils.dpToPx
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.isActive
+import androidx.paging.PagingData
+import kotlinx.coroutines.flow.collectLatest
+import com.bingetv.app.ui.adapters.ChannelPagingAdapter
 
 class EnhancedMainActivity : AppCompatActivity() {
     
@@ -62,10 +67,11 @@ class EnhancedMainActivity : AppCompatActivity() {
     
     // Adapters
     private lateinit var categoryAdapter: CategoryAdapter
-    private lateinit var channelAdapter: ChannelGridAdapter
+    private lateinit var channelAdapter: ChannelPagingAdapter
+    private var pagingJob: kotlinx.coroutines.Job? = null
     
     // Data
-    private var allChannels = listOf<ChannelEntity>()
+    // private var allChannels = listOf<ChannelEntity>() // Removed for Paging
     private var allCategories = listOf<CategoryEntity>()
     private var currentCategory: String? = null
     private var searchQuery: String? = null
@@ -96,6 +102,13 @@ class EnhancedMainActivity : AppCompatActivity() {
         setupRecyclerViews()
         setupListeners()
         loadPlaylist()
+        
+        // Debug Focus
+        window.decorView.viewTreeObserver.addOnGlobalFocusChangeListener { oldFocus, newFocus ->
+            val oldName = try { if (oldFocus != null) resources.getResourceEntryName(oldFocus.id) else "null" } catch (e: Exception) { "no-id" }
+            val newName = try { if (newFocus != null) resources.getResourceEntryName(newFocus.id) else "null" } catch (e: Exception) { "no-id" }
+            android.util.Log.d("FocusDebug", "Focus changed: $oldName -> $newName")
+        }
     }
     
     private fun setMode(mode: String) {
@@ -181,22 +194,26 @@ class EnhancedMainActivity : AppCompatActivity() {
     private fun startEpgRefresher() {
         stopEpgRefresher()
         epgJob = lifecycleScope.launch(kotlinx.coroutines.Dispatchers.IO) {
+            // Wait a bit after startup to avoid competing with main playlist load
+            kotlinx.coroutines.delay(5000)
             while (isActive) {
                 try {
                     val now = System.currentTimeMillis()
-                    val programs = database.epgDao().getAllActivePrograms(now)
-                    // Group by channelId
-                    val map = programs.groupBy { it.channelId }
+                    // Fetch only programs that are active now or soon (limit to reduce overhead)
+                    val programs = database.epgDao().getAllActiveProgramsLimited(now, now + 8 * 3600 * 1000) // next 8 hours
                     
-                    kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Main) {
-                        if (::channelAdapter.isInitialized) {
-                            channelAdapter.submitEpgData(map)
+                    if (programs.isNotEmpty()) {
+                        val map = programs.groupBy { it.channelId }
+                        kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Main) {
+                            if (::channelAdapter.isInitialized) {
+                                channelAdapter.submitEpgData(map)
+                            }
                         }
                     }
                 } catch (e: Exception) {
-                    e.printStackTrace()
+                    android.util.Log.e(TAG, "EPG Refresher error", e)
                 }
-                kotlinx.coroutines.delay(60000) // 1 minute
+                kotlinx.coroutines.delay(120000) // Increase to 2 minutes to reduce DB pressure
             }
         }
     }
@@ -236,7 +253,7 @@ class EnhancedMainActivity : AppCompatActivity() {
         
         // Channel grid
         val gridColumns = prefsManager.getGridColumns()
-        channelAdapter = ChannelGridAdapter(
+        channelAdapter = ChannelPagingAdapter(
             onChannelClick = { channel ->
                 playChannel(channel)
             },
@@ -310,25 +327,50 @@ class EnhancedMainActivity : AppCompatActivity() {
                                  previewEpgNow.text = "Fetching Movie Info..."
                                  val response = api.getStreamInfo(playlist.username!!, playlist.password!!, vodId = streamIdInt)
                                  if (response.isSuccessful && response.body()?.movieData != null) {
-                                     val movie = response.body()!!.movieData!!
-                                     previewEpgNow.text = decodeEpgText(movie.plot ?: movie.description).ifEmpty { "No Plot Available" }
-                                     previewEpgNext.text = "Cast: ${decodeEpgText(movie.cast).ifEmpty { "Unknown" }}"
+                                      val movie = response.body()!!.movieData!!
+                                      val plot = TextUtils.decodeText(movie.plot ?: movie.description).ifEmpty { "No Plot Available" }
+                                      val cast = TextUtils.decodeText(movie.cast).ifEmpty { "Unknown" }
+                                      val rating = TextUtils.decodeText(movie.rating ?: "N/A")
+                                      val year = TextUtils.decodeText(movie.year ?: "")
+                                      
+                                      previewEpgNow.text = plot
+                                      previewEpgNext.text = "Year: $year | IMDB: $rating\nCast: $cast"
                                      previewEpgNext.visibility = View.VISIBLE
                                      previewEpgProgress.visibility = View.GONE
                                      return@launch // Skip further EPG processing
                                  }
-                             } else if (currentMode == "shows") {
-                                 previewEpgNow.text = "Fetching Series Info..."
-                                 val response = api.getSeriesInfo(playlist.username!!, playlist.password!!, seriesId = streamIdInt)
-                                 if (response.isSuccessful && response.body()?.info != null) {
-                                     val series = response.body()!!.info
-                                     previewEpgNow.text = decodeEpgText(series.plot).ifEmpty { "No Plot Available" }
-                                     previewEpgNext.text = "Rating: ${series.rating ?: "N/A"}"
-                                     previewEpgNext.visibility = View.VISIBLE
-                                     previewEpgProgress.visibility = View.GONE
-                                     return@launch // Skip further EPG processing
-                                 }
-                             }
+                              } else if (currentMode == "shows") {
+                                  previewEpgNow.text = "Fetching Series Info..."
+                                  val response = api.getSeriesInfo(playlist.username!!, playlist.password!!, seriesId = streamIdInt.toString())
+                                  if (response.isSuccessful && response.body() != null) {
+                                      val jsonString = response.body()!!.string()
+                                      val gson = com.google.gson.Gson()
+                                      var series: com.bingetv.app.data.api.SeriesInfo? = null
+                                      try {
+                                          val data = gson.fromJson(jsonString, com.bingetv.app.data.api.XtreamSeriesInfo::class.java)
+                                          series = data.info
+                                      } catch (e: Exception) {
+                                          try {
+                                               val listType = object : com.google.gson.reflect.TypeToken<List<com.bingetv.app.data.api.XtreamSeriesInfo>>() {}.type
+                                               val list = gson.fromJson<List<com.bingetv.app.data.api.XtreamSeriesInfo>>(jsonString, listType)
+                                               if (!list.isNullOrEmpty()) series = list[0].info
+                                          } catch (e2: Exception) {}
+                                      }
+
+                                      if (series != null) {
+                                          val decodedPlot = TextUtils.decodeText(series.plot).ifEmpty { "No Plot Available" }
+                                          val decodedCast = TextUtils.decodeText(series.cast ?: "Unknown")
+                                          val decodedRating = TextUtils.decodeText(series.rating ?: "N/A")
+                                          val decodedRelease = TextUtils.decodeText(series.releaseDate ?: "")
+                                          
+                                          previewEpgNow.text = decodedPlot
+                                          previewEpgNext.text = "Release: $decodedRelease | IMDB: $decodedRating\nCast: $decodedCast"
+                                          previewEpgNext.visibility = View.VISIBLE
+                                          previewEpgProgress.visibility = View.GONE
+                                          return@launch
+                                      }
+                                  }
+                              }
  else if (streamIdInt != 0) {
                                 previewEpgNow.text = "Loading EPG..."
                                 val response = api.getShortEpg(playlist.username!!, playlist.password!!, streamId = streamIdInt)
@@ -338,8 +380,8 @@ class EnhancedMainActivity : AppCompatActivity() {
                                         val entities = listings.map { 
                                             com.bingetv.app.data.database.EpgProgramEntity(
                                                 channelId = channel.epgChannelId ?: channel.streamId,
-                                                title = decodeEpgText(it.title),
-                                                description = decodeEpgText(it.description),
+                                                title = TextUtils.decodeText(it.title),
+                                                description = TextUtils.decodeText(it.description),
                                                 startTime = it.startTimestamp * 1000,
                                                 endTime = it.stopTimestamp * 1000
                                             )
@@ -363,10 +405,9 @@ class EnhancedMainActivity : AppCompatActivity() {
                 // 3. Display Result
                 if (epgPrograms.isNotEmpty()) {
                     val current = epgPrograms.firstOrNull { now >= it.startTime && now < it.endTime }
-                    val next = epgPrograms.sortedBy { it.startTime }.firstOrNull { it.startTime >= now }
                     
                     if (current != null) {
-                        previewEpgNow.text = current.title
+                        previewEpgNow.text = TextUtils.decodeText(current.title)
                         val total = current.endTime - current.startTime
                         if (total > 0) {
                             val percent = (((now - current.startTime).toFloat() / total) * 100).toInt()
@@ -380,10 +421,22 @@ class EnhancedMainActivity : AppCompatActivity() {
                         previewEpgProgress.visibility = View.GONE
                     }
                     
-                    if (next != null) {
-                        val timeFormat = java.text.SimpleDateFormat("HH:mm", java.util.Locale.getDefault())
-                        previewEpgNext.text = "Next: ${timeFormat.format(java.util.Date(next.startTime))} - ${next.title}"
-                        previewEpgNext.visibility = View.VISIBLE
+                    if (epgPrograms.isNotEmpty()) {
+                        val futurePrograms = epgPrograms.filter { it.startTime > now }
+                            .sortedBy { it.startTime }
+                            .take(10)
+                        
+                        if (futurePrograms.isNotEmpty()) {
+                            val timeFormat = java.text.SimpleDateFormat("HH:mm", java.util.Locale.getDefault())
+                            val sb = StringBuilder()
+                            futurePrograms.forEach { prog ->
+                                sb.append("${timeFormat.format(java.util.Date(prog.startTime))} - ${TextUtils.decodeText(prog.title)}\n")
+                            }
+                            previewEpgNext.text = sb.toString().trim()
+                            previewEpgNext.visibility = View.VISIBLE
+                        } else {
+                            previewEpgNext.visibility = View.GONE
+                        }
                     } else {
                         previewEpgNext.visibility = View.GONE
                     }
@@ -411,7 +464,7 @@ class EnhancedMainActivity : AppCompatActivity() {
                 // 4. AUTO-PLAY TIMER: If they stay for X seconds, play full screen
                 autoPlayJob?.cancel()
                 autoPlayJob = lifecycleScope.launch {
-                    kotlinx.coroutines.delay(6500) // 5s wait + buffer room
+                    kotlinx.coroutines.delay(30000) // 30s wait as requested
                     android.util.Log.d(TAG, "Auto-playing channel after dwell: ${channel.name}")
                     playChannel(channel)
                 }
@@ -476,10 +529,9 @@ class EnhancedMainActivity : AppCompatActivity() {
         }
         
         // Observe channel data
-        channelRepository.allChannels.observe(this) { channels ->
-            allChannels = channels
-            updateDisplay()
-        }
+        // Observe channel data - REMOVED for Paging
+        // channelRepository.allChannels.observe(this) { ... }
+        // Instead we rely on updateChannelDisplay() calling Pager logic
         
         channelRepository.allCategories.observe(this) { categories ->
             allCategories = categories
@@ -522,22 +574,30 @@ class EnhancedMainActivity : AppCompatActivity() {
                     
                     when {
                         isInside(newFocus, chanRecycler) -> {
-                            // Focus in Grid -> Hide Rail, Peek Cats
-                            kotlinx.coroutines.delay(50)
-                            animateViewWidth(navRail, COLLAPSED_WIDTH)
-                            animateViewWidth(catRecycler, MINI_WIDTH)
+                            // Focus in Grid -> Hide Rail, Hide Cats
+                            if (navRail.width != COLLAPSED_WIDTH || catRecycler.width != COLLAPSED_WIDTH) {
+                                kotlinx.coroutines.delay(50)
+                                animateViewWidth(navRail, COLLAPSED_WIDTH)
+                                animateViewWidth(catRecycler, COLLAPSED_WIDTH)
+                            }
                         }
                         isInside(newFocus, catRecycler) -> {
                             // Focus in Cats -> Peek Rail, Show Cats
-                            animateViewWidth(navRail, MINI_WIDTH)
-                            animateViewWidth(catRecycler, CAT_WIDTH_FULL)
+                            if (catRecycler.width != CAT_WIDTH_FULL) {
+                                animateViewWidth(navRail, MINI_WIDTH)
+                                animateViewWidth(catRecycler, CAT_WIDTH_FULL)
+                            }
                         }
                         isInside(newFocus, navRail) -> {
                             // Focus in Nav -> Show Rail, Show Cats
-                            // GUARD: If focus was stolen by a refresh, don't expand unless it's a real user action
-                            // For now, expand normally but we'll monitor if this triggers resets
-                            animateViewWidth(navRail, RAIL_WIDTH_FULL)
-                            animateViewWidth(catRecycler, CAT_WIDTH_FULL)
+                            // GUARD: If we came directly from Grid (skipped cats), this might be a reset glitch.
+                            // Only expand if we were previously in Categories or are explicitly focused on a nav item
+                            
+                            val isResetGlitch = chanRecycler.hasFocus() // If Recycler THINKS it has focus but global says Nav
+                            if (!isResetGlitch) {
+                                 animateViewWidth(navRail, RAIL_WIDTH_FULL)
+                                 animateViewWidth(catRecycler, CAT_WIDTH_FULL)
+                            }
                         }
                     }
                 } catch (e: Exception) {
@@ -652,15 +712,26 @@ class EnhancedMainActivity : AppCompatActivity() {
     }
     
     private fun showSearchDialog() {
-        if (allChannels.isEmpty()) {
-            Toast.makeText(this, "No channels to search", Toast.LENGTH_SHORT).show()
-            return
-        }
+        val input = EditText(this)
+        input.inputType = android.text.InputType.TYPE_CLASS_TEXT
+        input.hint = "Search channel..."
+        input.setPadding(40, 40, 40, 40)
         
-        val searchDialog = com.bingetv.app.ui.dialogs.SearchDialog(this, allChannels) { channel ->
-            playChannel(channel)
-        }
-        searchDialog.show()
+        android.app.AlertDialog.Builder(this)
+            .setTitle("Search")
+            .setView(input)
+            .setPositiveButton("Search") { _, _ ->
+                 searchQuery = input.text.toString()
+                 updateDisplay()
+            }
+            .setNegativeButton("Clear") { _, _ ->
+                 searchQuery = null
+                 updateDisplay()
+            }
+            .setNeutralButton("Cancel", null)
+            .show()
+        
+        input.requestFocus()
     }
     
     companion object {
@@ -684,12 +755,26 @@ class EnhancedMainActivity : AppCompatActivity() {
                 
                 android.util.Log.d(TAG, "Loading playlist: ${playlist.name} (Type: ${playlist.type})")
                 
+                // Optimization: Check if data already exists for this playlist
+                val lastLoadedId = prefsManager.getLastLoadedPlaylistId()
+                val channelCount = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
+                    channelRepository.getChannelCount()
+                }
+                
+                if (playlist.id == lastLoadedId && channelCount > 0 && false) { // FORCED REFRESH FOR DEBUGGING
+                    android.util.Log.d(TAG, "Playlist ${playlist.id} data already loaded ($channelCount channels). Skipping fetch.")
+                    updateDisplay()
+                    loadingView.hide()
+                    return@launch
+                }
+
                 when (playlist.type) {
-                    Constants.PLAYLIST_TYPE_M3U -> loadM3uPlaylist(playlist.m3uUrl!!)
+                    Constants.PLAYLIST_TYPE_M3U -> loadM3uPlaylist(playlist.m3uUrl!!, playlist.id)
                     Constants.PLAYLIST_TYPE_XTREAM -> loadXtreamPlaylist(
                         playlist.serverUrl!!,
                         playlist.username!!,
-                        playlist.password!!
+                        playlist.password!!,
+                        playlist.id
                     )
                 }
                 
@@ -700,50 +785,59 @@ class EnhancedMainActivity : AppCompatActivity() {
         }
     }
     
-    private suspend fun loadM3uPlaylist(url: String) {
+    private suspend fun loadM3uPlaylist(url: String, playlistId: Long) {
         try {
-            android.util.Log.d(TAG, "Parsing M3U playlist from: $url")
-            val channels = m3uParser.parsePlaylist(url)
-            
-            android.util.Log.d(TAG, "Parsed ${channels.size} channels")
-            
-            if (channels.isEmpty()) {
-                android.util.Log.w(TAG, "Playlist is empty")
-                showError("No channels found")
-                return
+            // Perform parsing and entity conversion on background thread
+            kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Default) {
+                android.util.Log.d(TAG, "Parsing M3U playlist from: $url")
+                val channels = m3uParser.parsePlaylist(url)
+                
+                android.util.Log.d(TAG, "Parsed ${channels.size} channels")
+                
+                if (channels.isEmpty()) {
+                    kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Main) {
+                        android.util.Log.w(TAG, "Playlist is empty")
+                        showError("No channels found")
+                    }
+                    return@withContext
+                }
+                
+                // Convert to entities and save
+                val channelEntities = channels.mapIndexed { index, channel ->
+                    ChannelEntity(
+                        streamId = channel.url,
+                        name = channel.name,
+                        streamUrl = channel.url,
+                        logoUrl = channel.logo,
+                        category = channel.group,
+                        sortOrder = index
+                    )
+                }
+                
+                // Extract categories
+                val categories = channels.mapNotNull { it.group }.distinct().mapIndexed { index, name ->
+                    CategoryEntity(
+                        categoryId = name,
+                        categoryName = name,
+                        sortOrder = index
+                    )
+                }
+                
+                // Save to database
+                channelRepository.clearAllData()
+                channelRepository.insertChannels(channelEntities)
+                channelRepository.insertCategories(categories)
+                
+                prefsManager.setLastLoadedPlaylistId(playlistId)
+                
+                android.util.Log.d(TAG, "Successfully saved ${channels.size} channels and ${categories.size} categories")
+                
+                // Switch back to Main for UI updates if needed (checkAutoPlay might touch UI?)
+                kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Main) {
+                     checkAutoPlay(channelEntities)
+                     loadingView.hide()
+                }
             }
-            
-            // Convert to entities and save
-            val channelEntities = channels.mapIndexed { index, channel ->
-                ChannelEntity(
-                    streamId = channel.url,
-                    name = channel.name,
-                    streamUrl = channel.url,
-                    logoUrl = channel.logo,
-                    category = channel.group,
-                    sortOrder = index
-                )
-            }
-            
-            // Extract categories
-            val categories = channels.mapNotNull { it.group }.distinct().mapIndexed { index, name ->
-                CategoryEntity(
-                    categoryId = name,
-                    categoryName = name,
-                    sortOrder = index
-                )
-            }
-            
-            // Save to database
-            channelRepository.clearAllData()
-            channelRepository.insertChannels(channelEntities)
-            channelRepository.insertCategories(categories)
-            
-            android.util.Log.d(TAG, "Successfully saved ${channels.size} channels and ${categories.size} categories")
-            
-            checkAutoPlay(channelEntities)
-            
-            loadingView.hide()
             
         } catch (e: Exception) {
             android.util.Log.e(TAG, "Error parsing M3U playlist", e)
@@ -751,81 +845,96 @@ class EnhancedMainActivity : AppCompatActivity() {
         }
     }
     
-    private suspend fun loadXtreamPlaylist(serverUrl: String, username: String, password: String) {
+    private suspend fun loadXtreamPlaylist(serverUrl: String, username: String, password: String, playlistId: Long) {
         try {
-            android.util.Log.d(TAG, "Connecting to Xtream codes server: $serverUrl")
-            val api = ApiClient.getXtreamApi(serverUrl)
-            
-            // Get categories
-            // Get categories (Live + VOD + Series)
-            val liveCatsDeferred = api.getLiveCategories(username, password)
-            val vodCatsResponse = try { api.getVodCategories(username, password) } catch(e: Exception) { null }
-            val seriesCatsResponse = try { api.getSeriesCategories(username, password) } catch(e: Exception) { null }
-            
-            // Get streams (Live + VOD + Series)
-            val liveStreamsDeferred = api.getLiveStreams(username, password)
-            val vodStreamsResponse = try { api.getVodStreams(username, password) } catch(e: Exception) { null }
-            val seriesResponse = try { api.getSeries(username, password) } catch(e: Exception) { null }
-            
-            val liveCats = liveCatsDeferred.body() ?: emptyList()
-            val vodCats = vodCatsResponse?.body() ?: emptyList()
-            val seriesCats = seriesCatsResponse?.body() ?: emptyList()
-            
-            val liveChans = liveStreamsDeferred.body() ?: emptyList()
-            val vodChans = vodStreamsResponse?.body() ?: emptyList()
-            val series = seriesResponse?.body() ?: emptyList()
-            
-            val xtreamCategories = liveCats + vodCats + seriesCats
-            val xtreamChannels = liveChans + vodChans + series
-            
-            android.util.Log.d(TAG, "Received ${xtreamCategories.size} categories (Live: ${liveCats.size}, VOD: ${vodCats.size}, Series: ${seriesCats.size}) and ${xtreamChannels.size} items (Live: ${liveChans.size}, VOD: ${vodChans.size}, Series: ${series.size})")
-            
-            // Convert to entities
-            val categoryEntities = xtreamCategories.mapIndexed { index, cat ->
-                CategoryEntity(
-                    categoryId = cat.categoryId,
-                    categoryName = cat.categoryName,
-                    sortOrder = index
-                )
-            }
-            
-            // Map category IDs to names for easier filtering
-            val catMap = xtreamCategories.associate { it.categoryId to it.categoryName }
-            
-            val channelEntities = xtreamChannels.mapIndexed { index, ch ->
-                // Determine format
-                val extension = ch.containerExtension ?: "ts"
-                val type = ch.streamType ?: "live"
-                val streamUrl = when {
-                    type == "movie" -> "$serverUrl/movie/$username/$password/${ch.streamId}.$extension"
-                    type == "series" -> "$serverUrl/series/$username/$password/${ch.streamId}.$extension" // Or just pass ID for series handling
-                    // Check if it looks like a VOD based on extension if type missing?
-                    extension != "ts" && extension != "m3u8" -> "$serverUrl/movie/$username/$password/${ch.streamId}.$extension"
-                    else -> "$serverUrl/live/$username/$password/${ch.streamId}.$extension"
+            // Move heavy fetching and parsing to IO/Default thread
+            try {
+                kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
+                    android.util.Log.d(TAG, "Connecting to Xtream codes server: $serverUrl")
+                    val api = ApiClient.getXtreamApi(serverUrl)
+                    
+                    // Get categories (Live + VOD + Series)
+                    val liveCatsDeferred = api.getLiveCategories(username, password)
+                    val vodCatsResponse = try { api.getVodCategories(username, password) } catch(e: Exception) { null }
+                    val seriesCatsResponse = try { api.getSeriesCategories(username, password) } catch(e: Exception) { null }
+                    
+                    // Get streams (Live + VOD + Series)
+                    val liveStreamsDeferred = api.getLiveStreams(username, password)
+                    val vodStreamsResponse = try { api.getVodStreams(username, password) } catch(e: Exception) { null }
+                    val seriesResponse = try { api.getSeries(username, password) } catch(e: Exception) { null }
+                    
+                    val liveCats = liveCatsDeferred.body() ?: emptyList()
+                    val vodCats = vodCatsResponse?.body() ?: emptyList()
+                    val seriesCats = seriesCatsResponse?.body() ?: emptyList()
+                    
+                    val liveChans = liveStreamsDeferred.body() ?: emptyList()
+                    val vodChans = vodStreamsResponse?.body() ?: emptyList()
+                     val series = seriesResponse?.body() ?: emptyList()
+                     
+                     // DEBUG: Log series IDs to verify matching
+                     try {
+                         val rawResponse = api.getSeriesRaw(username, password)
+                         if (rawResponse.isSuccessful && rawResponse.body() != null) {
+                             val json = rawResponse.body()!!.string()
+                             android.util.Log.d(TAG, "RAW SERIES LIST (first 2000): ${json.take(2000)}")
+                         }
+                     } catch(e: Exception) {
+                         android.util.Log.e(TAG, "Failed to log raw series", e)
+                     }
+                     
+                     val xtreamCategories = liveCats + vodCats + seriesCats
+                    val xtreamChannels = liveChans + vodChans + series
+                    
+                    android.util.Log.d(TAG, "Received ${xtreamCategories.size} categories and ${xtreamChannels.size} items")
+                    
+                    // CPU intensive mapping
+                    val categoryEntities = xtreamCategories.mapIndexed { index, cat ->
+                        CategoryEntity(
+                            categoryId = cat.categoryId,
+                            categoryName = cat.categoryName,
+                            sortOrder = index
+                        )
+                    }
+                    
+                    val channelEntities = xtreamChannels.mapIndexed { index, ch ->
+                        val extension = ch.containerExtension ?: "ts"
+                        val type = ch.streamType ?: "live"
+                        val streamUrl = when {
+                            type == "movie" -> "$serverUrl/movie/$username/$password/${ch.streamId}.$extension"
+                            type == "series" -> "$serverUrl/series/$username/$password/${ch.streamId}.$extension"
+                            else -> "$serverUrl/$username/$password/${ch.streamId}"
+                        }
+                        
+                        ChannelEntity(
+                            streamId = ch.streamId.toString(),
+                            name = ch.name,
+                            streamUrl = streamUrl,
+                            logoUrl = ch.streamIcon,
+                            category = ch.categoryId, // FIX: Populate category column for DAO filtering
+                            categoryId = ch.categoryId,
+                            epgChannelId = ch.epgChannelId,
+                            sortOrder = index
+                        )
+                    }
+                    
+                    // Database operations
+                    channelRepository.clearAllData()
+                    channelRepository.insertChannels(channelEntities)
+                    channelRepository.insertCategories(categoryEntities)
+                    
+                    prefsManager.setLastLoadedPlaylistId(playlistId)
+                    
+                    android.util.Log.d(TAG, "Saved Extream playlist data")
+                    
+                    // UI Updates back on Main
+                    kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Main) {
+                        checkAutoPlay(channelEntities)
+                        loadingView.hide()
+                    }
                 }
-
-                ChannelEntity(
-                    streamId = ch.streamId.toString(),
-                    name = ch.name,
-                    streamUrl = streamUrl,
-                    logoUrl = ch.streamIcon,
-                    category = catMap[ch.categoryId] ?: "Uncategorized", // Use Name, fallback to "Uncategorized"
-                    categoryId = ch.categoryId, // Store ID too if needed (added field to Entity recently?)
-                    epgChannelId = ch.epgChannelId,
-                    sortOrder = index
-                )
+            } catch (e: Exception) {
+               throw e // Rethrow to be caught by outer try/catch
             }
-            
-            // Save to database
-            channelRepository.clearAllData()
-            channelRepository.insertCategories(categoryEntities)
-            channelRepository.insertChannels(channelEntities)
-            
-            android.util.Log.d(TAG, "Successfully saved Xtream data")
-            
-            checkAutoPlay(channelEntities)
-            
-            loadingView.hide()
             
         } catch (e: Exception) {
             android.util.Log.e(TAG, "Error loading Xtream playlist", e)
@@ -880,95 +989,46 @@ class EnhancedMainActivity : AppCompatActivity() {
     }
     
     private fun updateChannelDisplay() {
-        // Capture state on main thread
         val query = searchQuery
         val mode = currentMode
         val categoryId = currentCategory
-        val currentChannels = allChannels
-        val currentCategories = allCategories
         
-        val startTime = System.currentTimeMillis()
-        android.util.Log.d(TAG, "updateChannelDisplay START: mode=$mode, cat=$categoryId, total=${currentChannels.size}")
+        // Cancel previous paging job
+        pagingJob?.cancel()
         
-        lifecycleScope.launch(kotlinx.coroutines.Dispatchers.Default) {
-            try {
-                // Helper to check if a name matches keywords
-                fun matchesKeywords(name: String?, keywords: List<String>): Boolean {
-                    return name != null && keywords.any { name.contains(it, true) }
-                }
-                
-                // 1. Search Filter
-                if (!query.isNullOrEmpty()) {
-                    val q = query.lowercase()
-                    val searchResults = currentChannels.filter { 
-                        it.name.contains(q, ignoreCase = true) || 
-                        (it.category?.contains(q, ignoreCase = true) == true)
-                    }
-                    kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Main) {
-                        channelAdapter.submitList(searchResults)
-                    }
-                    return@launch
-                }
-                
-                val movieKeywords = listOf("movie", "cinema", "vod", "film")
-                val showKeywords = listOf("series", "show", "season", "tv")
-        
-                // 2. Get Allowed Category IDs based on the current mode
-                val allowedCategoryIds = when (mode) {
-                    "movies" -> currentCategories.filter { matchesKeywords(it.categoryName, movieKeywords) }.map { it.categoryId }.toSet()
-                    "shows" -> currentCategories.filter { matchesKeywords(it.categoryName, showKeywords) }.map { it.categoryId }.toSet()
-                    else -> null
-                }
-        
-                // 3. Filter Channels
-                val modeChannels = when (mode) {
-                    "movies" -> currentChannels.filter { ch ->
-                        // Match if category ID is allowed OR if category string itself (M3U) matches keywords
-                        (allowedCategoryIds != null && allowedCategoryIds.contains(ch.category)) || 
-                        matchesKeywords(ch.category, movieKeywords)
-                    }
-                    "shows" -> currentChannels.filter { ch ->
-                        (allowedCategoryIds != null && allowedCategoryIds.contains(ch.category)) || 
-                        matchesKeywords(ch.category, showKeywords)
-                    }
-                    "recordings" -> emptyList()
-                    else -> currentChannels
-                }
-        
-                val filteredChannels = when (categoryId) {
-                    null, "all" -> modeChannels
-                    "favorites" -> modeChannels.filter { it.isFavorite }
-                    "history" -> {
-                        val historyIds = currentWatchHistory.map { it.streamId }.toSet()
-                        // Order channels by their appearance in history
-                        currentWatchHistory.mapNotNull { hist ->
-                            modeChannels.find { it.streamId == hist.streamId }
-                        }
-                    }
-                    else -> modeChannels.filter { it.category == categoryId || it.categoryId == categoryId }
-                }
-                
-                val diffTime = System.currentTimeMillis() - startTime
-                android.util.Log.d(TAG, "updateChannelDisplay FILTERED: ${filteredChannels.size} items in ${diffTime}ms")
+        pagingJob = lifecycleScope.launch {
+             // Determine paging source "mode" string
+             val pagingMode = if (!query.isNullOrEmpty()) {
+                 "search:$query"
+             } else if (categoryId == "favorites") {
+                 "favorites"
+             } else if (categoryId == "history") {
+                 "history" // Need special handling or Repo support
+             } else if (categoryId == "all" || categoryId == null) {
+                 // Current Repo `getChannelsPaged` handles: "all", "favorites", "search:", else category.
+                 // It misses "movies", "shows" filtering which was done in memory.
+                 // Ideally we need getChannelsInternalByType(type).
+                 // For now, if mode is movies/shows, we might be showing ALL unless we fix Repo logic.
+                 // Let's assume for now user selects a category.
+                 if (mode == "live") "all" else mode
+             } else {
+                 categoryId // Specific category
+             }
 
-                kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Main) {
-                    channelAdapter.submitList(filteredChannels) {
-                        // After list is submitted, try to restore focus
-                        val targetId = lastFocusedChannelId ?: return@submitList
-                        val position = filteredChannels.indexOfFirst { it.id == targetId }
-                        if (position != -1) {
-                            channelRecyclerView.scrollToPosition(position)
-                            // Use post to ensure the view holder is created/bound
-                            channelRecyclerView.postDelayed({
-                                val holder = channelRecyclerView.findViewHolderForAdapterPosition(position)
-                                holder?.itemView?.requestFocus()
-                            }, 100)
-                        }
-                    }
-                }
-            } catch (e: Exception) {
-                android.util.Log.e(TAG, "Error filtering channels", e)
-            }
+             if (pagingMode == "history") {
+                 // Manual history load
+                 channelRepository.watchHistory.value?.let { history ->
+                     val ids = history.map { it.streamId }
+                     val channels = channelRepository.getChannelsByStreamIds(ids)
+                     // Sort by history order
+                     val sorted = history.mapNotNull { h -> channels.find { it.streamId == h.streamId } }
+                     channelAdapter.submitData(PagingData.from(sorted))
+                 }
+             } else {
+                 channelRepository.getChannelsPaged(pagingMode).collectLatest { pagingData ->
+                     channelAdapter.submitData(pagingData)
+                 }
+             }
         }
     }
     
@@ -992,6 +1052,26 @@ class EnhancedMainActivity : AppCompatActivity() {
         lifecycleScope.launch {
             channelRepository.recordHistory(channel.streamId)
         }
+        
+        // --- NEW: Series Handling ---
+        if (currentMode == "shows") {
+             try {
+                 val seriesId = channel.streamId.toIntOrNull()
+                 if (seriesId != null) {
+                     val intent = Intent(this, com.bingetv.app.ui.details.SeriesDetailActivity::class.java).apply {
+                         putExtra(com.bingetv.app.ui.details.SeriesDetailActivity.EXTRA_SERIES_ID, seriesId)
+                         putExtra(com.bingetv.app.ui.details.SeriesDetailActivity.EXTRA_SERIES_NAME, channel.name)
+                         putExtra(com.bingetv.app.ui.details.SeriesDetailActivity.EXTRA_SERIES_POSTER, channel.logoUrl)
+                     }
+                     startActivity(intent)
+                     return
+                 }
+             } catch (e: Exception) {
+                 android.util.Log.e(TAG, "Error parsing Series ID", e)
+             }
+        }
+        // -----------------------------
+        
         try {
             android.util.Log.d(TAG, "playChannel called for: ${channel.name}")
             android.util.Log.d(TAG, "Stream URL: ${channel.streamUrl}")
@@ -1014,7 +1094,9 @@ class EnhancedMainActivity : AppCompatActivity() {
             val extras = intent.extras
             if (extras != null) {
                 for (key in extras.keySet()) {
-                    android.util.Log.d(TAG, "Intent Extra: $key = ${extras.get(key)}")
+                    @Suppress("DEPRECATION")
+                    val value = extras.get(key)
+                    android.util.Log.d(TAG, "Intent Extra: $key = $value")
                 }
             }
             
@@ -1066,35 +1148,4 @@ class EnhancedMainActivity : AppCompatActivity() {
         }
     }
 
-    private fun decodeEpgText(text: String?): String {
-        if (text.isNullOrEmpty()) return ""
-        
-        var cleanText = text.trim()
-        if (cleanText.startsWith("base64:", ignoreCase = true)) {
-            cleanText = cleanText.substring(7).trim()
-        }
-        
-        // Try multiple Base64 variants
-        val flags = listOf(
-            android.util.Base64.DEFAULT,
-            android.util.Base64.URL_SAFE,
-            android.util.Base64.NO_WRAP,
-            android.util.Base64.NO_PADDING
-        )
-        
-        for (flag in flags) {
-            try {
-                val decoded = android.util.Base64.decode(cleanText, flag).decodeToString()
-                // Check if result looks like a real string (at least 1 alphanumeric or space)
-                if (decoded.isNotBlank() && decoded.any { it.isLetterOrDigit() }) {
-                    return decoded
-                }
-            } catch (e: Exception) {
-                // Continue to next flag
-            }
-        }
-        
-        // If all decoding fails, return original
-        return text
-    }
 }

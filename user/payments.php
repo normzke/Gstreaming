@@ -62,7 +62,7 @@ include __DIR__ . '/includes/header.php';
             Lifetime spending
         </div>
     </div>
-    
+
     <div class="stat-card">
         <div class="stat-header">
             <div class="stat-title">Completed</div>
@@ -76,7 +76,7 @@ include __DIR__ . '/includes/header.php';
             Successful payments
         </div>
     </div>
-    
+
     <div class="stat-card">
         <div class="stat-header">
             <div class="stat-title">Pending</div>
@@ -89,7 +89,7 @@ include __DIR__ . '/includes/header.php';
             Awaiting confirmation
         </div>
     </div>
-    
+
     <div class="stat-card">
         <div class="stat-header">
             <div class="stat-title">Total Payments</div>
@@ -115,12 +115,12 @@ include __DIR__ . '/includes/header.php';
     <div class="card-body">
         <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
             <a href="/user/subscriptions" class="btn btn-primary">
-                <i class="fas fa-shopping-cart"></i>
-                New Subscription
+                <i class="fas fa-credit-card"></i>
+                Pay Online (Card/M-Pesa)
             </a>
             <a href="/user/payments/submit-mpesa" class="btn btn-secondary">
                 <i class="fas fa-mobile-alt"></i>
-                Submit M-Pesa Confirmation
+                Submit Manual M-Pesa
             </a>
         </div>
     </div>
@@ -174,9 +174,13 @@ include __DIR__ . '/includes/header.php';
                                 </td>
                                 <td>
                                     <div style="display: flex; align-items: center; gap: 0.5rem;">
-                                        <i class="fas fa-mobile-alt" style="color: #10B981;"></i>
+                                        <?php if (stripos($payment['payment_method'], 'paystack') !== false): ?>
+                                            <i class="fas fa-credit-card" style="color: #09a5db;"></i>
+                                        <?php else: ?>
+                                            <i class="fas fa-mobile-alt" style="color: #10B981;"></i>
+                                        <?php endif; ?>
                                         <span style="text-transform: capitalize;">
-                                            <?php echo htmlspecialchars(str_replace('_', ' ', $payment['payment_method'] ?? 'M-Pesa')); ?>
+                                            <?php echo htmlspecialchars(str_replace(['_', 'paystack'], [' ', 'Paystack'], $payment['payment_method'] ?? 'M-Pesa')); ?>
                                         </span>
                                     </div>
                                     <?php if ($payment['mpesa_receipt_code']): ?>
@@ -186,23 +190,27 @@ include __DIR__ . '/includes/header.php';
                                     <?php endif; ?>
                                 </td>
                                 <td>
-                                    <span style="background: <?php echo $payment['status_color']; ?>; color: white; padding: 0.35rem 0.85rem; border-radius: 20px; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; display: inline-block;">
+                                    <span
+                                        style="background: <?php echo $payment['status_color']; ?>; color: white; padding: 0.35rem 0.85rem; border-radius: 20px; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; display: inline-block;">
                                         <?php echo htmlspecialchars($payment['status']); ?>
                                     </span>
                                 </td>
                                 <td>
                                     <?php if ($payment['status'] === 'pending'): ?>
-                                        <a href="/user/payments/process?payment_id=<?php echo $payment['id']; ?>" class="btn btn-primary" style="font-size: 0.85rem; padding: 0.5rem 1rem;">
+                                        <a href="/user/payments/process?payment_id=<?php echo $payment['id']; ?>"
+                                            class="btn btn-primary" style="font-size: 0.85rem; padding: 0.5rem 1rem;">
                                             <i class="fas fa-arrow-right"></i>
                                             Complete
                                         </a>
                                     <?php elseif ($payment['status'] === 'completed'): ?>
-                                        <button class="btn btn-secondary" style="font-size: 0.85rem; padding: 0.5rem 1rem;" disabled>
+                                        <button class="btn btn-secondary" style="font-size: 0.85rem; padding: 0.5rem 1rem;"
+                                            disabled>
                                             <i class="fas fa-check"></i>
                                             Paid
                                         </button>
                                     <?php else: ?>
-                                        <button class="btn btn-secondary" style="font-size: 0.85rem; padding: 0.5rem 1rem;" disabled>
+                                        <button class="btn btn-secondary" style="font-size: 0.85rem; padding: 0.5rem 1rem;"
+                                            disabled>
                                             <i class="fas fa-times"></i>
                                             <?php echo ucfirst($payment['status']); ?>
                                         </button>
@@ -232,57 +240,56 @@ include __DIR__ . '/includes/header.php';
 </div>
 
 <style>
-/* Mobile Responsive Styles for Payments Page */
-@media (max-width: 768px) {
-    .stats-grid {
-        grid-template-columns: 1fr !important;
-    }
-    
-    .user-table {
-        font-size: 0.85rem;
-    }
-    
-    .user-table th,
-    .user-table td {
-        padding: 0.5rem;
-        font-size: 0.8rem;
-    }
-    
-    /* Hide less important columns on mobile */
-    .user-table th:nth-child(4),
-    .user-table td:nth-child(4) {
-        display: none;
-    }
-    
-    .card-body {
-        overflow-x: auto;
-    }
-    
-    .btn {
-        padding: 0.5rem 1rem;
-        font-size: 0.85rem;
-    }
-}
+    /* Mobile Responsive Styles for Payments Page */
+    @media (max-width: 768px) {
+        .stats-grid {
+            grid-template-columns: 1fr !important;
+        }
 
-@media (max-width: 480px) {
-    .stat-value {
-        font-size: 1.5rem !important;
+        .user-table {
+            font-size: 0.85rem;
+        }
+
+        .user-table th,
+        .user-table td {
+            padding: 0.5rem;
+            font-size: 0.8rem;
+        }
+
+        /* Hide less important columns on mobile */
+        .user-table th:nth-child(4),
+        .user-table td:nth-child(4) {
+            display: none;
+        }
+
+        .card-body {
+            overflow-x: auto;
+        }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            font-size: 0.85rem;
+        }
     }
-    
-    .stat-card {
-        padding: 1rem;
+
+    @media (max-width: 480px) {
+        .stat-value {
+            font-size: 1.5rem !important;
+        }
+
+        .stat-card {
+            padding: 1rem;
+        }
+
+        /* Stack quick action buttons */
+        .card-body>div {
+            flex-direction: column !important;
+        }
+
+        .card-body .btn {
+            width: 100% !important;
+        }
     }
-    
-    /* Stack quick action buttons */
-    .card-body > div {
-        flex-direction: column !important;
-    }
-    
-    .card-body .btn {
-        width: 100% !important;
-    }
-}
 </style>
 
 <?php include __DIR__ . '/includes/footer.php'; ?>
-

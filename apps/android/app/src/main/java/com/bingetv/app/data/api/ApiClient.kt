@@ -13,19 +13,25 @@ object ApiClient {
     
     private fun getOkHttpClient(): OkHttpClient {
         val logging = HttpLoggingInterceptor().apply {
-            // Prevent OOM with large responses (playlists/series) by avoiding BODY logging
+            // Use HEADERS only to prevent OOM with large responses (playlists/EPG can be 10MB+)
             level = HttpLoggingInterceptor.Level.HEADERS 
         }
         
         return OkHttpClient.Builder()
             .addInterceptor(logging)
+            .addInterceptor { chain ->
+                val request = chain.request().newBuilder()
+                    .header("User-Agent", "IPTVSmarters")
+                    .build()
+                chain.proceed(request)
+            }
             .connectTimeout(30, TimeUnit.SECONDS)
             .readTimeout(30, TimeUnit.SECONDS)
             .writeTimeout(30, TimeUnit.SECONDS)
             .followRedirects(true)
             .followSslRedirects(true)
             .build()
-    }
+        }
     
     fun getXtreamApi(baseUrl: String): XtreamCodesApi {
         if (retrofit == null || retrofit?.baseUrl().toString() != baseUrl) {
@@ -39,6 +45,16 @@ object ApiClient {
         }
         
         return xtreamApi!!
+    }
+
+    fun getUpdateApi(baseUrl: String): UpdateApi {
+        val client = Retrofit.Builder()
+            .baseUrl(baseUrl)
+            .client(getOkHttpClient())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            
+        return client.create(UpdateApi::class.java)
     }
     
     fun reset() {

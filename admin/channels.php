@@ -207,8 +207,8 @@ include 'includes/header.php';
                         <td>
                             <code
                                 style="font-size: 0.75rem; background: #f1f5f9; padding: 0.25rem 0.5rem; border-radius: 4px;">
-                                <?php echo htmlspecialchars(substr($channel['stream_url'], 0, 50)) . '...'; ?>
-                            </code>
+                                            <?php echo htmlspecialchars(substr($channel['stream_url'], 0, 50)) . '...'; ?>
+                                        </code>
                         </td>
                         <td>
                             <span class="badge badge-<?php echo $channel['is_active'] ? 'success' : 'danger'; ?>">
@@ -216,8 +216,6 @@ include 'includes/header.php';
                             </span>
                         </td>
                         <td>
-                            <i class="fas fa-edit"></i>
-                            </button>
                             <button class="btn btn-secondary" onclick="editChannel(this)"
                                 data-id="<?php echo $channel['id']; ?>"
                                 data-name="<?php echo htmlspecialchars($channel['name']); ?>"
@@ -242,7 +240,7 @@ include 'includes/header.php';
 </div>
 
 <!-- Add/Edit Channel Modal -->
-<div id="channelModal" class="modal" style="display: none;">
+<div id="channelModal" class="modal">
     <div class="modal-content">
         <div class="modal-header">
             <h3 id="modalTitle">Add Channel</h3>
@@ -305,7 +303,7 @@ include 'includes/header.php';
 </div>
 
 <!-- Delete Confirmation Modal -->
-<div id="deleteModal" class="modal" style="display: none;">
+<div id="deleteModal" class="modal">
     <div class="modal-content">
         <div class="modal-header">
             <h3>Confirm Delete</h3>
@@ -329,11 +327,14 @@ include 'includes/header.php';
         width: 100%;
         height: 100%;
         background: rgba(0, 0, 0, 0.5);
-        background: rgba(0, 0, 0, 0.5);
         z-index: 9999;
-        display: flex;
+        display: none;
         align-items: center;
         justify-content: center;
+    }
+
+    .modal.active {
+        display: flex;
     }
 
     .modal-content {
@@ -431,15 +432,15 @@ include 'includes/header.php';
 
     function openAddModal() {
         document.getElementById('modalTitle').textContent = 'Add Channel';
-        document.getElementById('formAction').value = 'add_channel';
+        document.getElementById('formAction').value = 'add';
         document.getElementById('channelForm').reset();
         document.getElementById('channelId').value = '';
-        document.getElementById('channelModal').style.display = 'flex';
+        document.getElementById('channelModal').classList.add('active');
     }
 
     function editChannel(btn) {
         document.getElementById('modalTitle').textContent = 'Edit Channel';
-        document.getElementById('formAction').value = 'edit_channel';
+        document.getElementById('formAction').value = 'edit';
 
         // Populate form fields from data attributes
         const dataset = btn.dataset;
@@ -452,20 +453,20 @@ include 'includes/header.php';
         document.getElementById('sort_order').value = dataset.sort_order;
         document.getElementById('is_active').checked = dataset.is_active == '1';
 
-        document.getElementById('channelModal').style.display = 'flex';
+        document.getElementById('channelModal').classList.add('active');
     }
 
     function deleteChannel(id) {
         currentChannelId = id;
-        document.getElementById('deleteModal').style.display = 'flex';
+        document.getElementById('deleteModal').classList.add('active');
     }
 
     function closeModal() {
-        document.getElementById('channelModal').style.display = 'none';
+        document.getElementById('channelModal').classList.remove('active');
     }
 
     function closeDeleteModal() {
-        document.getElementById('deleteModal').style.display = 'none';
+        document.getElementById('deleteModal').classList.remove('active');
         currentChannelId = null;
     }
 
@@ -474,8 +475,8 @@ include 'includes/header.php';
             const form = document.createElement('form');
             form.method = 'POST';
             form.innerHTML = `
-            <input type="hidden" name="action" value="delete_channel">
-            <input type="hidden" name="channel_id" value="${currentChannelId}">
+            <input type="hidden" name="action" value="delete">
+            <input type="hidden" name="id" value="${currentChannelId}">
         `;
             document.body.appendChild(form);
             form.submit();

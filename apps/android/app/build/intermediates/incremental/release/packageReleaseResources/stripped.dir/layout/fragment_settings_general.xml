@@ -24,7 +24,8 @@
         android:textColor="@color/text_primary"
         android:buttonTint="@color/bingetv_red"
         android:layout_marginBottom="16dp"
-        android:focusable="true" />
+        android:focusable="true"
+        android:background="@drawable/bg_settings_item_selector" />
         
     <CheckBox
         android:id="@+id/check_last_channel"
@@ -36,7 +37,8 @@
         android:textColor="@color/text_primary"
         android:buttonTint="@color/bingetv_red"
         android:layout_marginBottom="16dp"
-        android:focusable="true" />
+        android:focusable="true"
+        android:background="@drawable/bg_settings_item_selector" />
 
     <CheckBox
         android:id="@+id/check_pip"
@@ -48,7 +50,8 @@
         android:textColor="@color/text_primary"
         android:buttonTint="@color/bingetv_red"
         android:layout_marginBottom="16dp"
-        android:focusable="true" />
+        android:focusable="true"
+        android:background="@drawable/bg_settings_item_selector" />
 
     <CheckBox
         android:id="@+id/check_confirm_exit"
@@ -60,6 +63,7 @@
         android:textColor="@color/text_primary"
         android:buttonTint="@color/bingetv_red"
         android:layout_marginBottom="16dp"
-        android:focusable="true" />
+        android:focusable="true"
+        android:background="@drawable/bg_settings_item_selector" />
 
 </LinearLayout>

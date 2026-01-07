@@ -26,7 +26,10 @@
         android:id="@+id/spinner_remote_lr"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp" />
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/bg_settings_item_selector"
+        android:focusable="true"
+        android:padding="8dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -40,6 +43,9 @@
         android:id="@+id/spinner_remote_ud"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp" />
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/bg_settings_item_selector"
+        android:focusable="true"
+        android:padding="8dp" />
 
 </LinearLayout>

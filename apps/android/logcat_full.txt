@@ -1,0 +1,1000 @@
+01-06 17:09:07.820  2949  2949 I chatty  : uid=1000 system_server expire 9 lines
+01-06 17:09:39.877  2949  5232 I chatty  : uid=1000(system) Binder:2949_17 expire 4 lines
+01-06 17:10:43.903  2949  2949 W Looper  : Slow dispatch took 2004ms main h=android.os.Handler c=android.app.AlarmManager$ListenerWrapper@66d7e7c m=0
+01-06 17:10:43.903  2949  2949 W Looper  : Slow delivery took 2003ms main h=com.android.server.AlarmManagerService$AlarmHandler c=null m=4
+01-06 17:10:43.917  2949  2949 W Looper  : Drained
+01-06 17:10:43.933  2949  5232 I AlarmManager: Change Wakeup Alarm type to non Wakeup type, current type=[2] packageName = androidstatsTag = *walarm*:*job.deadline* @26235634 and next wakeup alarm is @Tue Jan 06 22:57:14 GMT+03:00 2026
+01-06 17:10:43.935  2949  5232 I AlarmManager: Change Wakeup Alarm type to non Wakeup type, current type=[2] packageName = androidstatsTag = *walarm*:*job.deadline* @24023761 and next wakeup alarm is @Tue Jan 06 22:57:14 GMT+03:00 2026
+01-06 17:11:15.932  2949  2949 W Looper  : Slow dispatch took 2004ms main h=android.os.Handler c=android.app.AlarmManager$ListenerWrapper@66d7e7c m=0
+01-06 17:11:15.932  2949  2949 W Looper  : Slow delivery took 2003ms main h=com.android.server.AlarmManagerService$AlarmHandler c=null m=4
+01-06 17:11:15.947  2949  2949 W Looper  : Drained
+01-06 17:11:15.963  2949  5232 I AlarmManager: Change Wakeup Alarm type to non Wakeup type, current type=[2] packageName = androidstatsTag = *walarm*:*job.deadline* @26235634 and next wakeup alarm is @Tue Jan 06 22:57:14 GMT+03:00 2026
+01-06 17:11:15.964  2949  5232 I AlarmManager: Change Wakeup Alarm type to non Wakeup type, current type=[2] packageName = androidstatsTag = *walarm*:*job.deadline* @24055791 and next wakeup alarm is @Tue Jan 06 22:57:14 GMT+03:00 2026
+01-06 17:11:43.715  2949  3012 I UsageStatsService: User[0] Flushing usage stats to disk
+01-06 17:11:47.962  2949  2949 W Looper  : Slow dispatch took 2004ms main h=android.os.Handler c=android.app.AlarmManager$ListenerWrapper@66d7e7c m=0
+01-06 17:11:47.962  2949  2949 W Looper  : Slow delivery took 2003ms main h=com.android.server.AlarmManagerService$AlarmHandler c=null m=4
+01-06 17:11:47.976  2949  2949 W Looper  : Drained
+01-06 17:11:47.992  2949  5232 I AlarmManager: Change Wakeup Alarm type to non Wakeup type, current type=[2] packageName = androidstatsTag = *walarm*:*job.deadline* @26235634 and next wakeup alarm is @Tue Jan 06 22:57:14 GMT+03:00 2026
+01-06 17:11:47.994  2949  5232 I AlarmManager: Change Wakeup Alarm type to non Wakeup type, current type=[2] packageName = androidstatsTag = *walarm*:*job.deadline* @24087820 and next wakeup alarm is @Tue Jan 06 22:57:14 GMT+03:00 2026
+01-06 17:12:19.991  2949  2949 W Looper  : Slow dispatch took 2004ms main h=android.os.Handler c=android.app.AlarmManager$ListenerWrapper@66d7e7c m=0
+01-06 17:12:19.991  2949  2949 W Looper  : Slow delivery took 2003ms main h=com.android.server.AlarmManagerService$AlarmHandler c=null m=4
+01-06 17:12:20.005  2949  2949 W Looper  : Drained
+01-06 17:12:20.023  2949  3377 I AlarmManager: Change Wakeup Alarm type to non Wakeup type, current type=[2] packageName = androidstatsTag = *walarm*:*job.deadline* @26235634 and next wakeup alarm is @Tue Jan 06 22:57:14 GMT+03:00 2026
+01-06 17:12:20.025  2949  3377 I AlarmManager: Change Wakeup Alarm type to non Wakeup type, current type=[2] packageName = androidstatsTag = *walarm*:*job.deadline* @24119851 and next wakeup alarm is @Tue Jan 06 22:57:14 GMT+03:00 2026
+01-06 17:12:52.022  2949  2949 W Looper  : Slow dispatch took 2004ms main h=android.os.Handler c=android.app.AlarmManager$ListenerWrapper@66d7e7c m=0
+01-06 17:12:52.022  2949  2949 W Looper  : Slow delivery took 2003ms main h=com.android.server.AlarmManagerService$AlarmHandler c=null m=4
+01-06 17:12:52.036  2949  2949 W Looper  : Drained
+01-06 17:12:52.053  2949  3377 I AlarmManager: Change Wakeup Alarm type to non Wakeup type, current type=[2] packageName = androidstatsTag = *walarm*:*job.deadline* @26235634 and next wakeup alarm is @Tue Jan 06 22:57:14 GMT+03:00 2026
+01-06 17:12:52.055  2949  3377 I AlarmManager: Change Wakeup Alarm type to non Wakeup type, current type=[2] packageName = androidstatsTag = *walarm*:*job.deadline* @24151881 and next wakeup alarm is @Tue Jan 06 22:57:14 GMT+03:00 2026
+01-06 17:13:24.052  2949  2949 W Looper  : Slow dispatch took 2004ms main h=android.os.Handler c=android.app.AlarmManager$ListenerWrapper@66d7e7c m=0
+01-06 17:13:24.053  2949  2949 W Looper  : Slow delivery took 2003ms main h=com.android.server.AlarmManagerService$AlarmHandler c=null m=4
+01-06 17:13:24.067  2949  2949 W Looper  : Drained
+01-06 17:13:24.084  2949  5232 I AlarmManager: Change Wakeup Alarm type to non Wakeup type, current type=[2] packageName = androidstatsTag = *walarm*:*job.deadline* @26235634 and next wakeup alarm is @Tue Jan 06 22:57:14 GMT+03:00 2026
+01-06 17:13:24.085  2949  5232 I AlarmManager: Change Wakeup Alarm type to non Wakeup type, current type=[2] packageName = androidstatsTag = *walarm*:*job.deadline* @24183911 and next wakeup alarm is @Tue Jan 06 22:57:14 GMT+03:00 2026
+01-06 17:13:56.082  2949  2949 W Looper  : Slow dispatch took 2004ms main h=android.os.Handler c=android.app.AlarmManager$ListenerWrapper@66d7e7c m=0
+01-06 17:13:56.082  2949  2949 W Looper  : Slow delivery took 2003ms main h=com.android.server.AlarmManagerService$AlarmHandler c=null m=4
+01-06 17:13:56.096  2949  2949 W Looper  : Drained
+01-06 17:13:56.113  2949  3377 I AlarmManager: Change Wakeup Alarm type to non Wakeup type, current type=[2] packageName = androidstatsTag = *walarm*:*job.deadline* @26235634 and next wakeup alarm is @Tue Jan 06 22:57:14 GMT+03:00 2026
+01-06 17:13:56.114  2949  3377 I AlarmManager: Change Wakeup Alarm type to non Wakeup type, current type=[2] packageName = androidstatsTag = *walarm*:*job.deadline* @24215941 and next wakeup alarm is @Tue Jan 06 22:57:14 GMT+03:00 2026
+01-06 17:13:59.651  2805  2805 I wificond: Received external scan result notification from kernel.
+01-06 17:14:48.142  2949  2949 W Looper  : Slow dispatch took 2004ms main h=android.os.Handler c=android.app.AlarmManager$ListenerWrapper@66d7e7c m=0
+01-06 17:14:48.142  2949  2949 W Looper  : Slow delivery took 2003ms main h=com.android.server.AlarmManagerService$AlarmHandler c=null m=4
+01-06 17:14:48.157  2949  2949 W Looper  : Drained
+01-06 17:14:48.174  2949  5998 I AlarmManager: Change Wakeup Alarm type to non Wakeup type, current type=[2] packageName = androidstatsTag = *walarm*:*job.deadline* @26235634 and next wakeup alarm is @Tue Jan 06 22:57:14 GMT+03:00 2026
+01-06 17:14:48.175  2949  5998 I AlarmManager: Change Wakeup Alarm type to non Wakeup type, current type=[2] packageName = androidstatsTag = *walarm*:*job.deadline* @24268002 and next wakeup alarm is @Tue Jan 06 22:57:14 GMT+03:00 2026
+01-06 17:15:20.173  2949  2949 W Looper  : Slow dispatch took 2004ms main h=android.os.Handler c=android.app.AlarmManager$ListenerWrapper@66d7e7c m=0
+01-06 17:15:20.173  2949  2949 W Looper  : Slow delivery took 2003ms main h=com.android.server.AlarmManagerService$AlarmHandler c=null m=4
+01-06 17:15:20.188  2949  2949 W Looper  : Drained
+01-06 17:15:20.205  2949  4183 I AlarmManager: Change Wakeup Alarm type to non Wakeup type, current type=[2] packageName = androidstatsTag = *walarm*:*job.deadline* @26235634 and next wakeup alarm is @Tue Jan 06 22:57:14 GMT+03:00 2026
+01-06 17:15:20.207  2949  4183 I AlarmManager: Change Wakeup Alarm type to non Wakeup type, current type=[2] packageName = androidstatsTag = *walarm*:*job.deadline* @24300033 and next wakeup alarm is @Tue Jan 06 22:57:14 GMT+03:00 2026
+01-06 17:15:52.205  2949  2949 W Looper  : Slow dispatch took 2005ms main h=android.os.Handler c=android.app.AlarmManager$ListenerWrapper@66d7e7c m=0
+01-06 17:15:52.205  2949  2949 W Looper  : Slow delivery took 2004ms main h=com.android.server.AlarmManagerService$AlarmHandler c=null m=4
+01-06 17:15:52.220  2949  2949 W Looper  : Drained
+01-06 17:15:52.238  2949  5998 I AlarmManager: Change Wakeup Alarm type to non Wakeup type, current type=[2] packageName = androidstatsTag = *walarm*:*job.deadline* @26235634 and next wakeup alarm is @Tue Jan 06 22:57:14 GMT+03:00 2026
+01-06 17:15:52.240  2949  5998 I AlarmManager: Change Wakeup Alarm type to non Wakeup type, current type=[2] packageName = androidstatsTag = *walarm*:*job.deadline* @24332066 and next wakeup alarm is @Tue Jan 06 22:57:14 GMT+03:00 2026
+01-06 17:16:24.237  2949  2949 W Looper  : Slow dispatch took 2004ms main h=android.os.Handler c=android.app.AlarmManager$ListenerWrapper@66d7e7c m=0
+01-06 17:16:24.237  2949  2949 W Looper  : Slow delivery took 2003ms main h=com.android.server.AlarmManagerService$AlarmHandler c=null m=4
+01-06 17:16:24.251  2949  2949 W Looper  : Drained
+01-06 17:16:24.268  2949  5226 I AlarmManager: Change Wakeup Alarm type to non Wakeup type, current type=[2] packageName = androidstatsTag = *walarm*:*job.deadline* @26235634 and next wakeup alarm is @Tue Jan 06 22:57:14 GMT+03:00 2026
+01-06 17:16:24.270  2949  5226 I AlarmManager: Change Wakeup Alarm type to non Wakeup type, current type=[2] packageName = androidstatsTag = *walarm*:*job.deadline* @24364096 and next wakeup alarm is @Tue Jan 06 22:57:14 GMT+03:00 2026
+01-06 17:16:56.267  2949  2949 W Looper  : Slow dispatch took 2004ms main h=android.os.Handler c=android.app.AlarmManager$ListenerWrapper@66d7e7c m=0
+01-06 17:16:56.268  2949  2949 W Looper  : Slow delivery took 2003ms main h=com.android.server.AlarmManagerService$AlarmHandler c=null m=4
+01-06 17:16:56.281  2949  2949 W Looper  : Drained
+01-06 17:16:56.297  2949  4603 I AlarmManager: Change Wakeup Alarm type to non Wakeup type, current type=[2] packageName = androidstatsTag = *walarm*:*job.deadline* @26235634 and next wakeup alarm is @Tue Jan 06 22:57:14 GMT+03:00 2026
+01-06 17:16:56.299  2949  4603 I AlarmManager: Change Wakeup Alarm type to non Wakeup type, current type=[2] packageName = androidstatsTag = *walarm*:*job.deadline* @24396125 and next wakeup alarm is @Tue Jan 06 22:57:14 GMT+03:00 2026
+01-06 17:17:28.296  2949  2949 W Looper  : Slow dispatch took 2003ms main h=android.os.Handler c=android.app.AlarmManager$ListenerWrapper@66d7e7c m=0
+01-06 17:17:28.296  2949  2949 W Looper  : Slow delivery took 2003ms main h=com.android.server.AlarmManagerService$AlarmHandler c=null m=4
+01-06 17:17:28.306  2949  2949 W Looper  : Drained
+01-06 17:17:28.320  2949  4603 I AlarmManager: Change Wakeup Alarm type to non Wakeup type, current type=[2] packageName = androidstatsTag = *walarm*:*job.deadline* @26235634 and next wakeup alarm is @Tue Jan 06 22:57:14 GMT+03:00 2026
+01-06 17:17:28.321  2949  4603 I AlarmManager: Change Wakeup Alarm type to non Wakeup type, current type=[2] packageName = androidstatsTag = *walarm*:*job.deadline* @24428149 and next wakeup alarm is @Tue Jan 06 22:57:14 GMT+03:00 2026
+01-06 17:17:55.569  2949  3406 W RuleEvaluation: Integrity rule files are not available.
+01-06 17:17:55.569  2949  3220 I PackageManager: Integrity check passed for file:///data/app/vmdl343500405.tmp
+01-06 17:17:55.602  2949  3013 I ActivityManager: Force stopping com.bingetv.app appid=10108 user=-1: installPackageLI
+01-06 17:17:55.604  2949  3013 I ActivityManager: Killing 751:com.bingetv.app/u0a108 (adj 0): stop com.bingetv.app due to installPackageLI
+01-06 17:17:55.609  2949  3013 W ActivityTaskManager: Force removing ActivityRecord{3c8beae u0 com.bingetv.app/.ui.main.EnhancedMainActivity t21003 f}}: app died, no saved state
+01-06 17:17:55.617  2949  3220 I PackageManager: Update package com.bingetv.app code path from /data/app/~~qswdGMft4yuR9oH9nAFZjQ==/com.bingetv.app-pjUjluodKH6nVlM3ch8A0A== to /data/app/~~jkc7eKuFPwdrhrdcwoObig==/com.bingetv.app-2THSstkTY8qI906cmwj0eA==; Retain data and using new
+01-06 17:17:55.617  2949  3220 I PackageManager: Update package com.bingetv.app resource path from /data/app/~~qswdGMft4yuR9oH9nAFZjQ==/com.bingetv.app-pjUjluodKH6nVlM3ch8A0A== to /data/app/~~jkc7eKuFPwdrhrdcwoObig==/com.bingetv.app-2THSstkTY8qI906cmwj0eA==; Retain data and using new
+01-06 17:17:55.635  2949  3220 D CompatibilityChangeReporter: Compat change id reported: 135549675; UID 10108; state: ENABLED
+01-06 17:17:55.640  2949  3220 I PackageManager: Permission ownership changed. Updating all permissions.
+01-06 17:17:55.663  2949  4183 D ConnectivityService: ConnectivityService NetworkRequestInfo binderDied(NetworkRequest [ TRACK_DEFAULT id=324, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED Uid: 10108 AdministratorUids: [] RequestorUid: 10108 RequestorPackageName: com.bingetv.app] ], android.os.BinderProxy@2005bbc)
+01-06 17:17:55.663  2949  3453 D ConnectivityService: releasing NetworkRequest [ TRACK_DEFAULT id=324, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED Uid: 10108 AdministratorUids: [] RequestorUid: 10108 RequestorPackageName: com.bingetv.app] ] (release request)
+01-06 17:17:55.792  2949  3220 W PackageSettings: Skipping PackageSetting{234c113 com.ytvplayer.yacinetv/10077} due to missing metadata
+01-06 17:17:55.828  2949  2996 W Looper  : Slow dispatch took 225ms android.ui h=com.android.server.am.ActivityManagerService$UiHandler c=null m=53
+01-06 17:17:55.828  2949  2996 W Looper  : Slow delivery took 220ms android.ui h=com.android.server.am.ActivityManagerService$UiHandler c=null m=32
+01-06 17:17:55.828  2949  2996 W Looper  : Drained
+01-06 17:17:55.839  2949  2998 D CompatibilityChangeReporter: Compat change id reported: 135634846; UID 10013; state: DISABLED
+01-06 17:17:55.839  2949  2998 W ActivityManager: setHasOverlayUi called on unknown pid: 751
+01-06 17:17:55.839  2949  3014 D CompatibilityChangeReporter: Compat change id reported: 143937733; UID 10013; state: ENABLED
+01-06 17:17:55.873  2949  3014 I ActivityManager: Start proc 1344:com.google.android.tvlauncher/u0a13 for top-activity {com.google.android.tvlauncher/com.google.android.tvlauncher.MainActivity}
+01-06 17:17:55.910  2949  6871 W OomAdjuster: Fallback pre-set sched group to default: not expected top priority
+01-06 17:17:56.220  2949  4604 D CompatibilityChangeReporter: Compat change id reported: 136274596; UID 10013; state: ENABLED
+01-06 17:17:56.273  2949  4604 D CompatibilityChangeReporter: Compat change id reported: 135634846; UID 10016; state: DISABLED
+01-06 17:17:56.274  2949  3014 D CompatibilityChangeReporter: Compat change id reported: 143937733; UID 10016; state: ENABLED
+01-06 17:17:56.311  2949  3014 I ActivityManager: Start proc 1380:com.google.process.gservices/u0a16 for content provider {com.google.android.gsf/com.google.android.gsf.gservices.GservicesProvider}
+01-06 17:17:56.704  3651  4916 W ContextImpl: Calling a method in the system process without a qualified user: android.app.ContextImpl.bindService:1748 android.content.ContextWrapper.bindService:756 com.mediatek.wwtv.tvrecommendation.util.ChannelQueryClient.<init>:30 com.mediatek.wwtv.tvrecommendation.util.ChannelQueryClient.getInstance:92 com.mediatek.wwtv.tvrecommendation.RecommendedChannelsThread.bindQueryChannelService:711 
+01-06 17:17:56.707  2949  3867 D CompatibilityChangeReporter: Compat change id reported: 135634846; UID 1000; state: DISABLED
+01-06 17:17:56.738  2949  3014 I ActivityManager: Start proc 1401:com.mediatek.wwtv.tvcenter/1000 for service {com.mediatek.wwtv.tvcenter/com.mediatek.wwtv.tvcenter.nav.HomeChannelService}
+01-06 17:17:57.267  2949  3867 D CompatibilityChangeReporter: Compat change id reported: 136219221; UID 1000; state: DISABLED
+01-06 17:18:00.016  2949  4064 E TaskPersister: File error accessing recents directory (directory doesn't exist?).
+01-06 17:18:00.184  2949  4604 I ActivityManager: Killing 1201:com.google.android.gms/u0a16 (adj 915): 45283k from cached
+01-06 17:18:00.284  2949  4183 W ActivityManager: Scheduling restart of crashed service com.google.android.gms/.chimera.GmsApiService in 1000ms for connection
+01-06 17:18:00.284  2949  4183 W ActivityManager: Scheduling restart of crashed service com.google.android.gms/.chimera.GmsBoundBrokerService in 11000ms for connection
+01-06 17:18:00.284  2949  4183 W ActivityManager: Scheduling restart of crashed service com.google.android.gms/.chimera.GmsInternalApiService in 21000ms for connection
+01-06 17:18:00.328  2949  2949 W Looper  : Slow dispatch took 2012ms main h=android.os.Handler c=android.app.AlarmManager$ListenerWrapper@66d7e7c m=0
+01-06 17:18:00.328  2949  2949 W Looper  : Slow delivery took 2012ms main h=com.android.server.AlarmManagerService$AlarmHandler c=null m=4
+01-06 17:18:00.378  2949  2949 W Looper  : Drained
+01-06 17:18:00.432  2949  3799 I AlarmManager: Change Wakeup Alarm type to non Wakeup type, current type=[2] packageName = androidstatsTag = *walarm*:*job.deadline* @26235634 and next wakeup alarm is @Tue Jan 06 22:57:14 GMT+03:00 2026
+01-06 17:18:00.434  2949  3799 I AlarmManager: Change Wakeup Alarm type to non Wakeup type, current type=[2] packageName = androidstatsTag = *walarm*:*job.deadline* @24460256 and next wakeup alarm is @Tue Jan 06 22:57:14 GMT+03:00 2026
+01-06 17:18:00.530  2949  4991 D ConnectivityService: requestNetwork for uid/pid:10013/1344 NetworkRequest [ TRACK_DEFAULT id=325, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED Uid: 10013 AdministratorUids: [] RequestorUid: 10013 RequestorPackageName: com.google.android.tvlauncher] ]
+01-06 17:18:00.532  2949  3453 D ConnectivityService: NetReassign [325 : null → 101]
+01-06 17:18:00.623  2949  7524 D CompatibilityChangeReporter: Compat change id reported: 135634846; UID 1000; state: DISABLED
+01-06 17:18:00.667  2949  3014 I ActivityManager: Start proc 1486:com.google.android.leanbacklauncher.partnercustomizer/1000 for content provider {com.google.android.leanbacklauncher.partnercustomizer/com.google.android.leanbacklauncher.partnercustomizer.ConfigurationProvider}
+01-06 17:18:00.804  2949  3799 D CompatibilityChangeReporter: Compat change id reported: 136219221; UID 1000; state: DISABLED
+01-06 17:18:01.027  2949  2949 W Looper  : Slow dispatch took 492ms main h=android.os.Handler c=com.android.server.hdmi.HdmiControlService$4@2f70b94 m=0
+01-06 17:18:01.028  2949  2949 W Looper  : Slow delivery took 367ms main h=com.android.server.job.JobSchedulerService$JobHandler c=null m=4
+01-06 17:18:01.036  2949  2949 W Looper  : Drained
+01-06 17:18:01.291  2949  3013 D CompatibilityChangeReporter: Compat change id reported: 135634846; UID 10016; state: DISABLED
+01-06 17:18:01.292  2949  3014 D CompatibilityChangeReporter: Compat change id reported: 143937733; UID 10016; state: ENABLED
+01-06 17:18:01.321  2949  3014 I ActivityManager: Start proc 1533:com.google.android.gms/u0a16 for service {com.google.android.gms/com.google.android.gms.chimera.GmsApiService}
+01-06 17:18:03.489  2949  7524 I AlarmManager: Change Wakeup Alarm type to non Wakeup type, current type=[2] packageName = com.google.android.gmsstatsTag = *walarm*:com.google.android.gms.gcm.HEARTBEAT_ALARM @25663320 and next wakeup alarm is @Tue Jan 06 22:57:14 GMT+03:00 2026
+01-06 17:18:03.605  2949  2964 I AlarmManager: Change Wakeup Alarm type to non Wakeup type, current type=[2] packageName = com.google.android.gmsstatsTag = *walarm*:com.google.android.gms.gcm.HEARTBEAT_ALARM @25663437 and next wakeup alarm is @Tue Jan 06 22:57:14 GMT+03:00 2026
+01-06 17:18:07.178  2949  3220 I ActivityManager: Force stopping com.bingetv.app appid=10108 user=0: pkg removed
+01-06 17:18:07.206  2949  3013 W BroadcastQueue: Background execution not allowed: receiving Intent { act=android.intent.action.PACKAGE_REMOVED dat=package:com.bingetv.app flg=0x4000010 (has extras) } to com.android.vending/com.google.android.finsky.packagemonitor.impl.PackageMonitorReceiverImpl$RegisteredReceiver
+01-06 17:18:07.220  2949  3013 W BroadcastQueue: Background execution not allowed: receiving Intent { act=android.intent.action.PACKAGE_REMOVED dat=package:com.bingetv.app flg=0x4000010 (has extras) } to com.android.vending/com.google.android.finsky.packagemonitor.backgroundimpl.BackgroundPackageMonitorReceiverImpl$RegisteredReceiver
+01-06 17:18:07.231  2949  3013 W BroadcastQueue: Background execution not allowed: receiving Intent { act=android.intent.action.PACKAGE_REMOVED dat=package:com.bingetv.app flg=0x4000010 (has extras) } to com.android.vending/com.google.android.finsky.instantapps.appmanagement.InstantAppRemoveMonitor
+01-06 17:18:07.233  2949  3013 W BroadcastQueue: Background execution not allowed: receiving Intent { act=android.intent.action.PACKAGE_REMOVED dat=package:com.bingetv.app flg=0x4000010 (has extras) } to com.google.android.gms/.chimera.GmsIntentOperationService$PersistentTrustedReceiver
+01-06 17:18:07.234  2949  3013 W BroadcastQueue: Background execution not allowed: receiving Intent { act=android.intent.action.PACKAGE_REMOVED dat=package:com.bingetv.app flg=0x4000010 (has extras) } to com.google.android.leanbacklauncher.partnercustomizer/.PartnerReceiver
+01-06 17:18:07.234  2949  3013 W BroadcastQueue: Background execution not allowed: receiving Intent { act=android.intent.action.PACKAGE_REMOVED dat=package:com.bingetv.app flg=0x4000010 (has extras) } to com.mediatek.wwtv.setupwizard/.PartnerReceiver
+01-06 17:18:07.239  2949  4603 I AlarmManager: Change Wakeup Alarm type to non Wakeup type, current type=[3] packageName = com.google.android.gmsstatsTag = *alarm*:com.google.android.chimera.container.IntentOperationService.SAVED_INTENT @315384407069 and next wakeup alarm is @Tue Jan 06 22:57:14 GMT+03:00 2026
+01-06 17:18:07.242  2949  2949 D CompatibilityChangeReporter: Compat change id reported: 135634846; UID 1000; state: DISABLED
+01-06 17:18:07.278  2949  3013 W BroadcastQueue: Background execution not allowed: receiving Intent { act=android.intent.action.PACKAGE_ADDED dat=package:com.bingetv.app flg=0x4000010 (has extras) } to com.google.android.packageinstaller/com.android.packageinstaller.PackageInstalledReceiver
+01-06 17:18:07.281  2949  3013 W BroadcastQueue: Background execution not allowed: receiving Intent { act=android.intent.action.PACKAGE_ADDED dat=package:com.bingetv.app flg=0x4000010 (has extras) } to com.android.vending/com.google.android.finsky.packagemonitor.impl.PackageMonitorReceiverImpl$RegisteredReceiver
+01-06 17:18:07.282  2949  3013 W BroadcastQueue: Background execution not allowed: receiving Intent { act=android.intent.action.PACKAGE_ADDED dat=package:com.bingetv.app flg=0x4000010 (has extras) } to com.android.vending/com.google.android.finsky.packagemonitor.backgroundimpl.BackgroundPackageMonitorReceiverImpl$RegisteredReceiver
+01-06 17:18:07.282  2949  3013 W BroadcastQueue: Background execution not allowed: receiving Intent { act=android.intent.action.PACKAGE_ADDED dat=package:com.bingetv.app flg=0x4000010 (has extras) } to com.google.android.gms/.chimera.GmsIntentOperationService$PersistentTrustedReceiver
+01-06 17:18:07.282  2949  3013 W BroadcastQueue: Background execution not allowed: receiving Intent { act=android.intent.action.PACKAGE_ADDED dat=package:com.bingetv.app flg=0x4000010 (has extras) } to com.google.android.gms/.gass.chimera.PackageChangeBroadcastReceiver
+01-06 17:18:07.282  2949  3013 W BroadcastQueue: Background execution not allowed: receiving Intent { act=android.intent.action.PACKAGE_ADDED dat=package:com.bingetv.app flg=0x4000010 (has extras) } to com.google.android.leanbacklauncher.partnercustomizer/.PartnerReceiver
+01-06 17:18:07.282  2949  3013 W BroadcastQueue: Background execution not allowed: receiving Intent { act=android.intent.action.PACKAGE_ADDED dat=package:com.bingetv.app flg=0x4000010 (has extras) } to com.mediatek.wwtv.setupwizard/.PartnerReceiver
+01-06 17:18:07.300  2949  3013 D CompatibilityChangeReporter: Compat change id reported: 135634846; UID 10017; state: DISABLED
+01-06 17:18:07.315  2949  3014 W ActivityManager: Slow operation: 75ms so far, now at startProcess: returned from zygote!
+01-06 17:18:07.329  2949  3014 W ActivityManager: Slow operation: 89ms so far, now at startProcess: done updating battery stats
+01-06 17:18:07.329  2949  3014 W ActivityManager: Slow operation: 90ms so far, now at startProcess: building log message
+01-06 17:18:07.329  2949  3014 I ActivityManager: Start proc 1613:com.android.keychain/1000 for service {com.android.keychain/com.android.keychain.KeyChainService}
+01-06 17:18:07.329  2949  3014 W ActivityManager: Slow operation: 90ms so far, now at startProcess: starting to update pids map
+01-06 17:18:07.330  2949  3014 W ActivityManager: Slow operation: 90ms so far, now at startProcess: done updating pids map
+01-06 17:18:07.330  2949  3014 D CompatibilityChangeReporter: Compat change id reported: 143937733; UID 10017; state: ENABLED
+01-06 17:18:07.333  2949  5226 I AlarmManager: Change Wakeup Alarm type to non Wakeup type, current type=[3] packageName = com.google.android.gmsstatsTag = *alarm*:com.google.android.chimera.container.IntentOperationService.SAVED_INTENT @315384407160 and next wakeup alarm is @Tue Jan 06 22:57:14 GMT+03:00 2026
+01-06 17:18:07.366  2949  3014 W ActivityManager: Slow operation: 70ms so far, now at startProcess: returned from zygote!
+01-06 17:18:07.408  2949  3014 W ActivityManager: Slow operation: 112ms so far, now at startProcess: done updating battery stats
+01-06 17:18:07.412  2949  3014 W ActivityManager: Slow operation: 116ms so far, now at startProcess: building log message
+01-06 17:18:07.412  2949  3014 I ActivityManager: Start proc 1636:com.android.vending/u0a17 for broadcast {com.android.vending/com.google.android.finsky.packagemonitor.impl.PackageMonitorReceiverImpl$RegisteredReceiver}
+01-06 17:18:07.412  2949  3014 W ActivityManager: Slow operation: 116ms so far, now at startProcess: starting to update pids map
+01-06 17:18:07.415  2949  3014 W ActivityManager: Slow operation: 118ms so far, now at startProcess: done updating pids map
+01-06 17:18:07.503  2949  2949 W Looper  : Slow dispatch took 121ms main h=android.app.ActivityThread$H c=android.app.-$$Lambda$LoadedApk$ReceiverDispatcher$Args$_BumDX2UKsnxLVrE6UJsJZkotuA@ca30950 m=0
+01-06 17:18:07.503  2949  2949 W Looper  : Slow delivery took 286ms main h=android.app.ActivityThread$H c=android.app.-$$Lambda$LoadedApk$ReceiverDispatcher$Args$_BumDX2UKsnxLVrE6UJsJZkotuA@2218749 m=0
+01-06 17:18:07.646  2949  2949 V BackupManagerConstants: getFullBackupIntervalMilliseconds(...) returns 86400000
+01-06 17:18:07.646  2949  2949 V BackupManagerConstants: getFullBackupRequiredNetworkType(...) returns 2
+01-06 17:18:07.657  2949  2949 V BackupManagerConstants: getFullBackupRequireCharging(...) returns true
+01-06 17:18:07.764  2949  2949 W Looper  : Drained
+01-06 17:18:07.773  2949  6625 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.bingetv.app/.ui.splash.SplashActivity} from uid 2000
+01-06 17:18:07.863  2949  3012 W TextServicesManagerService: no available spell checker services found
+01-06 17:18:07.957  2949  2998 D CompatibilityChangeReporter: Compat change id reported: 135634846; UID 10108; state: DISABLED
+01-06 17:18:07.959  2949  3014 D CompatibilityChangeReporter: Compat change id reported: 143937733; UID 10108; state: ENABLED
+01-06 17:18:08.018  2949  3014 W ActivityManager: Slow operation: 62ms so far, now at startProcess: returned from zygote!
+01-06 17:18:08.026  2949  3014 W ActivityManager: Slow operation: 70ms so far, now at startProcess: done updating battery stats
+01-06 17:18:08.026  2949  3014 W ActivityManager: Slow operation: 70ms so far, now at startProcess: building log message
+01-06 17:18:08.026  2949  3014 I ActivityManager: Start proc 1677:com.bingetv.app/u0a108 for pre-top-activity {com.bingetv.app/com.bingetv.app.ui.splash.SplashActivity}
+01-06 17:18:08.026  2949  3014 W ActivityManager: Slow operation: 70ms so far, now at startProcess: starting to update pids map
+01-06 17:18:08.027  2949  3014 W ActivityManager: Slow operation: 71ms so far, now at startProcess: done updating pids map
+01-06 17:18:08.030  2949  2998 D CompatibilityChangeReporter: Compat change id reported: 136219221; UID 1000; state: DISABLED
+01-06 17:18:08.070  2949  5226 W OomAdjuster: Fallback pre-set sched group to default: not expected top priority
+01-06 17:18:09.721  2949  4603 D CompatibilityChangeReporter: Compat change id reported: 135634846; UID 10017; state: DISABLED
+01-06 17:18:09.722  2949  3014 D CompatibilityChangeReporter: Compat change id reported: 143937733; UID 10017; state: ENABLED
+01-06 17:18:09.806  2949  3014 W ActivityManager: Slow operation: 88ms so far, now at startProcess: returned from zygote!
+01-06 17:18:09.808  2949  3014 W ActivityManager: Slow operation: 91ms so far, now at startProcess: done updating battery stats
+01-06 17:18:09.809  2949  3014 W ActivityManager: Slow operation: 92ms so far, now at startProcess: building log message
+01-06 17:18:09.810  2949  3014 I ActivityManager: Start proc 1759:com.android.vending:background/u0a17 for broadcast {com.android.vending/com.google.android.finsky.packagemonitor.backgroundimpl.BackgroundPackageMonitorReceiverImpl$RegisteredReceiver}
+01-06 17:18:09.810  2949  3014 W ActivityManager: Slow operation: 92ms so far, now at startProcess: starting to update pids map
+01-06 17:18:09.812  2949  3014 W ActivityManager: Slow operation: 95ms so far, now at startProcess: done updating pids map
+01-06 17:18:10.337  2949  5226 I ActivityTaskManager: START u0 {cmp=com.bingetv.app/.ui.main.EnhancedMainActivity} from uid 10108
+01-06 17:18:10.395  2949  5226 W ActivityTaskManager: Tried to set launchTime (0) < mLastActivityLaunchTime (24407935)
+01-06 17:18:11.334  2949  6871 W BroadcastQueue: Background execution not allowed: receiving Intent { act=android.intent.action.PACKAGE_REPLACED dat=package:com.bingetv.app flg=0x4000010 (has extras) } to com.google.android.gms/.chimera.GmsIntentOperationService$PersistentTrustedReceiver
+01-06 17:18:11.355  2949  3013 W BroadcastQueue: Background execution not allowed: receiving Intent { act=android.intent.action.PACKAGE_REPLACED dat=package:com.bingetv.app flg=0x4000010 (has extras) } to com.google.android.gms/.gass.chimera.PackageChangeBroadcastReceiver
+01-06 17:18:12.059  2949  6625 D ConnectivityService: requestNetwork for uid/pid:10017/1759 NetworkRequest [ TRACK_DEFAULT id=326, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED Uid: 10017 AdministratorUids: [] RequestorUid: 10017 RequestorPackageName: com.android.vending] ]
+01-06 17:18:12.067  2949  3453 D ConnectivityService: NetReassign [326 : null → 101]
+01-06 17:18:12.216  2949  4064 E TaskPersister: File error accessing recents directory (directory doesn't exist?).
+01-06 17:18:12.344  2949  6871 D ConnectivityService: requestNetwork for uid/pid:10017/1759 NetworkRequest [ TRACK_DEFAULT id=327, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED Uid: 10017 AdministratorUids: [] RequestorUid: 10017 RequestorPackageName: com.android.vending] ]
+01-06 17:18:12.348  2949  3453 D ConnectivityService: NetReassign [327 : null → 101]
+01-06 17:18:12.389  2949  3453 D ConnectivityService: NetReassign [no changes]
+01-06 17:18:14.311  2949  6625 D CompatibilityChangeReporter: Compat change id reported: 135634846; UID 10021; state: DISABLED
+01-06 17:18:14.313  2949  3014 D CompatibilityChangeReporter: Compat change id reported: 143937733; UID 10021; state: ENABLED
+01-06 17:18:14.355  2949  3014 W ActivityManager: Slow operation: 51ms so far, now at startProcess: returned from zygote!
+01-06 17:18:14.366  2949  3014 W ActivityManager: Slow operation: 62ms so far, now at startProcess: done updating battery stats
+01-06 17:18:14.367  2949  3014 W ActivityManager: Slow operation: 62ms so far, now at startProcess: building log message
+01-06 17:18:14.367  2949  3014 I ActivityManager: Start proc 1874:android.process.acore/u0a21 for content provider {com.android.providers.contacts/com.android.providers.contacts.ContactsProvider2}
+01-06 17:18:14.367  2949  3014 W ActivityManager: Slow operation: 62ms so far, now at startProcess: starting to update pids map
+01-06 17:18:14.370  2949  3014 W ActivityManager: Slow operation: 65ms so far, now at startProcess: done updating pids map
+01-06 17:18:14.486  2949  4603 D ConnectivityService: requestNetwork for uid/pid:10017/1636 NetworkRequest [ TRACK_DEFAULT id=329, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED Uid: 10017 AdministratorUids: [] RequestorUid: 10017 RequestorPackageName: com.android.vending] ]
+01-06 17:18:14.486  2949  3453 D ConnectivityService: NetReassign [329 : null → 101]
+01-06 17:18:14.501  2949  3453 D ConnectivityService: NetReassign [no changes]
+01-06 17:18:14.753  2949  5226 D CountryDetector: The first listener is added
+01-06 17:18:14.768  1874  1874 D ActivityThread: Loading provider contacts;com.android.contacts: com.android.providers.contacts.ContactsProvider2
+01-06 17:18:15.624  2949  4064 E TaskPersister: File error accessing recents directory (directory doesn't exist?).
+01-06 17:18:16.838  2949  6625 D ConnectivityService: requestNetwork for uid/pid:10108/1677 NetworkRequest [ TRACK_DEFAULT id=331, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED Uid: 10108 AdministratorUids: [] RequestorUid: 10108 RequestorPackageName: com.bingetv.app] ]
+01-06 17:18:16.838  2949  3453 D ConnectivityService: NetReassign [331 : null → 101]
+01-06 17:18:18.970  2949  4603 D CompatibilityChangeReporter: Compat change id reported: 135634846; UID 10016; state: DISABLED
+01-06 17:18:18.971  2949  3014 D CompatibilityChangeReporter: Compat change id reported: 143937733; UID 10016; state: ENABLED
+01-06 17:18:18.994  2949  3014 I ActivityManager: Start proc 1938:com.google.process.gapps/u0a16 for content provider {com.google.android.gsf/com.google.android.gsf.settings.GoogleSettingsProvider}
+01-06 17:18:26.996  2949  2949 W Looper  : Slow dispatch took 2007ms main h=android.os.Handler c=android.app.AlarmManager$ListenerWrapper@66d7e7c m=0
+01-06 17:18:26.996  2949  2949 W Looper  : Slow delivery took 2001ms main h=com.android.server.AlarmManagerService$AlarmHandler c=null m=4
+01-06 17:18:27.016  2949  2949 W Looper  : Drained
+01-06 17:18:29.422  2949  4603 D ConnectivityService: requestNetwork for uid/pid:10017/1759 NetworkRequest [ TRACK_DEFAULT id=332, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED Uid: 10017 AdministratorUids: [] RequestorUid: 10017 RequestorPackageName: com.android.vending] ]
+01-06 17:18:29.423  2949  3453 D ConnectivityService: NetReassign [332 : null → 101]
+--------- beginning of main
+01-06 17:18:31.430  4782  4782 W cast_shell: [0106/171831.429905:WARNING:application_manager_impl.cc(611)] Unable to fetch config for app ID YouTube because the app is not supported
+01-06 17:18:32.221  4782  4980 I cast_shell: [0106/171832.221182:INFO:mdns_app_filter.cc(3358)] MdnsAppFilter: responses sent in 31 seconds: 5
+01-06 17:18:32.427  2949  2949 W Looper  : Slow dispatch took 2004ms main h=android.os.Handler c=android.app.AlarmManager$ListenerWrapper@66d7e7c m=0
+01-06 17:18:32.427  2949  2949 W Looper  : Slow delivery took 2003ms main h=com.android.server.AlarmManagerService$AlarmHandler c=null m=4
+01-06 17:18:32.441  2949  2949 W Looper  : Drained
+01-06 17:18:32.474  2949  4603 I AlarmManager: Change Wakeup Alarm type to non Wakeup type, current type=[2] packageName = androidstatsTag = *walarm*:*job.deadline* @26235634 and next wakeup alarm is @Tue Jan 06 22:57:14 GMT+03:00 2026
+01-06 17:18:32.476  2949  4603 I AlarmManager: Change Wakeup Alarm type to non Wakeup type, current type=[2] packageName = androidstatsTag = *walarm*:*job.deadline* @24492302 and next wakeup alarm is @Tue Jan 06 22:57:14 GMT+03:00 2026
+01-06 17:18:33.145 26704 26704 W ThreadPoolForeg: type=1400 audit(0.0:2176): avc: denied { write } for name="traced_producer" dev="tmpfs" ino=12647 scontext=u:r:gmscore_app:s0:c512,c768 tcontext=u:object_r:traced_producer_socket:s0 tclass=sock_file permissive=0 app=com.google.android.gms
+01-06 17:18:33.161  2834  2834 D MTK_KL  : 36,942708,24433086575,-;type=1400 audit(1767709113.145:2176): avc: denied { write } for comm="ThreadPoolForeg" name="traced_producer" dev="tmpfs" ino=12647 scontext=u:r:gmscore_app:s0:c512,c768 tcontext=u:object_r:traced_producer_socket:s0 tclass=sock_file permissive=0 app=com.google.android.gms
+01-06 17:18:34.400  1533  1547 W System  : A resource failed to call close. 
+01-06 17:18:41.431  4782  4782 W cast_shell: [0106/171841.431851:WARNING:application_manager_impl.cc(611)] Unable to fetch config for app ID YouTube because the app is not supported
+01-06 17:18:41.798  3651  4919 I chatty  : uid=1000(system) Thread-68 expire 14 lines
+01-06 17:18:49.972  2949  3418 I chatty  : uid=1000(system) WifiHandlerThre expire 48 lines
+01-06 17:18:49.978  2949  6625 I chatty  : uid=1000(system) Binder:2949_1D expire 14 lines
+01-06 17:18:51.269  4782  1316 I cast_shell: [0106/171851.269726:INFO:ssdp_device.c(101)] SSDP packets sent for 30 seconds = 9
+01-06 17:18:51.443  4782  4782 W cast_shell: [0106/171851.443057:WARNING:application_manager_impl.cc(611)] Unable to fetch config for app ID YouTube because the app is not supported
+01-06 17:18:58.715  3522  3522 D wpa_supplicant: OBSS: assoc_freq 2462 possible affected range 2432-2472
+01-06 17:18:58.716  3522  3522 D wpa_supplicant: SME OBSS: Request an OBSS scan
+01-06 17:18:58.717  3522  3522 D wpa_supplicant: wlan0: Add radio work 'scan'@0xac151930
+01-06 17:18:58.718  3522  3522 D wpa_supplicant: wlan0: First radio work item in the queue - schedule start immediately
+01-06 17:18:58.718  3522  3522 D wpa_supplicant: wlan0: Starting radio work 'scan'@0xac151930 after 0.000107 second wait
+01-06 17:18:58.719  3522  3522 D wpa_supplicant: wlan0: nl80211: scan request
+01-06 17:18:58.720  3522  3522 D wpa_supplicant: nl80211: Passive scan requested
+01-06 17:18:58.721  3522  3522 D wpa_supplicant: Scan requested (ret=0) - scan timeout 30 seconds
+01-06 17:18:58.721  3522  3522 D wpa_supplicant: nl80211: Ignored event 33 (NL80211_CMD_TRIGGER_SCAN) for foreign interface (ifindex 13 wdev 0x0)
+01-06 17:18:58.721  3522  3522 D wpa_supplicant: nl80211: Drv Event 33 (NL80211_CMD_TRIGGER_SCAN) received for wlan0
+01-06 17:18:58.721  3522  3522 D wpa_supplicant: wlan0: nl80211: Scan trigger
+01-06 17:18:58.721  3522  3522 D wpa_supplicant: wlan0: Event SCAN_STARTED (47) received
+01-06 17:18:58.721  3522  3522 D wpa_supplicant: wlan0: Own scan request started a scan in 0.000324 seconds
+01-06 17:18:58.723  2834  2834 D MTK_KL  : 6,942709,24458651584,-;[wlan][2762]aisFsmSteps:(AIS STATE) [AIS]TRANSITION: [NORMAL_TR] -> [ONLINE_SCAN]
+01-06 17:18:58.723  2834  2834 D MTK_KL  : 6,942710,24458651621,-;[wlan][2762]scnFsmSteps:(SCN STATE) [SCAN]TRANSITION: [IDLE] -> [SCANNING]
+01-06 17:18:58.824  3651  4919 I chatty  : uid=1000(system) Thread-68 expire 14 lines
+01-06 17:18:59.661  3522  3522 D wpa_supplicant: nl80211: Ignored event 34 (NL80211_CMD_NEW_SCAN_RESULTS) for foreign interface (ifindex 13 wdev 0x0)
+01-06 17:18:59.661  3522  3522 D wpa_supplicant: nl80211: Drv Event 34 (NL80211_CMD_NEW_SCAN_RESULTS) received for wlan0
+01-06 17:18:59.661  3522  3522 D wpa_supplicant: wlan0: nl80211: New scan results available
+01-06 17:18:59.661  3522  3522 D wpa_supplicant: nl80211: Scan included frequencies: 2427 2432 2437 2442 2447 2452 2457 2462 2467 2472
+01-06 17:18:59.661  3522  3522 D wpa_supplicant: wlan0: Event SCAN_RESULTS (3) received
+01-06 17:18:59.661  3522  3522 D wpa_supplicant: wlan0: Scan completed in 0.939960 seconds
+01-06 17:18:59.662  3522  3522 D wpa_supplicant: nl80211: Received scan results (3 BSSes)
+01-06 17:18:59.662  3522  3522 D wpa_supplicant: nl80211: Scan results indicate BSS status with 08:5c:1b:34:13:d4 as associated
+01-06 17:18:59.663  2834  2834 D MTK_KL  : 6,942711,24459591728,-;[wlan][2762]scnFsmSteps:(SCN STATE) [SCAN]TRANSITION: [SCANNING] -> [IDLE]
+01-06 17:18:59.663  2834  2834 D MTK_KL  : 6,942712,24459591876,-;[wlan][2762]aisFsmSteps:(AIS STATE) [AIS]TRANSITION: [ONLINE_SCAN] -> [NORMAL_TR]
+01-06 17:18:59.666  3522  3522 D wpa_supplicant: wlan0: BSS: Start scan result update 98
+01-06 17:18:59.666  3522  3522 D wpa_supplicant: wlan0: BSS: Add new id 217 BSSID 50:9a:88:12:75:ac SSID 'Kigen' freq 2442
+01-06 17:18:59.666  3522  3522 D wpa_supplicant: wlan0: BSS: Add new id 218 BSSID 90:3f:ea:b3:20:a0 SSID 'Dan17' freq 2427
+01-06 17:18:59.666  3522  3522 D wpa_supplicant: BSS: last_scan_res_used=3/32
+01-06 17:18:59.666  3522  3522 D wpa_supplicant: wlan0: New scan results available (own=1 ext=0)
+01-06 17:18:59.667  2805  2805 I wificond: Received external scan result notification from kernel.
+01-06 17:18:59.669  3522  3522 D wpa_supplicant: Neighboring BSS: 08:5c:1b:34:13:d4 freq=2462 pri=11 sec=7
+01-06 17:18:59.669  3522  3522 D wpa_supplicant: Found overlapping 20 MHz HT BSS: 50:9a:88:12:75:ac freq=2442
+01-06 17:18:59.669  3522  3522 D wpa_supplicant: Overlapping 20 MHz BSS is found
+01-06 17:18:59.669  3522  3522 D wpa_supplicant: Neighboring BSS: 90:3f:ea:b3:20:a0 freq=2427 pri=4 sec=8
+01-06 17:18:59.669  3522  3522 D wpa_supplicant: 40 MHz pri/sec mismatch with BSS 90:3f:ea:b3:20:a0 <2427,2447> (chan=4+) vs. <2462,2442>
+01-06 17:18:59.669  3522  3522 D wpa_supplicant: SME: Send 20/40 BSS Coexistence to 08:5c:1b:34:13:d4 (num_channels=2 num_intol=0)
+01-06 17:18:59.669  3522  3522 D wpa_supplicant: SME: 20/40 BSS Intolerant Channels - hexdump(len=2): 07 04
+01-06 17:18:59.670  3522  3522 D wpa_supplicant: nl80211: Send Action frame (ifindex=13, freq=2462 MHz wait=0 ms no_cck=0 offchanok=1)
+01-06 17:18:59.670  3522  3522 D wpa_supplicant: nl80211: Drop oldest pending send frame cookie 0x3c
+01-06 17:18:59.673  3522  3522 D wpa_supplicant: wlan0: Radio work 'scan'@0xac151930 done in 0.952424 seconds
+01-06 17:18:59.673  3522  3522 D wpa_supplicant: wlan0: radio_work_free('scan'@0xac151930): num_active_works --> 0
+01-06 17:18:59.673  3522  3522 D wpa_supplicant: RTM_NEWLINK: ifi_index=13 ifname=wlan0 wext ifi_family=0 ifi_flags=0x11043 ([UP][RUNNING][LOWER_UP])
+01-06 17:18:59.673  3522  3522 D wpa_supplicant: RTM_NEWLINK: ifi_index=13 ifname=wlan0 wext ifi_family=0 ifi_flags=0x11043 ([UP][RUNNING][LOWER_UP])
+01-06 17:18:59.675  3522  3522 D wpa_supplicant: nl80211: Ignored event 60 (NL80211_CMD_FRAME_TX_STATUS) for foreign interface (ifindex 13 wdev 0x0)
+01-06 17:18:59.675  3522  3522 D wpa_supplicant: nl80211: Drv Event 60 (NL80211_CMD_FRAME_TX_STATUS) received for wlan0
+01-06 17:18:59.675  3522  3522 D wpa_supplicant: nl80211: Frame TX status event A1=08:5c:1b:34:13:d4 stype=13 cookie=0x50 ack=1
+01-06 17:18:59.675  3522  3522 D wpa_supplicant: nl80211: Frame TX status: cookie=0x50 (match) (ack=1)
+01-06 17:18:59.675  3522  3522 D wpa_supplicant: wlan0: Event TX_STATUS (16) received
+01-06 17:18:59.675  3522  3522 D wpa_supplicant: wlan0: EVENT_TX_STATUS dst=08:5c:1b:34:13:d4 type=0 stype=13
+01-06 17:18:59.675  3522  3522 D wpa_supplicant: Off-channel: Ignore Action TX status - no pending operation
+01-06 17:18:59.696  2949  2995 I chatty  : uid=1000(system) android.fg expire 2 lines
+01-06 17:19:00.004  3651  3651 I chatty  : uid=1000(system) com.mediatek.tv.service expire 12 lines
+01-06 17:19:01.440  4782  4782 W cast_shell: [0106/171901.440793:WARNING:application_manager_impl.cc(611)] Unable to fetch config for app ID YouTube because the app is not supported
+01-06 17:19:02.034  2949  3418 I chatty  : uid=1000(system) WifiHandlerThre expire 107 lines
+01-06 17:19:02.037  2949  6625 I chatty  : uid=1000(system) Binder:2949_1D expire 18 lines
+01-06 17:19:02.137  4782  4782 I cast_shell: [0106/171902.136756:INFO:service_base.h(78)] Size of the map for type AuthTokenResponse is 0
+01-06 17:19:02.733  4782  4782 I cast_shell: [0106/171902.733503:INFO:service_base.h(246)] Container sizes for type CloudSetting are (session_info_map: 0), (topic_info_map: 21), (pending_events: 0).
+01-06 17:19:02.735  4782  4782 I cast_shell: [0106/171902.733898:INFO:metrics_stat_logger.cc(38)] Metrics stat for the past 60 secs : total=13
+01-06 17:19:02.735  4782  4782 I cast_shell: [metrics_stat_logger] Cast.Discovery.Mdns.Request.AppId.In=2
+01-06 17:19:02.735  4782  4782 I cast_shell: [metrics_stat_logger] Cast.Discovery.Mdns.Request.In=2
+01-06 17:19:02.735  4782  4782 I cast_shell: [metrics_stat_logger] Cast.Discovery.Mdns.Response.AppId.Out=2
+01-06 17:19:02.735  4782  4782 I cast_shell: [metrics_stat_logger] Cast.Discovery.Mdns.Response.Out=2
+01-06 17:19:02.735  4782  4782 I cast_shell: [metrics_stat_logger] Cloud.Transport.Gcm.GetStatus.In=1
+01-06 17:19:02.735  4782  4782 I cast_shell: [metrics_stat_logger] Cloud.Transport.Gcm.GetStatus.Received=1
+01-06 17:19:02.735  4782  4782 I cast_shell: [metrics_stat_logger] Cloud.Transport.Gcm.Message.Received=1
+01-06 17:19:02.735  4782  4782 I cast_shell: [metrics_stat_logger] Cloud.Transport.Https.Status.Out=1
+01-06 17:19:02.735  4782  4782 I cast_shell: [metrics_stat_logger] Cloud.Transport.Https.Status.Out.Success=1
+01-06 17:19:02.735  4782  4782 I cast_shell: [metrics_stat_logger] Dial.SsdpDeviceDesc.Unknown=6
+01-06 17:19:02.735  4782  4782 I cast_shell: [metrics_stat_logger] Dial.SsdpDeviceDesc.Unknown.200=6
+01-06 17:19:02.735  4782  4782 I cast_shell: [metrics_stat_logger] Dial.YouTube.GetInfo.Unknown=6
+01-06 17:19:02.735  4782  4782 I cast_shell: [metrics_stat_logger] Dial.YouTube.GetInfo.Unknown.404=6
+01-06 17:19:03.189 26704 26704 W ThreadPoolForeg: type=1400 audit(0.0:2177): avc: denied { write } for name="traced_producer" dev="tmpfs" ino=12647 scontext=u:r:gmscore_app:s0:c512,c768 tcontext=u:object_r:traced_producer_socket:s0 tclass=sock_file permissive=0 app=com.google.android.gms
+01-06 17:19:03.195  2834  2834 D MTK_KL  : 36,942713,24463124763,-;type=1400 audit(1767709143.189:2177): avc: denied { write } for comm="ThreadPoolForeg" name="traced_producer" dev="tmpfs" ino=12647 scontext=u:r:gmscore_app:s0:c512,c768 tcontext=u:object_r:traced_producer_socket:s0 tclass=sock_file permissive=0 app=com.google.android.gms
+01-06 17:19:03.245  4782  4980 I cast_shell: [0106/171903.245655:INFO:mdns_app_filter.cc(3358)] MdnsAppFilter: responses sent in 31 seconds: 4
+01-06 17:19:04.473  2949  2949 W Looper  : Slow dispatch took 2004ms main h=android.os.Handler c=android.app.AlarmManager$ListenerWrapper@66d7e7c m=0
+01-06 17:19:04.473  2949  2949 W Looper  : Slow delivery took 2003ms main h=com.android.server.AlarmManagerService$AlarmHandler c=null m=4
+01-06 17:19:04.488  2949  2949 W Looper  : Drained
+01-06 17:19:04.504  2949  6625 I AlarmManager: Change Wakeup Alarm type to non Wakeup type, current type=[2] packageName = androidstatsTag = *walarm*:*job.deadline* @26235634 and next wakeup alarm is @Tue Jan 06 22:57:14 GMT+03:00 2026
+01-06 17:19:04.505  2949  6625 I AlarmManager: Change Wakeup Alarm type to non Wakeup type, current type=[2] packageName = androidstatsTag = *walarm*:*job.deadline* @24524332 and next wakeup alarm is @Tue Jan 06 22:57:14 GMT+03:00 2026
+01-06 17:19:08.675  1636  1708 I chatty  : uid=10017(com.android.vending) expire 3 lines
+01-06 17:19:10.368  1759  1785 I chatty  : uid=10017(com.android.vending) expire 3 lines
+01-06 17:19:11.445  1533  1533 D BoundBrokerSvc: onUnbind: Intent { act=com.google.android.gms.common.BIND_SHARED_PREFS pkg=com.google.android.gms }
+01-06 17:19:11.446  1759  1759 I chatty  : uid=10017(com.android.vending) expire 4 lines
+01-06 17:19:11.458  4782  4782 W cast_shell: [0106/171911.458205:WARNING:application_manager_impl.cc(611)] Unable to fetch config for app ID YouTube because the app is not supported
+01-06 17:19:12.845  3651  4919 I chatty  : uid=1000(system) Thread-68 expire 19 lines
+01-06 17:19:18.081  1759  1929 I chatty  : uid=10017(com.android.vending) expire 4 lines
+01-06 17:19:21.272  4782  1316 I cast_shell: [0106/171921.272667:INFO:ssdp_device.c(101)] SSDP packets sent for 30 seconds = 13
+01-06 17:19:21.455  4782  4782 W cast_shell: [0106/171921.454953:WARNING:application_manager_impl.cc(611)] Unable to fetch config for app ID YouTube because the app is not supported
+01-06 17:19:31.460  4782  4782 W cast_shell: [0106/171931.459968:WARNING:application_manager_impl.cc(611)] Unable to fetch config for app ID YouTube because the app is not supported
+01-06 17:19:31.874  3651  4919 I chatty  : uid=1000(system) Thread-68 expire 21 lines
+01-06 17:19:32.174  2949  6871 I chatty  : uid=1000(system) Binder:2949_1F expire 6 lines
+01-06 17:19:33.229 26704 26704 W ThreadPoolForeg: type=1400 audit(0.0:2178): avc: denied { write } for name="traced_producer" dev="tmpfs" ino=12647 scontext=u:r:gmscore_app:s0:c512,c768 tcontext=u:object_r:traced_producer_socket:s0 tclass=sock_file permissive=0 app=com.google.android.gms
+01-06 17:19:33.235  2834  2834 D MTK_KL  : 36,942714,24493164636,-;type=1400 audit(1767709173.229:2178): avc: denied { write } for comm="ThreadPoolForeg" name="traced_producer" dev="tmpfs" ino=12647 scontext=u:r:gmscore_app:s0:c512,c768 tcontext=u:object_r:traced_producer_socket:s0 tclass=sock_file permissive=0 app=com.google.android.gms
+01-06 17:19:34.273  4782  4980 I cast_shell: [0106/171934.273149:INFO:mdns_app_filter.cc(3358)] MdnsAppFilter: responses sent in 31 seconds: 4
+01-06 17:19:34.526  1636  1658 I chatty  : uid=10017(com.android.vending) expire 1 line
+01-06 17:19:35.186  2949  4603 I chatty  : uid=1000(system) Binder:2949_11 expire 21 lines
+01-06 17:19:36.502  2949  2949 W Looper  : Slow dispatch took 2003ms main h=android.os.Handler c=android.app.AlarmManager$ListenerWrapper@66d7e7c m=0
+01-06 17:19:36.503  2949  2949 W Looper  : Slow delivery took 2002ms main h=com.android.server.AlarmManagerService$AlarmHandler c=null m=4
+01-06 17:19:36.513  2949  2949 W Looper  : Drained
+01-06 17:19:36.527  2949  4603 I AlarmManager: Change Wakeup Alarm type to non Wakeup type, current type=[2] packageName = androidstatsTag = *walarm*:*job.deadline* @26235634 and next wakeup alarm is @Tue Jan 06 22:57:14 GMT+03:00 2026
+01-06 17:19:36.528  2949  4603 I AlarmManager: Change Wakeup Alarm type to non Wakeup type, current type=[2] packageName = androidstatsTag = *walarm*:*job.deadline* @24556356 and next wakeup alarm is @Tue Jan 06 22:57:14 GMT+03:00 2026
+01-06 17:19:38.201  2949  3418 I chatty  : uid=1000(system) WifiHandlerThre expire 58 lines
+01-06 17:19:41.463  4782  4782 W cast_shell: [0106/171941.463312:WARNING:application_manager_impl.cc(611)] Unable to fetch config for app ID YouTube because the app is not supported
+01-06 17:19:51.276  4782  1316 I cast_shell: [0106/171951.276371:INFO:ssdp_device.c(101)] SSDP packets sent for 30 seconds = 9
+01-06 17:19:51.478  4782  4782 W cast_shell: [0106/171951.478773:WARNING:application_manager_impl.cc(611)] Unable to fetch config for app ID YouTube because the app is not supported
+01-06 17:19:51.904  3651  4919 I chatty  : uid=1000(system) Thread-68 expire 21 lines
+01-06 17:19:56.298  2949  4603 I chatty  : uid=1000(system) Binder:2949_11 expire 21 lines
+01-06 17:19:59.306  2949  3418 I chatty  : uid=1000(system) WifiHandlerThre expire 58 lines
+01-06 17:20:01.480  4782  4782 W cast_shell: [0106/172001.480020:WARNING:application_manager_impl.cc(611)] Unable to fetch config for app ID YouTube because the app is not supported
+01-06 17:20:02.137  4782  4782 I cast_shell: [0106/172002.137777:INFO:service_base.h(78)] Size of the map for type AuthTokenResponse is 0
+01-06 17:20:02.731  4782  4980 I cast_shell: [0106/172002.731319:INFO:mdns_cast_service.cc(987)] Recent mDNS app subtypes: [supported:'233637DE',] [unsupported:]
+01-06 17:20:02.733  4782  4782 I cast_shell: [0106/172002.733766:INFO:service_base.h(246)] Container sizes for type CloudSetting are (session_info_map: 0), (topic_info_map: 21), (pending_events: 0).
+01-06 17:20:02.734  4782  4782 I cast_shell: [0106/172002.734024:INFO:metrics_stat_logger.cc(38)] Metrics stat for the past 60 secs : total=8
+01-06 17:20:02.734  4782  4782 I cast_shell: [metrics_stat_logger] Cast.Discovery.Mdns.Request.AppId.In=4
+01-06 17:20:02.734  4782  4782 I cast_shell: [metrics_stat_logger] Cast.Discovery.Mdns.Request.In=4
+01-06 17:20:02.734  4782  4782 I cast_shell: [metrics_stat_logger] Cast.Discovery.Mdns.Response.AppId.Out=4
+01-06 17:20:02.734  4782  4782 I cast_shell: [metrics_stat_logger] Cast.Discovery.Mdns.Response.Out=4
+01-06 17:20:02.734  4782  4782 I cast_shell: [metrics_stat_logger] Dial.SsdpDeviceDesc.Unknown=6
+01-06 17:20:02.734  4782  4782 I cast_shell: [metrics_stat_logger] Dial.SsdpDeviceDesc.Unknown.200=6
+01-06 17:20:02.734  4782  4782 I cast_shell: [metrics_stat_logger] Dial.YouTube.GetInfo.Unknown=6
+01-06 17:20:02.734  4782  4782 I cast_shell: [metrics_stat_logger] Dial.YouTube.GetInfo.Unknown.404=6
+01-06 17:20:03.269 26704 26704 W ThreadPoolForeg: type=1400 audit(0.0:2179): avc: denied { write } for name="traced_producer" dev="tmpfs" ino=12647 scontext=u:r:gmscore_app:s0:c512,c768 tcontext=u:object_r:traced_producer_socket:s0 tclass=sock_file permissive=0 app=com.google.android.gms
+01-06 17:20:03.275  2834  2834 D MTK_KL  : 36,942715,24523204586,-;type=1400 audit(1767709203.269:2179): avc: denied { write } for comm="ThreadPoolForeg" name="traced_producer" dev="tmpfs" ino=12647 scontext=u:r:gmscore_app:s0:c512,c768 tcontext=u:object_r:traced_producer_socket:s0 tclass=sock_file permissive=0 app=com.google.android.gms
+01-06 17:20:05.198  4782  4980 I cast_shell: [0106/172005.198225:INFO:mdns_app_filter.cc(3358)] MdnsAppFilter: responses sent in 30 seconds: 5
+01-06 17:20:08.527  2949  2949 W Looper  : Slow dispatch took 2004ms main h=android.os.Handler c=android.app.AlarmManager$ListenerWrapper@66d7e7c m=0
+01-06 17:20:08.528  2949  2949 W Looper  : Slow delivery took 2003ms main h=com.android.server.AlarmManagerService$AlarmHandler c=null m=4
+01-06 17:20:08.541  2949  2949 W Looper  : Drained
+01-06 17:20:08.557  2949  4603 I AlarmManager: Change Wakeup Alarm type to non Wakeup type, current type=[2] packageName = androidstatsTag = *walarm*:*job.deadline* @26235634 and next wakeup alarm is @Tue Jan 06 22:57:14 GMT+03:00 2026
+01-06 17:20:08.559  2949  4603 I AlarmManager: Change Wakeup Alarm type to non Wakeup type, current type=[2] packageName = androidstatsTag = *walarm*:*job.deadline* @24588385 and next wakeup alarm is @Tue Jan 06 22:57:14 GMT+03:00 2026
+01-06 17:20:11.485  4782  4782 W cast_shell: [0106/172011.485657:WARNING:application_manager_impl.cc(611)] Unable to fetch config for app ID YouTube because the app is not supported
+01-06 17:20:12.030  1677  1689 I com.bingetv.ap: WaitForGcToComplete blocked Background on ProfileSaver for 7.290ms
+01-06 17:20:12.432  1677  1689 I com.bingetv.ap: Background concurrent copying GC freed 45017(2730KB) AllocSpace objects, 0(0B) LOS objects, 24% free, 7147KB/9530KB, paused 109us total 148.683ms
+01-06 17:20:12.935  3651  4919 I chatty  : uid=1000(system) Thread-68 expire 15 lines
+01-06 17:20:17.379  2949  3418 I chatty  : uid=1000(system) WifiHandlerThre expire 32 lines
+01-06 17:20:17.382  2949  4603 I chatty  : uid=1000(system) Binder:2949_11 expire 12 lines
+01-06 17:20:21.258  4782  1316 I cast_shell: [0106/172021.258480:INFO:ssdp_device.c(101)] SSDP packets sent for 30 seconds = 13
+01-06 17:20:21.489  4782  4782 W cast_shell: [0106/172021.489847:WARNING:application_manager_impl.cc(611)] Unable to fetch config for app ID YouTube because the app is not supported
+01-06 17:20:28.866 13646 13646 I abb     : StartCommandInProcess(73657474696e67730067657400676c6f settings.get.glo [truncated])
+01-06 17:20:28.874 13646 13651 I abb     : oneway function results will be dropped but finished with status OK and parcel size 4
+01-06 17:20:28.869  2949  2949 W Binder:2949_11: type=1400 audit(0.0:2180): avc: denied { getopt } for scontext=u:r:system_server:s0 tcontext=u:r:shell:s0 tclass=unix_stream_socket permissive=0
+01-06 17:20:28.869  2949  2949 I chatty  : uid=0(root) system_server identical 2 lines
+01-06 17:20:28.869  2949  2949 W Binder:2949_11: type=1400 audit(0.0:2182): avc: denied { getopt } for scontext=u:r:system_server:s0 tcontext=u:r:shell:s0 tclass=unix_stream_socket permissive=0
+01-06 17:20:28.875  2834  2834 D MTK_KL  : 36,942716,24548804884,-;type=1400 audit(1767709228.869:2180): avc: denied { getopt } for comm="Binder:2949_11" scontext=u:r:system_server:s0 tcontext=u:r:shell:s0 tclass=unix_stream_socket permissive=0
+01-06 17:20:28.875  2834  2834 I chatty  : uid=0(root) /vendor/bin/k2logcat identical 2 lines
+01-06 17:20:28.875  2834  2834 D MTK_KL  : 36,942718,24548805306,-;type=1400 audit(1767709228.869:2182): avc: denied { getopt } for comm="Binder:2949_11" scontext=u:r:system_server:s0 tcontext=u:r:shell:s0 tclass=unix_stream_socket permissive=0
+01-06 17:20:28.881 13646 13646 I abb     : StartCommandInProcess(7061636b61676500696e7374616c6c00 package.install. [truncated])
+01-06 17:20:28.960  3651  4919 I chatty  : uid=1000(system) Thread-68 expire 13 lines
+01-06 17:20:29.437  2949  3418 I chatty  : uid=1000(system) WifiHandlerThre expire 54 lines
+01-06 17:20:30.238  2949  3414 I chatty  : uid=1000(system) NetworkPolicy expire 1 line
+01-06 17:20:30.425  2949  2949 W Binder:2949_11: type=1400 audit(0.0:2183): avc: denied { getopt } for scontext=u:r:system_server:s0 tcontext=u:r:shell:s0 tclass=unix_stream_socket permissive=0
+01-06 17:20:30.431  2834  2834 D MTK_KL  : 36,942719,24550361693,-;type=1400 audit(1767709230.425:2183): avc: denied { getopt } for comm="Binder:2949_11" scontext=u:r:system_server:s0 tcontext=u:r:shell:s0 tclass=unix_stream_socket permissive=0
+01-06 17:20:30.632  2949  3406 W RuleEvaluation: Integrity rule files are not available.
+01-06 17:20:30.633  2949  3220 I PackageManager: Integrity check passed for file:///data/app/vmdl1851258228.tmp
+01-06 17:20:30.658  2949  3013 I ActivityManager: Force stopping com.bingetv.app appid=10108 user=-1: installPackageLI
+01-06 17:20:30.660  2949  3013 I ActivityManager: Killing 1677:com.bingetv.app/u0a108 (adj 0): stop com.bingetv.app due to installPackageLI
+01-06 17:20:30.664  2949  3220 I PackageManager: Update package com.bingetv.app code path from /data/app/~~jkc7eKuFPwdrhrdcwoObig==/com.bingetv.app-2THSstkTY8qI906cmwj0eA== to /data/app/~~ES9UqaXKYJfEPkHYTx4OpA==/com.bingetv.app-EN0uDEyzkmUv2AG5yPVW6Q==; Retain data and using new
+01-06 17:20:30.664  2949  3220 I PackageManager: Update package com.bingetv.app resource path from /data/app/~~jkc7eKuFPwdrhrdcwoObig==/com.bingetv.app-2THSstkTY8qI906cmwj0eA== to /data/app/~~ES9UqaXKYJfEPkHYTx4OpA==/com.bingetv.app-EN0uDEyzkmUv2AG5yPVW6Q==; Retain data and using new
+01-06 17:20:30.669  2949  3013 W ActivityTaskManager: Force removing ActivityRecord{2ee8f97 u0 com.bingetv.app/.ui.main.EnhancedMainActivity t21004 f}}: app died, no saved state
+01-06 17:20:30.682  2949  3220 D CompatibilityChangeReporter: Compat change id reported: 135549675; UID 10108; state: ENABLED
+01-06 17:20:30.687  2949  3220 I PackageManager: Permission ownership changed. Updating all permissions.
+01-06 17:20:30.731  2834  2834 D MTK_KL  : 3,942720,24550658992,-;binder_alloc: 1677: binder_alloc_buf, no vma
+01-06 17:20:30.731  2834  2834 D MTK_KL  : 6,942721,24550659006,-;binder: 2949:3013 transaction failed 29189/-3, size 64-0 line 3188
+01-06 17:20:30.736  2949  3402 I chatty  : uid=1000(system) InputDispatcher expire 2 lines
+01-06 17:20:30.738  2949  6625 D ConnectivityService: ConnectivityService NetworkRequestInfo binderDied(NetworkRequest [ TRACK_DEFAULT id=331, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED Uid: 10108 AdministratorUids: [] RequestorUid: 10108 RequestorPackageName: com.bingetv.app] ], android.os.BinderProxy@22c8585)
+01-06 17:20:30.745  2949  3013 I chatty  : uid=1000(system) ActivityManager expire 1 line
+01-06 17:20:30.746  2476  2476 I Zygote  : Process 1677 exited due to signal 9 (Killed)
+01-06 17:20:30.746  2949  3453 D ConnectivityService: releasing NetworkRequest [ TRACK_DEFAULT id=331, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED Uid: 10108 AdministratorUids: [] RequestorUid: 10108 RequestorPackageName: com.bingetv.app] ] (release request)
+01-06 17:20:30.752  2949  3020 I chatty  : uid=1000(system) ActivityManager expire 5 lines
+01-06 17:20:30.777  2638  3058 D hwcomposer: HWComposerDisplayHalMiOsd::hwcMiDisplay: Layer[0]: hide!!!!
+01-06 17:20:31.173  2949  3220 W PackageSettings: Skipping PackageSetting{234c113 com.ytvplayer.yacinetv/10077} due to missing metadata
+01-06 17:20:31.498  4782  4782 W cast_shell: [0106/172031.498658:WARNING:application_manager_impl.cc(611)] Unable to fetch config for app ID YouTube because the app is not supported
+01-06 17:20:32.056  2949  6625 W WindowManager: Failed looking up window session=Session{bf7b673 1677:u0a10108} callers=com.android.server.wm.WindowManagerService.windowForClientLocked:5431 com.android.server.wm.WindowState$DeathRecipient.binderDied:2818 android.os.IBinder$DeathRecipient.binderDied:305 
+01-06 17:20:32.056  2949  6625 I WindowManager: WIN DEATH: null
+01-06 17:20:32.068  3651  4916 I chatty  : uid=1000(system) RecommendedChan expire 8 lines
+01-06 17:20:32.080  2949  3220 I chatty  : uid=1000(system) PackageManager expire 1 line
+01-06 17:20:32.084  2949  2996 W Looper  : Slow dispatch took 1426ms android.ui h=com.android.server.am.ActivityManagerService$UiHandler c=null m=53
+01-06 17:20:32.084  2949  2996 W Looper  : Slow delivery took 1421ms android.ui h=com.android.server.am.ActivityManagerService$UiHandler c=null m=32
+01-06 17:20:32.090  2949  2998 W ActivityManager: setHasOverlayUi called on unknown pid: 1677
+01-06 17:20:32.095  2822  3322 V installd: DexInv: --- BEGIN '/data/app/~~ES9UqaXKYJfEPkHYTx4OpA==/com.bingetv.app-EN0uDEyzkmUv2AG5yPVW6Q==/base.apk' ---
+01-06 17:20:32.150  3651  4916 W ContextImpl: Calling a method in the system process without a qualified user: android.app.ContextImpl.bindService:1748 android.content.ContextWrapper.bindService:756 com.mediatek.wwtv.tvrecommendation.util.ChannelQueryClient.<init>:30 com.mediatek.wwtv.tvrecommendation.util.ChannelQueryClient.getInstance:92 com.mediatek.wwtv.tvrecommendation.RecommendedChannelsThread.bindQueryChannelService:711 
+01-06 17:20:32.155  2949  2996 W Looper  : Drained
+01-06 17:20:32.188  3651  3651 I chatty  : uid=1000(system) com.mediatek.tv.service expire 81 lines
+01-06 17:20:32.204  1486  1504 E ConfigurationProvider: openFile content://tvlauncher.apprecs/app_recommendations,r
+01-06 17:20:32.225  1486  1504 I wyzzz   : catchjava.lang.NullPointerException: Attempt to invoke virtual method 'java.util.Map com.google.android.leanbacklauncher.partnercustomizer.IniFile$Section.getValues()' on a null object reference
+01-06 17:20:32.226  1486  1504 W System.err: java.lang.NullPointerException: Attempt to invoke virtual method 'java.util.Map com.google.android.leanbacklauncher.partnercustomizer.IniFile$Section.getValues()' on a null object reference
+01-06 17:20:32.228  1486  1504 W System.err: 	at com.google.android.leanbacklauncher.partnercustomizer.ConfigurationProvider.getCustomizationFuncData(ConfigurationProvider.java:370)
+01-06 17:20:32.228  1486  1504 W System.err: 	at com.google.android.leanbacklauncher.partnercustomizer.ConfigurationProvider.openFile(ConfigurationProvider.java:74)
+01-06 17:20:32.228  1486  1504 W System.err: 	at android.content.ContentProvider.openAssetFile(ContentProvider.java:2004)
+01-06 17:20:32.228  1486  1504 W System.err: 	at android.content.ContentProvider.openTypedAssetFile(ContentProvider.java:2186)
+01-06 17:20:32.228  1486  1504 W System.err: 	at android.content.ContentProvider.openTypedAssetFile(ContentProvider.java:2253)
+01-06 17:20:32.228  1486  1504 W System.err: 	at android.content.ContentProvider$Transport.openTypedAssetFile(ContentProvider.java:553)
+01-06 17:20:32.228  1486  1504 W System.err: 	at android.content.ContentProviderNative.onTransact(ContentProviderNative.java:327)
+01-06 17:20:32.228  1486  1504 W System.err: 	at android.os.Binder.execTransactInternal(Binder.java:1154)
+01-06 17:20:32.228  1486  1504 W System.err: 	at android.os.Binder.execTransact(Binder.java:1123)
+01-06 17:20:32.238  1486  1525 E ConfigurationProvider: Failed to send file content://tvlauncher.apprecs/app_recommendations
+01-06 17:20:32.238  1486  1525 E ConfigurationProvider: java.lang.NullPointerException: Attempt to invoke virtual method 'int java.io.InputStream.read(byte[])' on a null object reference
+01-06 17:20:32.238  1486  1525 E ConfigurationProvider: 	at com.google.android.leanbacklauncher.partnercustomizer.ConfigurationProvider$1.writeDataToPipe(ConfigurationProvider.java:241)
+01-06 17:20:32.238  1486  1525 E ConfigurationProvider: 	at android.content.ContentProvider$1.doInBackground(ContentProvider.java:2304)
+01-06 17:20:32.238  1486  1525 E ConfigurationProvider: 	at android.os.AsyncTask$3.call(AsyncTask.java:394)
+01-06 17:20:32.238  1486  1525 E ConfigurationProvider: 	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+01-06 17:20:32.238  1486  1525 E ConfigurationProvider: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1167)
+01-06 17:20:32.238  1486  1525 E ConfigurationProvider: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:641)
+01-06 17:20:32.238  1486  1525 E ConfigurationProvider: 	at java.lang.Thread.run(Thread.java:923)
+01-06 17:20:32.257  1344  1344 E Clearcut-EventLogger: Unexpected log parameter notification_indicator_total
+01-06 17:20:32.277  2005  2005 I dex2oat32: /apex/com.android.art/bin/dex2oat32 --input-vdex-fd=-1 --output-vdex-fd=9 --updatable-bcp-packages-file=/system/etc/updatable-bcp-packages.txt --resolve-startup-const-strings=true --max-image-block-size=524288 --compiler-filter=speed-profile --classpath-dir=/data/app/~~ES9UqaXKYJfEPkHYTx4OpA==/com.bingetv.app-EN0uDEyzkmUv2AG5yPVW6Q== --class-loader-context=PCL[]{} --generate-mini-debug-info --compact-dex-level=none --compilation-reason=install
+01-06 17:20:32.288  1344  1344 E Clearcut-EventLogger: Unexpected log parameter shown_channel_count
+01-06 17:20:32.306  2005  2005 I dex2oat32: setting boot class path to /apex/com.android.art/javalib/core-oj.jar:/apex/com.android.art/javalib/core-libart.jar:/apex/com.android.art/javalib/core-icu4j.jar:/apex/com.android.art/javalib/okhttp.jar:/apex/com.android.art/javalib/bouncycastle.jar:/apex/com.android.art/javalib/apache-xml.jar:/system/framework/framework.jar:/system/framework/ext.jar:/system/framework/telephony-common.jar:/system/framework/voip-common.jar:/system/framework/ims-common.jar:/system/framework/framework-atb-backward-compatibility.jar
+01-06 17:20:32.553  2949  4601 I chatty  : uid=1000(system) Binder:2949_10 expire 6 lines
+01-06 17:20:32.940  1344  1434 I OpenGLRenderer: Davey! duration=855ms; Flags=1, IntendedVsync=24551909294916, Vsync=24552109294908, OldestInputEvent=9223372036854775807, NewestInputEvent=0, HandleInputStart=24552125418249, AnimationStart=24552125421833, PerformTraversalsStart=24552125425333, DrawStart=24552696655497, SyncQueued=24552709727330, SyncStart=24552717013080, IssueDrawCommandsStart=24552738759914, SwapBuffers=24552770714497, FrameCompleted=24552772406497, DequeueBufferDuration=0, QueueBufferDuration=990417, GpuCompleted=0, 
+01-06 17:20:32.948  1344  1344 E Clearcut-EventLogger: Unexpected log parameter shown_channel_count
+01-06 17:20:33.001  2638  3058 D hwcomposer: HWComposerDisplayHalMiOsd::hwcMiDisplay: Layer[0]: show!!!!
+01-06 17:20:33.309 26704 26704 W ThreadPoolForeg: type=1400 audit(0.0:2184): avc: denied { write } for name="traced_producer" dev="tmpfs" ino=12647 scontext=u:r:gmscore_app:s0:c512,c768 tcontext=u:object_r:traced_producer_socket:s0 tclass=sock_file permissive=0 app=com.google.android.gms
+01-06 17:20:33.323  2834  2834 D MTK_KL  : 36,942722,24553250916,-;type=1400 audit(1767709233.309:2184): avc: denied { write } for comm="ThreadPoolForeg" name="traced_producer" dev="tmpfs" ino=12647 scontext=u:r:gmscore_app:s0:c512,c768 tcontext=u:object_r:traced_producer_socket:s0 tclass=sock_file permissive=0 app=com.google.android.gms
+01-06 17:20:34.031  1344  1344 I Choreographer: Skipped 31 frames!  The application may be doing too much work on its main thread.
+01-06 17:20:34.640  2949  4064 E TaskPersister: File error accessing recents directory (directory doesn't exist?).
+01-06 17:20:34.988  2005  2005 W dex2oat32: Could not reserve sentinel fault page
+01-06 17:20:35.115  2834  2834 D MTK_KL  : 3,942723,24555044789,-;[WARN] something mapped by 'dex2oat32'(pid: 2005) overlap the range reserved for DFB from 0x12c00000 to 0x52c40000 ! Try the address behind DFB 
+01-06 17:20:36.226  4782  4980 I cast_shell: [0106/172036.226662:INFO:mdns_app_filter.cc(3358)] MdnsAppFilter: responses sent in 31 seconds: 4
+01-06 17:20:36.267  2005  2015 W dex2oat32: Accessing hidden method Landroid/graphics/Bitmap;->getHardwareBuffer()Landroid/hardware/HardwareBuffer; (blacklist, linking, denied)
+01-06 17:20:38.081  3651  4919 D RecommendedChannelsThread: [MtkLog]start, status==true,mLauncherRunning==true
+01-06 17:20:38.476  2949  4177 I chatty  : uid=1000(system) Binder:2949_C expire 3 lines
+01-06 17:20:39.083  3651  4919 D RecommendedChannelsThread: [MtkLog]start, status==true,mLauncherRunning==true
+01-06 17:20:39.465  2005  2005 I dex2oat32: dex2oat took 7.197s (13.762s cpu) (threads: 4) arena alloc=2672B (2672B) java alloc=11MB (11794600B) native alloc=18MB (19253640B) free=681KB (697976B)
+01-06 17:20:39.504  2822  3322 V installd: DexInv: --- END '/data/app/~~ES9UqaXKYJfEPkHYTx4OpA==/com.bingetv.app-EN0uDEyzkmUv2AG5yPVW6Q==/base.apk' (success) ---
+01-06 17:20:39.573  2822  3322 E installd: Couldn't opendir /data/app/vmdl1851258228.tmp: No such file or directory
+01-06 17:20:39.573  2822  3322 E installd: Failed to delete /data/app/vmdl1851258228.tmp: No such file or directory
+01-06 17:20:39.579  2949  3220 I ActivityManager: Force stopping com.bingetv.app appid=10108 user=0: pkg removed
+01-06 17:20:39.577  2949  2949 W Binder:2949_11: type=1400 audit(0.0:2185): avc: denied { getopt } for scontext=u:r:system_server:s0 tcontext=u:r:shell:s0 tclass=unix_stream_socket permissive=0
+01-06 17:20:39.577  2949  2949 W Binder:2949_11: type=1400 audit(0.0:2187): avc: denied { getopt } for scontext=u:r:system_server:s0 tcontext=u:r:shell:s0 tclass=unix_stream_socket permissive=0
+01-06 17:20:39.587  2834  2834 D MTK_KL  : 36,942724,24559516053,-;type=1400 audit(1767709239.577:2185): avc: denied { getopt } for comm="Binder:2949_11" scontext=u:r:system_server:s0 tcontext=u:r:shell:s0 tclass=unix_stream_socket permissive=0
+01-06 17:20:39.587  2834  2834 D MTK_KL  : 36,942726,24559516430,-;type=1400 audit(1767709239.577:2187): avc: denied { getopt } for comm="Binder:2949_11" scontext=u:r:system_server:s0 tcontext=u:r:shell:s0 tclass=unix_stream_socket permissive=0
+01-06 17:20:39.596 13646 14738 I abb     : oneway function results will be dropped but finished with status OK and parcel size 4
+01-06 17:20:39.604  3527  3527 V AvrcpMediaPlayerList: mPackageChangedBroadcastReceiver: action: android.intent.action.PACKAGE_REMOVED
+01-06 17:20:39.608  4076  4076 I MediaProvider: Invalidating LocalCallingIdentity cache for package com.bingetv.app. Reason: package android.intent.action.PACKAGE_REMOVED
+01-06 17:20:39.627  2949  3013 I ActivityManager: Killing 1636:com.android.vending/u0a17 (adj 915): 48151k from cached
+01-06 17:20:39.631  2949  3013 W BroadcastQueue: Background execution not allowed: receiving Intent { act=android.intent.action.PACKAGE_REMOVED dat=package:com.bingetv.app flg=0x4000010 (has extras) } to com.android.vending/com.google.android.finsky.packagemonitor.impl.PackageMonitorReceiverImpl$RegisteredReceiver
+01-06 17:20:39.638  2949  3013 I ActivityManager: Killing 1759:com.android.vending:background/u0a17 (adj 925): 34584k from cached
+01-06 17:20:39.640  2949  3013 W BroadcastQueue: Background execution not allowed: receiving Intent { act=android.intent.action.PACKAGE_REMOVED dat=package:com.bingetv.app flg=0x4000010 (has extras) } to com.android.vending/com.google.android.finsky.packagemonitor.backgroundimpl.BackgroundPackageMonitorReceiverImpl$RegisteredReceiver
+01-06 17:20:39.641  2949  3013 W BroadcastQueue: Background execution not allowed: receiving Intent { act=android.intent.action.PACKAGE_REMOVED dat=package:com.bingetv.app flg=0x4000010 (has extras) } to com.android.vending/com.google.android.finsky.instantapps.appmanagement.InstantAppRemoveMonitor
+01-06 17:20:39.651  4076  4076 I MediaProvider: Invalidating LocalCallingIdentity cache for package com.bingetv.app. Reason: package android.intent.action.PACKAGE_ADDED
+01-06 17:20:39.657  2949  3013 W BroadcastQueue: Skipping deliver [background] BroadcastRecord{110c540 u0 android.intent.action.PACKAGE_ADDED} to ReceiverList{90e967e 1636 com.android.vending/10017/u0 remote:86cb039}: process gone or crashing
+01-06 17:20:39.657  2949  3013 W BroadcastQueue: Skipping deliver [background] BroadcastRecord{110c540 u0 android.intent.action.PACKAGE_ADDED} to ReceiverList{f0b6a23 1759 com.android.vending:background/10017/u0 remote:3b1a752}: process gone or crashing
+01-06 17:20:39.657  2949  3013 W BroadcastQueue: Background execution not allowed: receiving Intent { act=android.intent.action.PACKAGE_REMOVED dat=package:com.bingetv.app flg=0x4000010 (has extras) } to com.google.android.gms/.chimera.GmsIntentOperationService$PersistentTrustedReceiver
+01-06 17:20:39.657  3527  3527 V AvrcpMediaPlayerList: mPackageChangedBroadcastReceiver: action: android.intent.action.PACKAGE_ADDED
+01-06 17:20:39.657  2949  3013 W BroadcastQueue: Background execution not allowed: receiving Intent { act=android.intent.action.PACKAGE_REMOVED dat=package:com.bingetv.app flg=0x4000010 (has extras) } to com.google.android.leanbacklauncher.partnercustomizer/.PartnerReceiver
+01-06 17:20:39.658  3527  3527 D AvrcpMediaPlayerList: Name of package changed: com.bingetv.app
+01-06 17:20:39.671  2949  3013 W BroadcastQueue: Background execution not allowed: receiving Intent { act=android.intent.action.PACKAGE_REMOVED dat=package:com.bingetv.app flg=0x4000010 (has extras) } to com.mediatek.wwtv.setupwizard/.PartnerReceiver
+01-06 17:20:39.671  2949  3013 W BroadcastQueue: Background execution not allowed: receiving Intent { act=android.intent.action.PACKAGE_ADDED dat=package:com.bingetv.app flg=0x4000010 (has extras) } to com.google.android.packageinstaller/com.android.packageinstaller.PackageInstalledReceiver
+01-06 17:20:39.672  2949  3013 W BroadcastQueue: Background execution not allowed: receiving Intent { act=android.intent.action.PACKAGE_ADDED dat=package:com.bingetv.app flg=0x4000010 (has extras) } to com.android.vending/com.google.android.finsky.packagemonitor.impl.PackageMonitorReceiverImpl$RegisteredReceiver
+01-06 17:20:39.672  2949  3013 W BroadcastQueue: Background execution not allowed: receiving Intent { act=android.intent.action.PACKAGE_ADDED dat=package:com.bingetv.app flg=0x4000010 (has extras) } to com.android.vending/com.google.android.finsky.packagemonitor.backgroundimpl.BackgroundPackageMonitorReceiverImpl$RegisteredReceiver
+01-06 17:20:39.673  2949  3013 W BroadcastQueue: Background execution not allowed: receiving Intent { act=android.intent.action.PACKAGE_ADDED dat=package:com.bingetv.app flg=0x4000010 (has extras) } to com.google.android.gms/.chimera.GmsIntentOperationService$PersistentTrustedReceiver
+01-06 17:20:39.675  2949  3013 W BroadcastQueue: Background execution not allowed: receiving Intent { act=android.intent.action.PACKAGE_ADDED dat=package:com.bingetv.app flg=0x4000010 (has extras) } to com.google.android.gms/.gass.chimera.PackageChangeBroadcastReceiver
+01-06 17:20:39.675  2949  3013 W BroadcastQueue: Background execution not allowed: receiving Intent { act=android.intent.action.PACKAGE_ADDED dat=package:com.bingetv.app flg=0x4000010 (has extras) } to com.google.android.leanbacklauncher.partnercustomizer/.PartnerReceiver
+01-06 17:20:39.676  2949  3013 W BroadcastQueue: Background execution not allowed: receiving Intent { act=android.intent.action.PACKAGE_ADDED dat=package:com.bingetv.app flg=0x4000010 (has extras) } to com.mediatek.wwtv.setupwizard/.PartnerReceiver
+01-06 17:20:39.684  2949  3403 I chatty  : uid=1000(system) InputReader expire 3 lines
+01-06 17:20:39.697  2949  3013 W BroadcastQueue: Skipping deliver [background] BroadcastRecord{3639735 u0 android.intent.action.PACKAGE_ADDED} to ReceiverList{90e967e 1636 com.android.vending/10017/u0 remote:86cb039}: process gone or crashing
+01-06 17:20:39.697  2949  3013 W BroadcastQueue: Skipping deliver [background] BroadcastRecord{3639735 u0 android.intent.action.PACKAGE_ADDED} to ReceiverList{f0b6a23 1759 com.android.vending:background/10017/u0 remote:3b1a752}: process gone or crashing
+01-06 17:20:39.699  4093  4093 I chatty  : uid=10010 com.google.android.katniss:interactor expire 1 line
+01-06 17:20:39.719  2949  3013 E ActivityManager: ProcessRecord{a55a097 1636:com.android.vending/u0a17} is attached to a previous process
+01-06 17:20:39.756  2949  3013 W ActivityManager: Slow operation: 53ms so far, now at startProcess: creating new process record
+01-06 17:20:39.757  2949  3013 E ActivityManager: Already have existing proc ProcessRecord{a55a097 1636:com.android.vending/u0a17} when adding ProcessRecord{a34fd3b 0:com.android.vending/u0a17}
+01-06 17:20:39.757  2949  3013 W ActivityManager: Slow operation: 54ms so far, now at startProcess: done creating new process record
+01-06 17:20:39.757  2949  3013 W ActivityManager: Slow operation: 54ms so far, now at startProcess: stepping in to startProcess
+01-06 17:20:39.760  2949  3013 D CompatibilityChangeReporter: Compat change id reported: 135634846; UID 10017; state: DISABLED
+01-06 17:20:39.761  2949  3013 W ActivityManager: Slow operation: 57ms so far, now at startProcess: done starting proc!
+01-06 17:20:39.767  2949  4991 D ConnectivityService: ConnectivityService NetworkRequestInfo binderDied(NetworkRequest [ TRACK_DEFAULT id=327, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED Uid: 10017 AdministratorUids: [] RequestorUid: 10017 RequestorPackageName: com.android.vending] ], android.os.BinderProxy@e418696)
+01-06 17:20:39.767  2949  7524 D ConnectivityService: ConnectivityService NetworkRequestInfo binderDied(NetworkRequest [ TRACK_DEFAULT id=326, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED Uid: 10017 AdministratorUids: [] RequestorUid: 10017 RequestorPackageName: com.android.vending] ], android.os.BinderProxy@e9e8604)
+01-06 17:20:39.768  2949  3700 D ConnectivityService: ConnectivityService NetworkRequestInfo binderDied(NetworkRequest [ LISTEN id=328, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED Uid: 10017 AdministratorUids: [] RequestorUid: 10017 RequestorPackageName: com.android.vending] ], android.os.BinderProxy@6ec3217)
+01-06 17:20:39.768  2949  3453 D ConnectivityService: releasing NetworkRequest [ TRACK_DEFAULT id=327, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED Uid: 10017 AdministratorUids: [] RequestorUid: 10017 RequestorPackageName: com.android.vending] ] (release request)
+01-06 17:20:39.769  2949  3453 D ConnectivityService: releasing NetworkRequest [ TRACK_DEFAULT id=326, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED Uid: 10017 AdministratorUids: [] RequestorUid: 10017 RequestorPackageName: com.android.vending] ] (release request)
+01-06 17:20:39.769  2949  6871 D ConnectivityService: ConnectivityService NetworkRequestInfo binderDied(NetworkRequest [ TRACK_DEFAULT id=332, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED Uid: 10017 AdministratorUids: [] RequestorUid: 10017 RequestorPackageName: com.android.vending] ], android.os.BinderProxy@16c77ed)
+01-06 17:20:39.770  2949  3453 D ConnectivityService: releasing NetworkRequest [ TRACK_DEFAULT id=332, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED Uid: 10017 AdministratorUids: [] RequestorUid: 10017 RequestorPackageName: com.android.vending] ] (release request)
+01-06 17:20:39.771  2949  3013 I DropBoxManagerService: add tag=system_server_wtf isTagEnabled=true flags=0x2
+01-06 17:20:39.778  2476  2476 I Zygote  : Process 1759 exited due to signal 9 (Killed)
+01-06 17:20:39.780  2949  3012 W TextServicesManagerService: no available spell checker services found
+01-06 17:20:39.782  2949  4601 D ConnectivityService: ConnectivityService NetworkRequestInfo binderDied(NetworkRequest [ LISTEN id=330, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED Uid: 10017 AdministratorUids: [] RequestorUid: 10017 RequestorPackageName: com.android.vending] ], android.os.BinderProxy@6077622)
+01-06 17:20:39.784  2949  4183 D ConnectivityService: ConnectivityService NetworkRequestInfo binderDied(NetworkRequest [ TRACK_DEFAULT id=329, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED Uid: 10017 AdministratorUids: [] RequestorUid: 10017 RequestorPackageName: com.android.vending] ], android.os.BinderProxy@777d8b3)
+01-06 17:20:39.785  2949  3453 D ConnectivityService: releasing NetworkRequest [ TRACK_DEFAULT id=329, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED Uid: 10017 AdministratorUids: [] RequestorUid: 10017 RequestorPackageName: com.android.vending] ] (release request)
+01-06 17:20:39.796  2476  2476 I Zygote  : Process 1636 exited due to signal 9 (Killed)
+01-06 17:20:39.812  2949  6871 I AlarmManager: Change Wakeup Alarm type to non Wakeup type, current type=[3] packageName = com.google.android.gmsstatsTag = *alarm*:com.google.android.chimera.container.IntentOperationService.SAVED_INTENT @315384559606 and next wakeup alarm is @Tue Jan 06 22:57:14 GMT+03:00 2026
+01-06 17:20:39.819  2949  3014 W ActivityManager: Slow operation: 62ms so far, now at startProcess: asking zygote to start proc
+01-06 17:20:39.820  2949  3014 D CompatibilityChangeReporter: Compat change id reported: 143937733; UID 10017; state: ENABLED
+01-06 17:20:39.825  2949  3013 I DropBoxManagerService: add tag=system_server_wtf isTagEnabled=true flags=0x2
+01-06 17:20:39.871  2476  2476 D Zygote  : Forked child process 2022
+01-06 17:20:39.874  2949  3014 W ActivityManager: Slow operation: 117ms so far, now at startProcess: returned from zygote!
+01-06 17:20:39.876  2949  3014 W ActivityManager: Slow operation: 118ms so far, now at startProcess: done updating battery stats
+01-06 17:20:39.880  2949  3014 W ActivityManager: Slow operation: 123ms so far, now at startProcess: building log message
+01-06 17:20:39.880  2949  3014 I ActivityManager: Start proc 2022:com.android.vending/u0a17 for broadcast {com.android.vending/com.google.android.finsky.packagemonitor.impl.PackageMonitorReceiverImpl$RegisteredReceiver}
+01-06 17:20:39.880  2949  3014 W ActivityManager: Slow operation: 123ms so far, now at startProcess: starting to update pids map
+01-06 17:20:39.880  2949  3014 W ActivityManager: Slow operation: 123ms so far, now at startProcess: done updating pids map
+01-06 17:20:39.885  4093  4395 I chatty  : uid=10010(com.google.android.katniss) BG Thread #2 expire 5 lines
+01-06 17:20:39.913  1533  1545 I gle.android.gm: Background concurrent copying GC freed 2964(174KB) AllocSpace objects, 0(0B) LOS objects, 24% free, 5819KB/7759KB, paused 113us total 320.834ms
+01-06 17:20:39.929  1344  1358 I roid.tvlaunche: Background concurrent copying GC freed 6863(502KB) AllocSpace objects, 1(20KB) LOS objects, 24% free, 3777KB/5037KB, paused 4.266ms total 342.531ms
+01-06 17:20:39.931  2949  5242 I AlarmManager: Change Wakeup Alarm type to non Wakeup type, current type=[3] packageName = com.google.android.gmsstatsTag = *alarm*:com.google.android.chimera.container.IntentOperationService.SAVED_INTENT @315384559763 and next wakeup alarm is @Tue Jan 06 22:57:14 GMT+03:00 2026
+01-06 17:20:39.997  2949  5242 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.bingetv.app/.ui.splash.SplashActivity} from uid 2000
+01-06 17:20:40.005  3651  3706 D MonitorActivityController: ** Activity starting: Intent { cmp=com.bingetv.app/.ui.splash.SplashActivity } : com.bingetv.app
+01-06 17:20:40.005  3651  3706 D MonitorActivityController: ** setOTTSrc currentOttSrc: com.bingetv.app
+01-06 17:20:40.014  1533  2031 I Blockstore: [PackageIntentOperation] Feature flags not enabled, skipping. [CONTEXT service_id=258 ]
+01-06 17:20:40.074  2949  5242 I chatty  : uid=1000(system) Binder:2949_1A expire 7 lines
+01-06 17:20:40.078  4093  4093 I chatty  : uid=10010 com.google.android.katniss:interactor expire 2 lines
+01-06 17:20:40.084  4093  4093 I katniss_interactor_SingletonModule: TvSystemAudioManager isn't available
+01-06 17:20:40.084  4093  4093 I katniss_interactor_SingletonModule: vkz: Library is not available: library either is not installed or was not loaded (AndroidManifest.xml is missing <uses-library>) or does not contain the class com.android.libraries.tv.tvsystem.media.TvAudioManager
+01-06 17:20:40.084  4093  4093 I katniss_interactor_SingletonModule: 	at vlf.<init>(PG:20)
+01-06 17:20:40.084  4093  4093 I katniss_interactor_SingletonModule: 	at vla.a(PG:3)
+01-06 17:20:40.084  4093  4093 I katniss_interactor_SingletonModule: 	at fbk.bD(PG:125)
+01-06 17:20:40.084  4093  4093 I katniss_interactor_SingletonModule: 	at fbk.aR(PG:36)
+01-06 17:20:40.084  4093  4093 I katniss_interactor_SingletonModule: 	at ggt.a(PG:3)
+01-06 17:20:40.084  4093  4093 I katniss_interactor_SingletonModule: 	at xje.a(PG:3)
+01-06 17:20:40.084  4093  4093 I katniss_interactor_SingletonModule: 	at xwa.a(PG:13)
+01-06 17:20:40.084  4093  4093 I katniss_interactor_SingletonModule: 	at aavm.e(PG:3)
+01-06 17:20:40.084  4093  4093 I katniss_interactor_SingletonModule: 	at aavo.run(PG:38)
+01-06 17:20:40.084  4093  4093 I katniss_interactor_SingletonModule: 	at aawz.execute(PG:1)
+01-06 17:20:40.084  4093  4093 I katniss_interactor_SingletonModule: 	at aayn.d(PG:7)
+01-06 17:20:40.084  4093  4093 I katniss_interactor_SingletonModule: 	at aavo.h(PG:10)
+01-06 17:20:40.084  4093  4093 I katniss_interactor_SingletonModule: 	at xji.onReceive(PG:682)
+01-06 17:20:40.084  4093  4093 I katniss_interactor_SingletonModule: 	at android.app.LoadedApk$ReceiverDispatcher$Args.lambda$getRunnable$0$LoadedApk$ReceiverDispatcher$Args(LoadedApk.java:1556)
+01-06 17:20:40.084  4093  4093 I katniss_interactor_SingletonModule: 	at android.app.-$$Lambda$LoadedApk$ReceiverDispatcher$Args$_BumDX2UKsnxLVrE6UJsJZkotuA.run(Unknown Source:2)
+01-06 17:20:40.084  4093  4093 I katniss_interactor_SingletonModule: 	at android.os.Handler.handleCallback(Handler.java:938)
+01-06 17:20:40.084  4093  4093 I katniss_interactor_SingletonModule: 	at android.os.Handler.dispatchMessage(Handler.java:99)
+01-06 17:20:40.084  4093  4093 I katniss_interactor_SingletonModule: 	at android.os.Looper.loop(Looper.java:223)
+01-06 17:20:40.084  4093  4093 I katniss_interactor_SingletonModule: 	at android.app.ActivityThread.main(ActivityThread.java:7661)
+01-06 17:20:40.084  4093  4093 I katniss_interactor_SingletonModule: 	at java.lang.reflect.Method.invoke(Native Method)
+01-06 17:20:40.084  4093  4093 I katniss_interactor_SingletonModule: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:592)
+01-06 17:20:40.084  4093  4093 I katniss_interactor_SingletonModule: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:947)
+01-06 17:20:40.084  4093  4093 I katniss_interactor_SingletonModule: Caused by: java.lang.ClassNotFoundException: com.android.libraries.tv.tvsystem.media.TvAudioManager
+01-06 17:20:40.084  4093  4093 I katniss_interactor_SingletonModule: 	at java.lang.Class.classForName(Native Method)
+01-06 17:20:40.084  4093  4093 I katniss_interactor_SingletonModule: 	at java.lang.Class.forName(Class.java:454)
+01-06 17:20:40.084  4093  4093 I katniss_interactor_SingletonModule: 	at java.lang.Class.forName(Class.java:379)
+01-06 17:20:40.084  4093  4093 I katniss_interactor_SingletonModule: 	at vlf.<init>(PG:6)
+01-06 17:20:40.084  4093  4093 I katniss_interactor_SingletonModule: 	... 21 more
+01-06 17:20:40.084  4093  4093 I katniss_interactor_SingletonModule: Caused by: java.lang.ClassNotFoundException: com.android.libraries.tv.tvsystem.media.TvAudioManager
+01-06 17:20:40.084  4093  4093 I katniss_interactor_SingletonModule: 	... 25 more
+01-06 17:20:40.086  4093  4093 I katniss_interactor_PackageCache: Rebuilding package cache for Intent { act=android.intent.action.PACKAGE_REPLACED dat=package:com.bingetv.app flg=0x4000010 (has extras) }
+01-06 17:20:40.087  4093  4374 I katniss_interactor_PackageCache: Apps for Intent { act=android.intent.action.MAIN cat=[android.intent.category.LEANBACK_LAUNCHER] }: [AppInfo(enabled=true, longVersionCode=84922308, packageName=com.android.vending, versionCode=84922308, versionName=49.2.23-23 [8] [PR] 840932490), AppInfo(enabled=true, longVersionCode=530304320, packageName=com.google.android.youtube.tv, versionCode=530304320, versionName=5.30.304), AppInfo(enabled=true, longVersionCode=112007300, packageName=com.google.android.youtube.tvmusic, versionCode=112007300, versionName=1.12.07), AppInfo(enabled=true, longVersionCode=5, packageName=com.mediatek.wwtv.tvcenter, versionCode=5, versionName=2.28.5 build 18321512), AppInfo(enabled=true, longVersionCode=806012, packageName=com.tcl.browser, versionCode=806012, versionName=8.06.012_cccc805_251223_gp), AppInfo(enabled=true, longVersionCode=600, packageName=com.afmobi.boomplayer.tv, versionCode=600, versionName=3.6), AppInfo(enabled=true, longVersionCode=606023171, packageName=com.amazon.amazonvideo.livingroom, versionCode=606023171, versionName=6.23.17+v15.4.0.643-armv7a), AppInfo(enabled=true, longVersionCode=624525470, packageName=com.google.android.play.games, versionCode=624525470, versionName=2025.09.62452 (827342201.827342201-040700)), AppInfo(enabled=true, longVersionCode=1200037, packageName=com.homwee.aipont, versionCode=1200037, versionName=1.2.0.37), AppInfo(enabled=true, longVersionCode=1200037, packageName=com.homwee.aipont, versionCode=1200037, versionName=1.2.0.37), AppInfo(enabled=true, longVersionCode=10000059, packageName=com.homwee.chtvmanager, versionCode=10000059, versionName=1.0.0.59), AppInfo(enabled=true, longVersionCode=10000144, packageName=com.homwee.help, versionCode=10000144, versionName=1.0.10.144), AppInfo(enabled=true, longVersionCode=1600018, packageName=com.homwee.mmp.fileexplorer, versionCode=1600018, versionName=1.1.16.18), AppInfo(enabled=true, longVersionCode=10000042, packageName=com.homwee.multiscreenshare, versionCode=10000042, versionName=1.0.0.42), AppInfo(enabled=true, longVersionCode=12018, packageName=com.netflix.ninja, versionCode=12018, versionName=8.3.10 build 12018), AppInfo(enabled=true, longVersionCode=5161, packageName=ar.tvplayer.tv, versionCode=5161, versionName=5.1.6), AppInfo(enabled=true, longVersionCode=2, packageName=com.bingetv.app, versionCode=2, versionName=2.0.0), AppInfo(enabled=true, longVersionCode=67, packageName=com.esaba.downloader, versionCode=67, versionName=1.5.3-ForGoogleAndroidDevices), AppInfo(enabled=true, longVersionCode=2180100, packageName=com.spotify.tv.android, versionCode=2180100, versionName=1.118.1), AppInfo(enabled=true, longVersionCode=1978, packageName=com.windscribe.vpn, versionCode=1978, versionName=3.97.1977), AppInfo(enabled=true, longVersionCode=2102000, packageName=org.xbmc.kodi, versionCode=2102000, versionName=21.2)]
+01-06 17:20:40.091 26704  2020 I FontLog : (REDACTED) Package %s has no metadata
+01-06 17:20:40.094  4093  4374 I katniss_interactor_PackageCache: Apps for Intent { act=android.intent.action.MAIN cat=[android.intent.category.LEANBACK_SETTINGS] }: [AppInfo(enabled=true, longVersionCode=1, packageName=com.android.tv.settings, versionCode=1, versionName=1.0), AppInfo(enabled=true, longVersionCode=1, packageName=com.android.tv.settings, versionCode=1, versionName=1.0)]
+01-06 17:20:40.096  4093  4395 I katniss_interactor_PackageCache: Apps for Intent { act=android.intent.action.MAIN cat=[android.intent.category.LEANBACK_LAUNCHER] }: [AppInfo(enabled=true, longVersionCode=84922308, packageName=com.android.vending, versionCode=84922308, versionName=49.2.23-23 [8] [PR] 840932490), AppInfo(enabled=true, longVersionCode=530304320, packageName=com.google.android.youtube.tv, versionCode=530304320, versionName=5.30.304), AppInfo(enabled=true, longVersionCode=112007300, packageName=com.google.android.youtube.tvmusic, versionCode=112007300, versionName=1.12.07), AppInfo(enabled=true, longVersionCode=5, packageName=com.mediatek.wwtv.tvcenter, versionCode=5, versionName=2.28.5 build 18321512), AppInfo(enabled=true, longVersionCode=806012, packageName=com.tcl.browser, versionCode=806012, versionName=8.06.012_cccc805_251223_gp), AppInfo(enabled=true, longVersionCode=600, packageName=com.afmobi.boomplayer.tv, versionCode=600, versionName=3.6), AppInfo(enabled=true, longVersionCode=606023171, packageName=com.amazon.amazonvideo.livingroom, versionCode=606023171, versionName=6.23.17+v15.4.0.643-armv7a), AppInfo(enabled=true, longVersionCode=624525470, packageName=com.google.android.play.games, versionCode=624525470, versionName=2025.09.62452 (827342201.827342201-040700)), AppInfo(enabled=true, longVersionCode=1200037, packageName=com.homwee.aipont, versionCode=1200037, versionName=1.2.0.37), AppInfo(enabled=true, longVersionCode=1200037, packageName=com.homwee.aipont, versionCode=1200037, versionName=1.2.0.37), AppInfo(enabled=true, longVersionCode=10000059, packageName=com.homwee.chtvmanager, versionCode=10000059, versionName=1.0.0.59), AppInfo(enabled=true, longVersionCode=10000144, packageName=com.homwee.help, versionCode=10000144, versionName=1.0.10.144), AppInfo(enabled=true, longVersionCode=1600018, packageName=com.homwee.mmp.fileexplorer, versionCode=1600018, versionName=1.1.16.18), AppInfo(enabled=true, longVersionCode=10000042, packageName=com.homwee.multiscreenshare, versionCode=10000042, versionName=1.0.0.42), AppInfo(enabled=true, longVersionCode=12018, packageName=com.netflix.ninja, versionCode=12018, versionName=8.3.10 build 12018), AppInfo(enabled=true, longVersionCode=5161, packageName=ar.tvplayer.tv, versionCode=5161, versionName=5.1.6), AppInfo(enabled=true, longVersionCode=2, packageName=com.bingetv.app, versionCode=2, versionName=2.0.0), AppInfo(enabled=true, longVersionCode=67, packageName=com.esaba.downloader, versionCode=67, versionName=1.5.3-ForGoogleAndroidDevices), AppInfo(enabled=true, longVersionCode=2180100, packageName=com.spotify.tv.android, versionCode=2180100, versionName=1.118.1), AppInfo(enabled=true, longVersionCode=1978, packageName=com.windscribe.vpn, versionCode=1978, versionName=3.97.1977), AppInfo(enabled=true, longVersionCode=2102000, packageName=org.xbmc.kodi, versionCode=2102000, versionName=21.2)]
+01-06 17:20:40.098  4093  4374 I katniss_interactor_PackageCache: Apps for Intent { act=android.intent.action.MAIN cat=[android.intent.category.HOME] }: [AppInfo(enabled=true, longVersionCode=1010938237, packageName=com.google.android.tvlauncher, versionCode=1010938237, versionName=7.3.11-842703803-f), AppInfo(enabled=true, longVersionCode=1, packageName=com.android.tv.settings, versionCode=1, versionName=1.0)]
+01-06 17:20:40.098  4093  4395 I katniss_interactor_PackageCache: Apps for Intent { act=android.intent.action.MAIN cat=[android.intent.category.LEANBACK_SETTINGS] }: [AppInfo(enabled=true, longVersionCode=1, packageName=com.android.tv.settings, versionCode=1, versionName=1.0), AppInfo(enabled=true, longVersionCode=1, packageName=com.android.tv.settings, versionCode=1, versionName=1.0)]
+01-06 17:20:40.100  4093  4374 I katniss_interactor_PackageCache: Apps for Intent { act=com.google.assistant.DATA_SHARING_CONSENT }: [AppInfo(enabled=true, longVersionCode=15021937, packageName=com.google.android.katniss, versionCode=15021937, versionName=7.42.14+827655856.02)]
+01-06 17:20:40.101  4093  4395 I katniss_interactor_PackageCache: Apps for Intent { act=android.intent.action.MAIN cat=[android.intent.category.HOME] }: [AppInfo(enabled=true, longVersionCode=1010938237, packageName=com.google.android.tvlauncher, versionCode=1010938237, versionName=7.3.11-842703803-f), AppInfo(enabled=true, longVersionCode=1, packageName=com.android.tv.settings, versionCode=1, versionName=1.0)]
+01-06 17:20:40.101  4093  4374 I katniss_interactor_PackageCache: Apps for experience type WATSON: [AppInfo(enabled=true, longVersionCode=254730118, packageName=com.google.android.gms, versionCode=254730118, versionName=25.47.30 (180300-833691957)), AppInfo(enabled=true, longVersionCode=530304320, packageName=com.google.android.youtube.tv, versionCode=530304320, versionName=5.30.304)]
+01-06 17:20:40.104  4093  4395 I katniss_interactor_PackageCache: Apps for Intent { act=com.google.assistant.DATA_SHARING_CONSENT }: [AppInfo(enabled=true, longVersionCode=15021937, packageName=com.google.android.katniss, versionCode=15021937, versionName=7.42.14+827655856.02)]
+01-06 17:20:40.105  4093  4395 I katniss_interactor_PackageCache: Apps for experience type WATSON: [AppInfo(enabled=true, longVersionCode=254730118, packageName=com.google.android.gms, versionCode=254730118, versionName=25.47.30 (180300-833691957)), AppInfo(enabled=true, longVersionCode=530304320, packageName=com.google.android.youtube.tv, versionCode=530304320, versionName=5.30.304)]
+01-06 17:20:40.170  2949  3012 I chatty  : uid=1000(system) android.bg expire 4 lines
+01-06 17:20:40.174  3651  4919 D RecommendedChannelsThread: [MtkLog]start, status==false,mLauncherRunning==true
+01-06 17:20:40.174  3651  4919 D ProgramsQueryThread: [MtkLog]lock 1,9
+01-06 17:20:40.174  2019  2033 I cmd     : oneway function results will be dropped but finished with status OK and parcel size 4
+01-06 17:20:40.174  3651  4916 D RecommendedChannelsThread: >MSG_EXIT_TVLAUNCHER<
+01-06 17:20:40.206  3651  2043 D DataBasePrograms: [MtkLog]getAllProgramLogoDBId,tvChannelID==13519
+01-06 17:20:40.207  2949  2998 D CompatibilityChangeReporter: Compat change id reported: 135634846; UID 10108; state: DISABLED
+01-06 17:20:40.209  2949  3014 D CompatibilityChangeReporter: Compat change id reported: 143937733; UID 10108; state: ENABLED
+01-06 17:20:40.212  1533  2028 I Blockstore: [PackageIntentOperation] Feature flags not enabled, skipping. [CONTEXT service_id=258 ]
+01-06 17:20:40.215  4093  4393 I katniss_interactor_SystemSearchableSources: createSources
+01-06 17:20:40.221  1533  2029 I Auth    : (REDACTED) [SupervisedAccountIntentOperation] onHandleIntent: %s
+01-06 17:20:40.245  2476  2476 D Zygote  : Forked child process 2044
+01-06 17:20:40.248  2949  3014 I ActivityManager: Start proc 2044:com.bingetv.app/u0a108 for pre-top-activity {com.bingetv.app/com.bingetv.app.ui.splash.SplashActivity}
+01-06 17:20:40.251  3651  2043 D DataBasePrograms: [MtkLog]channelId==15005
+01-06 17:20:40.251  3651  2043 I chatty  : uid=1000(system) com.mediatek.tv.service identical 63 lines
+01-06 17:20:40.251  3651  2043 D DataBasePrograms: [MtkLog]channelId==15005
+01-06 17:20:40.251  3651  2043 D DataBasePrograms: [MtkLog]channelId==15009
+01-06 17:20:40.253  3651  2043 D DataBasePrograms: [MtkLog]channelId==15009
+01-06 17:20:40.253  3651  2043 D DataBasePrograms: [MtkLog]channelId==3696
+01-06 17:20:40.253  3651  2043 D DataBasePrograms: [MtkLog]channelId==3696
+01-06 17:20:40.253  3651  2043 D DataBasePrograms: [MtkLog]channelId==3237
+01-06 17:20:40.254  3651  2043 D DataBasePrograms: [MtkLog]channelId==3237
+01-06 17:20:40.260  3651  2043 D DBHelper: [MtkLog]query
+01-06 17:20:40.268  3651  2043 D DataBasePrograms: [MtkLog]removeNoExistDBLogo logoCursorCount==100
+01-06 17:20:40.282  1533  2028 I NearbyDiscovery: (REDACTED) processGrantSlicePermission: %s
+01-06 17:20:40.286  2044  2044 E com.bingetv.ap: Not starting debugger since process cannot load the jdwp agent.
+01-06 17:20:40.326  2949  3701 W OomAdjuster: Fallback pre-set sched group to default: not expected top priority
+01-06 17:20:40.329  1533  1533 D BoundBrokerSvc: onBind: Intent { act=com.google.android.gms.common.BIND_SHARED_PREFS pkg=com.google.android.gms }
+01-06 17:20:40.329  1533  1533 D BoundBrokerSvc: Loading bound service for intent: Intent { act=com.google.android.gms.common.BIND_SHARED_PREFS pkg=com.google.android.gms }
+01-06 17:20:40.367  2022  2022 I chatty  : uid=10017(com.android.vending) expire 10 lines
+01-06 17:20:40.397  4093  4339 I katniss_interactor_SystemSearchableSources: createSources
+01-06 17:20:40.397  4093  4108 I niss:interacto: Background young concurrent copying GC freed 12671(921KB) AllocSpace objects, 0(0B) LOS objects, 22% free, 3535KB/4534KB, paused 189us total 291.856ms
+01-06 17:20:40.413  2044  2044 D NetworkSecurityConfig: Using Network Security Config from resource network_security_config debugBuild: false
+01-06 17:20:40.415  2044  2044 D NetworkSecurityConfig: Using Network Security Config from resource network_security_config debugBuild: false
+01-06 17:20:40.423  1533  2041 W SQLiteLog: (28) double-quoted string literal: "com.bingetv.app"
+01-06 17:20:40.448  2044  2044 D WM-WrkMgrInitializer: Initializing WorkManager with default configuration.
+01-06 17:20:40.472  2044  2044 I TetheringManager: registerTetheringEventCallback:com.bingetv.app
+01-06 17:20:40.555  2044  2044 D AppCompatDelegate: Checking for metadata for AppLocalesMetadataHolderService : Service not found
+01-06 17:20:40.561  2949  2949 W Looper  : Slow dispatch took 2008ms main h=android.os.Handler c=android.app.AlarmManager$ListenerWrapper@66d7e7c m=0
+01-06 17:20:40.561  2949  2949 W Looper  : Slow delivery took 2008ms main h=com.android.server.AlarmManagerService$AlarmHandler c=null m=4
+01-06 17:20:40.667  1533  1545 I gle.android.gm: Background young concurrent copying GC freed 24434(1457KB) AllocSpace objects, 6(184KB) LOS objects, 18% free, 6319KB/7759KB, paused 352us total 114.583ms
+01-06 17:20:40.749  2949  2949 V BackupManagerConstants: getFullBackupIntervalMilliseconds(...) returns 86400000
+01-06 17:20:40.749  2949  2949 V BackupManagerConstants: getFullBackupRequiredNetworkType(...) returns 2
+01-06 17:20:40.749  2949  2949 V BackupManagerConstants: getFullBackupRequireCharging(...) returns true
+01-06 17:20:40.750  1262  1280 I PermissionControllerServiceImpl: Updating user sensitive for uid 10108
+01-06 17:20:40.872  2949  2958 I chatty  : uid=1000(system) HeapTaskDaemon expire 1 line
+01-06 17:20:40.902  1533  1583 I Icing   : Indexing com.google.android.gms-apps from com.google.android.gms
+01-06 17:20:40.936  2949  2949 W Looper  : Drained
+01-06 17:20:40.956  2949  5242 I AlarmManager: Change Wakeup Alarm type to non Wakeup type, current type=[2] packageName = androidstatsTag = *walarm*:*job.deadline* @26235634 and next wakeup alarm is @Tue Jan 06 22:57:14 GMT+03:00 2026
+01-06 17:20:40.959  2949  5242 I AlarmManager: Change Wakeup Alarm type to non Wakeup type, current type=[2] packageName = androidstatsTag = *walarm*:*job.deadline* @24620784 and next wakeup alarm is @Tue Jan 06 22:57:14 GMT+03:00 2026
+01-06 17:20:41.063  1533  1583 I Icing   : Indexing done com.google.android.gms-apps
+01-06 17:20:41.066  1533  1583 I Icing   : Indexing com.google.android.gms-apps from com.google.android.gms
+01-06 17:20:41.071  1533  1583 I Icing   : Indexing done com.google.android.gms-apps
+01-06 17:20:41.096  2022  2094 I chatty  : uid=10017(com.android.vending) LightweightExec expire 3 lines
+01-06 17:20:41.161  2022  2097 I chatty  : uid=10017(com.android.vending) LightweightExec expire 1 line
+01-06 17:20:41.177  3651  4919 D RecommendedChannelsThread: [MtkLog]start, status==false,mLauncherRunning==false
+01-06 17:20:41.190  2022  2095 I chatty  : uid=10017(com.android.vending) LightweightExec expire 2 lines
+01-06 17:20:41.253  2044  2044 I Choreographer: Skipped 47 frames!  The application may be doing too much work on its main thread.
+01-06 17:20:41.308  2022  2112 I chatty  : uid=10017(com.android.vending) bgExecutor #1 expire 3 lines
+01-06 17:20:41.344  2314  2314 I hwservicemanager: getTransport: Cannot find entry android.hardware.graphics.mapper@4.0::IMapper/default in either framework or device manifest.
+01-06 17:20:41.344  2044  2081 I Gralloc4: mapper 4.x is not supported
+01-06 17:20:41.345  2314  2314 I hwservicemanager: getTransport: Cannot find entry android.hardware.graphics.mapper@3.0::IMapper/default in either framework or device manifest.
+01-06 17:20:41.347  2044  2081 W Gralloc3: mapper 3.x is not supported
+01-06 17:20:41.405  2044  2081 D gralloc : [ion_open:103] mma_open()
+01-06 17:20:41.405  2044  2081 D gralloc : [mma_open:49] 
+01-06 17:20:41.406  2044  2081 D gralloc : [ion_open:116] mma_open() failed! status=-19 errno=2
+01-06 17:20:41.408  2022  2022 I chatty  : uid=10017(com.android.vending) expire 5 lines
+01-06 17:20:41.408  2022  2095 I chatty  : uid=10017(com.android.vending) LightweightExec expire 1 line
+01-06 17:20:41.410  2022  2122 I chatty  : uid=10017(com.android.vending) CronetInit expire 1 line
+01-06 17:20:41.454  2949  7524 D ConnectivityService: requestNetwork for uid/pid:10017/2022 NetworkRequest [ TRACK_DEFAULT id=333, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED Uid: 10017 AdministratorUids: [] RequestorUid: 10017 RequestorPackageName: com.android.vending] ]
+01-06 17:20:41.455  2949  3453 D ConnectivityService: NetReassign [333 : null → 101]
+01-06 17:20:41.457  2949  3503 I chatty  : uid=1000(system) EthernetService expire 3 lines
+01-06 17:20:41.463  2949  3453 D ConnectivityService: NetReassign [no changes]
+01-06 17:20:41.500  2949  4601 I chatty  : uid=1000(system) Binder:2949_10 expire 2 lines
+01-06 17:20:41.513  4782  4782 W cast_shell: [0106/172041.513494:WARNING:application_manager_impl.cc(611)] Unable to fetch config for app ID YouTube because the app is not supported
+01-06 17:20:41.520  2044  2081 I OpenGLRenderer: Davey! duration=983ms; Flags=1, IntendedVsync=24560294614154, Vsync=24561077947456, OldestInputEvent=9223372036854775807, NewestInputEvent=0, HandleInputStart=24561086564882, AnimationStart=24561086568882, PerformTraversalsStart=24561087014632, DrawStart=24561160694215, SyncQueued=24561167206465, SyncStart=24561242205965, IssueDrawCommandsStart=24561242391215, SwapBuffers=24561349775381, FrameCompleted=24561353090631, DequeueBufferDuration=0, QueueBufferDuration=1722500, GpuCompleted=0, 
+01-06 17:20:41.597  2022  2094 I chatty  : uid=10017(com.android.vending) LightweightExec expire 1 line
+01-06 17:20:41.659  2022  2119 I chatty  : uid=10017(com.android.vending) BlockingExecuto expire 1 line
+01-06 17:20:41.709  2022  2077 I chatty  : uid=10017(com.android.vending) Binder:2022_2 expire 3 lines
+01-06 17:20:41.756 26704 26736 I FontLog : (REDACTED) Received query %s, URI %s
+01-06 17:20:41.760 26704 26736 I FontLog : (REDACTED) Query [%s] resolved to %s
+01-06 17:20:41.804 26704 26736 I FontLog : (REDACTED) Fetch %s end status %s
+01-06 17:20:41.811 26704 26838 W GetConfigSnapshotOp: Succeeded but not registered: com.google.android.gms.gmscompliance_client#com.android.vending [CONTEXT service_id=51 ]
+01-06 17:20:41.818 26704 30227 I FontLog : (REDACTED) Pulling font file for id = %d, cache size = %d
+01-06 17:20:41.834  2022  2022 I chatty  : uid=10017(com.android.vending) expire 5 lines
+01-06 17:20:41.856 26704 26873 I FontLog : (REDACTED) Pulling font file for id = %d, cache size = %d
+01-06 17:20:41.989  2022  2113 I chatty  : uid=10017(com.android.vending) bgExecutor #2 expire 1 line
+01-06 17:20:42.015  2022  2118 I chatty  : uid=10017(com.android.vending) bgExecutor #3 expire 11 lines
+01-06 17:20:42.097  2022  2022 I chatty  : uid=10017(com.android.vending) expire 3 lines
+01-06 17:20:42.143  2022  2095 I chatty  : uid=10017(com.android.vending) LightweightExec expire 1 line
+01-06 17:20:42.149  2949  6871 D CompatibilityChangeReporter: Compat change id reported: 135634846; UID 10017; state: DISABLED
+01-06 17:20:42.150  2949  3014 D CompatibilityChangeReporter: Compat change id reported: 143937733; UID 10017; state: ENABLED
+01-06 17:20:42.154  2022  2155 I chatty  : uid=10017(com.android.vending) Db-scheduler_ma expire 1 line
+01-06 17:20:42.181  2476  2476 D Zygote  : Forked child process 2158
+01-06 17:20:42.185  3651  4919 D RecommendedChannelsThread: [MtkLog]start, status==false,mLauncherRunning==false
+01-06 17:20:42.189  2949  3014 I ActivityManager: Start proc 2158:com.android.vending:background/u0a17 for broadcast {com.android.vending/com.google.android.finsky.packagemonitor.backgroundimpl.BackgroundPackageMonitorReceiverImpl$RegisteredReceiver}
+01-06 17:20:42.214  2158  2158 I chatty  : uid=10017 com.android.vending:background expire 2 lines
+01-06 17:20:42.223  2022  2109 I chatty  : uid=10017(com.android.vending) bgExecutor #0 expire 1 line
+01-06 17:20:42.284  2022  2112 I chatty  : uid=10017(com.android.vending) bgExecutor #1 expire 2 lines
+01-06 17:20:42.335  2022  2071 I chatty  : uid=10017(com.android.vending) HeapTaskDaemon expire 1 line
+01-06 17:20:42.335  2022  2077 I chatty  : uid=10017(com.android.vending) Binder:2022_2 expire 4 lines
+01-06 17:20:42.342  2949  4601 I ActivityTaskManager: START u0 {cmp=com.bingetv.app/.ui.main.EnhancedMainActivity} from uid 10108
+01-06 17:20:42.344  3651  3691 D MonitorActivityController: ** Activity starting: Intent { cmp=com.bingetv.app/.ui.main.EnhancedMainActivity } : com.bingetv.app
+01-06 17:20:42.345  3651  3691 D MonitorActivityController: ** setOTTSrc currentOttSrc: com.bingetv.app
+01-06 17:20:42.377  3651  3691 D MonitorActivityController: ** Activity resuming: com.bingetv.app
+01-06 17:20:42.377  3651  3691 D MonitorActivityController: ** setOTTSrc currentOttSrc: com.bingetv.app
+01-06 17:20:42.389  2949  7524 W ActivityTaskManager: Tried to set launchTime (0) < mLastActivityLaunchTime (24560173)
+01-06 17:20:42.402  2158  2158 I chatty  : uid=10017 com.android.vending:background expire 9 lines
+01-06 17:20:42.587  2022  2077 I chatty  : uid=10017(com.android.vending) Binder:2022_2 expire 1 line
+01-06 17:20:42.634  2022  2103 I chatty  : uid=10017(com.android.vending) ValueStore-0 expire 1 line
+01-06 17:20:42.638  2022  2077 W android.vendin: Found duplicate classes, falling back to extracting from APK : /data/app/~~sjEfjfD9hH8RKysufxl6Rw==/com.google.android.gms-6O8QDmX3_8UP0FzSjE_cxQ==/split_GoogleCertificates_installtime.apk
+01-06 17:20:42.638  2022  2077 W android.vendin: NOTE: This wastes RAM and hurts startup performance.
+01-06 17:20:42.638  2022  2077 W android.vendin: Found duplicated class when checking oat files: 'Landroid/app/AppComponentFactory;' in /data/app/~~QFYjt0GftCe2VfHY3IZmTg==/com.android.vending-Bwv8VJN6C5EkYtYReOIogw==/base.apk and /data/app/~~sjEfjfD9hH8RKysufxl6Rw==/com.google.android.gms-6O8QDmX3_8UP0FzSjE_cxQ==/split_GoogleCertificates_installtime.apk
+01-06 17:20:42.660  2158  2158 I Finsky:background: [2] Finished reading experiment flags from file [9Zvhe9kStSYiuQ9maa1vGlpEl27qAM9oBvaITuuX1v8] numFlags=2174.
+01-06 17:20:42.674  2158  2158 I Finsky:background: [2] [BGP] Initializing crash detector...
+01-06 17:20:42.693  2158  2158 I Finsky:background: [2] qkc - Registering in memory receiver for android.intent.action.PACKAGE_ADDED and android.intent.action.PACKAGE_REMOVED
+01-06 17:20:42.701  2022  2112 I Finsky  : [2218] SCH: Scheduling phonesky job Id: 12-1, CT: 1767709242155, Constraints: [{ L: 15000, D: 86400000, C: CHARGING_NONE, I: IDLE_NONE, N: NET_ANY, B: BATTERY_ANY }]
+01-06 17:20:42.718  2158  2158 I Finsky:background: [2] This process start was not selected for Play memory metrics collection.
+01-06 17:20:42.724  2022  2118 I Finsky  : [2223] SCH: Scheduling 1 system job(s)
+01-06 17:20:42.725  2022  2118 I Finsky  : [2223] SCH: Scheduling system job Id: 9319, L: 14431, D: 69229796, C: false, I: false, N: 1
+01-06 17:20:42.725  2158  2158 I Finsky:background: [2] qkc - Received: android.intent.action.PACKAGE_ADDED, [Ub1ljiGOCkVmQK3W00foNXUbdb49LNCGvN0i2FQKaEg]
+01-06 17:20:42.758  2022  2105 I Finsky  : [2213] [ContentSync] finished, scheduled=true
+01-06 17:20:42.805  2158  2198 I TetheringManager: registerTetheringEventCallback:com.android.vending
+01-06 17:20:42.806  2158  2198 W Settings: Setting download_manager_max_bytes_over_mobile has moved from android.provider.Settings.Secure to android.provider.Settings.Global.
+01-06 17:20:42.809  2158  2198 I Finsky:background: [2227] SettingNotFoundException, fall through to G.downloadBytesOverMobileMaximum
+01-06 17:20:42.810  2158  2198 W Settings: Setting download_manager_recommended_max_bytes_over_mobile has moved from android.provider.Settings.Secure to android.provider.Settings.Global.
+01-06 17:20:42.811  2158  2198 I Finsky:background: [2227] SettingNotFoundException, fall through to G.downloadBytesOverMobileRecommended
+01-06 17:20:42.813  2158  2198 I Finsky:background: [2227] registerListener
+01-06 17:20:42.826  2158  2198 I Finsky:background: [2227] DFS: Listener added for lef@d0da87c
+01-06 17:20:42.826  2158  2198 I Finsky:background: [2227] registerListener
+01-06 17:20:42.831  2158  2198 I Finsky:background: [2227] registerListener
+01-06 17:20:42.836  2158  2198 I Finsky:background: [2227] DFS: Listener added for srq@33de167
+01-06 17:20:42.952  2158  2158 I Finsky:background: [2] Memory trim requested to level 5
+01-06 17:20:42.955  2158  2198 I Finsky:background: [2227] IV2: IQv2 is disabled. Recovering all active installs: []
+01-06 17:20:42.957  2158  2206 I Finsky:background: [2235] RECEIVER_PACKAGE_MONITOR_BACKGROUND#logWorkEndAndFinishGoAsync: SUCCESS
+01-06 17:20:42.958  2949  6871 W BroadcastQueue: Background execution not allowed: receiving Intent { act=android.intent.action.PACKAGE_REPLACED dat=package:com.bingetv.app flg=0x4000010 (has extras) } to com.google.android.gms/.chimera.GmsIntentOperationService$PersistentTrustedReceiver
+01-06 17:20:42.962  2158  2158 I Finsky:background: [2] Memory trim requested to level 80
+01-06 17:20:42.963  2949  3013 W BroadcastQueue: Background execution not allowed: receiving Intent { act=android.intent.action.PACKAGE_REPLACED dat=package:com.bingetv.app flg=0x4000010 (has extras) } to com.google.android.gms/.gass.chimera.PackageChangeBroadcastReceiver
+01-06 17:20:42.964  2949  3013 W BroadcastQueue: Background execution not allowed: receiving Intent { act=android.intent.action.DROPBOX_ENTRY_ADDED flg=0x10 (has extras) } to com.google.android.gms/.stats.service.DropBoxEntryAddedReceiver
+01-06 17:20:42.972  2022  2094 I Finsky  : [2205] RECEIVER_SINGLE_USER_SETTINGS#logWorkEndAndFinishGoAsync: SUCCESS
+01-06 17:20:42.986  2158  2203 I Finsky:background: [2232] Wrote row to frosting DB: 18239
+01-06 17:20:43.012  2158  2203 I Finsky:background: [2232] Wrote row to frosting DB: 18240
+01-06 17:20:43.022  2044  2044 D EnhancedMainActivity: Starting playlist load
+01-06 17:20:43.027  2949  7524 D ConnectivityService: requestNetwork for uid/pid:10017/2158 NetworkRequest [ TRACK_DEFAULT id=335, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED Uid: 10017 AdministratorUids: [] RequestorUid: 10017 RequestorPackageName: com.android.vending] ]
+01-06 17:20:43.032  2044  2059 I com.bingetv.ap: Background concurrent copying GC freed 28863(1435KB) AllocSpace objects, 26(1576KB) LOS objects, 24% free, 3652KB/4869KB, paused 114us total 153.052ms
+01-06 17:20:43.031  2949  3453 D ConnectivityService: NetReassign [335 : null → 101]
+01-06 17:20:43.043  2044  2044 I ExoPlayerImpl: Init 28c71d8 [ExoPlayerLib/2.18.7] [ikebukuro, AI PONT, Changhong, 30]
+01-06 17:20:43.044  2158  2199 I Finsky:background: [2228] IQ: start evaluating install requests.
+01-06 17:20:43.048  2158  2199 I Finsky:background: [2228] IQ: no jobs active. Skipping
+01-06 17:20:43.055  2158  2209 I Finsky:background: [2237] IQ: Pruning inactive install requests
+01-06 17:20:43.056  2158  2212 D HttpFlagsLoader: Not loading HTTP flags because they are disabled in the manifest
+01-06 17:20:43.066  2949  5242 D ConnectivityService: requestNetwork for uid/pid:10017/2158 NetworkRequest [ TRACK_DEFAULT id=336, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED Uid: 10017 AdministratorUids: [] RequestorUid: 10017 RequestorPackageName: com.android.vending] ]
+01-06 17:20:43.067  2949  3453 D ConnectivityService: NetReassign [336 : null → 101]
+01-06 17:20:43.072  2949  3453 D ConnectivityService: NetReassign [no changes]
+01-06 17:20:43.073  2158  2209 I Finsky:background: [2237] Resetting scheduler db
+01-06 17:20:43.084  2158  2199 I Finsky:background: [2228] IQ: 0 scheduled install statuses found to proceed. 
+01-06 17:20:43.088  2158  2195 I Finsky:background: [2224] SCH: Scheduling phonesky job Id: 3-21920, CT: 1767709093098, Constraints: [{ L: 0, D: 86400000, C: CHARGING_NONE, I: IDLE_REQUIRED, N: NET_UNMETERED, B: BATTERY_ANY }]
+01-06 17:20:43.088  2158  2197 I cn_CronetLibraryLoader: Cronet version: 144.0.7509.3, arch: armv7l
+01-06 17:20:43.089  2158  2195 I Finsky:background: [2224] SCH: Scheduling phonesky job Id: 47-15, CT: 1767682076762, Constraints: [{ L: 3600000, D: 53195896, C: CHARGING_NONE, I: IDLE_REQUIRED, N: NET_NONE, B: BATTERY_ANY }]
+01-06 17:20:43.117  2158  2195 I Finsky:background: [2224] SCH: Scheduling 0 system job(s)
+01-06 17:20:43.135  2158  2213 I Finsky:background: [2241] SCH: Canceling job 3-21920
+01-06 17:20:43.136  2158  2197 I Finsky:background: [2226] Finished reading experiment flags from file [Se-xCc4LzNyh3UrKMIU2sUf-PUKz4oQEbpKZDMuaFno] numFlags=2171.
+01-06 17:20:43.136  2158  2213 I Finsky:background: [2241] WM::SCH: Logging work end for 3-21920
+01-06 17:20:43.139  2158  2193 I Finsky:background: [2222] SCH: no pending jobs to schedule.
+01-06 17:20:43.142  2158  2197 I Finsky:background: [2226] Subscription detail: N/A
+01-06 17:20:43.160  2158  2209 I Finsky:background: [2237] IQ: Creating job 21921, for (REQ_DEVICE_IDLE, NETWORK=UNMETERED, PROVISIONING_STATE=PROVISIONED, BACKUP_MANAGER_STATE=BACKUP_READY, AUTHENTICATION_REQUIRED)
+01-06 17:20:43.161  2158  2209 I Finsky:background: [2237] IQ: Bulk scheduling created jobs
+01-06 17:20:43.162  2158  2209 I Finsky:background: [2237] SCH: Received scheduling request: Id: 3-21921, Constraints: [{ L: 0, D: 86400000, C: CHARGING_NONE, I: IDLE_REQUIRED, N: NET_UNMETERED, B: BATTERY_ANY }]
+01-06 17:20:43.184  2949  7524 I chatty  : uid=1000(system) Binder:2949_20 expire 3 lines
+01-06 17:20:43.188  3651  4919 D RecommendedChannelsThread: [MtkLog]start, status==false,mLauncherRunning==false
+01-06 17:20:43.193  2158  2209 D WM-PackageManagerHelper: Skipping component enablement for androidx.work.impl.background.systemjob.SystemJobService
+01-06 17:20:43.193  2158  2209 D WM-Schedulers: Created SystemJobScheduler and enabled SystemJobService
+01-06 17:20:43.194  2158  2199 D WM-ForceStopRunnable: Is default app process = true
+01-06 17:20:43.198  2158  2199 D WM-ForceStopRunnable: Performing cleanup operations.
+01-06 17:20:43.215  2158  2195 I Finsky:background: [2224] SSM: Start staged session task with 0 tracked staged sessions
+01-06 17:20:43.253  2044  2044 D EnhancedMainActivity: Loading playlist: Xtream Codes (Type: xtream)
+01-06 17:20:43.311  2044  2044 E com.bingetv.ap: No package ID ff found for ID 0xffffffff.
+01-06 17:20:43.311  2044  2044 D FocusDebug: Focus changed: null -> no-id
+01-06 17:20:43.467  2044  2059 I com.bingetv.ap: Background young concurrent copying GC freed 4474(501KB) AllocSpace objects, 2(136KB) LOS objects, 20% free, 3878KB/4869KB, paused 200us total 100.212ms
+01-06 17:20:43.469  2158  2195 D WM-PackageManagerHelper: Skipping component enablement for androidx.work.impl.background.systemalarm.RescheduleReceiver
+01-06 17:20:43.517  2949  3012 I chatty  : uid=1000(system) android.bg expire 1 line
+01-06 17:20:43.789  2158  2188 I Finsky:background: [2217] WM::SCH: Logging work initialize for 3-21921
+01-06 17:20:43.837  2158  2199 I Finsky:background: [2228] SCH: Scheduling phonesky job Id: 3-21921, CT: 1767709243162, Constraints: [{ L: 0, D: 86400000, C: CHARGING_NONE, I: IDLE_REQUIRED, N: NET_UNMETERED, B: BATTERY_ANY }]
+01-06 17:20:43.876  2158  2195 I Finsky:background: [2224] SCH: Scheduling 0 system job(s)
+01-06 17:20:44.047  2044  2044 D EnhancedMainActivity: Playlist 2 data already loaded (213245 channels). Skipping fetch.
+01-06 17:20:44.052  2022  2022 I Finsky  : [2] Memory trim requested to level 80
+01-06 17:20:44.052  2022  2022 I Finsky  : [2] Flushing in-memory image cache
+01-06 17:20:44.192  3651  4919 D RecommendedChannelsThread: [MtkLog]start, status==false,mLauncherRunning==false
+01-06 17:20:44.494  2949  3418 I chatty  : uid=1000(system) WifiHandlerThre expire 18 lines
+01-06 17:20:44.505  2949  6871 I chatty  : uid=1000(system) Binder:2949_1F expire 7 lines
+01-06 17:20:44.857  2949  4064 E TaskPersister: File error accessing recents directory (directory doesn't exist?).
+01-06 17:20:45.195  3651  4919 D RecommendedChannelsThread: [MtkLog]start, status==false,mLauncherRunning==false
+01-06 17:20:46.197  3651  4919 D RecommendedChannelsThread: [MtkLog]start, status==false,mLauncherRunning==false
+01-06 17:20:46.444  2044  2246 D ProfileInstaller: Installing profile for com.bingetv.app
+01-06 17:20:47.199  3651  4919 D RecommendedChannelsThread: [MtkLog]start, status==false,mLauncherRunning==false
+01-06 17:20:48.200  3651  4919 D RecommendedChannelsThread: [MtkLog]start, status==false,mLauncherRunning==false
+01-06 17:20:48.270 26704 26838 W GetConfigSnapshotOp: Succeeded but not registered: com.google.android.libraries.performance.primes#com.android.vending [CONTEXT service_id=51 ]
+01-06 17:20:48.298  2022  2101 I Finsky  : [2210] playLoggingServerUrl: https://play.googleapis.com/play/log
+01-06 17:20:48.298  2022  2101 I Finsky  : [2210] playLoggingServerTimestampUrl: https://play.googleapis.com/play/log/timestamp
+01-06 17:20:49.203  3651  4919 D RecommendedChannelsThread: [MtkLog]start, status==false,mLauncherRunning==false
+01-06 17:20:49.757  2158  2252 I Finsky:background: [2255] playLoggingServerUrl: https://play.googleapis.com/play/log
+01-06 17:20:49.757  2158  2252 I Finsky:background: [2255] playLoggingServerTimestampUrl: https://play.googleapis.com/play/log/timestamp
+01-06 17:20:49.802 26704 26838 W GetConfigSnapshotOp: Succeeded but not registered: com.google.android.libraries.performance.primes#com.android.vending [CONTEXT service_id=51 ]
+01-06 17:20:50.204  3651  4919 D RecommendedChannelsThread: [MtkLog]start, status==false,mLauncherRunning==false
+01-06 17:20:50.339  2044  2044 W Glide   : Failed to find GeneratedAppGlideModule. You should include an annotationProcessor compile dependency on com.github.bumptech.glide:compiler in your application and a @GlideModule annotated AppGlideModule implementation or LibraryGlideModules will be silently ignored
+01-06 17:20:50.372  2949  3750 D ConnectivityService: requestNetwork for uid/pid:10108/2044 NetworkRequest [ TRACK_DEFAULT id=338, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED Uid: 10108 AdministratorUids: [] RequestorUid: 10108 RequestorPackageName: com.bingetv.app] ]
+01-06 17:20:50.373  2949  3453 D ConnectivityService: NetReassign [338 : null → 101]
+01-06 17:20:50.374  2949  3418 I chatty  : uid=1000(system) WifiHandlerThre expire 18 lines
+01-06 17:20:50.380  2949  3503 I chatty  : uid=1000(system) EthernetService expire 1 line
+01-06 17:20:50.540  2949  3750 I chatty  : uid=1000(system) Binder:2949_6 expire 3 lines
+01-06 17:20:50.648  2044  2059 I com.bingetv.ap: Background concurrent copying GC freed 13954(961KB) AllocSpace objects, 2(52KB) LOS objects, 24% free, 5503KB/7337KB, paused 1.187ms total 125.618ms
+01-06 17:20:51.206  3651  4919 D RecommendedChannelsThread: [MtkLog]start, status==false,mLauncherRunning==false
+01-06 17:20:51.231  2044  2059 I com.bingetv.ap: Background concurrent copying GC freed 9865(596KB) AllocSpace objects, 0(0B) LOS objects, 24% free, 6929KB/9239KB, paused 163us total 135.749ms
+01-06 17:20:51.293  2022  2098 I Finsky  : [2208] Initializing pausers from value store.
+01-06 17:20:51.302  4782  1316 I cast_shell: [0106/172051.298543:INFO:ssdp_device.c(101)] SSDP packets sent for 30 seconds = 9
+01-06 17:20:51.307  2022  2098 I Finsky  : [2208] IQ::HLD: Callers (Pausers) in PauseUpdatesCallersValueStore: []
+01-06 17:20:51.319  2044  2081 I OpenGLRenderer: Davey! duration=1073ms; Flags=0, IntendedVsync=24570077380380, Vsync=24570094047046, OldestInputEvent=9223372036854775807, NewestInputEvent=0, HandleInputStart=24570102960347, AnimationStart=24570102964514, PerformTraversalsStart=24570102968181, DrawStart=24571136499427, SyncQueued=24571146482427, SyncStart=24571147534927, IssueDrawCommandsStart=24571148132593, SwapBuffers=24571151185510, FrameCompleted=24571152336093, DequeueBufferDuration=649500, QueueBufferDuration=639833, GpuCompleted=0, 
+01-06 17:20:51.414  2022  2097 I Finsky  : [2207] registerListener
+01-06 17:20:51.421  2022  2097 I Finsky  : [2207] DFS: Listener added for lef@2528fe6
+01-06 17:20:51.421  2022  2097 I Finsky  : [2207] registerListener
+01-06 17:20:51.530  2022  2098 I Finsky  : [2208] Triggered update for experiment package com.google.android.finsky.stable.
+01-06 17:20:51.561  2022  2109 I Finsky  : [2217] Cannot disable service: xhl
+01-06 17:20:51.567  2022  2109 I Finsky  : [2217] Cannot disable service: xhh
+01-06 17:20:51.591  4782  4782 W cast_shell: [0106/172051.591868:WARNING:application_manager_impl.cc(611)] Unable to fetch config for app ID YouTube because the app is not supported
+01-06 17:20:51.595  2022  2268 I Finsky  : [2265] SM: There are no stale sessions to be pruned
+01-06 17:20:51.624  2022  2022 I Finsky  : [2] Connecting InstallListener to SplitInstallService broadcaster...
+01-06 17:20:51.804  2022  2098 I Finsky  : [2208] Already at the latest configurations for experiment package com.google.android.finsky.stable.
+01-06 17:20:51.804  2022  2098 I Finsky  : [2208] Triggered update for experiment package com.google.android.finsky.regular.
+01-06 17:20:51.850  2022  2098 I Finsky  : [2208] Already at the latest configurations for experiment package com.google.android.finsky.regular.
+01-06 17:20:51.850  2022  2098 I Finsky  : [2208] Triggered update for experiment package com.google.android.finsky.regular.
+01-06 17:20:51.896  2022  2098 I Finsky  : [2208] Already at the latest configurations for experiment package com.google.android.finsky.regular.
+01-06 17:20:52.207  3651  4919 D RecommendedChannelsThread: [MtkLog]start, status==false,mLauncherRunning==false
+01-06 17:20:53.209  3651  4919 D RecommendedChannelsThread: [MtkLog]start, status==false,mLauncherRunning==false
+01-06 17:20:53.531  2949  3418 I chatty  : uid=1000(system) WifiHandlerThre expire 10 lines
+01-06 17:20:53.535  2949  5242 I chatty  : uid=1000(system) Binder:2949_1A expire 3 lines
+01-06 17:20:54.210  3651  4919 D RecommendedChannelsThread: [MtkLog]start, status==false,mLauncherRunning==false
+01-06 17:20:55.017  2158  2158 I Finsky:background: [2] Memory trim requested to level 80
+01-06 17:20:55.212  3651  4919 D RecommendedChannelsThread: [MtkLog]start, status==false,mLauncherRunning==false
+01-06 17:20:56.213  3651  4919 D RecommendedChannelsThread: [MtkLog]start, status==false,mLauncherRunning==false
+01-06 17:20:56.553  2949  3418 I chatty  : uid=1000(system) WifiHandlerThre expire 15 lines
+01-06 17:20:56.556  2949  4601 I chatty  : uid=1000(system) Binder:2949_10 expire 3 lines
+01-06 17:20:57.214  3651  4919 D RecommendedChannelsThread: [MtkLog]start, status==false,mLauncherRunning==false
+01-06 17:20:59.167  2949  2949 W Looper  : Slow dispatch took 2005ms main h=android.os.Handler c=android.app.AlarmManager$ListenerWrapper@66d7e7c m=0
+01-06 17:20:59.168  2949  2949 W Looper  : Slow delivery took 2004ms main h=com.android.server.AlarmManagerService$AlarmHandler c=null m=4
+01-06 17:20:59.187  2949  2949 W Looper  : Drained
+01-06 17:20:58.216  3651  4919 D RecommendedChannelsThread: [MtkLog]start, status==false,mLauncherRunning==false
+01-06 17:20:59.191  2022  2022 I Finsky  : [2] SCH: job service start with id 9319.
+01-06 17:20:59.205  2022  2155 I Finsky  : [2247] SCH: Satisfied jobs for 9319 are: 12-1
+01-06 17:20:59.209  2022  2272 I Finsky  : [2267] SCH: Job 12-1 starting
+01-06 17:20:59.210  2022  2022 I Finsky  : [2] WM::SCH: Logging work start for 12-1
+01-06 17:20:59.211  2022  2022 I Finsky  : [2] [ContentSync] job started
+01-06 17:20:59.214  2022  2273 I Finsky  : [2268] PSR: Package cache is empty, setup cache.
+01-06 17:20:59.218  3651  4919 D RecommendedChannelsThread: [MtkLog]start, status==false,mLauncherRunning==false
+01-06 17:20:59.280  2834  2834 D MTK_KL  : 31,942727,24579209436,-;logd: logdr: UID=2000 GID=2000 PID=2274 n tail=0 logMask=99 pid=0 start=0ns timeout=0ns
+01-06 17:20:59.323  2022  2273 W Finsky  : [2268] SLM: no metadata property com.android.vending.derived.apk.id found for shared library com.google.android.trichromelibrary_704911130:
+01-06 17:20:59.323  2022  2273 W Finsky  : [2268] SLM: no metadata property com.android.vending.sdk.version.patch found for shared library com.google.android.trichromelibrary_704911130:
+01-06 17:20:59.324  2022  2273 W Finsky  : [2268] SLM: no metadata property com.android.vending.derived.apk.id found for shared library com.google.android.trichromelibrary_744410230:
+01-06 17:20:59.324  2022  2273 W Finsky  : [2268] SLM: no metadata property com.android.vending.sdk.version.patch found for shared library com.google.android.trichromelibrary_744410230:
+01-06 17:20:59.325  2022  2273 W Finsky  : [2268] SLM: no metadata property com.android.vending.derived.apk.id found for shared library com.google.android.trichromelibrary_744417130:
+01-06 17:20:59.325  2022  2273 W Finsky  : [2268] SLM: no metadata property com.android.vending.sdk.version.patch found for shared library com.google.android.trichromelibrary_744417130:
+01-06 17:20:59.326  2022  2273 W Finsky  : [2268] SLM: no metadata property com.android.vending.derived.apk.id found for shared library com.google.android.trichromelibrary_744417430:
+01-06 17:20:59.326  2022  2273 W Finsky  : [2268] SLM: no metadata property com.android.vending.sdk.version.patch found for shared library com.google.android.trichromelibrary_744417430:
+01-06 17:20:59.569  2949  3701 I chatty  : uid=1000(system) Binder:2949_5 expire 3 lines
+01-06 17:20:59.872  2949  2958 I chatty  : uid=1000(system) HeapTaskDaemon expire 1 line
+01-06 17:21:00.004  3651  3651 E AgentTimeActionReceiver: {DT} CAUTION: time sync feature is not enabled
+01-06 17:21:00.004  3651  3651 E AgentTimeActionReceiver: {DT} CAUTION: time sync feature is not enabled
+01-06 17:21:00.004  3651  3651 E TimeMsgProcess: {DT} msgTpye:14
+01-06 17:21:00.014  3651  3651 E TimeMsgProcess: {DT} TimeMsgProcess.isSystemTimeAutomatic(context)=trueTimeMsgProcess.isNetworkConnected(context)=true
+01-06 17:21:00.015  3651  3651 E TimeMsgProcess: {DT} msgTpye:14
+01-06 17:21:00.020  3651  3651 E TimeMsgProcess: {DT} TimeMsgProcess.isSystemTimeAutomatic(context)=trueTimeMsgProcess.isNetworkConnected(context)=true
+01-06 17:21:00.220  3651  4919 D RecommendedChannelsThread: [MtkLog]start, status==false,mLauncherRunning==false
+01-06 17:21:00.512  2949  3414 I chatty  : uid=1000(system) NetworkPolicy expire 1 line
+01-06 17:21:00.940  2022  2022 I Finsky  : [2] App states replicator found 3 unowned apps
+01-06 17:21:00.960  2022  2113 I Finsky  : [2219] Completed 0 account content syncs with 0 successful.
+01-06 17:21:00.960  2022  2022 I Finsky  : [2] [ContentSync] Installation state replication succeeded.
+01-06 17:21:00.960  2022  2022 I Finsky  : [2] SCH: jobFinished: 12-1. TimeElapsed: 1751ms.
+01-06 17:21:00.961  2022  2022 I Finsky  : [2] WM::SCH: Logging work end for 12-1
+01-06 17:21:01.003  2022  2113 I Finsky  : [2219] SCH: Scheduling phonesky job Id: 1-1337, CT: 1767696538502, Constraints: [{ L: 38734018, D: 81934018, C: CHARGING_NONE, I: IDLE_NONE, N: NET_ANY, B: BATTERY_ANY }]
+01-06 17:21:01.010  2022  2112 I Finsky  : [2218] SCH: Scheduling 1 system job(s)
+01-06 17:21:01.012  2022  2112 I Finsky  : [2218] SCH: Scheduling system job Id: 9327, L: 26011509, D: 69211509, C: false, I: false, N: 1
+01-06 17:21:01.021  2022  2272 I Finsky  : [2267] SCH: job service finished with id 9319.
+01-06 17:21:01.221  3651  4919 D RecommendedChannelsThread: [MtkLog]start, status==false,mLauncherRunning==false
+01-06 17:21:01.438  2022  2022 I Finsky  : [2] setup::RES: shouldRecoverRestoredPackages: versionCodeSystem 84581908
+01-06 17:21:01.440  2022  2022 I Finsky  : [2] Detected restoreservicev2://recovery not needed, will not run
+01-06 17:21:01.521  4782  4782 W cast_shell: [0106/172101.520915:WARNING:application_manager_impl.cc(611)] Unable to fetch config for app ID YouTube because the app is not supported
+01-06 17:21:01.664  2022  2150 I Finsky  : [2242] registerListener
+01-06 17:21:01.664  2022  2150 I Finsky  : [2242] DSC: reviveDownloads()
+01-06 17:21:01.670  2022  2150 I Finsky  : [2242] Initialized AssetModuleDownloader.
+01-06 17:21:01.678  2158  2196 I Finsky:background: [2225] DS: reviveDownloads()
+01-06 17:21:01.728  2949  3701 D ConnectivityService: requestNetwork for uid/pid:10017/2158 NetworkRequest [ TRACK_DEFAULT id=339, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED Uid: 10017 AdministratorUids: [] RequestorUid: 10017 RequestorPackageName: com.android.vending] ]
+01-06 17:21:01.729  2949  3453 D ConnectivityService: NetReassign [339 : null → 101]
+01-06 17:21:01.732  2949  3503 I chatty  : uid=1000(system) EthernetService expire 1 line
+01-06 17:21:01.735  2158  2289 I Finsky:background: [2263] DS::IDC: updateWith: <393:SUCCEEDED>
+01-06 17:21:01.736  2158  2289 I Finsky:background: [2263] DS::IDC: All invisible downloads are finished.
+01-06 17:21:01.736  2158  2210 I Finsky:background: [2238] DS: Network is available [NetworkState{connected=true, wifi=true, metered=false, roaming=false}].
+01-06 17:21:01.736  2158  2210 I Finsky:background: [2238] DS: Updating downloads for network change
+01-06 17:21:01.737  2158  2289 I Finsky:background: [2263] DS::ISM: Stopping invisible download job
+01-06 17:21:02.138  4782  4782 I cast_shell: [0106/172102.138122:INFO:service_base.h(78)] Size of the map for type AuthTokenResponse is 0
+01-06 17:21:02.223  3651  4919 D RecommendedChannelsThread: [MtkLog]start, status==false,mLauncherRunning==false
+01-06 17:21:02.583  2949  3418 I chatty  : uid=1000(system) WifiHandlerThre expire 26 lines
+01-06 17:21:02.587  2949  3701 I chatty  : uid=1000(system) Binder:2949_5 expire 9 lines
+01-06 17:21:02.810  4782  4782 I cast_shell: [0106/172102.810868:INFO:service_base.h(246)] Container sizes for type CloudSetting are (session_info_map: 0), (topic_info_map: 21), (pending_events: 0).
+01-06 17:21:02.811  4782  4782 I cast_shell: [0106/172102.811323:INFO:metrics_stat_logger.cc(38)] Metrics stat for the past 60 secs : total=8
+01-06 17:21:02.811  4782  4782 I cast_shell: [metrics_stat_logger] Cast.Discovery.Mdns.Request.AppId.In=4
+01-06 17:21:02.811  4782  4782 I cast_shell: [metrics_stat_logger] Cast.Discovery.Mdns.Request.In=4
+01-06 17:21:02.811  4782  4782 I cast_shell: [metrics_stat_logger] Cast.Discovery.Mdns.Response.AppId.Out=4
+01-06 17:21:02.811  4782  4782 I cast_shell: [metrics_stat_logger] Cast.Discovery.Mdns.Response.Out=4
+01-06 17:21:02.811  4782  4782 I cast_shell: [metrics_stat_logger] Dial.SsdpDeviceDesc.Unknown=6
+01-06 17:21:02.811  4782  4782 I cast_shell: [metrics_stat_logger] Dial.SsdpDeviceDesc.Unknown.200=6
+01-06 17:21:02.811  4782  4782 I cast_shell: [metrics_stat_logger] Dial.YouTube.GetInfo.Unknown=6
+01-06 17:21:02.811  4782  4782 I cast_shell: [metrics_stat_logger] Dial.YouTube.GetInfo.Unknown.404=6
+01-06 17:21:03.224  3651  4919 D RecommendedChannelsThread: [MtkLog]start, status==false,mLauncherRunning==false
+01-06 17:21:03.330  2158  2158 I Finsky:background: [2] Memory trim requested to level 60
+01-06 17:21:03.330  2022  2022 I Finsky  : [2] Memory trim requested to level 80
+01-06 17:21:03.331  2022  2022 I Finsky  : [2] Flushing in-memory image cache
+01-06 17:21:03.365 26704 26704 W ThreadPoolForeg: type=1400 audit(0.0:2188): avc: denied { write } for name="traced_producer" dev="tmpfs" ino=12647 scontext=u:r:gmscore_app:s0:c512,c768 tcontext=u:object_r:traced_producer_socket:s0 tclass=sock_file permissive=0 app=com.google.android.gms
+01-06 17:21:03.375  2834  2834 D MTK_KL  : 36,942728,24583303374,-;type=1400 audit(1767709263.365:2188): avc: denied { write } for comm="ThreadPoolForeg" name="traced_producer" dev="tmpfs" ino=12647 scontext=u:r:gmscore_app:s0:c512,c768 tcontext=u:object_r:traced_producer_socket:s0 tclass=sock_file permissive=0 app=com.google.android.gms
+01-06 17:21:04.226  3651  4919 D RecommendedChannelsThread: [MtkLog]start, status==false,mLauncherRunning==false
+01-06 17:21:05.228  3651  4919 D RecommendedChannelsThread: [MtkLog]start, status==false,mLauncherRunning==false
+01-06 17:21:06.229  3651  4919 D RecommendedChannelsThread: [MtkLog]start, status==false,mLauncherRunning==false
+01-06 17:21:07.231  3651  4919 D RecommendedChannelsThread: [MtkLog]start, status==false,mLauncherRunning==false
+01-06 17:21:07.257  4782  4980 I cast_shell: [0106/172107.257201:INFO:mdns_app_filter.cc(3358)] MdnsAppFilter: responses sent in 31 seconds: 4
+01-06 17:21:08.232  3651  4919 D RecommendedChannelsThread: [MtkLog]start, status==false,mLauncherRunning==false
+01-06 17:21:09.234  3651  4919 D RecommendedChannelsThread: [MtkLog]start, status==false,mLauncherRunning==false
+01-06 17:21:10.235  3651  4919 I chatty  : uid=1000(system) Thread-68 identical 1 line
+01-06 17:21:11.237  3651  4919 D RecommendedChannelsThread: [MtkLog]start, status==false,mLauncherRunning==false
+01-06 17:21:11.516  4782  4782 W cast_shell: [0106/172111.516725:WARNING:application_manager_impl.cc(611)] Unable to fetch config for app ID YouTube because the app is not supported
+01-06 17:21:11.625  2949  3418 I chatty  : uid=1000(system) WifiHandlerThre expire 3 lines
+01-06 17:21:11.626  2949  3418 D WifiThroughputPredictor:  utilization (BssLoad) -1 utilization (LLStats) 80 isBluetoothConnected: false final utilization: 80
+01-06 17:21:11.626  2949  3418 D WifiScoreCard: BSSID update SIGNAL_POLL ID: 1756974182 SSID: RIFT _CALL , BSSID: 08:5c:1b:34:13:d4, MAC: 54:f1:5f:6e:09:12, Supplicant state: COMPLETED, Wi-Fi standard: 0, RSSI: -44, Link speed: 144Mbps, Tx Link speed: 144Mbps, Max Supported Tx Link speed: -1Mbps, Rx Link speed: -1Mbps, Max Supported Rx Link speed: -1Mbps, Frequency: 2462MHz, Net ID: 11, Metered hint: false, score: 60
+01-06 17:21:11.626  2949  3418 D WifiScoreCard: txRate: 15 txSpeed: 144
+01-06 17:21:11.626  2949  3418 D WifiScoreCard: network update SIGNAL_POLL "RIFT _CALL " ID: 1060812281 RSSI -44 txSpeed 144
+01-06 17:21:11.626  2949  3418 D WifiScoreCard: SSID: "RIFT _CALL "
+01-06 17:21:11.626  2949  3418 D WifiScoreCard:  LastRssiPollTime: 24591459 LastRssiPoll: -44 LastTxSpeedPoll: 144
+01-06 17:21:11.626  2949  3418 D WifiScoreCard:  StatsRecent:  ConnectAttempt: 12 ConnectFailure: 0 ConnectDurSec: 11787 AssocRej: 0 AssocTimeout: 0 AuthFailure: 0 ShortDiscNonlocal: 0 DisconnectNonlocal: 1 Disconnect: 2 ConsecutiveConnectFailure: 0
+01-06 17:21:11.626  2949  3418 D WifiScoreCard:  StatsCurr:  ConnectAttempt: 202 ConnectFailure: 0 ConnectDurSec: 243898 AssocRej: 0 AssocTimeout: 0 AuthFailure: 0 ShortDiscNonlocal: 0 DisconnectNonlocal: 0 Disconnect: 11 ConsecutiveConnectFailure: 0
+01-06 17:21:11.626  2949  3418 D WifiScoreCard:  StatsPrev:  ConnectAttempt: 0 ConnectFailure: 0 ConnectDurSec: 0 AssocRej: 0 AssocTimeout: 0 AuthFailure: 0 ShortDiscNonlocal: 0 DisconnectNonlocal: 0 Disconnect: 0 ConsecutiveConnectFailure: 0
+01-06 17:21:11.628  2949  3418 D WifiClientModeImpl:  L2ConnectedState screen=on 4 0 "RIFT _CALL " 08:5c:1b:34:13:d4 rssi=-44 f=2462 sc=60 link=144 tx=14.9, 0.0, 0.0  rx=14.6 bcn=0 [on:0 tx:0 rx:0 period:3011] from screen [on:0 period:24533331] score=60
+01-06 17:21:11.629  2949  3701 I WifiService: getConnectionInfo uid=10033
+01-06 17:21:11.630  2949  3701 V WifiService: getConnectionInfo: hideBssidSsidAndNetworkId=true, hideDefaultMacAddress=true
+01-06 17:21:11.631  2949  3701 E WifiService: Permission violation - getConfiguredNetworks not allowed for uid=10033, packageName=com.google.android.tvrecommendations, reason=java.lang.SecurityException: UID 10033 has no location permission
+01-06 17:21:12.238  3651  4919 D RecommendedChannelsThread: [MtkLog]start, status==false,mLauncherRunning==false
+01-06 17:21:12.955  2949  2949 W Looper  : Slow dispatch took 2004ms main h=android.os.Handler c=android.app.AlarmManager$ListenerWrapper@66d7e7c m=0
+01-06 17:21:12.956  2949  2949 W Looper  : Slow delivery took 2003ms main h=com.android.server.AlarmManagerService$AlarmHandler c=null m=4
+01-06 17:21:12.969  2949  2949 W Looper  : Drained
+01-06 17:21:13.001  2949  3701 I AlarmManager: Change Wakeup Alarm type to non Wakeup type, current type=[2] packageName = androidstatsTag = *walarm*:*job.deadline* @26235634 and next wakeup alarm is @Tue Jan 06 22:57:14 GMT+03:00 2026
+01-06 17:21:13.003  2949  3701 I AlarmManager: Change Wakeup Alarm type to non Wakeup type, current type=[2] packageName = androidstatsTag = *walarm*:*job.deadline* @24652828 and next wakeup alarm is @Tue Jan 06 22:57:14 GMT+03:00 2026
+01-06 17:21:13.240  3651  4919 I chatty  : uid=1000(system) Thread-68 identical 1 line
+01-06 17:21:14.241  3651  4919 D RecommendedChannelsThread: [MtkLog]start, status==false,mLauncherRunning==false
+01-06 17:21:14.644  2949  3418 D WifiClientModeImpl: fetchRssiLinkSpeedAndFrequencyNative rssi=-40 TxLinkspeed=144 freq=2462 RxLinkSpeed=0
+01-06 17:21:14.644  2949  3418 V WifiConfigManager: Updating scan detail cache freq=2462 BSSID=08:5c:1b:34:13:d4 RSSI=-40 for "RIFT _CALL "WPA_PSK
+01-06 17:21:14.645  2949  3418 D WifiThroughputPredictor:  utilization (BssLoad) -1 utilization (LLStats) 80 isBluetoothConnected: false final utilization: 80
+01-06 17:21:14.645  2949  3418 D WifiThroughputPredictor:  utilization (BssLoad) -1 utilization (LLStats) 80 isBluetoothConnected: false final utilization: 80
+01-06 17:21:14.646  2949  3418 D WifiScoreCard: BSSID update SIGNAL_POLL ID: 1756974182 SSID: RIFT _CALL , BSSID: 08:5c:1b:34:13:d4, MAC: 54:f1:5f:6e:09:12, Supplicant state: COMPLETED, Wi-Fi standard: 0, RSSI: -40, Link speed: 144Mbps, Tx Link speed: 144Mbps, Max Supported Tx Link speed: -1Mbps, Rx Link speed: -1Mbps, Max Supported Rx Link speed: -1Mbps, Frequency: 2462MHz, Net ID: 11, Metered hint: false, score: 60
+01-06 17:21:14.646  2949  3418 D WifiScoreCard: txRate: 11 txSpeed: 144
+01-06 17:21:14.646  2949  3418 D WifiScoreCard: network update SIGNAL_POLL "RIFT _CALL " ID: 1060812281 RSSI -40 txSpeed 144
+01-06 17:21:14.646  2949  3418 D WifiScoreCard: SSID: "RIFT _CALL "
+01-06 17:21:14.646  2949  3418 D WifiScoreCard:  LastRssiPollTime: 24594479 LastRssiPoll: -40 LastTxSpeedPoll: 144
+01-06 17:21:14.646  2949  3418 D WifiScoreCard:  StatsRecent:  ConnectAttempt: 12 ConnectFailure: 0 ConnectDurSec: 11787 AssocRej: 0 AssocTimeout: 0 AuthFailure: 0 ShortDiscNonlocal: 0 DisconnectNonlocal: 1 Disconnect: 2 ConsecutiveConnectFailure: 0
+01-06 17:21:14.646  2949  3418 D WifiScoreCard:  StatsCurr:  ConnectAttempt: 202 ConnectFailure: 0 ConnectDurSec: 243898 AssocRej: 0 AssocTimeout: 0 AuthFailure: 0 ShortDiscNonlocal: 0 DisconnectNonlocal: 0 Disconnect: 11 ConsecutiveConnectFailure: 0
+01-06 17:21:14.646  2949  3418 D WifiScoreCard:  StatsPrev:  ConnectAttempt: 0 ConnectFailure: 0 ConnectDurSec: 0 AssocRej: 0 AssocTimeout: 0 AuthFailure: 0 ShortDiscNonlocal: 0 DisconnectNonlocal: 0 Disconnect: 0 ConsecutiveConnectFailure: 0
+01-06 17:21:14.647  2949  3418 D WifiClientModeImpl:  L2ConnectedState screen=on 4 0 "RIFT _CALL " 08:5c:1b:34:13:d4 rssi=-40 f=2462 sc=60 link=144 tx=10.1, 0.0, 0.0  rx=9.2 bcn=0 [on:0 tx:0 rx:0 period:3019] from screen [on:0 period:24536350] score=60
+01-06 17:21:14.649  2949  3701 I WifiService: getConnectionInfo uid=10033
+01-06 17:21:14.650  2949  3701 V WifiService: getConnectionInfo: hideBssidSsidAndNetworkId=true, hideDefaultMacAddress=true
+01-06 17:21:14.652  2949  3701 E WifiService: Permission violation - getConfiguredNetworks not allowed for uid=10033, packageName=com.google.android.tvrecommendations, reason=java.lang.SecurityException: UID 10033 has no location permission
+01-06 17:21:15.243  3651  4919 D RecommendedChannelsThread: [MtkLog]start, status==false,mLauncherRunning==false
+01-06 17:21:16.244  3651  4919 I chatty  : uid=1000(system) Thread-68 identical 1 line
+01-06 17:21:17.246  3651  4919 D RecommendedChannelsThread: [MtkLog]start, status==false,mLauncherRunning==false
+01-06 17:21:17.653  2949  3418 D WifiClientModeImpl: fetchRssiLinkSpeedAndFrequencyNative rssi=-39 TxLinkspeed=144 freq=2462 RxLinkSpeed=0
+01-06 17:21:17.653  2949  3418 V WifiConfigManager: Updating scan detail cache freq=2462 BSSID=08:5c:1b:34:13:d4 RSSI=-39 for "RIFT _CALL "WPA_PSK
+01-06 17:21:17.654  2949  3418 D WifiThroughputPredictor:  utilization (BssLoad) -1 utilization (LLStats) 80 isBluetoothConnected: false final utilization: 80
+01-06 17:21:17.654  2949  3418 D WifiThroughputPredictor:  utilization (BssLoad) -1 utilization (LLStats) 80 isBluetoothConnected: false final utilization: 80
+01-06 17:21:17.655  2949  3418 D WifiScoreCard: BSSID update SIGNAL_POLL ID: 1756974182 SSID: RIFT _CALL , BSSID: 08:5c:1b:34:13:d4, MAC: 54:f1:5f:6e:09:12, Supplicant state: COMPLETED, Wi-Fi standard: 0, RSSI: -39, Link speed: 144Mbps, Tx Link speed: 144Mbps, Max Supported Tx Link speed: -1Mbps, Rx Link speed: -1Mbps, Max Supported Rx Link speed: -1Mbps, Frequency: 2462MHz, Net ID: 11, Metered hint: false, score: 60
+01-06 17:21:17.655  2949  3418 D WifiScoreCard: txRate: 7 txSpeed: 144
+01-06 17:21:17.655  2949  3418 D WifiScoreCard: network update SIGNAL_POLL "RIFT _CALL " ID: 1060812281 RSSI -39 txSpeed 144
+01-06 17:21:17.655  2949  3418 D WifiScoreCard: SSID: "RIFT _CALL "
+01-06 17:21:17.655  2949  3418 D WifiScoreCard:  LastRssiPollTime: 24597488 LastRssiPoll: -39 LastTxSpeedPoll: 144
+01-06 17:21:17.655  2949  3418 D WifiScoreCard:  StatsRecent:  ConnectAttempt: 12 ConnectFailure: 0 ConnectDurSec: 11787 AssocRej: 0 AssocTimeout: 0 AuthFailure: 0 ShortDiscNonlocal: 0 DisconnectNonlocal: 1 Disconnect: 2 ConsecutiveConnectFailure: 0
+01-06 17:21:17.655  2949  3418 D WifiScoreCard:  StatsCurr:  ConnectAttempt: 202 ConnectFailure: 0 ConnectDurSec: 243898 AssocRej: 0 AssocTimeout: 0 AuthFailure: 0 ShortDiscNonlocal: 0 DisconnectNonlocal: 0 Disconnect: 11 ConsecutiveConnectFailure: 0
+01-06 17:21:17.655  2949  3418 D WifiScoreCard:  StatsPrev:  ConnectAttempt: 0 ConnectFailure: 0 ConnectDurSec: 0 AssocRej: 0 AssocTimeout: 0 AuthFailure: 0 ShortDiscNonlocal: 0 DisconnectNonlocal: 0 Disconnect: 0 ConsecutiveConnectFailure: 0
+01-06 17:21:17.656  2949  3418 D WifiClientModeImpl:  L2ConnectedState screen=on 4 0 "RIFT _CALL " 08:5c:1b:34:13:d4 rssi=-39 f=2462 sc=60 link=144 tx=6.6, 0.0, 0.0  rx=5.9 bcn=0 [on:0 tx:0 rx:0 period:3008] from screen [on:0 period:24539359] score=60
+01-06 17:21:17.658  2949  3701 I WifiService: getConnectionInfo uid=10033
+01-06 17:21:17.658  2949  3701 V WifiService: getConnectionInfo: hideBssidSsidAndNetworkId=true, hideDefaultMacAddress=true
+01-06 17:21:17.659  2949  3701 E WifiService: Permission violation - getConfiguredNetworks not allowed for uid=10033, packageName=com.google.android.tvrecommendations, reason=java.lang.SecurityException: UID 10033 has no location permission
+01-06 17:21:18.247  3651  4919 D RecommendedChannelsThread: [MtkLog]start, status==false,mLauncherRunning==false
+01-06 17:21:19.249  3651  4919 I chatty  : uid=1000(system) Thread-68 identical 1 line
+01-06 17:21:20.250  3651  4919 D RecommendedChannelsThread: [MtkLog]start, status==false,mLauncherRunning==false
+01-06 17:21:20.665  2949  3418 D WifiClientModeImpl: fetchRssiLinkSpeedAndFrequencyNative rssi=-39 TxLinkspeed=144 freq=2462 RxLinkSpeed=0
+01-06 17:21:20.665  2949  3418 V WifiConfigManager: Updating scan detail cache freq=2462 BSSID=08:5c:1b:34:13:d4 RSSI=-39 for "RIFT _CALL "WPA_PSK
+01-06 17:21:20.666  2949  3418 D WifiThroughputPredictor:  utilization (BssLoad) -1 utilization (LLStats) 80 isBluetoothConnected: false final utilization: 80
+01-06 17:21:20.666  2949  3418 D WifiThroughputPredictor:  utilization (BssLoad) -1 utilization (LLStats) 80 isBluetoothConnected: false final utilization: 80
+01-06 17:21:20.667  2949  3418 D WifiScoreCard: BSSID update SIGNAL_POLL ID: 1756974182 SSID: RIFT _CALL , BSSID: 08:5c:1b:34:13:d4, MAC: 54:f1:5f:6e:09:12, Supplicant state: COMPLETED, Wi-Fi standard: 0, RSSI: -39, Link speed: 144Mbps, Tx Link speed: 144Mbps, Max Supported Tx Link speed: -1Mbps, Rx Link speed: -1Mbps, Max Supported Rx Link speed: -1Mbps, Frequency: 2462MHz, Net ID: 11, Metered hint: false, score: 60
+01-06 17:21:20.667  2949  3418 D WifiScoreCard: txRate: 7 txSpeed: 144
+01-06 17:21:20.667  2949  3418 D WifiScoreCard: network update SIGNAL_POLL "RIFT _CALL " ID: 1060812281 RSSI -39 txSpeed 144
+01-06 17:21:20.667  2949  3418 D WifiScoreCard: SSID: "RIFT _CALL "
+01-06 17:21:20.667  2949  3418 D WifiScoreCard:  LastRssiPollTime: 24600500 LastRssiPoll: -39 LastTxSpeedPoll: 144
+01-06 17:21:20.667  2949  3418 D WifiScoreCard:  StatsRecent:  ConnectAttempt: 12 ConnectFailure: 0 ConnectDurSec: 11787 AssocRej: 0 AssocTimeout: 0 AuthFailure: 0 ShortDiscNonlocal: 0 DisconnectNonlocal: 1 Disconnect: 2 ConsecutiveConnectFailure: 0
+01-06 17:21:20.667  2949  3418 D WifiScoreCard:  StatsCurr:  ConnectAttempt: 202 ConnectFailure: 0 ConnectDurSec: 243898 AssocRej: 0 AssocTimeout: 0 AuthFailure: 0 ShortDiscNonlocal: 0 DisconnectNonlocal: 0 Disconnect: 11 ConsecutiveConnectFailure: 0
+01-06 17:21:20.667  2949  3418 D WifiScoreCard:  StatsPrev:  ConnectAttempt: 0 ConnectFailure: 0 ConnectDurSec: 0 AssocRej: 0 AssocTimeout: 0 AuthFailure: 0 ShortDiscNonlocal: 0 DisconnectNonlocal: 0 Disconnect: 0 ConsecutiveConnectFailure: 0
+01-06 17:21:20.668  2949  3418 D WifiClientModeImpl:  L2ConnectedState screen=on 4 0 "RIFT _CALL " 08:5c:1b:34:13:d4 rssi=-39 f=2462 sc=60 link=144 tx=6.6, 0.0, 0.0  rx=5.3 bcn=0 [on:0 tx:0 rx:0 period:3012] from screen [on:0 period:24542371] score=60
+01-06 17:21:20.669  2949  3701 I WifiService: getConnectionInfo uid=10033
+01-06 17:21:20.670  2949  3701 V WifiService: getConnectionInfo: hideBssidSsidAndNetworkId=true, hideDefaultMacAddress=true
+01-06 17:21:20.671  2949  3701 E WifiService: Permission violation - getConfiguredNetworks not allowed for uid=10033, packageName=com.google.android.tvrecommendations, reason=java.lang.SecurityException: UID 10033 has no location permission
+01-06 17:21:21.252  3651  4919 D RecommendedChannelsThread: [MtkLog]start, status==false,mLauncherRunning==false
+01-06 17:21:21.286  4782  1316 I cast_shell: [0106/172121.286242:INFO:ssdp_device.c(101)] SSDP packets sent for 30 seconds = 13
+01-06 17:21:21.526  4782  4782 W cast_shell: [0106/172121.526059:WARNING:application_manager_impl.cc(611)] Unable to fetch config for app ID YouTube because the app is not supported
+01-06 17:21:22.254  3651  4919 D RecommendedChannelsThread: [MtkLog]start, status==false,mLauncherRunning==false
+01-06 17:21:23.255  3651  4919 D RecommendedChannelsThread: [MtkLog]start, status==false,mLauncherRunning==false
+01-06 17:21:23.479  2834  2834 D MTK_KL  : 31,942729,24603407227,-;logd: logdr: UID=2000 GID=2000 PID=2290 n tail=0 logMask=99 pid=0 start=0ns timeout=0ns
+01-06 17:21:23.677  2949  3418 D WifiClientModeImpl: fetchRssiLinkSpeedAndFrequencyNative rssi=-39 TxLinkspeed=144 freq=2462 RxLinkSpeed=0
+01-06 17:21:23.677  2949  3418 V WifiConfigManager: Updating scan detail cache freq=2462 BSSID=08:5c:1b:34:13:d4 RSSI=-39 for "RIFT _CALL "WPA_PSK
+01-06 17:21:23.678  2949  3418 D WifiThroughputPredictor:  utilization (BssLoad) -1 utilization (LLStats) 80 isBluetoothConnected: false final utilization: 80
+01-06 17:21:23.678  2949  3418 D WifiThroughputPredictor:  utilization (BssLoad) -1 utilization (LLStats) 80 isBluetoothConnected: false final utilization: 80
+01-06 17:21:23.678  2949  3418 D WifiScoreCard: BSSID update SIGNAL_POLL ID: 1756974182 SSID: RIFT _CALL , BSSID: 08:5c:1b:34:13:d4, MAC: 54:f1:5f:6e:09:12, Supplicant state: COMPLETED, Wi-Fi standard: 0, RSSI: -39, Link speed: 144Mbps, Tx Link speed: 144Mbps, Max Supported Tx Link speed: -1Mbps, Rx Link speed: -1Mbps, Max Supported Rx Link speed: -1Mbps, Frequency: 2462MHz, Net ID: 11, Metered hint: false, score: 60
+01-06 17:21:23.678  2949  3418 D WifiScoreCard: txRate: 14 txSpeed: 144
+01-06 17:21:23.678  2949  3418 D WifiScoreCard: network update SIGNAL_POLL "RIFT _CALL " ID: 1060812281 RSSI -39 txSpeed 144
+01-06 17:21:23.679  2949  3418 D WifiScoreCard: SSID: "RIFT _CALL "
+01-06 17:21:23.679  2949  3418 D WifiScoreCard:  LastRssiPollTime: 24603511 LastRssiPoll: -39 LastTxSpeedPoll: 144
+01-06 17:21:23.679  2949  3418 D WifiScoreCard:  StatsRecent:  ConnectAttempt: 12 ConnectFailure: 0 ConnectDurSec: 11787 AssocRej: 0 AssocTimeout: 0 AuthFailure: 0 ShortDiscNonlocal: 0 DisconnectNonlocal: 1 Disconnect: 2 ConsecutiveConnectFailure: 0
+01-06 17:21:23.679  2949  3418 D WifiScoreCard:  StatsCurr:  ConnectAttempt: 202 ConnectFailure: 0 ConnectDurSec: 243898 AssocRej: 0 AssocTimeout: 0 AuthFailure: 0 ShortDiscNonlocal: 0 DisconnectNonlocal: 0 Disconnect: 11 ConsecutiveConnectFailure: 0
+01-06 17:21:23.679  2949  3418 D WifiScoreCard:  StatsPrev:  ConnectAttempt: 0 ConnectFailure: 0 ConnectDurSec: 0 AssocRej: 0 AssocTimeout: 0 AuthFailure: 0 ShortDiscNonlocal: 0 DisconnectNonlocal: 0 Disconnect: 0 ConsecutiveConnectFailure: 0
+01-06 17:21:23.680  2949  3418 D WifiClientModeImpl:  L2ConnectedState screen=on 4 0 "RIFT _CALL " 08:5c:1b:34:13:d4 rssi=-39 f=2462 sc=60 link=144 tx=13.4, 0.0, 0.0  rx=11.4 bcn=0 [on:0 tx:0 rx:0 period:3012] from screen [on:0 period:24545383] score=60
+01-06 17:21:23.681  2949  3701 I WifiService: getConnectionInfo uid=10033
+01-06 17:21:23.682  2949  3701 V WifiService: getConnectionInfo: hideBssidSsidAndNetworkId=true, hideDefaultMacAddress=true
+01-06 17:21:23.683  2949  3701 E WifiService: Permission violation - getConfiguredNetworks not allowed for uid=10033, packageName=com.google.android.tvrecommendations, reason=java.lang.SecurityException: UID 10033 has no location permission
+01-06 17:21:24.257  3651  4919 D RecommendedChannelsThread: [MtkLog]start, status==false,mLauncherRunning==false

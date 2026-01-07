@@ -1,6 +1,7 @@
 R_DEF: Internal format may change without notice
 local
 color background_card
+color background_dark
 color background_hover
 color background_primary
 color background_primary_light
@@ -27,6 +28,7 @@ color lb_tv_white_transparent_20
 color lb_tv_white_transparent_50
 color overlay
 color selector_category_text
+color selector_nav_text
 color success
 color text_disabled
 color text_muted
@@ -54,6 +56,9 @@ dimen movie_card_width
 dimen series_card_height
 dimen series_card_width
 drawable app_banner
+drawable bg_card_focused
+drawable bg_settings_item_selector
+drawable btn_logout_selector
 drawable card_focus_selector
 drawable gradient_overlay
 drawable ic_nav_history
@@ -65,10 +70,13 @@ drawable ic_nav_settings
 drawable ic_nav_shows
 drawable ic_placeholder_channel
 drawable ic_placeholder_epg
+drawable ic_play
 drawable ic_tv_banner
 drawable icon
 drawable progress_drawable_red
+drawable selector_category_background
 drawable selector_category_bg
+drawable selector_item_background
 id btn_add_playlist
 id btn_clear_epg
 id btn_tracks
@@ -97,6 +105,9 @@ id close_button
 id epg_next
 id epg_now
 id epg_progress
+id episode_number
+id episode_title
+id episodes_recycler_view
 id error_text
 id error_view
 id favorite_button
@@ -142,6 +153,16 @@ id progress_bar
 id remember_me_checkbox
 id results_recycler_view
 id search_input
+id season_name
+id seasons_recycler_view
+id series_cast
+id series_director
+id series_genre
+id series_plot
+id series_poster
+id series_rating
+id series_release_date
+id series_title
 id server_url_input
 id settings_categories_list
 id settings_content_frame
@@ -165,6 +186,7 @@ layout activity_login
 layout activity_main
 layout activity_main_enhanced
 layout activity_playback
+layout activity_series_detail
 layout activity_settings
 layout activity_splash
 layout dialog_channel_context
@@ -180,7 +202,9 @@ layout fragment_settings_playlists
 layout fragment_settings_remote
 layout item_category
 layout item_channel_card
+layout item_episode
 layout item_playlist_setting
+layout item_season
 layout item_settings_category
 mipmap ic_launcher
 string about

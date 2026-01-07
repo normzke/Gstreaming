@@ -27,7 +27,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
-        android:backgroundTint="@color/text_primary" />
+        android:background="@drawable/bg_settings_item_selector"
+        android:focusable="true"
+        android:padding="8dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -41,7 +43,10 @@
         android:id="@+id/spinner_audio_decoder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp" />
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/bg_settings_item_selector"
+        android:focusable="true"
+        android:padding="8dp" />
 
     <CheckBox
         android:id="@+id/check_afr"
@@ -53,6 +58,7 @@
         android:textColor="@color/text_primary"
         android:buttonTint="@color/bingetv_red"
         android:layout_marginBottom="16dp"
-        android:focusable="true" />
+        android:focusable="true"
+        android:background="@drawable/bg_settings_item_selector" />
 
 </LinearLayout>

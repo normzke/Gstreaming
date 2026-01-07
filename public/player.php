@@ -208,6 +208,7 @@ $canonical_url = SEO::getCanonicalUrl('player');
     <?php endif; ?>
 
     <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/mpegts.js@1.7.3/dist/mpegts.min.js"></script>
     <script src="assets/js/auth.js"></script>
     <script src="assets/js/player.js?v=<?php echo time(); ?>"></script>
 </body>

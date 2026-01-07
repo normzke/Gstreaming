@@ -180,7 +180,7 @@ $faq_data = SEO::getFAQData();
             };
 
             const downloadUrls = {
-                'android': '/apps/android/bingetv-android-tv.apk',
+                'android': '/BingeTV.apk',
                 'webos': '/apps/webos/com.bingetv.app_1.0.0_all.ipk',
                 'tizen': '/apps/tizen/com.bingetv.app-1.0.0.tpk'
             };
@@ -1015,6 +1015,12 @@ $faq_data = SEO::getFAQData();
                         <?php endif; ?>
                         <div class="package-header">
                             <h3 class="package-name"><?php echo htmlspecialchars($pkg['name']); ?></h3>
+                            <?php if (!empty($pkg['description'])): ?>
+                                <p class="package-description"
+                                    style="margin-bottom: 15px; font-size: 0.95rem; color: #636e72; line-height: 1.5;">
+                                    <?php echo htmlspecialchars($pkg['description']); ?>
+                                </p>
+                            <?php endif; ?>
                             <div class="package-price">
                                 <span class="currency"><?php echo htmlspecialchars($pkg['currency'] ?: 'KSh'); ?></span>
                                 <span class="amount"
@@ -1024,23 +1030,29 @@ $faq_data = SEO::getFAQData();
                         </div>
 
                         <div class="package-features">
-                            <div class="feature-item">
-                                <i class="fas fa-check"></i>
-                                <span>All Channels Included</span>
-                            </div>
-                            <div class="feature-item">
-                                <i class="fas fa-check"></i>
-                                <span class="devices-count"><?php echo $devices; ?>
-                                    Device<?php echo $devices > 1 ? 's' : ''; ?></span>
-                            </div>
-                            <div class="feature-item">
-                                <i class="fas fa-check"></i>
-                                <span>M-PESA Payment</span>
-                            </div>
-                            <div class="feature-item">
-                                <i class="fas fa-check"></i>
-                                <span>24/7 Support</span>
-                            </div>
+                            <?php
+                            $features = [];
+                            if (isset($pkg['features'])) {
+                                if (is_string($pkg['features'])) {
+                                    $features = json_decode($pkg['features'], true) ?: [];
+                                } else {
+                                    $features = $pkg['features'];
+                                }
+                            }
+
+                            if (empty($features)) {
+                                $features[] = "Up to " . ($pkg['max_devices'] ?? 1) . " device(s)";
+                                $features[] = ($pkg['duration_days'] ?? 30) . " days access";
+                                $features[] = "All Channels Included";
+                                $features[] = "Premium Quality Stream";
+                            }
+
+                            foreach ($features as $feature): ?>
+                                <div class="feature-item">
+                                    <i class="fas fa-check"></i>
+                                    <span><?php echo htmlspecialchars($feature); ?></span>
+                                </div>
+                            <?php endforeach; ?>
                         </div>
 
                         <div class="package-footer">

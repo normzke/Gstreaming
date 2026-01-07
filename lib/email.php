@@ -9,6 +9,14 @@ $phpmailer_available = file_exists(__DIR__ . '/../vendor/autoload.php');
 
 if ($phpmailer_available) {
     require_once __DIR__ . '/../vendor/autoload.php';
+} else {
+    // Check for manual installation in lib/PHPMailer
+    if (file_exists(__DIR__ . '/PHPMailer/src/PHPMailer.php')) {
+        require_once __DIR__ . '/PHPMailer/src/Exception.php';
+        require_once __DIR__ . '/PHPMailer/src/PHPMailer.php';
+        require_once __DIR__ . '/PHPMailer/src/SMTP.php';
+        $phpmailer_available = true;
+    }
 }
 
 define('PHPMAILER_AVAILABLE', $phpmailer_available);
@@ -256,6 +264,6 @@ function sendEmailFallback($to, $subject, $message)
         'X-Mailer: PHP/' . phpversion() . "\r\n" .
         'Content-type: text/html; charset=UTF-8';
 
-    return mail($to, $subject, $message, $headers);
+    return mail($to, $subject, $message, $headers, "-f" . SMTP_FROM_EMAIL);
 }
 ?>

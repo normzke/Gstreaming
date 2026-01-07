@@ -1,8 +1,8 @@
-#Fri Jan 02 13:53:38 EAT 2026
-base.0=/Users/la/Desktop/android/app/build/intermediates/dex/release/mergeDexRelease/classes.dex
-base.1=/Users/la/Desktop/android/app/build/intermediates/global_synthetics_dex/release/classes.dex
-base.2=/Users/la/Desktop/android/app/build/intermediates/dex/release/mergeDexRelease/classes2.dex
-base.3=/Users/la/Desktop/android/app/build/intermediates/dex/release/mergeDexRelease/classes3.dex
+#Wed Jan 07 11:02:57 EAT 2026
+base.0=/Users/la/Downloads/Bingetv/apps/android/app/build/intermediates/dex/release/mergeDexRelease/classes.dex
+base.1=/Users/la/Downloads/Bingetv/apps/android/app/build/intermediates/global_synthetics_dex/release/classes.dex
+base.2=/Users/la/Downloads/Bingetv/apps/android/app/build/intermediates/dex/release/mergeDexRelease/classes2.dex
+base.3=/Users/la/Downloads/Bingetv/apps/android/app/build/intermediates/dex/release/mergeDexRelease/classes3.dex
 path.0=classes.dex
 path.1=classes.dex
 path.2=classes2.dex

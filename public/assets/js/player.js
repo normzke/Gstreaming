@@ -92,8 +92,10 @@ async function loadPlaylist() {
             icon: stream.stream_icon,
             categoryId: stream.category_id,
             streamType: stream.stream_type,
-            // Use HTTPS proxy to avoid mixed content blocking
-            url: `api/playlist_proxy.php?action=stream&stream_id=${stream.stream_id}`
+            // Use Direct TS URL (since proxy is blocked)
+            // NOTE: SITE MUST BE ACCESSED VIA HTTP to play these!
+            // Format: http://server/live/username/password/stream_id.ts
+            url: `${configText.server}/live/${configText.username}/${configText.password}/${stream.stream_id}.ts`
         }));
 
         console.log(`Loaded ${allChannels.length} channels.`);
@@ -230,6 +232,8 @@ function renderMoreChannels() {
 
 // Playback Logic with DEBUGGING
 function playChannel(channel) {
+    if (!channel || !channel.url) return;
+
     console.log('=== PLAYBACK DEBUG ===');
     console.log('Channel:', channel.name);
     console.log('Channel ID:', channel.id);
@@ -246,103 +250,124 @@ function playChannel(channel) {
     document.getElementById('currentChannelName').textContent = channel.name;
     document.getElementById('currentChannelDesc').textContent = 'Loading...';
 
-    // Clean up previous player
+    // 1. Clean up ALL previous players
     if (hls) {
         console.log('Destroying previous HLS instance');
         hls.destroy();
         hls = null;
     }
+    if (window.flvPlayer) {
+        console.log('Destroying previous MPEG-TS instance');
+        window.flvPlayer.destroy();
+        window.flvPlayer = null;
+    }
+
+    // Reset video element
     videoPlayer.pause();
-    videoPlayer.src = '';
+    videoPlayer.removeAttribute('src');
+    videoPlayer.load();
 
-    console.log('HLS.isSupported():', Hls.isSupported());
-    console.log('Native HLS support:', videoPlayer.canPlayType('application/vnd.apple.mpegurl'));
+    // 2. Determine Player Type
+    const isM3U8 = channel.url.includes('.m3u8');
+    const isTS = channel.url.includes('.ts');
 
-    if (Hls.isSupported()) {
+    console.log(`Stream Type: ${isTS ? 'MPEG-TS' : (isM3U8 ? 'HLS' : 'Unknown')}`);
+
+    // --- SCENARIO A: MPEG-TS (Direct TS Stream) ---
+    // We prioritize this because we know our URLs end in .ts
+    if (isTS && mpegts.getFeatureList().mseLivePlayback) {
+        console.log('Starting MPEG-TS Player (mpegts.js)...');
+
+        window.flvPlayer = mpegts.createPlayer({
+            type: 'mpegts',  // This handles raw TS streams
+            isLive: true,
+            url: channel.url,
+            cors: true       // Try to enable CORS (even though provider might strict block)
+        }, {
+            enableWorker: true,
+            lazyLoadMaxDuration: 3 * 60,
+            seekType: 'range',
+        });
+
+        window.flvPlayer.attachMediaElement(videoPlayer);
+        window.flvPlayer.load();
+
+        window.flvPlayer.play().then(() => {
+            console.log('✅ MPEG-TS Playback started');
+            document.getElementById('currentChannelDesc').textContent = 'Live';
+        }).catch(e => {
+            console.error("Play failed:", e);
+            document.getElementById('currentChannelDesc').textContent = 'Click to play';
+        });
+
+        window.flvPlayer.on(mpegts.Events.ERROR, (type, details) => {
+            console.error("❌ MPEGTS Error:", type, details);
+            document.getElementById('currentChannelDesc').textContent = 'Error: ' + type;
+        });
+    }
+    // --- SCENARIO B: HLS (M3U8) ---
+    else if (isM3U8 && Hls.isSupported()) {
+        console.log('Starting HLS.js Player...');
+
         const config = {
             enableWorker: true,
             lowLatencyMode: true,
-            backBufferLength: 90,
-            maxBufferLength: 60,
-            maxMaxBufferLength: 120,
-            liveSyncDurationCount: 3,
-            startLevel: -1,
-            debug: true, // Enable HLS.js debugging
-            xhrSetup: function (xhr, url) {
-                console.log('XHR Request to:', url);
-            }
+            debug: false,
         };
 
         hls = new Hls(config);
-        console.log('Loading source:', channel.url);
         hls.loadSource(channel.url);
         hls.attachMedia(videoPlayer);
 
         hls.on(Hls.Events.MANIFEST_PARSED, () => {
             console.log('✅ Manifest parsed successfully');
-            console.log('Available levels:', hls.levels);
             videoPlayer.play().then(() => {
-                console.log('✅ Playback started');
                 document.getElementById('currentChannelDesc').textContent = 'Live';
-            }).catch(e => {
-                console.error('❌ Auto-play blocked:', e);
-                document.getElementById('currentChannelDesc').textContent = 'Click to play';
-            });
+            }).catch(e => console.error("Auto-play failed:", e));
         });
 
         hls.on(Hls.Events.ERROR, (event, data) => {
-            console.error('❌ HLS Error:', data.type, data.details);
-            console.error('Error data:', data);
-
+            console.error("❌ HLS Error:", data.type, data.details);
             if (data.fatal) {
-                console.error('❌ Fatal error detected');
                 switch (data.type) {
                     case Hls.ErrorTypes.NETWORK_ERROR:
-                        console.log('Network error, attempting recovery...');
-                        document.getElementById('currentChannelDesc').textContent = 'Network error, retrying...';
+                        console.log('Network error, recovering...');
                         hls.startLoad();
                         break;
                     case Hls.ErrorTypes.MEDIA_ERROR:
-                        console.log('Media error, attempting recovery...');
-                        document.getElementById('currentChannelDesc').textContent = 'Media error, recovering...';
+                        console.log('Media error, recovering...');
                         hls.recoverMediaError();
                         break;
                     default:
-                        console.error('Unrecoverable error, destroying player');
-                        document.getElementById('currentChannelDesc').textContent = 'Playback failed: ' + data.details;
                         hls.destroy();
-                        showError('Failed to play channel: ' + data.details);
                         break;
                 }
             }
         });
-
-        hls.on(Hls.Events.FRAG_LOADED, (event, data) => {
-            console.log('Fragment loaded:', data.frag.url);
-        });
-
-    } else if (videoPlayer.canPlayType('application/vnd.apple.mpegurl')) {
-        console.log('Using native HLS support');
+    }
+    // --- SCENARIO C: Native Playback (Safari) ---
+    else if (videoPlayer.canPlayType('application/vnd.apple.mpegurl')) {
+        console.log('Using Native HTML5 Player');
         videoPlayer.src = channel.url;
-        videoPlayer.play().then(() => {
-            console.log('✅ Native playback started');
-        }).catch(e => {
-            console.error('❌ Native playback error:', e);
-            showError('Playback failed: ' + e.message);
-        });
-    } else {
-        console.error('❌ HLS not supported on this browser');
-        showError('HLS playback not supported on this browser');
+        videoPlayer.play();
+    }
+    else {
+        showError('Playback format not supported on this browser.');
     }
 
-    // Handle Escape Key and Arrow Keys for channel switching
-    videoPlayer.focus();
+    currentChannelIndex = allChannels.findIndex(c => c.id === channel.id);
 
-    // Store current channel for switching
-    currentPlayingChannel = channel;
-    currentChannelIndex = filteredChannels.findIndex(ch => ch.id === channel.id);
+    // Update Info
+    channelNameEl.textContent = channel.num + '. ' + channel.name;
+    channelIconEl.src = channel.icon || 'assets/images/logo-placeholder.png';
 
-    console.log('Current channel index:', currentChannelIndex, '/', filteredChannels.length);
+    // Highlight Active
+    document.querySelectorAll('.channel-card').forEach(c => c.classList.remove('active'));
+    const activeCard = document.getElementById(`channel-${channel.id}`);
+    if (activeCard) {
+        activeCard.classList.add('active');
+        activeCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
 }
 
 // Channel Switching with Arrow Keys
@@ -457,6 +482,10 @@ function stopPlayer() {
     if (hls) {
         hls.destroy();
         hls = null;
+    }
+    if (window.flvPlayer) {
+        window.flvPlayer.destroy();
+        window.flvPlayer = null;
     }
     videoPlayer.pause();
     videoPlayer.src = '';

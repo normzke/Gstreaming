@@ -376,6 +376,82 @@ public final class EpgDao_Impl implements EpgDao {
     }
   }
 
+  @Override
+  public List<EpgProgramEntity> getAllActiveProgramsLimited(final long startTime,
+      final long endTime) {
+    final String _sql = "SELECT * FROM epg_programs WHERE (endTime > ? AND startTime < ?)";
+    final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 2);
+    int _argIndex = 1;
+    _statement.bindLong(_argIndex, startTime);
+    _argIndex = 2;
+    _statement.bindLong(_argIndex, endTime);
+    __db.assertNotSuspendingTransaction();
+    final Cursor _cursor = DBUtil.query(__db, _statement, false, null);
+    try {
+      final int _cursorIndexOfId = CursorUtil.getColumnIndexOrThrow(_cursor, "id");
+      final int _cursorIndexOfChannelId = CursorUtil.getColumnIndexOrThrow(_cursor, "channelId");
+      final int _cursorIndexOfTitle = CursorUtil.getColumnIndexOrThrow(_cursor, "title");
+      final int _cursorIndexOfDescription = CursorUtil.getColumnIndexOrThrow(_cursor, "description");
+      final int _cursorIndexOfStartTime = CursorUtil.getColumnIndexOrThrow(_cursor, "startTime");
+      final int _cursorIndexOfEndTime = CursorUtil.getColumnIndexOrThrow(_cursor, "endTime");
+      final int _cursorIndexOfCategory = CursorUtil.getColumnIndexOrThrow(_cursor, "category");
+      final int _cursorIndexOfIcon = CursorUtil.getColumnIndexOrThrow(_cursor, "icon");
+      final int _cursorIndexOfRating = CursorUtil.getColumnIndexOrThrow(_cursor, "rating");
+      final List<EpgProgramEntity> _result = new ArrayList<EpgProgramEntity>(_cursor.getCount());
+      while(_cursor.moveToNext()) {
+        final EpgProgramEntity _item;
+        final long _tmpId;
+        _tmpId = _cursor.getLong(_cursorIndexOfId);
+        final String _tmpChannelId;
+        if (_cursor.isNull(_cursorIndexOfChannelId)) {
+          _tmpChannelId = null;
+        } else {
+          _tmpChannelId = _cursor.getString(_cursorIndexOfChannelId);
+        }
+        final String _tmpTitle;
+        if (_cursor.isNull(_cursorIndexOfTitle)) {
+          _tmpTitle = null;
+        } else {
+          _tmpTitle = _cursor.getString(_cursorIndexOfTitle);
+        }
+        final String _tmpDescription;
+        if (_cursor.isNull(_cursorIndexOfDescription)) {
+          _tmpDescription = null;
+        } else {
+          _tmpDescription = _cursor.getString(_cursorIndexOfDescription);
+        }
+        final long _tmpStartTime;
+        _tmpStartTime = _cursor.getLong(_cursorIndexOfStartTime);
+        final long _tmpEndTime;
+        _tmpEndTime = _cursor.getLong(_cursorIndexOfEndTime);
+        final String _tmpCategory;
+        if (_cursor.isNull(_cursorIndexOfCategory)) {
+          _tmpCategory = null;
+        } else {
+          _tmpCategory = _cursor.getString(_cursorIndexOfCategory);
+        }
+        final String _tmpIcon;
+        if (_cursor.isNull(_cursorIndexOfIcon)) {
+          _tmpIcon = null;
+        } else {
+          _tmpIcon = _cursor.getString(_cursorIndexOfIcon);
+        }
+        final String _tmpRating;
+        if (_cursor.isNull(_cursorIndexOfRating)) {
+          _tmpRating = null;
+        } else {
+          _tmpRating = _cursor.getString(_cursorIndexOfRating);
+        }
+        _item = new EpgProgramEntity(_tmpId,_tmpChannelId,_tmpTitle,_tmpDescription,_tmpStartTime,_tmpEndTime,_tmpCategory,_tmpIcon,_tmpRating);
+        _result.add(_item);
+      }
+      return _result;
+    } finally {
+      _cursor.close();
+      _statement.release();
+    }
+  }
+
   public static List<Class<?>> getRequiredConverters() {
     return Collections.emptyList();
   }

@@ -89,6 +89,11 @@
             android:screenOrientation="landscape"
             android:theme="@style/Theme.Leanback" />
             
+        <activity
+            android:name=".ui.details.SeriesDetailActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.Leanback" />
+            
         <receiver
             android:name=".receivers.BootReceiver"
             android:enabled="true"

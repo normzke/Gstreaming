@@ -1,66 +1,206 @@
 [
     {
-        "merged": "com.bingetv.app-merged_res-60:/layout_activity_main_enhanced.xml.flat",
-        "source": "com.bingetv.app-main-62:/layout/activity_main_enhanced.xml"
+        "merged": "com.bingetv.app-merged_res-63:/color_selector_category_text.xml.flat",
+        "source": "com.bingetv.app-main-65:/color/selector_category_text.xml"
     },
     {
-        "merged": "com.bingetv.app-merged_res-60:/layout_activity_splash.xml.flat",
-        "source": "com.bingetv.app-main-62:/layout/activity_splash.xml"
+        "merged": "com.bingetv.app-merged_res-63:/layout_activity_main.xml.flat",
+        "source": "com.bingetv.app-main-65:/layout/activity_main.xml"
     },
     {
-        "merged": "com.bingetv.app-merged_res-60:/layout_item_channel_card.xml.flat",
-        "source": "com.bingetv.app-main-62:/layout/item_channel_card.xml"
+        "merged": "com.bingetv.app-merged_res-63:/drawable_ic_play.xml.flat",
+        "source": "com.bingetv.app-main-65:/drawable/ic_play.xml"
     },
     {
-        "merged": "com.bingetv.app-merged_res-60:/layout_activity_main.xml.flat",
-        "source": "com.bingetv.app-main-62:/layout/activity_main.xml"
+        "merged": "com.bingetv.app-merged_res-63:/layout_fragment_settings_appearance.xml.flat",
+        "source": "com.bingetv.app-main-65:/layout/fragment_settings_appearance.xml"
     },
     {
-        "merged": "com.bingetv.app-merged_res-60:/drawable_ic_placeholder_channel.xml.flat",
-        "source": "com.bingetv.app-main-62:/drawable/ic_placeholder_channel.xml"
+        "merged": "com.bingetv.app-merged_res-63:/drawable_bg_settings_item_selector.xml.flat",
+        "source": "com.bingetv.app-main-65:/drawable/bg_settings_item_selector.xml"
     },
     {
-        "merged": "com.bingetv.app-merged_res-60:/layout_activity_login.xml.flat",
-        "source": "com.bingetv.app-main-62:/layout/activity_login.xml"
+        "merged": "com.bingetv.app-merged_res-63:/layout_activity_settings.xml.flat",
+        "source": "com.bingetv.app-main-65:/layout/activity_settings.xml"
     },
     {
-        "merged": "com.bingetv.app-merged_res-60:/layout_dialog_playlist_input.xml.flat",
-        "source": "com.bingetv.app-main-62:/layout/dialog_playlist_input.xml"
+        "merged": "com.bingetv.app-merged_res-63:/layout_item_category.xml.flat",
+        "source": "com.bingetv.app-main-65:/layout/item_category.xml"
     },
     {
-        "merged": "com.bingetv.app-merged_res-60:/xml_network_security_config.xml.flat",
-        "source": "com.bingetv.app-main-62:/xml/network_security_config.xml"
+        "merged": "com.bingetv.app-merged_res-63:/layout_activity_series_detail.xml.flat",
+        "source": "com.bingetv.app-main-65:/layout/activity_series_detail.xml"
     },
     {
-        "merged": "com.bingetv.app-merged_res-60:/layout_activity_settings.xml.flat",
-        "source": "com.bingetv.app-main-62:/layout/activity_settings.xml"
+        "merged": "com.bingetv.app-merged_res-63:/layout_dialog_search.xml.flat",
+        "source": "com.bingetv.app-main-65:/layout/dialog_search.xml"
     },
     {
-        "merged": "com.bingetv.app-merged_res-60:/drawable_icon.png.flat",
-        "source": "com.bingetv.app-main-62:/drawable/icon.png"
+        "merged": "com.bingetv.app-merged_res-63:/layout_fragment_settings_playlists.xml.flat",
+        "source": "com.bingetv.app-main-65:/layout/fragment_settings_playlists.xml"
     },
     {
-        "merged": "com.bingetv.app-merged_res-60:/mipmap-anydpi-v26_ic_launcher.xml.flat",
-        "source": "com.bingetv.app-main-62:/mipmap-anydpi-v26/ic_launcher.xml"
+        "merged": "com.bingetv.app-merged_res-63:/layout_activity_login.xml.flat",
+        "source": "com.bingetv.app-main-65:/layout/activity_login.xml"
     },
     {
-        "merged": "com.bingetv.app-merged_res-60:/layout_dialog_search.xml.flat",
-        "source": "com.bingetv.app-main-62:/layout/dialog_search.xml"
+        "merged": "com.bingetv.app-merged_res-63:/layout_fragment_settings_remote.xml.flat",
+        "source": "com.bingetv.app-main-65:/layout/fragment_settings_remote.xml"
     },
     {
-        "merged": "com.bingetv.app-merged_res-60:/drawable_ic_placeholder_epg.xml.flat",
-        "source": "com.bingetv.app-main-62:/drawable/ic_placeholder_epg.xml"
+        "merged": "com.bingetv.app-merged_res-63:/drawable_bg_card_focused.xml.flat",
+        "source": "com.bingetv.app-main-65:/drawable/bg_card_focused.xml"
     },
     {
-        "merged": "com.bingetv.app-merged_res-60:/layout_item_category.xml.flat",
-        "source": "com.bingetv.app-main-62:/layout/item_category.xml"
+        "merged": "com.bingetv.app-merged_res-63:/drawable_ic_nav_history.xml.flat",
+        "source": "com.bingetv.app-main-65:/drawable/ic_nav_history.xml"
     },
     {
-        "merged": "com.bingetv.app-merged_res-60:/layout_dialog_channel_context.xml.flat",
-        "source": "com.bingetv.app-main-62:/layout/dialog_channel_context.xml"
+        "merged": "com.bingetv.app-merged_res-63:/drawable_ic_placeholder_channel.xml.flat",
+        "source": "com.bingetv.app-main-65:/drawable/ic_placeholder_channel.xml"
     },
     {
-        "merged": "com.bingetv.app-merged_res-60:/drawable_app_banner.xml.flat",
-        "source": "com.bingetv.app-main-62:/drawable/app_banner.xml"
+        "merged": "com.bingetv.app-merged_res-63:/layout_item_episode.xml.flat",
+        "source": "com.bingetv.app-main-65:/layout/item_episode.xml"
+    },
+    {
+        "merged": "com.bingetv.app-merged_res-63:/drawable_ic_tv_banner.xml.flat",
+        "source": "com.bingetv.app-main-65:/drawable/ic_tv_banner.xml"
+    },
+    {
+        "merged": "com.bingetv.app-merged_res-63:/layout_dialog_playlist_input.xml.flat",
+        "source": "com.bingetv.app-main-65:/layout/dialog_playlist_input.xml"
+    },
+    {
+        "merged": "com.bingetv.app-merged_res-63:/drawable_gradient_overlay.xml.flat",
+        "source": "com.bingetv.app-main-65:/drawable/gradient_overlay.xml"
+    },
+    {
+        "merged": "com.bingetv.app-merged_res-63:/color_selector_nav_text.xml.flat",
+        "source": "com.bingetv.app-main-65:/color/selector_nav_text.xml"
+    },
+    {
+        "merged": "com.bingetv.app-merged_res-63:/drawable_ic_nav_shows.xml.flat",
+        "source": "com.bingetv.app-main-65:/drawable/ic_nav_shows.xml"
+    },
+    {
+        "merged": "com.bingetv.app-merged_res-63:/drawable_ic_nav_search.xml.flat",
+        "source": "com.bingetv.app-main-65:/drawable/ic_nav_search.xml"
+    },
+    {
+        "merged": "com.bingetv.app-merged_res-63:/drawable_ic_nav_live.xml.flat",
+        "source": "com.bingetv.app-main-65:/drawable/ic_nav_live.xml"
+    },
+    {
+        "merged": "com.bingetv.app-merged_res-63:/drawable_card_focus_selector.xml.flat",
+        "source": "com.bingetv.app-main-65:/drawable/card_focus_selector.xml"
+    },
+    {
+        "merged": "com.bingetv.app-merged_res-63:/drawable_selector_category_background.xml.flat",
+        "source": "com.bingetv.app-main-65:/drawable/selector_category_background.xml"
+    },
+    {
+        "merged": "com.bingetv.app-merged_res-63:/mipmap-xhdpi_ic_launcher.png.flat",
+        "source": "com.bingetv.app-main-65:/mipmap-xhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.bingetv.app-merged_res-63:/layout_activity_splash.xml.flat",
+        "source": "com.bingetv.app-main-65:/layout/activity_splash.xml"
+    },
+    {
+        "merged": "com.bingetv.app-merged_res-63:/layout_dialog_channel_context.xml.flat",
+        "source": "com.bingetv.app-main-65:/layout/dialog_channel_context.xml"
+    },
+    {
+        "merged": "com.bingetv.app-merged_res-63:/layout_fragment_settings_epg.xml.flat",
+        "source": "com.bingetv.app-main-65:/layout/fragment_settings_epg.xml"
+    },
+    {
+        "merged": "com.bingetv.app-merged_res-63:/layout_item_season.xml.flat",
+        "source": "com.bingetv.app-main-65:/layout/item_season.xml"
+    },
+    {
+        "merged": "com.bingetv.app-merged_res-63:/drawable_progress_drawable_red.xml.flat",
+        "source": "com.bingetv.app-main-65:/drawable/progress_drawable_red.xml"
+    },
+    {
+        "merged": "com.bingetv.app-merged_res-63:/layout_activity_playback.xml.flat",
+        "source": "com.bingetv.app-main-65:/layout/activity_playback.xml"
+    },
+    {
+        "merged": "com.bingetv.app-merged_res-63:/layout_fragment_settings_placeholder.xml.flat",
+        "source": "com.bingetv.app-main-65:/layout/fragment_settings_placeholder.xml"
+    },
+    {
+        "merged": "com.bingetv.app-merged_res-63:/layout_item_settings_category.xml.flat",
+        "source": "com.bingetv.app-main-65:/layout/item_settings_category.xml"
+    },
+    {
+        "merged": "com.bingetv.app-merged_res-63:/drawable_app_banner.jpg.flat",
+        "source": "com.bingetv.app-main-65:/drawable/app_banner.jpg"
+    },
+    {
+        "merged": "com.bingetv.app-merged_res-63:/xml_network_security_config.xml.flat",
+        "source": "com.bingetv.app-main-65:/xml/network_security_config.xml"
+    },
+    {
+        "merged": "com.bingetv.app-merged_res-63:/drawable_selector_item_background.xml.flat",
+        "source": "com.bingetv.app-main-65:/drawable/selector_item_background.xml"
+    },
+    {
+        "merged": "com.bingetv.app-merged_res-63:/layout_fragment_settings_playback.xml.flat",
+        "source": "com.bingetv.app-main-65:/layout/fragment_settings_playback.xml"
+    },
+    {
+        "merged": "com.bingetv.app-merged_res-63:/drawable_ic_nav_settings.xml.flat",
+        "source": "com.bingetv.app-main-65:/drawable/ic_nav_settings.xml"
+    },
+    {
+        "merged": "com.bingetv.app-merged_res-63:/drawable_icon.png.flat",
+        "source": "com.bingetv.app-main-65:/drawable/icon.png"
+    },
+    {
+        "merged": "com.bingetv.app-merged_res-63:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "com.bingetv.app-main-65:/mipmap-anydpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "com.bingetv.app-merged_res-63:/drawable_ic_nav_movies.xml.flat",
+        "source": "com.bingetv.app-main-65:/drawable/ic_nav_movies.xml"
+    },
+    {
+        "merged": "com.bingetv.app-merged_res-63:/drawable_ic_nav_recordings.xml.flat",
+        "source": "com.bingetv.app-main-65:/drawable/ic_nav_recordings.xml"
+    },
+    {
+        "merged": "com.bingetv.app-merged_res-63:/drawable_btn_logout_selector.xml.flat",
+        "source": "com.bingetv.app-main-65:/drawable/btn_logout_selector.xml"
+    },
+    {
+        "merged": "com.bingetv.app-merged_res-63:/layout_fragment_settings_account.xml.flat",
+        "source": "com.bingetv.app-main-65:/layout/fragment_settings_account.xml"
+    },
+    {
+        "merged": "com.bingetv.app-merged_res-63:/layout_fragment_settings_general.xml.flat",
+        "source": "com.bingetv.app-main-65:/layout/fragment_settings_general.xml"
+    },
+    {
+        "merged": "com.bingetv.app-merged_res-63:/drawable_selector_category_bg.xml.flat",
+        "source": "com.bingetv.app-main-65:/drawable/selector_category_bg.xml"
+    },
+    {
+        "merged": "com.bingetv.app-merged_res-63:/layout_item_channel_card.xml.flat",
+        "source": "com.bingetv.app-main-65:/layout/item_channel_card.xml"
+    },
+    {
+        "merged": "com.bingetv.app-merged_res-63:/drawable_ic_placeholder_epg.xml.flat",
+        "source": "com.bingetv.app-main-65:/drawable/ic_placeholder_epg.xml"
+    },
+    {
+        "merged": "com.bingetv.app-merged_res-63:/layout_activity_main_enhanced.xml.flat",
+        "source": "com.bingetv.app-main-65:/layout/activity_main_enhanced.xml"
+    },
+    {
+        "merged": "com.bingetv.app-merged_res-63:/layout_item_playlist_setting.xml.flat",
+        "source": "com.bingetv.app-main-65:/layout/item_playlist_setting.xml"
     }
 ]

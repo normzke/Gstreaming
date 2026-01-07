@@ -1,6 +1,6 @@
 // Subscription Page JavaScript
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // Initialize subscription page
     initSubscriptionFlow();
     initAuthTabs();
@@ -58,7 +58,7 @@ function showStep(stepNumber) {
     // Hide all steps
     const steps = document.querySelectorAll('.step-content');
     steps.forEach(step => step.classList.remove('active'));
-    
+
     // Show current step
     const currentStepElement = document.getElementById(`step-${stepNumber}`);
     if (currentStepElement) {
@@ -83,13 +83,13 @@ function updateStepIndicator() {
 function initAuthTabs() {
     const authTabs = document.querySelectorAll('.auth-tab');
     authTabs.forEach(tab => {
-        tab.addEventListener('click', function() {
+        tab.addEventListener('click', function () {
             const tabName = this.dataset.tab;
-            
+
             // Update tab buttons
             authTabs.forEach(t => t.classList.remove('active'));
             this.classList.add('active');
-            
+
             // Update forms
             document.querySelectorAll('.auth-form').forEach(form => {
                 form.classList.remove('active');
@@ -97,7 +97,7 @@ function initAuthTabs() {
             document.getElementById(`${tabName}-form`).classList.add('active');
         });
     });
-    
+
     // Handle form submissions
     document.getElementById('registrationForm').addEventListener('submit', handleRegistration);
     document.getElementById('loginForm').addEventListener('submit', handleLogin);
@@ -106,19 +106,19 @@ function initAuthTabs() {
 // Registration Handler
 async function handleRegistration(e) {
     e.preventDefault();
-    
+
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData);
-    
+
     // Validate form
     if (data.password !== data.confirm_password) {
         showNotification('Passwords do not match', 'error');
         return;
     }
-    
+
     try {
         showLoading(e.target.querySelector('button[type="submit"]'));
-        
+
         const response = await fetch('api/auth/register.php', {
             method: 'POST',
             headers: {
@@ -126,9 +126,9 @@ async function handleRegistration(e) {
             },
             body: JSON.stringify(data)
         });
-        
+
         const result = await response.json();
-        
+
         if (result.success) {
             showNotification('Registration successful! Redirecting...', 'success');
             setTimeout(() => {
@@ -147,13 +147,13 @@ async function handleRegistration(e) {
 // Login Handler
 async function handleLogin(e) {
     e.preventDefault();
-    
+
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData);
-    
+
     try {
         showLoading(e.target.querySelector('button[type="submit"]'));
-        
+
         const response = await fetch('api/auth/login.php', {
             method: 'POST',
             headers: {
@@ -161,9 +161,9 @@ async function handleLogin(e) {
             },
             body: JSON.stringify(data)
         });
-        
+
         const result = await response.json();
-        
+
         if (result.success) {
             showNotification('Login successful! Redirecting...', 'success');
             setTimeout(() => {
@@ -179,18 +179,59 @@ async function handleLogin(e) {
     }
 }
 
+// Payment Method Selection
+document.addEventListener('click', function (e) {
+    if (e.target.closest('.payment-option')) {
+        const option = e.target.closest('.payment-option');
+        const method = option.dataset.method;
+
+        // Update selection UI
+        document.querySelectorAll('.payment-option').forEach(opt => opt.classList.remove('active'));
+        option.classList.add('active');
+
+        // Update radio button
+        option.querySelector('input[type="radio"]').checked = true;
+
+        // Show/Hide forms
+        document.querySelectorAll('.payment-form').forEach(form => form.style.display = 'none');
+        const targetForm = document.getElementById(`${method}-form`);
+        if (targetForm) targetForm.style.display = 'block';
+
+        // Update pay button
+        const payBtn = document.getElementById('pay-button');
+        const payIcon = document.getElementById('pay-icon');
+        const payText = document.getElementById('pay-text');
+
+        if (method === 'mpesa') {
+            payIcon.className = 'fas fa-mobile-alt';
+        } else {
+            payIcon.className = 'fas fa-credit-card';
+        }
+    }
+});
+
+function handlePayment() {
+    const method = document.querySelector('input[name="payment_method"]:checked').value;
+    if (method === 'mpesa') {
+        initiateMpesaPayment();
+    } else if (method === 'paystack') {
+        initiatePaystackPayment();
+    }
+}
+
 // Payment Functions
-async function initiatePayment() {
+async function initiateMpesaPayment() {
     const phoneNumber = document.getElementById('phone_number').value;
-    
-    if (!phoneNumber || phoneNumber.length < 12) {
+
+    if (!phoneNumber || phoneNumber.length < 10) {
         showNotification('Please enter a valid phone number', 'error');
         return;
     }
-    
+
     try {
-        showLoading(document.querySelector('#step-2 .btn-primary'));
-        
+        const payBtn = document.getElementById('pay-button');
+        showLoading(payBtn);
+
         const response = await fetch('api/payment/initiate.php', {
             method: 'POST',
             headers: {
@@ -199,25 +240,26 @@ async function initiatePayment() {
             body: JSON.stringify({
                 package_id: packageData.id,
                 phone_number: phoneNumber,
-                amount: packageData.price
+                amount: packageData.price,
+                devices: document.querySelector('input[name="devices"]') ? document.querySelector('input[name="devices"]').value : 1
             })
         });
-        
+
         const result = await response.json();
-        
+
         if (result.success) {
             currentTransaction = result.transaction;
             document.getElementById('account-number').textContent = result.account_number;
             document.getElementById('transaction-id').textContent = result.transaction_id;
             document.getElementById('payment-phone').textContent = phoneNumber;
-            
+
             currentStep = 3;
             updateStepIndicator();
             showStep(3);
-            
+
             // Start checking payment status
             startPaymentStatusCheck();
-            
+
             showNotification('Payment initiated! Please complete on your phone.', 'success');
         } else {
             showNotification(result.message || 'Payment initiation failed', 'error');
@@ -225,7 +267,62 @@ async function initiatePayment() {
     } catch (error) {
         showNotification('An error occurred. Please try again.', 'error');
     } finally {
-        hideLoading(document.querySelector('#step-2 .btn-primary'));
+        hideLoading(document.getElementById('pay-button'));
+    }
+}
+
+async function initiatePaystackPayment() {
+    try {
+        const payBtn = document.getElementById('pay-button');
+        showLoading(payBtn);
+
+        // Use current package settings
+        const devices = document.querySelector('input[name="devices"]') ? document.querySelector('input[name="devices"]').value : 1;
+
+        // Initialize on server first to get a reference
+        const response = await fetch('api/payment/initiate_paystack.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                package_id: packageData.id,
+                email: userData.email,
+                amount: packageData.price,
+                devices: devices
+            })
+        });
+
+        const result = await response.json();
+
+        if (!result.success) {
+            showNotification(result.message || 'Failed to initialize Paystack payment', 'error');
+            hideLoading(payBtn);
+            return;
+        }
+
+        const handler = PaystackPop.setup({
+            key: result.public_key,
+            email: userData.email,
+            amount: packageData.price * 100, // In kobo
+            currency: 'KES',
+            ref: result.reference,
+            callback: function (response) {
+                // Payment was successful
+                showNotification('Payment successful! Verifying...', 'success');
+                window.location.href = '../payments/paystack-success.php?reference=' + response.reference;
+            },
+            onClose: function () {
+                showNotification('Payment window closed', 'info');
+                hideLoading(payBtn);
+            }
+        });
+
+        handler.openIframe();
+
+    } catch (error) {
+        showNotification('An error occurred. Please try again.', 'error');
+        hideLoading(document.getElementById('pay-button'));
     }
 }
 
@@ -233,21 +330,21 @@ function startPaymentStatusCheck() {
     if (paymentCheckInterval) {
         clearInterval(paymentCheckInterval);
     }
-    
+
     paymentCheckInterval = setInterval(checkPaymentStatus, 5000); // Check every 5 seconds
 }
 
 async function checkPaymentStatus() {
     if (!currentTransaction) return;
-    
+
     try {
         const response = await fetch(`api/payment/status.php?transaction_id=${currentTransaction.transaction_id}`);
         const result = await response.json();
-        
+
         if (result.success && result.payment_status === 'completed') {
             clearInterval(paymentCheckInterval);
             showNotification('Payment confirmed! Generating your streaming access...', 'success');
-            
+
             setTimeout(() => {
                 generateStreamingAccess();
             }, 2000);
@@ -269,19 +366,19 @@ async function generateStreamingAccess() {
                 transaction_id: currentTransaction.transaction_id
             })
         });
-        
+
         const result = await response.json();
-        
+
         if (result.success) {
             // Populate streaming details
             document.getElementById('streaming-url').value = result.streaming_url;
             document.getElementById('streaming-username').value = result.username;
             document.getElementById('streaming-password').value = result.password;
-            
+
             currentStep = 4;
             updateStepIndicator();
             showStep(4);
-            
+
             showNotification('Welcome to BingeTV! Your subscription is now active.', 'success');
         } else {
             showNotification(result.message || 'Failed to create subscription', 'error');
@@ -295,12 +392,12 @@ function cancelPayment() {
     if (paymentCheckInterval) {
         clearInterval(paymentCheckInterval);
     }
-    
+
     currentTransaction = null;
     currentStep = 2;
     updateStepIndicator();
     showStep(2);
-    
+
     showNotification('Payment cancelled', 'info');
 }
 
@@ -308,13 +405,13 @@ function cancelPayment() {
 function initDeviceTabs() {
     const deviceTabs = document.querySelectorAll('.device-tab');
     deviceTabs.forEach(tab => {
-        tab.addEventListener('click', function() {
+        tab.addEventListener('click', function () {
             const deviceName = this.dataset.device;
-            
+
             // Update tab buttons
             deviceTabs.forEach(t => t.classList.remove('active'));
             this.classList.add('active');
-            
+
             // Update instructions
             document.querySelectorAll('.device-instruction').forEach(instruction => {
                 instruction.classList.remove('active');
@@ -328,12 +425,12 @@ function initDeviceTabs() {
 function initModals() {
     const modal = document.getElementById('allChannelsModal');
     const closeBtn = document.querySelector('.modal-close');
-    
+
     if (closeBtn) {
         closeBtn.addEventListener('click', closeModal);
     }
-    
-    window.addEventListener('click', function(event) {
+
+    window.addEventListener('click', function (event) {
         if (event.target === modal) {
             closeModal();
         }
@@ -355,7 +452,7 @@ function copyStreamingUrl() {
     const urlInput = document.getElementById('streaming-url');
     urlInput.select();
     urlInput.setSelectionRange(0, 99999); // For mobile devices
-    
+
     navigator.clipboard.writeText(urlInput.value).then(() => {
         showNotification('Streaming URL copied to clipboard!', 'success');
     }).catch(() => {
@@ -369,7 +466,7 @@ function copyUsername() {
     const usernameInput = document.getElementById('streaming-username');
     usernameInput.select();
     usernameInput.setSelectionRange(0, 99999);
-    
+
     navigator.clipboard.writeText(usernameInput.value).then(() => {
         showNotification('Username copied to clipboard!', 'success');
     }).catch(() => {
@@ -382,7 +479,7 @@ function copyPassword() {
     const passwordInput = document.getElementById('streaming-password');
     passwordInput.select();
     passwordInput.setSelectionRange(0, 99999);
-    
+
     navigator.clipboard.writeText(passwordInput.value).then(() => {
         showNotification('Password copied to clipboard!', 'success');
     }).catch(() => {
@@ -394,7 +491,7 @@ function copyPassword() {
 function togglePassword() {
     const passwordInput = document.getElementById('streaming-password');
     const toggleBtn = passwordInput.nextElementSibling;
-    
+
     if (passwordInput.type === 'password') {
         passwordInput.type = 'text';
         toggleBtn.innerHTML = '<i class="fas fa-eye-slash"></i>';
@@ -417,7 +514,9 @@ function hideLoading(button) {
         button.disabled = false;
         // Restore original button content based on context
         if (button.closest('#step-2')) {
-            button.innerHTML = '<i class="fas fa-mobile-alt"></i> Pay with M-PESA';
+            const method = document.querySelector('input[name="payment_method"]:checked').value;
+            const icon = method === 'mpesa' ? 'mobile-alt' : 'credit-card';
+            button.innerHTML = `<i class="fas fa-${icon}"></i> Pay KES ${packageData.price.toLocaleString()}`;
         } else if (button.closest('#register-form')) {
             button.innerHTML = '<i class="fas fa-user-plus"></i> Create Account & Continue';
         } else if (button.closest('#login-form')) {
@@ -430,7 +529,7 @@ function showNotification(message, type = 'info') {
     // Remove existing notifications
     const existingNotifications = document.querySelectorAll('.notification');
     existingNotifications.forEach(notification => notification.remove());
-    
+
     // Create notification element
     const notification = document.createElement('div');
     notification.className = `notification notification-${type}`;
@@ -443,7 +542,7 @@ function showNotification(message, type = 'info') {
             </button>
         </div>
     `;
-    
+
     // Add styles
     notification.style.cssText = `
         position: fixed;
@@ -459,15 +558,15 @@ function showNotification(message, type = 'info') {
         transition: transform 0.3s ease;
         max-width: 400px;
     `;
-    
+
     // Add to page
     document.body.appendChild(notification);
-    
+
     // Animate in
     setTimeout(() => {
         notification.style.transform = 'translateX(0)';
     }, 10);
-    
+
     // Auto remove after 5 seconds
     setTimeout(() => {
         notification.style.transform = 'translateX(100%)';

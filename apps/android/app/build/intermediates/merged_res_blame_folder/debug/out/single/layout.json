@@ -1,42 +1,98 @@
 [
     {
-        "merged": "com.bingetv.app-mergeDebugResources-59:/layout/activity_login.xml",
-        "source": "com.bingetv.app-main-62:/layout/activity_login.xml"
+        "merged": "com.bingetv.app-mergeDebugResources-62:/layout/dialog_playlist_input.xml",
+        "source": "com.bingetv.app-main-65:/layout/dialog_playlist_input.xml"
     },
     {
-        "merged": "com.bingetv.app-mergeDebugResources-59:/layout/dialog_search.xml",
-        "source": "com.bingetv.app-main-62:/layout/dialog_search.xml"
+        "merged": "com.bingetv.app-mergeDebugResources-62:/layout/fragment_settings_appearance.xml",
+        "source": "com.bingetv.app-main-65:/layout/fragment_settings_appearance.xml"
     },
     {
-        "merged": "com.bingetv.app-mergeDebugResources-59:/layout/dialog_channel_context.xml",
-        "source": "com.bingetv.app-main-62:/layout/dialog_channel_context.xml"
+        "merged": "com.bingetv.app-mergeDebugResources-62:/layout/fragment_settings_remote.xml",
+        "source": "com.bingetv.app-main-65:/layout/fragment_settings_remote.xml"
     },
     {
-        "merged": "com.bingetv.app-mergeDebugResources-59:/layout/activity_splash.xml",
-        "source": "com.bingetv.app-main-62:/layout/activity_splash.xml"
+        "merged": "com.bingetv.app-mergeDebugResources-62:/layout/item_playlist_setting.xml",
+        "source": "com.bingetv.app-main-65:/layout/item_playlist_setting.xml"
     },
     {
-        "merged": "com.bingetv.app-mergeDebugResources-59:/layout/activity_settings.xml",
-        "source": "com.bingetv.app-main-62:/layout/activity_settings.xml"
+        "merged": "com.bingetv.app-mergeDebugResources-62:/layout/fragment_settings_account.xml",
+        "source": "com.bingetv.app-main-65:/layout/fragment_settings_account.xml"
     },
     {
-        "merged": "com.bingetv.app-mergeDebugResources-59:/layout/item_category.xml",
-        "source": "com.bingetv.app-main-62:/layout/item_category.xml"
+        "merged": "com.bingetv.app-mergeDebugResources-62:/layout/fragment_settings_playback.xml",
+        "source": "com.bingetv.app-main-65:/layout/fragment_settings_playback.xml"
     },
     {
-        "merged": "com.bingetv.app-mergeDebugResources-59:/layout/dialog_playlist_input.xml",
-        "source": "com.bingetv.app-main-62:/layout/dialog_playlist_input.xml"
+        "merged": "com.bingetv.app-mergeDebugResources-62:/layout/activity_settings.xml",
+        "source": "com.bingetv.app-main-65:/layout/activity_settings.xml"
     },
     {
-        "merged": "com.bingetv.app-mergeDebugResources-59:/layout/activity_main.xml",
-        "source": "com.bingetv.app-main-62:/layout/activity_main.xml"
+        "merged": "com.bingetv.app-mergeDebugResources-62:/layout/fragment_settings_epg.xml",
+        "source": "com.bingetv.app-main-65:/layout/fragment_settings_epg.xml"
     },
     {
-        "merged": "com.bingetv.app-mergeDebugResources-59:/layout/item_channel_card.xml",
-        "source": "com.bingetv.app-main-62:/layout/item_channel_card.xml"
+        "merged": "com.bingetv.app-mergeDebugResources-62:/layout/item_channel_card.xml",
+        "source": "com.bingetv.app-main-65:/layout/item_channel_card.xml"
     },
     {
-        "merged": "com.bingetv.app-mergeDebugResources-59:/layout/activity_main_enhanced.xml",
-        "source": "com.bingetv.app-main-62:/layout/activity_main_enhanced.xml"
+        "merged": "com.bingetv.app-mergeDebugResources-62:/layout/activity_main.xml",
+        "source": "com.bingetv.app-main-65:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.bingetv.app-mergeDebugResources-62:/layout/activity_series_detail.xml",
+        "source": "com.bingetv.app-main-65:/layout/activity_series_detail.xml"
+    },
+    {
+        "merged": "com.bingetv.app-mergeDebugResources-62:/layout/fragment_settings_playlists.xml",
+        "source": "com.bingetv.app-main-65:/layout/fragment_settings_playlists.xml"
+    },
+    {
+        "merged": "com.bingetv.app-mergeDebugResources-62:/layout/activity_main_enhanced.xml",
+        "source": "com.bingetv.app-main-65:/layout/activity_main_enhanced.xml"
+    },
+    {
+        "merged": "com.bingetv.app-mergeDebugResources-62:/layout/item_category.xml",
+        "source": "com.bingetv.app-main-65:/layout/item_category.xml"
+    },
+    {
+        "merged": "com.bingetv.app-mergeDebugResources-62:/layout/activity_playback.xml",
+        "source": "com.bingetv.app-main-65:/layout/activity_playback.xml"
+    },
+    {
+        "merged": "com.bingetv.app-mergeDebugResources-62:/layout/dialog_channel_context.xml",
+        "source": "com.bingetv.app-main-65:/layout/dialog_channel_context.xml"
+    },
+    {
+        "merged": "com.bingetv.app-mergeDebugResources-62:/layout/fragment_settings_placeholder.xml",
+        "source": "com.bingetv.app-main-65:/layout/fragment_settings_placeholder.xml"
+    },
+    {
+        "merged": "com.bingetv.app-mergeDebugResources-62:/layout/dialog_search.xml",
+        "source": "com.bingetv.app-main-65:/layout/dialog_search.xml"
+    },
+    {
+        "merged": "com.bingetv.app-mergeDebugResources-62:/layout/item_season.xml",
+        "source": "com.bingetv.app-main-65:/layout/item_season.xml"
+    },
+    {
+        "merged": "com.bingetv.app-mergeDebugResources-62:/layout/activity_login.xml",
+        "source": "com.bingetv.app-main-65:/layout/activity_login.xml"
+    },
+    {
+        "merged": "com.bingetv.app-mergeDebugResources-62:/layout/activity_splash.xml",
+        "source": "com.bingetv.app-main-65:/layout/activity_splash.xml"
+    },
+    {
+        "merged": "com.bingetv.app-mergeDebugResources-62:/layout/item_episode.xml",
+        "source": "com.bingetv.app-main-65:/layout/item_episode.xml"
+    },
+    {
+        "merged": "com.bingetv.app-mergeDebugResources-62:/layout/fragment_settings_general.xml",
+        "source": "com.bingetv.app-main-65:/layout/fragment_settings_general.xml"
+    },
+    {
+        "merged": "com.bingetv.app-mergeDebugResources-62:/layout/item_settings_category.xml",
+        "source": "com.bingetv.app-main-65:/layout/item_settings_category.xml"
     }
 ]

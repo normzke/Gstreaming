@@ -2,23 +2,39 @@ package com.bingetv.app.data.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import androidx.paging.PagingSource
 
 @Dao
 interface ChannelDao {
     @Query("SELECT * FROM channels ORDER BY sortOrder ASC, name ASC")
     fun getAllChannels(): LiveData<List<ChannelEntity>>
     
+    @Query("SELECT * FROM channels ORDER BY sortOrder ASC, name ASC")
+    fun getAllChannelsPaged(): PagingSource<Int, ChannelEntity>
+    
     @Query("SELECT * FROM channels WHERE category = :category ORDER BY sortOrder ASC, name ASC")
     fun getChannelsByCategory(category: String): LiveData<List<ChannelEntity>>
+
+    @Query("SELECT * FROM channels WHERE category = :category ORDER BY sortOrder ASC, name ASC")
+    fun getChannelsByCategoryPaged(category: String): PagingSource<Int, ChannelEntity>
     
     @Query("SELECT * FROM channels WHERE isFavorite = 1 ORDER BY sortOrder ASC, name ASC")
     fun getFavoriteChannels(): LiveData<List<ChannelEntity>>
+
+    @Query("SELECT * FROM channels WHERE isFavorite = 1 ORDER BY sortOrder ASC, name ASC")
+    fun getFavoriteChannelsPaged(): PagingSource<Int, ChannelEntity>
     
     @Query("SELECT * FROM channels WHERE name LIKE '%' || :query || '%' OR category LIKE '%' || :query || '%'")
     fun searchChannels(query: String): LiveData<List<ChannelEntity>>
+
+    @Query("SELECT * FROM channels WHERE name LIKE '%' || :query || '%' OR category LIKE '%' || :query || '%'")
+    fun searchChannelsPaged(query: String): PagingSource<Int, ChannelEntity>
     
     @Query("SELECT * FROM channels WHERE id = :id")
     fun getChannelById(id: Long): ChannelEntity?
+    
+    @Query("SELECT * FROM channels WHERE streamId IN (:streamIds)")
+    fun getChannelsByStreamIds(streamIds: List<String>): List<ChannelEntity>
     
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertChannel(channel: ChannelEntity): Long
@@ -37,6 +53,9 @@ interface ChannelDao {
     
     @Query("UPDATE channels SET isFavorite = :isFavorite WHERE id = :channelId")
     fun updateFavoriteStatus(channelId: Long, isFavorite: Boolean)
+
+    @Query("SELECT COUNT(*) FROM channels")
+    fun getChannelCount(): Int
 }
 
 @Dao
@@ -67,6 +86,9 @@ interface EpgDao {
     
     @Query("SELECT * FROM epg_programs WHERE endTime > :currentTime")
     fun getAllActivePrograms(currentTime: Long): List<EpgProgramEntity>
+
+    @Query("SELECT * FROM epg_programs WHERE (endTime > :startTime AND startTime < :endTime)")
+    fun getAllActiveProgramsLimited(startTime: Long, endTime: Long): List<EpgProgramEntity>
     
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertPrograms(programs: List<EpgProgramEntity>)

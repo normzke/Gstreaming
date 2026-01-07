@@ -525,8 +525,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <script>
 
-        function viewSubscription(btn) {
-    const dataset = btn.dataset;
+    function viewSubscription(btn) {
+        const dataset = btn.dataset;
         document.getElementById('view_user').textContent = dataset.user;
         document.getElementById('view_email').textContent = dataset.email;
         document.getElementById('view_package').textContent = dataset.package;
@@ -536,24 +536,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         document.getElementById('view_end').textContent = dataset.end;
 
         document.getElementById('viewSubscriptionModal').style.display = 'flex';
-}
+    }
 
-        function closeModal() {
-            document.getElementById('viewSubscriptionModal').style.display = 'none';
-}
+    function closeModal() {
+        document.getElementById('viewSubscriptionModal').style.display = 'none';
+    }
 
-        function cancelSubscription(id) {
-    if (confirm('Are you sure you want to cancel this subscription?')) {
-        const form = document.createElement('form');
-        form.method = 'POST';
-        form.innerHTML = `
+    function cancelSubscription(id) {
+        if (confirm('Are you sure you want to cancel this subscription?')) {
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.innerHTML = `
         <input type="hidden" name="action" value="cancel_subscription">
             <input type="hidden" name="subscription_id" value="${id}">
         `;
-        document.body.appendChild(form);
-        form.submit();
+            document.body.appendChild(form);
+            form.submit();
+        }
     }
-}
+
+    window.onclick = function (event) {
+        var modal = document.getElementById('viewSubscriptionModal');
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
 </script>
 
 <?php include 'includes/footer.php'; ?>

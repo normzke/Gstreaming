@@ -26,7 +26,10 @@
         android:id="@+id/spinner_epg_days"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp" />
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/bg_settings_item_selector"
+        android:focusable="true"
+        android:padding="8dp" />
 
     <CheckBox
         android:id="@+id/check_store_desc"
@@ -37,7 +40,9 @@
         android:padding="12dp"
         android:textColor="@color/text_primary"
         android:buttonTint="@color/bingetv_red"
-        android:layout_marginBottom="16dp" />
+        android:layout_marginBottom="16dp"
+        android:focusable="true"
+        android:background="@drawable/bg_settings_item_selector" />
 
     <CheckBox
         android:id="@+id/check_update_start"
@@ -48,7 +53,9 @@
         android:padding="12dp"
         android:textColor="@color/text_primary"
         android:buttonTint="@color/bingetv_red"
-        android:layout_marginBottom="16dp" />
+        android:layout_marginBottom="16dp"
+        android:focusable="true"
+        android:background="@drawable/bg_settings_item_selector" />
         
     <CheckBox
         android:id="@+id/check_update_change"
@@ -59,7 +66,9 @@
         android:padding="12dp"
         android:textColor="@color/text_primary"
         android:buttonTint="@color/bingetv_red"
-        android:layout_marginBottom="24dp" />
+        android:layout_marginBottom="24dp"
+        android:focusable="true"
+        android:background="@drawable/bg_settings_item_selector" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -72,9 +81,10 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Update EPG"
-            android:background="@color/background_card"
+            android:background="@drawable/bg_settings_item_selector"
             android:textColor="@color/text_primary"
-            android:layout_marginEnd="8dp" />
+            android:layout_marginEnd="8dp"
+            android:focusable="true" />
 
         <Button
             android:id="@+id/btn_clear_epg"
@@ -82,9 +92,10 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Clear EPG"
-            android:background="@color/bingetv_red"
+            android:background="@drawable/btn_logout_selector"
             android:textColor="@color/text_primary"
-            android:layout_marginStart="8dp" />
+            android:layout_marginStart="8dp"
+            android:focusable="true" />
     </LinearLayout>
 
 </LinearLayout>

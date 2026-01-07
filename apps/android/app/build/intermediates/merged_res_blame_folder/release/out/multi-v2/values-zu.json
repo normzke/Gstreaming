@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.bingetv.app-mergeReleaseResources-58:/values-zu/values-zu.xml",
+            "outputFile": "com.bingetv.app-mergeReleaseResources-61:/values-zu/values-zu.xml",
             "map": [
                 {
                     "source": "/Users/la/.gradle/caches/transforms-3/9143fa5f1274468e96f4aee74c2f2a5f/transformed/material-1.9.0/res/values-zu/values-zu.xml",

@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.bingetv.app-mergeReleaseResources-58:/values-es-rUS/values-es-rUS.xml",
+            "outputFile": "com.bingetv.app-mergeReleaseResources-61:/values-es-rUS/values-es-rUS.xml",
             "map": [
                 {
                     "source": "/Users/la/.gradle/caches/transforms-3/f30a59d2c0ec287ab164f442e76197a3/transformed/jetified-exoplayer-core-2.18.7/res/values-es-rUS/values-es-rUS.xml",

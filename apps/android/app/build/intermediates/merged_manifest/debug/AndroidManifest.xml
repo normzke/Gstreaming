@@ -13,6 +13,8 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <!-- TV features -->
     <uses-feature
@@ -23,8 +25,6 @@
         android:required="false" />
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <permission
         android:name="com.bingetv.app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
@@ -38,7 +38,7 @@
         android:banner="@drawable/app_banner"
         android:debuggable="true"
         android:extractNativeLibs="false"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/icon"
         android:label="@string/app_name"
         android:networkSecurityConfig="@xml/network_security_config"
         android:supportsRtl="true"
@@ -47,9 +47,11 @@
         <!-- Splash Activity (Launcher) -->
         <activity
             android:name="com.bingetv.app.ui.splash.SplashActivity"
+            android:banner="@drawable/app_banner"
             android:exported="true"
+            android:logo="@drawable/app_banner"
             android:screenOrientation="landscape"
-            android:theme="@style/Theme.Leanback" >
+            android:theme="@style/Theme.BingeTV.Light" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -70,11 +72,11 @@
             android:name="com.bingetv.app.ui.main.EnhancedMainActivity"
             android:banner="@drawable/app_banner"
             android:exported="false"
-            android:icon="@mipmap/ic_launcher"
+            android:icon="@drawable/icon"
             android:label="@string/app_name"
             android:logo="@drawable/app_banner"
             android:screenOrientation="landscape"
-            android:theme="@style/Theme.Leanback" />
+            android:theme="@style/Theme.BingeTV.Light" />
 
         <!-- Original Main Activity (Keep for now) -->
         <activity
@@ -96,13 +98,26 @@
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize"
             android:launchMode="singleTask"
             android:screenOrientation="landscape"
-            android:theme="@style/Theme.Leanback" />
-
-        <!-- Playlist Browser Activity -->
+            android:supportsPictureInPicture="true"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name="com.bingetv.app.PlaylistBrowserActivity"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.Leanback" />
+        <activity
+            android:name="com.bingetv.app.ui.details.SeriesDetailActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.Leanback" />
+
+        <receiver
+            android:name="com.bingetv.app.receivers.BootReceiver"
+            android:enabled="true"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+            </intent-filter>
+        </receiver>
 
         <provider
             android:name="androidx.startup.InitializationProvider"

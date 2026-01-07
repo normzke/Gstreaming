@@ -137,7 +137,7 @@ $faq_data = SEO::getFAQData();
                 <p class="hero-description">
                     Watch 150+ channels including Premier League, National Geographic, ESPN, and more in stunning 4K
                     quality.
-                    Pay securely with M-PESA and enjoy unlimited streaming on any device.
+                    Pay securely with Card or M-PESA and enjoy unlimited streaming on any device.
                 </p>
 
                 <div class="hero-stats">
@@ -250,69 +250,7 @@ $faq_data = SEO::getFAQData();
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <div class="footer-logo">
-                        <i class="fas fa-satellite-dish"></i>
-                        <span>BingeTV</span>
-                    </div>
-                    <p>Premium TV streaming service for Kenya. Stream thousands of channels on any device.</p>
 
-                    <div class="social-links">
-                        <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
-                    </div>
-                </div>
-
-                <div class="footer-section">
-                    <h4>Quick Links</h4>
-                    <ul class="footer-links">
-                        <li><a href="#packages">Packages</a></li>
-                        <li><a href="#devices">Supported Devices</a></li>
-                        <li><a href="gallery">Gallery</a></li>
-                        <li><a href="support">Support</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-section">
-                    <h4>Account</h4>
-                    <ul class="footer-links">
-                        <li><a href="login">Login</a></li>
-                        <li><a href="register">Register</a></li>
-                        <li><a href="dashboard/">Dashboard</a></li>
-                        <li><a href="payments/payment">Billing</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-section">
-                    <h4>Contact Info</h4>
-                    <div class="contact-info">
-                        <div class="contact-item">
-                            <i class="fas fa-envelope"></i>
-                            <span>support@bingetv.co.ke</span>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-phone"></i>
-                            <span>+254 768 704 834</span>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span>Nairobi, Kenya</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="footer-bottom">
-                <p>&copy; 2024 BingeTV. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
 
     <!-- WhatsApp Button -->
     <div class="whatsapp-float">

@@ -504,10 +504,16 @@ $user = getCurrentUser();
                         </a>
                     </div>
                     <div class="nav-item">
+                        <a href="/user/subscriptions#packages" class="nav-link">
+                            <i class="fas fa-credit-card"></i>
+                            <span>Pay Online (Card/M-Pesa)</span>
+                        </a>
+                    </div>
+                    <div class="nav-item">
                         <a href="/user/payments/submit-mpesa"
                             class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'submit-mpesa.php' ? 'active' : ''; ?>">
                             <i class="fas fa-mobile-alt"></i>
-                            <span>Pay via M-Pesa</span>
+                            <span>Manual M-Pesa Submit</span>
                         </a>
                     </div>
                     <div class="nav-item">

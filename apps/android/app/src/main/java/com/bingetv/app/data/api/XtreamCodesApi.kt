@@ -3,6 +3,7 @@ package com.bingetv.app.data.api
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
+import retrofit2.http.QueryMap
 
 interface XtreamCodesApi {
     
@@ -56,6 +57,14 @@ interface XtreamCodesApi {
         @Query("action") action: String = "get_series",
         @Query("category_id") categoryId: String? = null
     ): Response<List<XtreamChannel>>
+
+    @GET("player_api.php")
+    suspend fun getSeriesRaw(
+        @Query("username") username: String,
+        @Query("password") password: String,
+        @Query("action") action: String = "get_series",
+        @Query("category_id") categoryId: String? = null
+    ): Response<okhttp3.ResponseBody>
     
     @GET("player_api.php")
     suspend fun getEpg(
@@ -83,10 +92,26 @@ interface XtreamCodesApi {
     ): Response<XtreamStreamInfo>
 
     @GET("player_api.php")
+    suspend fun getStreamInfoRaw(
+        @Query("username") username: String,
+        @Query("password") password: String,
+        @Query("action") action: String = "get_vod_info",
+        @Query("vod_id") vodId: Int
+    ): Response<okhttp3.ResponseBody>
+
+    @GET("player_api.php")
     suspend fun getSeriesInfo(
         @Query("username") username: String,
         @Query("password") password: String,
         @Query("action") action: String = "get_series_info",
-        @Query("series_id") seriesId: Int
-    ): Response<XtreamSeriesInfo>
+        @Query("series_id") seriesId: String
+    ): Response<okhttp3.ResponseBody>
+
+    @GET("player_api.php")
+    suspend fun getSeriesInfoGenericRaw(
+        @Query("username") username: String,
+        @Query("password") password: String,
+        @Query("action") action: String = "get_series_info",
+        @QueryMap options: Map<String, String>
+    ): Response<okhttp3.ResponseBody>
 }

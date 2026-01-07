@@ -361,9 +361,12 @@ class PlaybackActivity : AppCompatActivity() {
             
         val userAgents = listOf(
             prefsManager.getUserAgent().ifEmpty { "VLC/3.0.18 LibVLC/3.0.18" },
+            "IPTVSmartersPro/1.1.1 (iPad; iOS 12.2; Scale/2.00)",
+            "Winamp/2.9",
             "AppleCoreMedia/1.0.0.19E241 (Apple TV; U; CPU OS 15_4 like Mac OS X; en_us)",
             "Mozilla/5.0 (SmartHub; SMART-TV; U; Linux/Tizen) AppleWebKit/538.1 (KHTML, like Gecko) SamsungBrowser/1.0 TV Safari/538.1",
-            "ExoPlayer/2.18.7"
+            "ExoPlayer/2.18.7",
+            "okhttp/4.9.0"
         )
         
         val userAgent = userAgents.getOrElse(playerRetryCount % userAgents.size) { userAgents[0] }
@@ -441,10 +444,11 @@ class PlaybackActivity : AppCompatActivity() {
                 
                 // 1. Handle HTTP 405/403 (Method Not Allowed / Forbidden)
                 if (cause is com.google.android.exoplayer2.upstream.HttpDataSource.InvalidResponseCodeException) {
-                    if ((cause.responseCode == 405 || cause.responseCode == 403) && playerRetryCount < 3) {
+                    // Try ALL available user agents plus one wrap around if needed (soft limit 10)
+                    if ((cause.responseCode == 405 || cause.responseCode == 403) && playerRetryCount < 10) {
                         android.util.Log.w(TAG, "Detected ${cause.responseCode} - Rotating User-Agent... (Retry ${playerRetryCount + 1})")
                         playerRetryCount++
-                        Toast.makeText(this@PlaybackActivity, "Stream requires fallback (Error ${cause.responseCode}) - Retrying with different agent...", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@PlaybackActivity, "Stream fallback (${cause.responseCode}) - Retrying...", Toast.LENGTH_SHORT).show()
                         initializePlayer() 
                         return
                     }
@@ -453,14 +457,20 @@ class PlaybackActivity : AppCompatActivity() {
                 // 2. Handle Decoder Failures (Common for 4K on some SoC)
                 val isDecoderError = error.errorCode == PlaybackException.ERROR_CODE_DECODER_INIT_FAILED || 
                                    error.errorCode == PlaybackException.ERROR_CODE_DECODER_QUERY_FAILED ||
-                                   cause is com.google.android.exoplayer2.video.MediaCodecVideoDecoderException
+                                   cause is com.google.android.exoplayer2.video.MediaCodecVideoDecoderException ||
+                                   (cause?.message?.contains("OMX.MS.AVC.Decoder") == true) ||
+                                   (cause?.message?.contains("OMX.MS.HEVC.Decoder") == true) ||
+                                   (cause?.message?.contains("BadParameter") == true) ||
+                                   (cause?.message?.contains("NotImplemented") == true) ||
+                                   (error.message?.contains("MediaCodecVideoRenderer error") == true && error.message?.contains("NO_EXCEEDS_CAPABILITIES") == true)
                 
                 if (isDecoderError && playerRetryCount < 2) {
-                     android.util.Log.w(TAG, "Decoder failed - Switching to Software Decoding fallback...")
+                     android.util.Log.w(TAG, "Decoder failed (HW) - Switching to Software Decoding fallback...")
                      playerRetryCount++
                      // Force software decoder for this retry
                      prefsManager.setVideoDecoder("software") 
                      Toast.makeText(this@PlaybackActivity, "Hardware decoder failed - switching to software...", Toast.LENGTH_LONG).show()
+                     releasePlayer() // Fully release before reinit
                      initializePlayer()
                      return
                 }

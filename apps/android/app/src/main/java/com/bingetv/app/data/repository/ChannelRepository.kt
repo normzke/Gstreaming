@@ -57,4 +57,33 @@ class ChannelRepository(
         channelDao.deleteAllChannels()
         categoryDao.deleteAllCategories()
     }
+    
+    suspend fun getChannelCount(): Int = withContext(Dispatchers.IO) {
+        channelDao.getChannelCount()
+    }
+    
+    // Paging
+    fun getChannelsPaged(mode: String): kotlinx.coroutines.flow.Flow<androidx.paging.PagingData<ChannelEntity>> {
+        return androidx.paging.Pager(
+            config = androidx.paging.PagingConfig(
+                pageSize = 60,
+                prefetchDistance = 120,
+                enablePlaceholders = true,
+                initialLoadSize = 180,
+                maxSize = 600
+            ),
+            pagingSourceFactory = {
+                when {
+                    mode == "all" || mode == "live" -> channelDao.getAllChannelsPaged() // "live" defaults to all for now or needs filtering?
+                    mode == "favorites" -> channelDao.getFavoriteChannelsPaged()
+                    mode.startsWith("search:") -> channelDao.searchChannelsPaged(mode.removePrefix("search:"))
+                    else -> channelDao.getChannelsByCategoryPaged(mode)
+                }
+            }
+        ).flow
+    }
+    
+    suspend fun getChannelsByStreamIds(ids: List<String>): List<ChannelEntity> = withContext(Dispatchers.IO) {
+        channelDao.getChannelsByStreamIds(ids)
+    }
 }

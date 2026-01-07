@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.bingetv.app-mergeReleaseResources-58:/values-w360dp-port-v13/values-w360dp-port-v13.xml",
+            "outputFile": "com.bingetv.app-mergeReleaseResources-61:/values-w360dp-port-v13/values-w360dp-port-v13.xml",
             "map": [
                 {
                     "source": "/Users/la/.gradle/caches/transforms-3/9143fa5f1274468e96f4aee74c2f2a5f/transformed/material-1.9.0/res/values-w360dp-port-v13/values-w360dp-port-v13.xml",

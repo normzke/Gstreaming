@@ -154,9 +154,7 @@ class M3UParser {
     
     private fun extractAttributes(line: String): Map<String, String> {
         val attributes = mutableMapOf<String, String>()
-        // Improved regex to handle quoted values better
-        val pattern = Pattern.compile("([a-zA-Z0-9-]+)=\"([^\"]*)\"")
-        val matcher = pattern.matcher(line)
+        val matcher = ATTRIBUTE_PATTERN.matcher(line)
         
         while (matcher.find()) {
             val key = matcher.group(1)
@@ -167,6 +165,10 @@ class M3UParser {
         }
         
         return attributes
+    }
+
+    companion object {
+        private val ATTRIBUTE_PATTERN = Pattern.compile("([a-zA-Z0-9-]+)=\"([^\"]*)\"")
     }
 }
 

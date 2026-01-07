@@ -18,157 +18,96 @@ include __DIR__ . '/includes/header.php';
 <div class="user-card">
     <div class="card-header">
         <h2 class="card-title">
-            <i class="fas fa-download"></i>
-            Download Ibo Player Pro
+            <i class="fas fa-satellite-dish"></i>
+            Native BingeTV Apps
         </h2>
     </div>
     <div class="card-body">
         <p style="text-align: center; color: var(--user-text-light); margin-bottom: 2rem; font-size: 1.1rem;">
-            Download the Ibo Player Pro app to start streaming on your preferred device
+            Download our custom-built native apps for 100% feature parity and the best streaming experience
         </p>
 
-        <!-- App Store Buttons -->
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-bottom: 3rem;">
-            <!-- Google Play -->
-            <a href="https://play.google.com/store/apps/details?id=ibpro.smart.player" target="_blank" style="text-decoration: none;">
-                <div style="background: white; border: 2px solid var(--user-border); border-radius: 12px; padding: 1.5rem; text-align: center; transition: all 0.3s; cursor: pointer;" onmouseover="this.style.borderColor='var(--user-primary)'; this.style.transform='translateY(-5px)'" onmouseout="this.style.borderColor='var(--user-border)'; this.style.transform='translateY(0)'">
-                    <img src="/public/images/store-google.png" alt="Google Play Store" style="max-width: 150px; height: auto; margin-bottom: 0.5rem;" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22150%22 height=%2250%22%3E%3Ctext x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22%3EGoogle Play%3C/text%3E%3C/svg%3E'">
-                    <p style="margin: 0; color: var(--user-text); font-weight: 600;">Google Play</p>
-                    <p style="margin: 0.25rem 0 0 0; color: var(--user-text-light); font-size: 0.85rem;">Android Phones & Tablets</p>
+        <!-- Platform Grid -->
+        <div
+            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-bottom: 3rem;">
+            <!-- Android TV -->
+            <div style="background: white; border: 2px solid var(--user-border); border-radius: 12px; padding: 1.5rem; text-align: center; transition: all 0.3s;"
+                onmouseover="this.style.borderColor='var(--user-primary)'; this.style.transform='translateY(-5px)'"
+                onmouseout="this.style.borderColor='var(--user-border)'; this.style.transform='translateY(0)'">
+                <div style="font-size: 3rem; color: var(--user-primary); margin-bottom: 0.5rem;">
+                    <i class="fab fa-android"></i>
                 </div>
-            </a>
-
-            <!-- Apple App Store -->
-            <a href="https://apps.apple.com/app/ibo-pro-player/id6449647925" target="_blank" style="text-decoration: none;">
-                <div style="background: white; border: 2px solid var(--user-border); border-radius: 12px; padding: 1.5rem; text-align: center; transition: all 0.3s; cursor: pointer;" onmouseover="this.style.borderColor='var(--user-primary)'; this.style.transform='translateY(-5px)'" onmouseout="this.style.borderColor='var(--user-border)'; this.style.transform='translateY(0)'">
-                    <img src="/public/images/store-apple.png" alt="Apple App Store" style="max-width: 150px; height: auto; margin-bottom: 0.5rem;" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22150%22 height=%2250%22%3E%3Ctext x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22%3EApp Store%3C/text%3E%3C/svg%3E'">
-                    <p style="margin: 0; color: var(--user-text); font-weight: 600;">Apple App Store</p>
-                    <p style="margin: 0.25rem 0 0 0; color: var(--user-text-light); font-size: 0.85rem;">iPhone & iPad</p>
-                </div>
-            </a>
-
-            <!-- LG Store -->
-            <a href="https://us.lgappstv.com/main/tvapp/detail?appId=1209143" target="_blank" style="text-decoration: none;">
-                <div style="background: white; border: 2px solid var(--user-border); border-radius: 12px; padding: 1.5rem; text-align: center; transition: all 0.3s; cursor: pointer;" onmouseover="this.style.borderColor='var(--user-primary)'; this.style.transform='translateY(-5px)'" onmouseout="this.style.borderColor='var(--user-border)'; this.style.transform='translateY(0)'">
-                    <div style="font-size: 3rem; color: var(--user-primary); margin-bottom: 0.5rem;">
-                        <i class="fas fa-tv"></i>
-                    </div>
-                    <p style="margin: 0; color: var(--user-text); font-weight: 600;">LG Store</p>
-                    <p style="margin: 0.25rem 0 0 0; color: var(--user-text-light); font-size: 0.85rem;">LG Smart TVs</p>
-                </div>
-            </a>
-
-            <!-- Roku Store -->
-            <a href="https://channelstore.roku.com/details/8bb2a96953173808e85902295304a2e1:8490a219fcbeecc63b4cc16b6ba9be93/ibo-player-pro" target="_blank" style="text-decoration: none;">
-                <div style="background: white; border: 2px solid var(--user-border); border-radius: 12px; padding: 1.5rem; text-align: center; transition: all 0.3s; cursor: pointer;" onmouseover="this.style.borderColor='var(--user-primary)'; this.style.transform='translateY(-5px)'" onmouseout="this.style.borderColor='var(--user-border)'; this.style.transform='translateY(0)'">
-                    <div style="font-size: 3rem; color: var(--user-primary); margin-bottom: 0.5rem;">
-                        <i class="fas fa-stream"></i>
-                    </div>
-                    <p style="margin: 0; color: var(--user-text); font-weight: 600;">Roku Store</p>
-                    <p style="margin: 0.25rem 0 0 0; color: var(--user-text-light); font-size: 0.85rem;">Roku Devices</p>
-                </div>
-            </a>
-
-            <!-- Windows Store -->
-            <a href="https://www.microsoft.com/store/apps/9MSNK97XPVRK" target="_blank" style="text-decoration: none;">
-                <div style="background: white; border: 2px solid var(--user-border); border-radius: 12px; padding: 1.5rem; text-align: center; transition: all 0.3s; cursor: pointer;" onmouseover="this.style.borderColor='var(--user-primary)'; this.style.transform='translateY(-5px)'" onmouseout="this.style.borderColor='var(--user-border)'; this.style.transform='translateY(0)'">
-                    <div style="font-size: 3rem; color: var(--user-primary); margin-bottom: 0.5rem;">
-                        <i class="fab fa-windows"></i>
-                    </div>
-                    <p style="margin: 0; color: var(--user-text); font-weight: 600;">Microsoft Store</p>
-                    <p style="margin: 0.25rem 0 0 0; color: var(--user-text-light); font-size: 0.85rem;">Windows Desktop</p>
-                </div>
-            </a>
-        </div>
-
-        <!-- Direct Downloads -->
-        <div style="background: #f8f9fa; border-radius: 12px; padding: 2rem; margin-top: 2rem;">
-            <h3 style="margin: 0 0 1.5rem 0; color: var(--user-text); text-align: center;">
-                <i class="fas fa-download"></i> Direct Downloads
-            </h3>
-
-            <!-- Android/Fire TV APK -->
-            <div style="background: white; border-radius: 8px; padding: 1.5rem; margin-bottom: 1.5rem; border: 1px solid var(--user-border);">
-                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
-                    <div style="font-size: 2rem; color: var(--user-primary);">
-                        <i class="fab fa-android"></i>
-                    </div>
-                    <div style="flex: 1;">
-                        <h4 style="margin: 0; color: var(--user-text);">Android & Amazon Fire TV</h4>
-                        <p style="margin: 0.25rem 0 0 0; color: var(--user-text-light); font-size: 0.9rem;">APK Installation</p>
-                    </div>
-                </div>
-                <div style="background: #f8f9fa; padding: 1rem; border-radius: 6px; margin-bottom: 1rem;">
-                    <p style="margin: 0 0 0.5rem 0; color: var(--user-text); font-weight: 600;">Download Link:</p>
-                    <a href="https://iboproapp.com/ibopro.apk" target="_blank" style="color: var(--user-primary); word-break: break-all; text-decoration: none; font-weight: 600;">
-                        https://iboproapp.com/ibopro.apk
-                    </a>
-                </div>
-                <a href="https://iboproapp.com/ibopro.apk" target="_blank" class="btn btn-primary" style="width: 100%; text-align: center;">
+                <p style="margin: 0; color: var(--user-text); font-weight: 600; font-size: 1.2rem;">Android TV / Fire TV
+                </p>
+                <p style="margin: 0.5rem 0 1.5rem 0; color: var(--user-text-light); font-size: 0.85rem;">For Android TV
+                    Boxes, Sony, TCL, Philips TVs & Amazon Firestick</p>
+                <a href="/apps/android/bingetv-android-tv.apk" class="btn btn-primary" download
+                    style="width: 100%; justify-content: center;">
                     <i class="fas fa-download"></i> Download APK
                 </a>
             </div>
 
-            <!-- Samsung TV -->
-            <div style="background: white; border-radius: 8px; padding: 1.5rem; margin-bottom: 1.5rem; border: 1px solid var(--user-border);">
-                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
-                    <div style="font-size: 2rem; color: var(--user-primary);">
-                        <i class="fas fa-tv"></i>
-                    </div>
-                    <div style="flex: 1;">
-                        <h4 style="margin: 0; color: var(--user-text);">Samsung Smart TV</h4>
-                        <p style="margin: 0.25rem 0 0 0; color: var(--user-text-light); font-size: 0.9rem;">Tizen OS App</p>
-                    </div>
+            <!-- LG WebOS -->
+            <div style="background: white; border: 2px solid var(--user-border); border-radius: 12px; padding: 1.5rem; text-align: center; transition: all 0.3s;"
+                onmouseover="this.style.borderColor='var(--user-primary)'; this.style.transform='translateY(-5px)'"
+                onmouseout="this.style.borderColor='var(--user-border)'; this.style.transform='translateY(0)'">
+                <div style="font-size: 3rem; color: var(--user-primary); margin-bottom: 0.5rem;">
+                    <i class="fas fa-tv"></i>
                 </div>
-                <div style="background: #f8f9fa; padding: 1rem; border-radius: 6px; margin-bottom: 1rem;">
-                    <p style="margin: 0 0 0.5rem 0; color: var(--user-text); font-weight: 600;">Download Link:</p>
-                    <a href="https://shorturl.at/nAOUY" target="_blank" style="color: var(--user-primary); word-break: break-all; text-decoration: none; font-weight: 600;">
-                        https://shorturl.at/nAOUY
-                    </a>
-                </div>
-                <a href="https://shorturl.at/nAOUY" target="_blank" class="btn btn-primary" style="width: 100%; text-align: center;">
-                    <i class="fas fa-download"></i> Download for Samsung TV
+                <p style="margin: 0; color: var(--user-text); font-weight: 600; font-size: 1.2rem;">LG WebOS</p>
+                <p style="margin: 0.5rem 0 1.5rem 0; color: var(--user-text-light); font-size: 0.85rem;">For LG Smart
+                    TVs (webOS 4.0+)</p>
+                <a href="/apps/webos/com.bingetv.app_1.0.0_all.ipk" class="btn btn-primary" download
+                    style="width: 100%; justify-content: center;">
+                    <i class="fas fa-download"></i> Download IPK
                 </a>
             </div>
 
-            <!-- Windows Desktop -->
-            <div style="background: white; border-radius: 8px; padding: 1.5rem; margin-bottom: 1.5rem; border: 1px solid var(--user-border);">
-                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
-                    <div style="font-size: 2rem; color: var(--user-primary);">
-                        <i class="fab fa-windows"></i>
-                    </div>
-                    <div style="flex: 1;">
-                        <h4 style="margin: 0; color: var(--user-text);">Windows Desktop</h4>
-                        <p style="margin: 0.25rem 0 0 0; color: var(--user-text-light); font-size: 0.9rem;">Desktop Application</p>
-                    </div>
+            <!-- Samsung Tizen -->
+            <div style="background: white; border: 2px solid var(--user-border); border-radius: 12px; padding: 1.5rem; text-align: center; transition: all 0.3s;"
+                onmouseover="this.style.borderColor='var(--user-primary)'; this.style.transform='translateY(-5px)'"
+                onmouseout="this.style.borderColor='var(--user-border)'; this.style.transform='translateY(0)'">
+                <div style="font-size: 3rem; color: var(--user-primary); margin-bottom: 0.5rem;">
+                    <i class="fas fa-tv"></i>
                 </div>
-                <div style="background: #f8f9fa; padding: 1rem; border-radius: 6px; margin-bottom: 1rem;">
-                    <p style="margin: 0 0 0.5rem 0; color: var(--user-text); font-weight: 600;">Download Link:</p>
-                    <a href="https://rb.gy/8beuu" target="_blank" style="color: var(--user-primary); word-break: break-all; text-decoration: none; font-weight: 600;">
-                        https://rb.gy/8beuu
-                    </a>
-                </div>
-                <a href="https://rb.gy/8beuu" target="_blank" class="btn btn-primary" style="width: 100%; text-align: center;">
-                    <i class="fas fa-download"></i> Download for Windows
+                <p style="margin: 0; color: var(--user-text); font-weight: 600; font-size: 1.2rem;">Samsung Tizen</p>
+                <p style="margin: 0.5rem 0 1.5rem 0; color: var(--user-text-light); font-size: 0.85rem;">For Samsung
+                    Smart TVs (Tizen 6.0+)</p>
+                <a href="/apps/tizen/com.bingetv.app-1.0.0.tpk" class="btn btn-primary" download
+                    style="width: 100%; justify-content: center;">
+                    <i class="fas fa-download"></i> Download TPK
                 </a>
             </div>
+        </div>
 
-            <!-- ZEASN/Whale OS -->
-            <div style="background: white; border-radius: 8px; padding: 1.5rem; border: 1px solid var(--user-border);">
+        <!-- Alternative App Section -->
+        <div
+            style="background: #f8f9fa; border-radius: 12px; padding: 2rem; margin-top: 1rem; border: 1px dashed var(--user-border);">
+            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; justify-content: center;">
+                <i class="fas fa-info-circle" style="color: var(--user-primary); font-size: 1.5rem;"></i>
+                <h3 style="margin: 0; color: var(--user-text);">Alternative Player</h3>
+            </div>
+            <p style="text-align: center; color: var(--user-text-light); margin-bottom: 2rem;">
+                If our native BingeTV app is not compatible with your device, you can use <strong>TiviMate8KPro</strong>
+                as an alternative.
+            </p>
+
+            <div
+                style="max-width: 500px; margin: 0 auto; background: white; padding: 1.5rem; border-radius: 8px; border: 1px solid var(--user-border);">
                 <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
                     <div style="font-size: 2rem; color: var(--user-primary);">
-                        <i class="fas fa-tv"></i>
+                        <i class="fab fa-android"></i>
                     </div>
-                    <div style="flex: 1;">
-                        <h4 style="margin: 0; color: var(--user-text);">ZEASN/Whale OS</h4>
-                        <p style="margin: 0.25rem 0 0 0; color: var(--user-text-light); font-size: 0.9rem;">Available on ZEASN Platform</p>
+                    <div>
+                        <h4 style="margin: 0; color: var(--user-text);">TiviMate8KPro</h4>
+                        <p style="margin: 0; color: var(--user-text-light); font-size: 0.9rem;">Android Third-Party
+                            Player</p>
                     </div>
                 </div>
-                <div style="background: #e7f3ff; border: 1px solid #b3d9ff; padding: 1rem; border-radius: 6px;">
-                    <p style="margin: 0; color: #0c5460; text-align: center;">
-                        <i class="fas fa-check-circle"></i> Our app is available on ZEASN/Whale OS compatible devices
-                    </p>
-                </div>
+                <a href="/apps/alternatives/TiviMate8KPro.apk" class="btn btn-secondary" download
+                    style="width: 100%; justify-content: center;">
+                    <i class="fas fa-download"></i> Download TiviMate APK
+                </a>
             </div>
         </div>
     </div>
@@ -179,7 +118,7 @@ include __DIR__ . '/includes/header.php';
     <div class="card-header">
         <h2 class="card-title">
             <i class="fas fa-question-circle"></i>
-            Setup Instructions
+            Installation Guide
         </h2>
     </div>
     <div class="card-body">
@@ -187,45 +126,42 @@ include __DIR__ . '/includes/header.php';
             <!-- Android/Fire TV Instructions -->
             <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 8px;">
                 <h4 style="margin: 0 0 1rem 0; color: var(--user-text);">
-                    <i class="fab fa-android"></i> Android & Fire TV
+                    <i class="fab fa-android"></i> Android TV / Fire TV
                 </h4>
-                <ol style="margin: 0; padding-left: 1.5rem; color: var(--user-text-light);">
-                    <li>Download the APK file</li>
-                    <li>Enable "Unknown Sources" in settings</li>
-                    <li>Install the APK</li>
-                    <li>Open Ibo Player Pro</li>
-                    <li>Enter your playlist URL</li>
-                    <li>Start streaming!</li>
+                <ol style="margin: 0; padding-left: 1.5rem; color: var(--user-text-light); font-size: 0.95rem;">
+                    <li>Download the APK file to a USB drive or your device</li>
+                    <li>Go to <strong>Settings > Security & Restrictions</strong></li>
+                    <li>Enable <strong>Unknown Sources</strong></li>
+                    <li>Install the APK using a File Manager</li>
+                    <li>Open <strong>BingeTV</strong> and log in with your credentials</li>
                 </ol>
             </div>
 
-            <!-- iOS Instructions -->
+            <!-- LG WebOS Instructions -->
             <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 8px;">
                 <h4 style="margin: 0 0 1rem 0; color: var(--user-text);">
-                    <i class="fab fa-apple"></i> iPhone & iPad
+                    <i class="fas fa-tv"></i> LG Smart TVs
                 </h4>
-                <ol style="margin: 0; padding-left: 1.5rem; color: var(--user-text-light);">
-                    <li>Open App Store</li>
-                    <li>Search "Ibo Player Pro"</li>
-                    <li>Download and install</li>
-                    <li>Open the app</li>
-                    <li>Configure your playlist</li>
-                    <li>Enjoy streaming!</li>
+                <ol style="margin: 0; padding-left: 1.5rem; color: var(--user-text-light); font-size: 0.95rem;">
+                    <li>Download the IPK file to a USB drive</li>
+                    <li>Go to <strong>Settings > General > About This TV</strong></li>
+                    <li>Enable <strong>Developer Mode</strong></li>
+                    <li>Insert USB and install via File Manager</li>
+                    <li>Launch <strong>BingeTV</strong> from your apps bar</li>
                 </ol>
             </div>
 
-            <!-- Smart TV Instructions -->
+            <!-- Samsung Tizen Instructions -->
             <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 8px;">
                 <h4 style="margin: 0 0 1rem 0; color: var(--user-text);">
-                    <i class="fas fa-tv"></i> Smart TVs
+                    <i class="fas fa-tv"></i> Samsung Smart TVs
                 </h4>
-                <ol style="margin: 0; padding-left: 1.5rem; color: var(--user-text-light);">
-                    <li>Open your TV's app store</li>
-                    <li>Search "Ibo Player Pro"</li>
-                    <li>Install the app</li>
-                    <li>Launch Ibo Player Pro</li>
-                    <li>Add playlist URL</li>
-                    <li>Start watching!</li>
+                <ol style="margin: 0; padding-left: 1.5rem; color: var(--user-text-light); font-size: 0.95rem;">
+                    <li>Download the TPK file to a USB drive</li>
+                    <li>Go to <strong>Settings > Support > Device Care</strong></li>
+                    <li>Turn on <strong>Developer Mode</strong></li>
+                    <li>Navigate to the file on USB and install</li>
+                    <li>Open <strong>BingeTV</strong> from your Smart Hub</li>
                 </ol>
             </div>
         </div>
@@ -233,33 +169,41 @@ include __DIR__ . '/includes/header.php';
 </div>
 
 <!-- Need Help -->
-<div style="text-align: center; margin-top: 2rem; padding: 2rem; background: linear-gradient(135deg, #8B0000, #660000); border-radius: 12px; color: white;">
-    <h3 style="margin: 0 0 1rem 0; font-size: 1.5rem;">Need Help Getting Started?</h3>
-    <p style="margin: 0 0 1.5rem 0; opacity: 0.9;">Our support team is ready to assist you with installation and setup</p>
-    <a href="/user/support" class="btn" style="background: white; color: #8B0000; padding: 1rem 2rem; text-decoration: none; display: inline-block; border-radius: 8px; font-weight: 600;">
-        <i class="fas fa-headset"></i> Contact Support
-    </a>
+<div
+    style="text-align: center; margin-top: 2rem; padding: 2.5rem; background: linear-gradient(135deg, #8B0000, #4a0000); border-radius: 15px; color: white; box-shadow: 0 10px 20px rgba(139,0,0,0.2);">
+    <h3 style="margin: 0 0 1rem 0; font-size: 1.8rem; font-family: 'Orbitron', sans-serif;">Need Help with Setup?</h3>
+    <p style="margin: 0 0 2rem 0; opacity: 0.9; font-size: 1.1rem;">Our technical team is available 24/7 to help you get
+        started on any device.</p>
+    <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+        <a href="/user/support" class="btn"
+            style="background: white; color: #8B0000; padding: 1rem 2rem; text-decoration: none; border-radius: 8px; font-weight: 700; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+            <i class="fas fa-headset"></i> Contact Support
+        </a>
+        <a href="https://wa.me/254768704834" target="_blank" class="btn"
+            style="background: #25D366; color: white; padding: 1rem 2rem; text-decoration: none; border-radius: 8px; font-weight: 700; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+            <i class="fab fa-whatsapp"></i> Chat on WhatsApp
+        </a>
+    </div>
 </div>
 
 <style>
-/* Mobile Responsive for Downloads Page */
-@media (max-width: 768px) {
-    .card-body > div {
-        grid-template-columns: 1fr !important;
+    /* Mobile Responsive for Downloads Page */
+    @media (max-width: 768px) {
+        .card-body>div {
+            grid-template-columns: 1fr !important;
+        }
     }
-}
 
-@media (max-width: 480px) {
-    .card-body {
-        padding: 1rem !important;
+    @media (max-width: 480px) {
+        .card-body {
+            padding: 1rem !important;
+        }
+
+        .btn {
+            font-size: 0.9rem !important;
+            padding: 0.75rem 1rem !important;
+        }
     }
-    
-    .btn {
-        font-size: 0.9rem !important;
-        padding: 0.75rem 1rem !important;
-    }
-}
 </style>
 
 <?php include __DIR__ . '/includes/footer.php'; ?>
-

@@ -78,7 +78,7 @@ class SettingsActivity : AppCompatActivity() {
             
             init {
                 view.setOnClickListener {
-                    val pos = adapterPosition
+                    val pos = bindingAdapterPosition
                     if (pos != RecyclerView.NO_POSITION) {
                         setSelectedIndex(pos)
                         onItemClick(pos)

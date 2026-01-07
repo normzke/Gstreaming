@@ -180,8 +180,6 @@ include 'includes/header.php';
                             </span>
                         </td>
                         <td>
-                            <i class="fas fa-edit"></i>
-                            </button>
                             <button class="btn btn-secondary" onclick="editPackage(this)"
                                 data-id="<?php echo $package['id']; ?>"
                                 data-name="<?php echo htmlspecialchars($package['name']); ?>"
@@ -208,7 +206,7 @@ include 'includes/header.php';
 </div>
 
 <!-- Add/Edit Package Modal -->
-<div id="packageModal" class="modal" style="display: none;">
+<div id="packageModal" class="modal">
     <div class="modal-content">
         <div class="modal-header">
             <h3 id="modalTitle">Add Package</h3>
@@ -276,7 +274,7 @@ include 'includes/header.php';
 </div>
 
 <!-- Delete Confirmation Modal -->
-<div id="deleteModal" class="modal" style="display: none;">
+<div id="deleteModal" class="modal">
     <div class="modal-content">
         <div class="modal-header">
             <h3>Confirm Delete</h3>
@@ -300,12 +298,14 @@ include 'includes/header.php';
         width: 100%;
         height: 100%;
         background: rgba(0, 0, 0, 0.5);
-        background: rgba(0, 0, 0, 0.5);
         z-index: 9999;
-        display: flex;
-        display: flex;
+        display: none;
         align-items: center;
         justify-content: center;
+    }
+
+    .modal.active {
+        display: flex;
     }
 
     .modal-content {
@@ -411,7 +411,7 @@ include 'includes/header.php';
         document.getElementById('formAction').value = 'add_package';
         document.getElementById('packageForm').reset();
         document.getElementById('packageId').value = '';
-        document.getElementById('packageModal').style.display = 'flex';
+        document.getElementById('packageModal').classList.add('active');
     }
 
     function editPackage(btn) {
@@ -430,20 +430,20 @@ include 'includes/header.php';
         document.getElementById('sort_order').value = dataset.sort_order;
         document.getElementById('is_active').checked = dataset.is_active == '1';
 
-        document.getElementById('packageModal').style.display = 'flex';
+        document.getElementById('packageModal').classList.add('active');
     }
 
     function deletePackage(id) {
         currentPackageId = id;
-        document.getElementById('deleteModal').style.display = 'flex';
+        document.getElementById('deleteModal').classList.add('active');
     }
 
     function closeModal() {
-        document.getElementById('packageModal').style.display = 'none';
+        document.getElementById('packageModal').classList.remove('active');
     }
 
     function closeDeleteModal() {
-        document.getElementById('deleteModal').style.display = 'none';
+        document.getElementById('deleteModal').classList.remove('active');
         currentPackageId = null;
     }
 

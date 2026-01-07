@@ -1674,6 +1674,7 @@ color accent_material_light
 color androidx_core_ripple_material_light
 color androidx_core_secondary_text_default_material_light
 color background_card
+color background_dark
 color background_floating_material_dark
 color background_floating_material_light
 color background_hover
@@ -2472,6 +2473,7 @@ color secondary_text_default_material_light
 color secondary_text_disabled_material_dark
 color secondary_text_disabled_material_light
 color selector_category_text
+color selector_nav_text
 color success
 color switch_thumb_disabled_material_dark
 color switch_thumb_disabled_material_light
@@ -3669,10 +3671,13 @@ drawable abc_vector_test
 drawable app_banner
 drawable avd_hide_password
 drawable avd_show_password
+drawable bg_card_focused
+drawable bg_settings_item_selector
 drawable btn_checkbox_checked_mtrl
 drawable btn_checkbox_checked_to_unchecked_mtrl_animation
 drawable btn_checkbox_unchecked_mtrl
 drawable btn_checkbox_unchecked_to_checked_mtrl_animation
+drawable btn_logout_selector
 drawable btn_radio_off_mtrl
 drawable btn_radio_off_to_on_mtrl_animation
 drawable btn_radio_on_mtrl
@@ -3790,6 +3795,7 @@ drawable ic_nav_settings
 drawable ic_nav_shows
 drawable ic_placeholder_channel
 drawable ic_placeholder_epg
+drawable ic_play
 drawable ic_search_black_24
 drawable ic_tv_banner
 drawable icon
@@ -3916,7 +3922,9 @@ drawable notification_tile_bg
 drawable notify_panel_notification_icon_bg
 drawable preference_list_divider_material
 drawable progress_drawable_red
+drawable selector_category_background
 drawable selector_category_bg
+drawable selector_item_background
 drawable test_level_drawable
 drawable tooltip_frame_dark
 drawable tooltip_frame_light
@@ -4199,6 +4207,9 @@ id enterAlwaysCollapsed
 id epg_next
 id epg_now
 id epg_progress
+id episode_number
+id episode_title
+id episodes_recycler_view
 id error_frame
 id error_text
 id error_view
@@ -4625,6 +4636,8 @@ id search_view_status_bar_spacer
 id search_view_toolbar
 id search_view_toolbar_container
 id search_voice_btn
+id season_name
+id seasons_recycler_view
 id secondary_controls_dock
 id seekbar
 id seekbar_value
@@ -4633,6 +4646,14 @@ id selected
 id selection_type
 id separate_time
 id separator
+id series_cast
+id series_director
+id series_genre
+id series_plot
+id series_poster
+id series_rating
+id series_release_date
+id series_title
 id server_url_input
 id settings_categories_list
 id settings_content_frame
@@ -4937,6 +4958,7 @@ layout activity_login
 layout activity_main
 layout activity_main_enhanced
 layout activity_playback
+layout activity_series_detail
 layout activity_settings
 layout activity_splash
 layout custom_dialog
@@ -4981,7 +5003,9 @@ layout fragment_settings_remote
 layout image_frame
 layout item_category
 layout item_channel_card
+layout item_episode
 layout item_playlist_setting
+layout item_season
 layout item_settings_category
 layout lb_action_1_line
 layout lb_action_2_lines

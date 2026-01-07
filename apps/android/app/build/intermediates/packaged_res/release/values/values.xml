@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="background_card">#1E1E1E</color>
+    <color name="background_dark">#0A0A0A</color>
     <color name="background_hover">#2A2A2A</color>
     <color name="background_primary">#0A0A0A</color>
     <color name="background_primary_light">#F5F5F5</color>

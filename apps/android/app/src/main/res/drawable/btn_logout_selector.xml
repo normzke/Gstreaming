@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Focused State -->
+    <item android:state_focused="true">
+        <shape android:shape="rectangle">
+            <solid android:color="#E6B22222" /> <!-- Brighter Red -->
+            <stroke android:width="2dp" android:color="#FFFFFF" /> <!-- White border -->
+            <corners android:radius="8dp" />
+        </shape>
+    </item>
+    
+    <!-- Pressed -->
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <solid android:color="#CC8B0000" />
+            <corners android:radius="8dp" />
+        </shape>
+    </item>
+    
+    <!-- Default State -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/bingetv_red" />
+            <corners android:radius="8dp" />
+        </shape>
+    </item>
+</selector>

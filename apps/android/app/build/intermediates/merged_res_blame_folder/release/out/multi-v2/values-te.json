@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.bingetv.app-mergeReleaseResources-58:/values-te/values-te.xml",
+            "outputFile": "com.bingetv.app-mergeReleaseResources-61:/values-te/values-te.xml",
             "map": [
                 {
                     "source": "/Users/la/.gradle/caches/transforms-3/8bfe5aac48b41eded70aeee5b40f3877/transformed/leanback-1.0.0/res/values-te/values-te.xml",

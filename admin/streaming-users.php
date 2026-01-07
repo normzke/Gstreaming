@@ -2,6 +2,8 @@
 require_once '../config/config.php';
 require_once '../config/database.php';
 require_once '../lib/functions.php';
+require_once '../lib/email.php';
+require_once '../lib/email_notifications.php';
 
 // Check admin authentication
 if (!isset($_SESSION['admin_id'])) {
@@ -20,36 +22,66 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['action'])) {
         switch ($_POST['action']) {
             case 'create_user':
-                $username = $_POST['username'];
-                $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-                $email = $_POST['email'];
+                $existing_user_id = $_POST['existing_user_id'] ?? '';
+
                 $subscription_tier = $_POST['subscription_tier'];
                 $device_limit = $_POST['device_limit'];
 
-                // TiviMate Credentials
+                // Xtream Codes / TiviMate Credentials
                 $tivimate_server = $_POST['tivimate_server'] ?? '';
                 $tivimate_username = $_POST['tivimate_username'] ?? '';
                 $tivimate_password = $_POST['tivimate_password'] ?? '';
                 $tivimate_expires_at = $_POST['tivimate_expires_at'] ?? null;
                 $tivimate_active = isset($_POST['tivimate_active']) ? 1 : 0;
 
-                // Generate unique streaming token
+                // Prepare Xtream Details & M3U URL
+                $xtreamDetails = null;
+                $generatedM3u = '';
+
+                if (!empty($tivimate_server) && !empty($tivimate_username) && !empty($tivimate_password)) {
+                    $server = rtrim($tivimate_server, '/');
+                    if (!preg_match("~^(?:f|ht)tps?://~i", $server)) {
+                        $server = "http://" . $server;
+                    }
+                    $generatedM3u = "{$server}/get.php?username={$tivimate_username}&password={$tivimate_password}&type=m3u_plus&output=ts";
+
+                    $xtreamDetails = [
+                        'server' => $server,
+                        'username' => $tivimate_username,
+                        'password' => $tivimate_password,
+                        'm3u_url' => $generatedM3u
+                    ];
+                }
+
+                // Use manual playlist URL if provided, otherwise generated, otherwise internal
+                if (!empty($_POST['playlist_url'])) {
+                    $playlist_url = $_POST['playlist_url'];
+                    if ($xtreamDetails) {
+                        $xtreamDetails['m3u_url'] = $playlist_url;
+                    }
+                } else {
+                    $playlist_url = !empty($generatedM3u) ? $generatedM3u : (SITE_URL . "/api/playlist.php?token=" . bin2hex(random_bytes(32)));
+                }
+
                 $streaming_token = bin2hex(random_bytes(32));
-                $playlist_url = SITE_URL . "/api/playlist.php?token=" . $streaming_token;
+                if (strpos($playlist_url, 'api/playlist.php') !== false) {
+                    $playlist_url = SITE_URL . "/api/playlist.php?token=" . $streaming_token;
+                }
 
-                $stmt = $conn->prepare("
-INSERT INTO users (username, password, email, subscription_tier, device_limit,
-streaming_token, playlist_url, is_active, created_at,
-tivimate_server, tivimate_username, tivimate_password,
-tivimate_expires_at, tivimate_active)
-VALUES (?, ?, ?, ?, ?, ?, ?, 1, NOW(), ?, ?, ?, ?, ?)
-");
+                if (!empty($existing_user_id)) {
+                    // Update existing user
+                    $phone = $_POST['phone'] ?? '';
 
-                if (
-                    $stmt->execute([
-                        $username,
-                        $password,
-                        $email,
+                    // Build Update Query
+                    $updateSql = "UPDATE users 
+                        SET subscription_tier = ?, device_limit = ?, 
+                            streaming_token = COALESCE(NULLIF(streaming_token, ''), ?), 
+                            playlist_url = COALESCE(NULLIF(playlist_url, ''), ?),
+                            is_active = TRUE,
+                            tivimate_server = ?, tivimate_username = ?, tivimate_password = ?, 
+                            tivimate_expires_at = ?, tivimate_active = ?";
+
+                    $params = [
                         $subscription_tier,
                         $device_limit,
                         $streaming_token,
@@ -59,13 +91,127 @@ VALUES (?, ?, ?, ?, ?, ?, ?, 1, NOW(), ?, ?, ?, ?, ?)
                         $tivimate_password,
                         $tivimate_expires_at,
                         $tivimate_active
-                    ])
-                ) {
-                    $message = "User created successfully! Streaming URL: " . $playlist_url;
-                    $messageType = 'success';
+                    ];
+
+                    if (!empty($phone)) {
+                        $updateSql .= ", phone = ?";
+                        $params[] = $phone;
+                    }
+
+                    $updateSql .= " WHERE id = ?";
+                    $params[] = $existing_user_id;
+
+                    $stmt = $conn->prepare($updateSql);
+
+                    if ($stmt->execute($params)) {
+                        // Fetch fresh details
+                        $uStmt = $conn->prepare("SELECT username, email, phone, playlist_url, first_name FROM users WHERE id = ?");
+                        $uStmt->execute([$existing_user_id]);
+                        $user = $uStmt->fetch();
+
+                        $finalUrl = $user['playlist_url'];
+                        $targetPhone = $user['phone']; // Use DB phone
+
+                        // Send Email
+                        if (function_exists('sendSubscriptionActivationEmail')) {
+                            sendSubscriptionActivationEmail(
+                                $user['email'],
+                                $user['first_name'] ?? $user['username'],
+                                $subscription_tier,
+                                date('Y-m-d', strtotime('+30 days')),
+                                $finalUrl,
+                                $user['username'],
+                                'Used existing password',
+                                $xtreamDetails
+                            );
+                        }
+
+                        $message = "User updated! Streaming URL: " . $finalUrl;
+                        $messageType = 'success';
+
+                        // Prepare WhatsApp Link
+                        if ($targetPhone) {
+                            $name = $user['first_name'] ?? $user['username'];
+                            if ($xtreamDetails) {
+                                $waMsg = "Hello $name, your BingeTV account is ready!\n\n*Xtream Codes Login:*\nDomain: {$xtreamDetails['server']}\nUser: {$xtreamDetails['username']}\nPass: {$xtreamDetails['password']}\n\n*M3U Link:*\n{$xtreamDetails['m3u_url']}\n\nEnjoy!";
+                            } else {
+                                $waMsg = "Hello $name, your BingeTV account is ready! \n\nStreaming URL: $finalUrl \n\nEnjoy!";
+                            }
+                            $whatsapp_link = "https://wa.me/" . preg_replace('/[^0-9]/', '', $targetPhone) . "?text=" . urlencode($waMsg);
+                        }
+                    } else {
+                        $message = "Error updating user";
+                        $messageType = 'error';
+                    }
+
                 } else {
-                    $message = "Error creating user";
-                    $messageType = 'error';
+                    // Create New User
+                    $username = $_POST['username'];
+                    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+                    $email = $_POST['email'];
+                    $phone = $_POST['phone'] ?? '';
+
+                    $stmt = $conn->prepare("
+                        INSERT INTO users (username, password, email, phone, subscription_tier, device_limit,
+                        streaming_token, playlist_url, is_active, created_at,
+                        tivimate_server, tivimate_username, tivimate_password,
+                        tivimate_expires_at, tivimate_active)
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, TRUE, NOW(), ?, ?, ?, ?, ?)
+                    ");
+
+                    if (
+                        $stmt->execute([
+                            $username,
+                            $password,
+                            $email,
+                            $phone,
+                            $subscription_tier,
+                            $device_limit,
+                            $streaming_token,
+                            $playlist_url,
+                            $tivimate_server,
+                            $tivimate_username,
+                            $tivimate_password,
+                            $tivimate_expires_at,
+                            $tivimate_active
+                        ])
+                    ) {
+                        // Send Email
+                        if (function_exists('sendSubscriptionActivationEmail')) {
+                            $emailResult = sendSubscriptionActivationEmail(
+                                $email,
+                                $username,
+                                $subscription_tier,
+                                date('Y-m-d', strtotime('+30 days')),
+                                $playlist_url,
+                                $username,
+                                $_POST['password'],
+                                $xtreamDetails
+                            );
+                            if (!$emailResult) {
+                                error_log("Failed to send streaming activation email to $email");
+                                $message .= " (Email failed to send)";
+                            }
+                        } else {
+                            error_log("sendSubscriptionActivationEmail function NOT found!");
+                            $message .= " (Email function missing)";
+                        }
+
+                        $message = "User created! Streaming URL: " . $playlist_url . ($xtreamDetails ? " (Xtream Codes Added)" : "");
+                        $messageType = 'success';
+
+                        if ($phone) {
+                            if ($xtreamDetails) {
+                                $waMsg = "Hello $username, your BingeTV account is ready!\n\n*Xtream Codes Login:*\nDomain: {$xtreamDetails['server']}\nUser: {$xtreamDetails['username']}\nPass: {$xtreamDetails['password']}\n\n*M3U Link:*\n{$xtreamDetails['m3u_url']}\n\nEnjoy!";
+                            } else {
+                                $waMsg = "Hello $username, your BingeTV account is ready! \n\nUsername: $username \nPassword: " . $_POST['password'] . "\nStreaming URL: " . $playlist_url . "\n\nEnjoy!";
+                            }
+                            $whatsapp_link = "https://wa.me/" . preg_replace('/[^0-9]/', '', $phone) . "?text=" . urlencode($waMsg);
+                        }
+                    } else {
+                        $message = "Error creating user";
+                        $messageType = 'error';
+                    }
                 }
                 break;
 
@@ -132,34 +278,20 @@ WHERE id = ?
                 break;
 
             case 'add_device':
-                $user_id = $_POST['user_id'];
-                $device_name = $_POST['device_name'];
-                $device_type = $_POST['device_type'];
-                $mac_address = $_POST['mac_address'];
-
-                $stmt = $conn->prepare("
-INSERT INTO user_devices (user_id, device_name, device_type, mac_address,
-last_active, is_active)
-VALUES (?, ?, ?, ?, NOW(), 1)
-");
-
-                if ($stmt->execute([$user_id, $device_name, $device_type, $mac_address])) {
-                    $message = "Device added successfully!";
-                    $messageType = 'success';
-                } else {
-                    $message = "Error adding device";
-                    $messageType = 'error';
-                }
+                // Device management temporarily disabled due to missing table
+                $message = "Device management is currently disabled.";
+                $messageType = 'warning';
                 break;
 
             case 'delete_user':
                 $user_id = $_POST['user_id'];
-                $stmt = $conn->prepare("DELETE FROM users WHERE id = ?");
+                // Instead of deleting the user, we revoke streaming access
+                $stmt = $conn->prepare("UPDATE users SET streaming_token = NULL, playlist_url = NULL, tivimate_server = NULL, tivimate_username = NULL, tivimate_password = NULL WHERE id = ?");
                 if ($stmt->execute([$user_id])) {
-                    $message = "User deleted successfully!";
+                    $message = "Streaming access revoked successfully!";
                     $messageType = 'success';
                 } else {
-                    $message = "Error deleting user";
+                    $message = "Error revoking access";
                     $messageType = 'error';
                 }
                 break;
@@ -174,16 +306,24 @@ $error_msg = '';
 try {
     $stmt = $conn->query("
 SELECT u.*,
-COUNT(DISTINCT ud.id) as device_count,
-MAX(ud.last_active) as last_device_active
+0 as device_count,
+NULL as last_device_active
 FROM users u
-LEFT JOIN user_devices ud ON u.id = ud.user_id AND ud.is_active = 1
-GROUP BY u.id
+WHERE u.streaming_token IS NOT NULL AND u.streaming_token != ''
 ORDER BY u.created_at DESC
 ");
     $users = $stmt->fetchAll();
 } catch (Exception $e) {
     $error_msg = "Database error: " . $e->getMessage();
+}
+
+// Get all users for dropdown
+$all_users = [];
+try {
+    $stmt = $conn->query("SELECT id, username, email FROM users ORDER BY username ASC");
+    $all_users = $stmt->fetchAll();
+} catch (Exception $e) {
+    // Silent error, empty list
 }
 
 // Get subscription tiers
@@ -200,22 +340,14 @@ $page_title = 'Streaming Users';
 include 'includes/header.php';
 ?>
 
-<div class="admin-main">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <div>
-            <h1 class="h3 mb-0">Streaming Users</h1>
-            <p class="text-muted mb-0">Manage user streaming access, tokens, and active devices</p>
-        </div>
-        <div>
-            <button class="btn btn-primary" data-modal="createUserModal">
-                <i class="fas fa-plus mr-2"></i> Add New User
-            </button>
-        </div>
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h2 class="h4 mb-1">Streaming Users</h2>
+        <p class="text-muted small mb-0">Manage user streaming access, tokens, and active devices</p>
     </div>
-</div>
-<button class="btn btn-primary" onclick="openModal('createUserModal')">
-    <i class="fas fa-plus"></i> Create New User
-</button>
+    <div>
+        <button class="btn btn-primary" onclick="addNewUser()"><i class="fas fa-plus mr-2"></i>Add User</button>
+    </div>
 </div>
 
 <style>
@@ -377,15 +509,6 @@ include 'includes/header.php';
     }
 </style>
 
-<div class="header-actions mb-4 d-flex justify-content-between align-items-center">
-    <div>
-        <h2 class="h4 mb-1">Streaming Users</h2>
-        <p class="text-muted small mb-0">Manage user accounts and streaming access</p>
-    </div>
-    <button class="btn btn-primary" onclick="openModal('createUserModal')">
-        <i class="fas fa-plus"></i> Create New User
-    </button>
-</div>
 
 <?php if ($message): ?>
     <div class="alert alert-<?php echo $messageType === 'success' ? 'success' : 'danger'; ?> alert-dismissible fade show">
@@ -393,6 +516,15 @@ include 'includes/header.php';
         <?php echo htmlspecialchars($message); ?>
         <button type="button" class="close" data-dismiss="alert">&times;</button>
     </div>
+
+    <?php if (!empty($whatsapp_link)): ?>
+        <div style="margin-bottom: 20px; text-align: center;">
+            <a href="<?php echo $whatsapp_link; ?>" target="_blank" class="btn btn-success"
+                style="background-color: #25D366; border-color: #25D366; color: white; display: inline-flex; align-items: center; gap: 8px;">
+                <i class="fab fa-whatsapp" style="font-size: 1.2em;"></i> Send Credentials via WhatsApp
+            </a>
+        </div>
+    <?php endif; ?>
 <?php endif; ?>
 
 <div class="stats-grid">
@@ -437,7 +569,7 @@ include 'includes/header.php';
                 </thead>
                 <tbody>
                     <?php foreach ($users as $user): ?>
-                        <tr>
+                        <tr data-user='<?php echo htmlspecialchars(json_encode($user), ENT_QUOTES, 'UTF-8'); ?>'>
                             <td>
                                 <div class="font-weight-bold"><?php echo htmlspecialchars($user['username']); ?></div>
                                 <small class="text-muted">ID: #<?php echo $user['id']; ?></small>
@@ -445,7 +577,8 @@ include 'includes/header.php';
                             <td>
                                 <div class="small"><?php echo htmlspecialchars($user['email']); ?></div>
                                 <div class="text-muted smallest">Joined:
-                                    <?php echo date('M d, Y', strtotime($user['created_at'])); ?></div>
+                                    <?php echo date('M d, Y', strtotime($user['created_at'])); ?>
+                                </div>
                             </td>
                             <td>
                                 <span class="badge badge-info">
@@ -454,7 +587,8 @@ include 'includes/header.php';
                             </td>
                             <td>
                                 <div class="small"><?php echo $user['device_count']; ?> /
-                                    <?php echo $user['device_limit'] ?? 1; ?></div>
+                                    <?php echo $user['device_limit'] ?? 1; ?>
+                                </div>
                                 <div class="progress progress-xs mt-1" style="height: 4px;">
                                     <div class="progress-bar bg-success"
                                         style="width: <?php echo (($user['device_count'] / ($user['device_limit'] ?: 1)) * 100); ?>%">
@@ -481,8 +615,7 @@ include 'includes/header.php';
                             </td>
                             <td>
                                 <div class="btn-group btn-group-sm">
-                                    <button class="btn btn-outline-primary" onclick="editUser(<?php echo $user['id']; ?>)"
-                                        title="Edit">
+                                    <button class="btn btn-sm btn-outline-primary" onclick="editUser(this)" title="Edit">
                                         <i class="fas fa-edit"></i>
                                     </button>
                                     <button class="btn btn-outline-success"
@@ -522,24 +655,46 @@ include 'includes/header.php';
         <form method="POST">
             <input type="hidden" name="action" value="create_user">
 
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label>Username</label>
-                        <input type="text" name="username" class="form-control" required>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label>Email</label>
-                        <input type="email" name="email" class="form-control" required>
-                    </div>
-                </div>
+            <div class="form-group">
+                <label>Link to Existing User (Optional)</label>
+                <select name="existing_user_id" id="existing_user_id" class="form-control"
+                    onchange="toggleUserFields(this.value)">
+                    <option value="">-- Create New User --</option>
+                    <?php foreach ($all_users as $u): ?>
+                        <option value="<?php echo $u['id']; ?>">
+                            <?php echo htmlspecialchars($u['username'] . ' (' . $u['email'] . ')'); ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+                <small class="text-muted">Select a user to enable streaming for them. Leave empty to create a new
+                    user.</small>
             </div>
 
-            <div class="form-group">
-                <label>Password</label>
-                <input type="password" name="password" class="form-control" required>
+            <div id="new_user_fields">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Username</label>
+                            <input type="text" name="username" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" name="email" class="form-control" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Phone Number (for WhatsApp)</label>
+                    <input type="text" name="phone" class="form-control" placeholder="+254...">
+                </div>
+
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" name="password" class="form-control" required>
+                </div>
             </div>
 
             <div class="row">
@@ -563,8 +718,9 @@ include 'includes/header.php';
             </div>
 
             <div class="mt-4 p-3 bg-light rounded border">
-                <h6 class="text-primary mb-3"><i class="fas fa-satellite-dish mr-2"></i>TiviMate Credentials (Optional)
-                </h6>
+                <h6 class="text-primary mb-3"><i class="fas fa-satellite-dish mr-2"></i>Xtream Codes API Details</h6>
+                <p class="small text-muted mb-3">Enter the external provider details (Domain/Username/Password) to
+                    auto-generate M3U links and include them in user notifications.</p>
                 <div class="form-group">
                     <label class="small">Server URL</label>
                     <input type="text" name="tivimate_server" class="form-control form-control-sm"
@@ -584,6 +740,11 @@ include 'includes/header.php';
                         </div>
                     </div>
                 </div>
+                <div class="form-group">
+                    <label class="small">M3U / SmartTV URL (Auto-generated or Manual)</label>
+                    <textarea name="playlist_url" class="form-control form-control-sm" rows="3"
+                        placeholder="http://server.com/get.php?username=..."></textarea>
+                </div>
                 <div class="checkbox-group">
                     <input type="checkbox" name="tivimate_active" id="tivimate_active" checked>
                     <label for="tivimate_active" class="small mb-0">Activate TiviMate profile</label>
@@ -598,6 +759,18 @@ include 'includes/header.php';
 </div>
 
 <script>
+    function toggleUserFields(val) {
+        const fields = document.getElementById('new_user_fields');
+        const inputs = fields.querySelectorAll('input');
+        if (val) {
+            fields.style.display = 'none';
+            inputs.forEach(i => i.removeAttribute('required'));
+        } else {
+            fields.style.display = 'block';
+            inputs.forEach(i => i.setAttribute('required', 'required'));
+        }
+    }
+
     function openModal(modalId) {
         document.getElementById(modalId).classList.add('active');
     }
@@ -617,7 +790,61 @@ include 'includes/header.php';
         });
     }
 
-    function editUser(userId) { alert('Edit functionality to be implemented for ID: ' + userId); }
+    function editUser(btn) {
+        const tr = btn.closest('tr');
+        if (!tr || !tr.dataset.user) {
+            console.error('No user data found');
+            return;
+        }
+
+        try {
+            const data = JSON.parse(tr.dataset.user);
+
+            // Populate form fields
+            const form = document.querySelector('#createUserModal form');
+            form.querySelector('input[name="username"]').value = data.username || '';
+            form.querySelector('input[name="password"]').value = ''; // Don't populate password
+            form.querySelector('input[name="email"]').value = data.email || '';
+            form.querySelector('input[name="phone"]').value = data.phone || '';
+            form.querySelector('select[name="subscription_tier"]').value = data.subscription_tier || 'basic';
+            form.querySelector('input[name="device_limit"]').value = data.device_limit || 1;
+
+            // Xtream Details
+            form.querySelector('input[name="tivimate_server"]').value = data.tivimate_server || '';
+            form.querySelector('input[name="tivimate_username"]').value = data.tivimate_username || '';
+            form.querySelector('input[name="tivimate_password"]').value = data.tivimate_password || '';
+            form.querySelector('textarea[name="playlist_url"]').value = data.playlist_url || '';
+            form.querySelector('input[name="tivimate_active"]').checked = (data.tivimate_active == 1);
+
+            // Set ID
+            document.getElementById('existing_user_id').value = data.id;
+            // Hide standard fields as we are editing existing user
+            toggleUserFields(data.id);
+
+            // UI Text
+            document.querySelector('#createUserModal h2').textContent = 'Edit Streaming User';
+            form.querySelector('button[type="submit"]').textContent = 'Update User';
+
+            openModal('createUserModal');
+
+        } catch (e) {
+            console.error('Error parsing user data', e);
+            alert('Error loading user data');
+        }
+    }
+
+    function addNewUser() {
+        const form = document.querySelector('#createUserModal form');
+        form.reset();
+        document.getElementById('existing_user_id').value = '';
+        document.querySelector('#createUserModal h2').textContent = 'Create New Streaming User';
+        form.querySelector('button[type="submit"]').textContent = 'Create User Account';
+        form.querySelector('textarea[name="playlist_url"]').value = '';
+        // Show standard fields for new user
+        toggleUserFields('');
+        openModal('createUserModal');
+    }
+
     function manageDevices(userId) { alert('Device management to be implemented for ID: ' + userId); }
 
     function regenerateToken(userId) {
@@ -645,6 +872,30 @@ include 'includes/header.php';
             event.target.classList.remove('active');
         }
     };
+
+    // Auto-generate M3U URL
+    const inputs = ['tivimate_server', 'tivimate_username', 'tivimate_password'];
+    inputs.forEach(name => {
+        const el = document.querySelector(`input[name="${name}"]`);
+        if (el) {
+            el.addEventListener('input', updateM3uUrl);
+        }
+    });
+
+    function updateM3uUrl() {
+        const server = document.querySelector('input[name="tivimate_server"]').value.trim().replace(/\/$/, '');
+        const user = document.querySelector('input[name="tivimate_username"]').value.trim();
+        const pass = document.querySelector('input[name="tivimate_password"]').value.trim();
+        const m3uField = document.querySelector('textarea[name="playlist_url"]');
+
+        if (server && user && pass) {
+            let cleanServer = server;
+            if (!/^https?:\/\//i.test(cleanServer)) {
+                cleanServer = 'http://' + cleanServer;
+            }
+            m3uField.value = `${cleanServer}/get.php?username=${user}&password=${pass}&type=m3u_plus&output=ts`;
+        }
+    }
 </script>
 
 </div><!-- /.admin-main -->

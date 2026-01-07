@@ -102,10 +102,11 @@ $tivimateCredentials = $tivimateStmt->fetch();
                         <a href="/apps/android/bingetv-android-tv.apk" class="btn btn-primary" style="text-align: center;">
                             <i class="fab fa-android"></i> Android TV
                         </a>
-                        <a href="/apps/tizen/bingetv-tizen.wgt" class="btn btn-primary" style="text-align: center;">
+                        <a href="/apps/tizen/com.bingetv.app-1.0.0.tpk" class="btn btn-primary" style="text-align: center;">
                             <i class="fas fa-tv"></i> Samsung TV
                         </a>
-                        <a href="/apps/webos/bingetv-webos.ipk" class="btn btn-primary" style="text-align: center;">
+                        <a href="/apps/webos/com.bingetv.app_1.0.0_all.ipk" class="btn btn-primary"
+                            style="text-align: center;">
                             <i class="fas fa-tv"></i> LG TV
                         </a>
                     </div>
@@ -129,7 +130,8 @@ $tivimateCredentials = $tivimateStmt->fetch();
                     style="margin-top: 1.5rem; padding: 1rem; background: rgba(139, 0, 0, 0.05); border-radius: var(--user-radius);">
                     <p style="margin: 0; color: var(--user-text-light); font-size: 0.875rem;">
                         <i class="fas fa-lightbulb"></i>
-                        <strong>Tip:</strong> Use the copy buttons to easily paste credentials into the app
+                        <strong>Tip:</strong> These credentials work with both the <strong>BingeTV Native App</strong> and
+                        <strong>TiviMate</strong> (Premium Alternative).
                     </p>
                 </div>
             </div>

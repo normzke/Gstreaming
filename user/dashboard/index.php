@@ -75,8 +75,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $packageId = $_POST['package_id'] ?? '';
 
         if ($packageId) {
-            // Redirect to subscription page with package pre-selected
-            header('Location: ../subscriptions/subscribe.php?package=' . $packageId);
+            // Redirect to subscription page with package pre-selected and upgrade action
+            header('Location: /user/subscriptions/subscribe?package=' . $packageId . '&action=upgrade');
             exit();
         } else {
             $message = 'Invalid package ID.';
@@ -150,15 +150,53 @@ include '../includes/header.php';
                 </div>
             </div>
 
+            <?php
+            // Calculate days remaining
+            $daysRemaining = 0;
+            $isExpiringSoon = false;
+            if ($subscription['status'] === 'active') {
+                $endDate = new DateTime($subscription['end_date']);
+                $now = new DateTime();
+                $interval = $now->diff($endDate);
+                $daysRemaining = $interval->days;
+                $isExpiringSoon = $daysRemaining <= 7;
+            }
+            ?>
+
+            <?php if ($isExpiringSoon && $subscription['status'] === 'active'): ?>
+                <div
+                    style="background: #FEF3C7; border-left: 4px solid #F59E0B; padding: 1rem; border-radius: var(--user-radius); margin-top: 1rem;">
+                    <p style="margin: 0; color: #92400E; font-weight: 600;">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        Your subscription expires in <?php echo $daysRemaining; ?>
+                        day<?php echo $daysRemaining != 1 ? 's' : ''; ?>!
+                    </p>
+                </div>
+            <?php endif; ?>
+
             <?php if ($subscription['status'] === 'active'): ?>
-                <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
-                    <a href="../subscriptions/subscribe" class="btn btn-primary">
+                <div style="display: flex; gap: 1rem; margin-top: 1.5rem; flex-wrap: wrap;">
+                    <a href="/user/subscriptions/subscribe?package=<?php echo $subscription['package_id']; ?>&action=renew"
+                        class="btn btn-primary">
                         <i class="fas fa-sync"></i>
                         Renew Subscription
                     </a>
-                    <a href="../channels" class="btn btn-secondary">
+                    <a href="/user/channels" class="btn btn-secondary">
                         <i class="fas fa-tv"></i>
                         Start Streaming
+                    </a>
+                </div>
+            <?php elseif ($subscription['status'] === 'expired'): ?>
+                <div
+                    style="background: #FEE2E2; border-left: 4px solid #DC2626; padding: 1rem; border-radius: var(--user-radius); margin-top: 1rem;">
+                    <p style="margin: 0 0 1rem 0; color: #991B1B; font-weight: 600;">
+                        <i class="fas fa-times-circle"></i>
+                        Your subscription has expired!
+                    </p>
+                    <a href="/user/subscriptions/subscribe?package=<?php echo $subscription['package_id']; ?>&action=renew"
+                        class="btn btn-primary">
+                        <i class="fas fa-redo"></i>
+                        Renew Now
                     </a>
                 </div>
             <?php endif; ?>
@@ -167,7 +205,7 @@ include '../includes/header.php';
                 <h3 style="color: var(--user-text); margin-bottom: 1rem;">No Active Subscription</h3>
                 <p style="color: var(--user-text-light); margin-bottom: 1.5rem;">Subscribe to a package to start streaming
                     premium content</p>
-                <a href="../subscriptions/subscribe" class="btn btn-primary">
+                <a href="/user/subscriptions#packages" class="btn btn-primary">
                     <i class="fas fa-plus"></i>
                     Choose Package
                 </a>

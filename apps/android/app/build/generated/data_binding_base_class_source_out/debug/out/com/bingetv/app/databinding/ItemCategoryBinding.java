@@ -4,6 +4,7 @@ package com.bingetv.app.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -20,10 +21,15 @@ public final class ItemCategoryBinding implements ViewBinding {
   private final LinearLayout rootView;
 
   @NonNull
+  public final ImageView categoryIcon;
+
+  @NonNull
   public final TextView categoryName;
 
-  private ItemCategoryBinding(@NonNull LinearLayout rootView, @NonNull TextView categoryName) {
+  private ItemCategoryBinding(@NonNull LinearLayout rootView, @NonNull ImageView categoryIcon,
+      @NonNull TextView categoryName) {
     this.rootView = rootView;
+    this.categoryIcon = categoryIcon;
     this.categoryName = categoryName;
   }
 
@@ -54,13 +60,19 @@ public final class ItemCategoryBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
+      id = R.id.category_icon;
+      ImageView categoryIcon = ViewBindings.findChildViewById(rootView, id);
+      if (categoryIcon == null) {
+        break missingId;
+      }
+
       id = R.id.category_name;
       TextView categoryName = ViewBindings.findChildViewById(rootView, id);
       if (categoryName == null) {
         break missingId;
       }
 
-      return new ItemCategoryBinding((LinearLayout) rootView, categoryName);
+      return new ItemCategoryBinding((LinearLayout) rootView, categoryIcon, categoryName);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

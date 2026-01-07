@@ -26,9 +26,10 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Add Playlist"
-            android:background="@color/bingetv_red"
+            android:background="@drawable/btn_logout_selector"
             android:textColor="@color/text_primary"
-            android:layout_marginEnd="8dp" />
+            android:layout_marginEnd="8dp"
+            android:focusable="true" />
 
         <Button
             android:id="@+id/btn_update_playlists"
@@ -36,9 +37,10 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Update All"
-            android:background="@color/background_card"
+            android:background="@drawable/bg_settings_item_selector"
             android:textColor="@color/text_primary"
-            android:layout_marginStart="8dp" />
+            android:layout_marginStart="8dp"
+            android:focusable="true" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView

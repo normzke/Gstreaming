@@ -70,6 +70,12 @@ class PreferencesManager(context: Context) {
     
     fun getActivePlaylistId(): Long = normalPrefs.getLong(KEY_ACTIVE_PLAYLIST, -1)
     
+    fun setLastLoadedPlaylistId(id: Long) {
+        normalPrefs.edit().putLong(KEY_LAST_LOADED_PLAYLIST, id).apply()
+    }
+    
+    fun getLastLoadedPlaylistId(): Long = normalPrefs.getLong(KEY_LAST_LOADED_PLAYLIST, -1)
+    
     // Grid settings
     fun setGridColumns(columns: Int) {
         normalPrefs.edit().putInt(KEY_GRID_COLUMNS, columns).apply()
@@ -168,6 +174,7 @@ class PreferencesManager(context: Context) {
         private const val KEY_AUTO_LOGIN = "auto_login"
         private const val KEY_FIRST_LAUNCH = "first_launch"
         private const val KEY_ACTIVE_PLAYLIST = "active_playlist"
+        private const val KEY_LAST_LOADED_PLAYLIST = "last_loaded_playlist"
         private const val KEY_GRID_COLUMNS = "grid_columns"
         private const val KEY_LOGO_SIZE = "logo_size"
         private const val KEY_PARENTAL_CONTROL = "parental_control"

@@ -1,0 +1,58 @@
+📺 *Welcome to BingeTV! Quick Start Guide* 🚀
+
+Here is everything you need to get started with the best streaming experience.
+
+*⚠️ IMPORTANT: Please choose the correct instructions for your device!*
+
+---
+
+1️⃣ *STEP 1: Registration* 📝
+1. Go to: https://bingetv.co.ke/register
+2. Create your account.
+3. *Check your Email* for a verification link.
+   *(👉 If you don't see it, please check your SPAM/JUNK folder and mark it as "Not Spam" to receive your login details).*
+
+---
+
+2️⃣ *STEP 2: Watch on Laptop / Computer* 💻
+*❌ DO NOT install the TV app on your laptop.*
+*✅ Use the Web Player instead:*
+
+1. Open your browser (Chrome/Edge/Safari).
+2. Go to: https://bingetv.co.ke/player.php
+3. Login with your BingeTV username and password.
+4. Start watching!
+
+---
+
+3️⃣ *STEP 3: Watch on Android TV / FireStick* 🤖
+*Recommended for: Sony, TCL, Hisense, Philips, Mi Box, Amazon FireStick*
+
+1. Open the *Downloader App* (or Chrome) on your TV.
+2. Enter this direct download link:
+   👉 `https://bingetv.co.ke/apps/android/bingetv-android-tv.apk`
+3. Download and Install.
+4. Open **BingeTV** app and Login.
+
+---
+
+4️⃣ *STEP 4: Watch on Samsung or LG Smart TVs* 📺
+*Note: These TVs are stricter. If this is too difficult, we recommend getting an inexpensive FireStick or Android Box (Step 3).*
+
+*For LG TV (WebOS):*
+1. Download this file to a USB stick: 
+   `https://bingetv.co.ke/apps/webos/com.bingetv.app_1.0.0_all.ipk`
+2. Enable *Developer Mode* on your TV.
+3. Insert USB and install via File Manager.
+
+*For Samsung TV (Tizen):*
+1. Download this file to a USB stick:
+   `https://bingetv.co.ke/apps/tizen/com.bingetv.app-1.0.0.tpk`
+2. Enable *Developer Mode* on your TV.
+3. Insert USB and install.
+
+---
+
+*Need Help?* 🆘
+Reply to this chat or visit: https://bingetv.co.ke/user/support
+Enjoy BingeTV! 🍿

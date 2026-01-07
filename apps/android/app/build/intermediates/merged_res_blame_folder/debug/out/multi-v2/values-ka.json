@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.bingetv.app-mergeDebugResources-58:/values-ka/values-ka.xml",
+            "outputFile": "com.bingetv.app-mergeDebugResources-61:/values-ka/values-ka.xml",
             "map": [
                 {
                     "source": "/Users/la/.gradle/caches/transforms-3/80fa21a0a84ffa3b357c43b0819bbd08/transformed/preference-1.2.0/res/values-ka/values-ka.xml",

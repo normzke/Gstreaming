@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="background_card">#1E1E1E</color>
+    <color name="background_dark">#0A0A0A</color>
     <color name="background_hover">#2A2A2A</color>
     <color name="background_primary">#0A0A0A</color>
     <color name="background_primary_light">#F5F5F5</color>
@@ -52,6 +53,7 @@
     <dimen name="movie_card_width">200dp</dimen>
     <dimen name="series_card_height">300dp</dimen>
     <dimen name="series_card_width">200dp</dimen>
+    <item name="tag_animator" type="id"/>
     <string name="about">About</string>
     <string name="account">Account</string>
     <string name="add_playlist">Add Your Playlist</string>

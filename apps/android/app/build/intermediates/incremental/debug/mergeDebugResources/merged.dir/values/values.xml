@@ -718,14 +718,18 @@
     <color name="androidx_core_ripple_material_light">#1f000000</color>
     <color name="androidx_core_secondary_text_default_material_light">#8a000000</color>
     <color name="background_card">#1E1E1E</color>
+    <color name="background_dark">#0A0A0A</color>
     <color name="background_floating_material_dark">@color/material_grey_800</color>
     <color name="background_floating_material_light">@android:color/white</color>
     <color name="background_hover">#2A2A2A</color>
     <color name="background_material_dark">@color/material_grey_850</color>
     <color name="background_material_light">@color/material_grey_50</color>
     <color name="background_primary">#0A0A0A</color>
+    <color name="background_primary_light">#F5F5F5</color>
     <color name="background_secondary">#1A1A1A</color>
+    <color name="background_secondary_light">#FFFFFF</color>
     <color name="background_selected">#3A0000</color>
+    <color name="background_sidebar">#141414</color>
     <color name="bingetv_accent">#A52A2A</color>
     <color name="bingetv_dark_red">#660000</color>
     <color name="bingetv_light_red">#B22222</color>
@@ -1129,7 +1133,9 @@
     <color name="text_disabled">#555555</color>
     <color name="text_muted">#888888</color>
     <color name="text_primary">#FFFFFF</color>
+    <color name="text_primary_light">#000000</color>
     <color name="text_secondary">#CCCCCC</color>
+    <color name="text_secondary_light">#333333</color>
     <color name="tooltip_background_dark">#e6616161</color>
     <color name="tooltip_background_light">#e6FFFFFF</color>
     <color name="transparent">#00000000</color>
@@ -1216,9 +1222,18 @@
     <dimen name="abc_text_size_title_material">20sp</dimen>
     <dimen name="abc_text_size_title_material_toolbar">20dp</dimen>
     <dimen name="appcompat_dialog_background_inset">16dp</dimen>
+    <dimen name="card_focus_border_width">3dp</dimen>
     <dimen name="cardview_compat_inset_shadow">1dp</dimen>
     <dimen name="cardview_default_elevation">2dp</dimen>
     <dimen name="cardview_default_radius">2dp</dimen>
+    <dimen name="channel_card_elevation">4dp</dimen>
+    <dimen name="channel_card_height">200dp</dimen>
+    <dimen name="channel_card_margin">8dp</dimen>
+    <dimen name="channel_card_padding">12dp</dimen>
+    <dimen name="channel_card_radius">8dp</dimen>
+    <dimen name="channel_card_width">180dp</dimen>
+    <dimen name="channel_logo_size">80dp</dimen>
+    <dimen name="channel_name_size">16sp</dimen>
     <dimen name="clock_face_margin_start">64dp</dimen>
     <dimen name="compat_button_inset_horizontal_material">4dp</dimen>
     <dimen name="compat_button_inset_vertical_material">6dp</dimen>
@@ -1278,6 +1293,8 @@
     <dimen name="design_textinput_caption_translate_y">5dp</dimen>
     <item format="float" name="disabled_alpha_material_dark" type="dimen">0.30</item>
     <item format="float" name="disabled_alpha_material_light" type="dimen">0.26</item>
+    <dimen name="epg_next_size">12sp</dimen>
+    <dimen name="epg_now_size">14sp</dimen>
     <dimen name="exo_error_message_height">32dp</dimen>
     <dimen name="exo_error_message_margin_bottom">64dp</dimen>
     <dimen name="exo_error_message_text_padding_horizontal">12dp</dimen>
@@ -1316,6 +1333,7 @@
     <dimen name="fastscroll_default_thickness">8dp</dimen>
     <dimen name="fastscroll_margin">0dp</dimen>
     <dimen name="fastscroll_minimum_range">50dp</dimen>
+    <dimen name="grid_spacing">16dp</dimen>
     <item format="float" name="highlight_alpha_material_colored" type="dimen">0.26</item>
     <item format="float" name="highlight_alpha_material_dark" type="dimen">0.20</item>
     <item format="float" name="highlight_alpha_material_light" type="dimen">0.12</item>
@@ -1985,6 +2003,9 @@
     <dimen name="material_time_picker_minimum_screen_height">560dp</dimen>
     <dimen name="material_time_picker_minimum_screen_width">340dp</dimen>
     <dimen name="material_timepicker_dialog_buttons_margin_top">24dp</dimen>
+    <dimen name="metadata_size">12sp</dimen>
+    <dimen name="movie_card_height">280dp</dimen>
+    <dimen name="movie_card_width">200dp</dimen>
     <dimen name="mtrl_alert_dialog_background_inset_bottom">80dp</dimen>
     <dimen name="mtrl_alert_dialog_background_inset_end">24dp</dimen>
     <dimen name="mtrl_alert_dialog_background_inset_start">24dp</dimen>
@@ -2207,6 +2228,8 @@
     <dimen name="preference_seekbar_value_minWidth">36dp</dimen>
     <dimen name="preferences_detail_width">300dp</dimen>
     <dimen name="preferences_header_width">384dp</dimen>
+    <dimen name="series_card_height">300dp</dimen>
+    <dimen name="series_card_width">200dp</dimen>
     <dimen name="tooltip_corner_radius">2dp</dimen>
     <dimen name="tooltip_horizontal_padding">16dp</dimen>
     <dimen name="tooltip_margin">8dp</dimen>
@@ -2421,6 +2444,7 @@
     <item name="tag_accessibility_clickable_spans" type="id"/>
     <item name="tag_accessibility_heading" type="id"/>
     <item name="tag_accessibility_pane_title" type="id"/>
+    <item name="tag_animator" type="id"/>
     <item name="tag_on_apply_window_listener" type="id"/>
     <item name="tag_on_receive_content_listener" type="id"/>
     <item name="tag_on_receive_content_mime_types" type="id"/>
@@ -7584,6 +7608,14 @@
     <style name="Theme.AppCompat.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+    </style>
+    <style name="Theme.BingeTV.Light" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@color/background_primary</item>
+        <item name="android:colorPrimary">@color/bingetv_red</item>
+        <item name="android:colorPrimaryDark">@color/bingetv_dark_red</item>
+        <item name="colorAccent">@color/bingetv_accent</item>
+        <item name="android:textColorPrimary">@color/text_primary</item>
+        <item name="android:textColorSecondary">@color/text_secondary</item>
     </style>
     <style name="Theme.Design" parent="Theme.AppCompat">
   </style>

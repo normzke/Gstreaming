@@ -88,7 +88,8 @@ include 'includes/header.php';
                 </div>
                 <div class="faq-answer">
                     <p>To subscribe to a package, go to the Packages page, select your desired package, and follow the
-                        payment process. You can pay using M-PESA or other available payment methods.</p>
+                        payment process. You can pay securely using <strong>M-PESA</strong> or <strong>Card (Visa,
+                            Mastercard, Apple Pay)</strong>.</p>
                 </div>
             </div>
 
@@ -98,8 +99,9 @@ include 'includes/header.php';
                     <i class="fas fa-chevron-down"></i>
                 </div>
                 <div class="faq-answer">
-                    <p>Once you have an active subscription, go to the Channels page and click on any channel to start
-                        watching. You can watch on multiple devices based on your package limits.</p>
+                    <p>Once you have an active subscription, download the <strong>BingeTV Native App</strong> for your
+                        Android TV, Samsung Tizen, or LG WebOS from our <a href="/apps">apps page</a>. Alternatively,
+                        you can use <strong>TiviMate</strong> on Firestick and other devices.</p>
                 </div>
             </div>
 

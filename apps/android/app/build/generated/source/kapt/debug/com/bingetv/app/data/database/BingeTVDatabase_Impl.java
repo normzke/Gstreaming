@@ -42,9 +42,11 @@ public final class BingeTVDatabase_Impl extends BingeTVDatabase {
 
   private volatile UserPreferencesDao _userPreferencesDao;
 
+  private volatile WatchHistoryDao _watchHistoryDao;
+
   @Override
   protected SupportSQLiteOpenHelper createOpenHelper(DatabaseConfiguration configuration) {
-    final SupportSQLiteOpenHelper.Callback _openCallback = new RoomOpenHelper(configuration, new RoomOpenHelper.Delegate(1) {
+    final SupportSQLiteOpenHelper.Callback _openCallback = new RoomOpenHelper(configuration, new RoomOpenHelper.Delegate(2) {
       @Override
       public void createAllTables(SupportSQLiteDatabase _db) {
         _db.execSQL("CREATE TABLE IF NOT EXISTS `channels` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `streamId` TEXT NOT NULL, `name` TEXT NOT NULL, `streamUrl` TEXT NOT NULL, `logoUrl` TEXT, `category` TEXT, `categoryId` TEXT, `tvgId` TEXT, `tvgName` TEXT, `tvgLogo` TEXT, `tvgChno` TEXT, `epgChannelId` TEXT, `isFavorite` INTEGER NOT NULL, `isLocked` INTEGER NOT NULL, `sortOrder` INTEGER NOT NULL, `addedAt` INTEGER NOT NULL)");
@@ -52,8 +54,9 @@ public final class BingeTVDatabase_Impl extends BingeTVDatabase {
         _db.execSQL("CREATE TABLE IF NOT EXISTS `epg_programs` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `channelId` TEXT NOT NULL, `title` TEXT NOT NULL, `description` TEXT, `startTime` INTEGER NOT NULL, `endTime` INTEGER NOT NULL, `category` TEXT, `icon` TEXT, `rating` TEXT)");
         _db.execSQL("CREATE TABLE IF NOT EXISTS `playlists` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `type` TEXT NOT NULL, `serverUrl` TEXT, `username` TEXT, `password` TEXT, `m3uUrl` TEXT, `isActive` INTEGER NOT NULL, `lastSync` INTEGER NOT NULL, `createdAt` INTEGER NOT NULL)");
         _db.execSQL("CREATE TABLE IF NOT EXISTS `user_preferences` (`id` INTEGER NOT NULL, `gridColumns` INTEGER NOT NULL, `logoSize` TEXT NOT NULL, `showChannelNumbers` INTEGER NOT NULL, `showNowPlaying` INTEGER NOT NULL, `parentalControlEnabled` INTEGER NOT NULL, `parentalControlPin` TEXT, `defaultQuality` TEXT NOT NULL, `autoPlayNext` INTEGER NOT NULL, `theme` TEXT NOT NULL, PRIMARY KEY(`id`))");
+        _db.execSQL("CREATE TABLE IF NOT EXISTS `watch_history` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `streamId` TEXT NOT NULL, `watchedAt` INTEGER NOT NULL)");
         _db.execSQL("CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)");
-        _db.execSQL("INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '4ac8435d3f54f2ee74b5547b8c6f13a4')");
+        _db.execSQL("INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'c59ba537f1a91c1ac00f7305178cbc8e')");
       }
 
       @Override
@@ -63,6 +66,7 @@ public final class BingeTVDatabase_Impl extends BingeTVDatabase {
         _db.execSQL("DROP TABLE IF EXISTS `epg_programs`");
         _db.execSQL("DROP TABLE IF EXISTS `playlists`");
         _db.execSQL("DROP TABLE IF EXISTS `user_preferences`");
+        _db.execSQL("DROP TABLE IF EXISTS `watch_history`");
         if (mCallbacks != null) {
           for (int _i = 0, _size = mCallbacks.size(); _i < _size; _i++) {
             mCallbacks.get(_i).onDestructiveMigration(_db);
@@ -201,9 +205,22 @@ public final class BingeTVDatabase_Impl extends BingeTVDatabase {
                   + " Expected:\n" + _infoUserPreferences + "\n"
                   + " Found:\n" + _existingUserPreferences);
         }
+        final HashMap<String, TableInfo.Column> _columnsWatchHistory = new HashMap<String, TableInfo.Column>(3);
+        _columnsWatchHistory.put("id", new TableInfo.Column("id", "INTEGER", true, 1, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsWatchHistory.put("streamId", new TableInfo.Column("streamId", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsWatchHistory.put("watchedAt", new TableInfo.Column("watchedAt", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        final HashSet<TableInfo.ForeignKey> _foreignKeysWatchHistory = new HashSet<TableInfo.ForeignKey>(0);
+        final HashSet<TableInfo.Index> _indicesWatchHistory = new HashSet<TableInfo.Index>(0);
+        final TableInfo _infoWatchHistory = new TableInfo("watch_history", _columnsWatchHistory, _foreignKeysWatchHistory, _indicesWatchHistory);
+        final TableInfo _existingWatchHistory = TableInfo.read(_db, "watch_history");
+        if (! _infoWatchHistory.equals(_existingWatchHistory)) {
+          return new RoomOpenHelper.ValidationResult(false, "watch_history(com.bingetv.app.data.database.WatchHistoryEntity).\n"
+                  + " Expected:\n" + _infoWatchHistory + "\n"
+                  + " Found:\n" + _existingWatchHistory);
+        }
         return new RoomOpenHelper.ValidationResult(true, null);
       }
-    }, "4ac8435d3f54f2ee74b5547b8c6f13a4", "e0c4ece047cea7e45d7eb364c617b356");
+    }, "c59ba537f1a91c1ac00f7305178cbc8e", "ffee789f431913073e65a3a306c1935a");
     final SupportSQLiteOpenHelper.Configuration _sqliteConfig = SupportSQLiteOpenHelper.Configuration.builder(configuration.context)
         .name(configuration.name)
         .callback(_openCallback)
@@ -216,7 +233,7 @@ public final class BingeTVDatabase_Impl extends BingeTVDatabase {
   protected InvalidationTracker createInvalidationTracker() {
     final HashMap<String, String> _shadowTablesMap = new HashMap<String, String>(0);
     HashMap<String, Set<String>> _viewTables = new HashMap<String, Set<String>>(0);
-    return new InvalidationTracker(this, _shadowTablesMap, _viewTables, "channels","categories","epg_programs","playlists","user_preferences");
+    return new InvalidationTracker(this, _shadowTablesMap, _viewTables, "channels","categories","epg_programs","playlists","user_preferences","watch_history");
   }
 
   @Override
@@ -230,6 +247,7 @@ public final class BingeTVDatabase_Impl extends BingeTVDatabase {
       _db.execSQL("DELETE FROM `epg_programs`");
       _db.execSQL("DELETE FROM `playlists`");
       _db.execSQL("DELETE FROM `user_preferences`");
+      _db.execSQL("DELETE FROM `watch_history`");
       super.setTransactionSuccessful();
     } finally {
       super.endTransaction();
@@ -248,6 +266,7 @@ public final class BingeTVDatabase_Impl extends BingeTVDatabase {
     _typeConvertersMap.put(EpgDao.class, EpgDao_Impl.getRequiredConverters());
     _typeConvertersMap.put(PlaylistDao.class, PlaylistDao_Impl.getRequiredConverters());
     _typeConvertersMap.put(UserPreferencesDao.class, UserPreferencesDao_Impl.getRequiredConverters());
+    _typeConvertersMap.put(WatchHistoryDao.class, WatchHistoryDao_Impl.getRequiredConverters());
     return _typeConvertersMap;
   }
 
@@ -329,6 +348,20 @@ public final class BingeTVDatabase_Impl extends BingeTVDatabase {
           _userPreferencesDao = new UserPreferencesDao_Impl(this);
         }
         return _userPreferencesDao;
+      }
+    }
+  }
+
+  @Override
+  public WatchHistoryDao watchHistoryDao() {
+    if (_watchHistoryDao != null) {
+      return _watchHistoryDao;
+    } else {
+      synchronized(this) {
+        if(_watchHistoryDao == null) {
+          _watchHistoryDao = new WatchHistoryDao_Impl(this);
+        }
+        return _watchHistoryDao;
       }
     }
   }

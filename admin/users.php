@@ -221,7 +221,6 @@ include 'includes/header.php';
                         </td>
                         <td><?php echo date('M j, Y', strtotime($user['created_at'])); ?></td>
                         <td>
-                        <td>
                             <button class="btn btn-secondary" onclick="viewUser(this)" data-id="<?php echo $user['id']; ?>"
                                 data-name="<?php echo htmlspecialchars($user['first_name'] . ' ' . $user['last_name']); ?>"
                                 data-email="<?php echo htmlspecialchars($user['email']); ?>"
@@ -240,7 +239,6 @@ include 'includes/header.php';
                                 <i class="fas fa-trash"></i>
                             </button>
                         </td>
-                        </td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
@@ -250,7 +248,7 @@ include 'includes/header.php';
 </div>
 
 <!-- View User Modal -->
-<div id="viewUserModal" class="modal" style="display: none;">
+<div id="viewUserModal" class="modal">
     <div class="modal-content">
         <div class="modal-header">
             <h3>User Details</h3>
@@ -416,9 +414,13 @@ include 'includes/header.php';
         height: 100%;
         background: rgba(0, 0, 0, 0.5);
         z-index: 9999;
-        display: flex;
+        display: none;
         align-items: center;
         justify-content: center;
+    }
+
+    .modal.active {
+        display: flex;
     }
 
     .modal-content {
@@ -479,11 +481,11 @@ include 'includes/header.php';
         document.getElementById('view_subs').textContent = dataset.subs + ' active subscriptions';
         document.getElementById('view_joined').textContent = dataset.joined;
 
-        document.getElementById('viewUserModal').style.display = 'flex';
+        document.getElementById('viewUserModal').classList.add('active');
     }
 
     function closeModal() {
-        document.getElementById('viewUserModal').style.display = 'none';
+        document.getElementById('viewUserModal').classList.remove('active');
     }
 
     function resetPassword(id) {

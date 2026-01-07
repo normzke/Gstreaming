@@ -17,20 +17,19 @@ $packages = $packagesStmt->fetchAll();
 
 // Handle package selection
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $packageId = (int)($_POST['package_id'] ?? 0);
-    
+    $packageId = (int) ($_POST['package_id'] ?? 0);
+
     if ($packageId) {
-        // Store selected package in session
-        session_start();
+        // Store selected package in session (session already started in config.php)
         $_SESSION['selected_package'] = $packageId;
-        
+
         // Check if user is logged in
         if (isLoggedIn()) {
-            // Redirect to subscription page
-            header('Location: subscriptions/subscribe.php');
+            // Redirect to subscription page with package parameter
+            header('Location: /user/subscriptions/subscribe?package=' . $packageId . '&devices=1');
         } else {
             // Redirect to registration with package info
-            header('Location: register.php?package=' . $packageId);
+            header('Location: /register?package=' . $packageId);
         }
         exit();
     }
@@ -42,84 +41,87 @@ $og_tags = SEO::getOpenGraphTags('packages');
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <!-- SEO Meta Tags -->
     <title><?php echo htmlspecialchars($seo_meta['title']); ?></title>
     <meta name="description" content="<?php echo htmlspecialchars($seo_meta['description']); ?>">
     <meta name="keywords" content="<?php echo htmlspecialchars($seo_meta['keywords']); ?>">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="<?php echo SEO::getCanonicalUrl('packages'); ?>">
-    
+
     <!-- Open Graph Tags -->
     <meta property="og:title" content="<?php echo htmlspecialchars($og_tags['og:title']); ?>">
     <meta property="og:description" content="<?php echo htmlspecialchars($og_tags['og:description']); ?>">
     <meta property="og:url" content="<?php echo htmlspecialchars($og_tags['og:url']); ?>">
     <meta property="og:type" content="<?php echo htmlspecialchars($og_tags['og:type']); ?>">
     <meta property="og:image" content="<?php echo htmlspecialchars($og_tags['og:image']); ?>">
-    
+
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
     <!-- CSS -->
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/components.css">
-    
+
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <style>
         .packages-page {
             background: var(--background-color);
             min-height: 100vh;
             padding: 40px 0;
         }
-        
+
         .packages-header {
             text-align: center;
             margin-bottom: 50px;
         }
-        
+
         .packages-header h1 {
             color: var(--primary-color);
             margin-bottom: 20px;
             font-family: 'Orbitron', sans-serif;
         }
-        
+
         .packages-header p {
             color: var(--text-color-secondary);
             font-size: 1.2rem;
         }
-        
+
         .packages-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
             margin-bottom: 40px;
         }
-        
+
         .package-card {
             background: white;
             border-radius: 15px;
             padding: 30px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             position: relative;
             text-align: center;
         }
-        
+
         .package-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
         }
-        
+
         .package-card.popular {
             border: 3px solid var(--primary-color);
             transform: scale(1.05);
         }
-        
+
         .package-card.popular::before {
             content: 'Most Popular';
             position: absolute;
@@ -133,51 +135,51 @@ $og_tags = SEO::getOpenGraphTags('packages');
             font-size: 0.8rem;
             font-weight: 600;
         }
-        
+
         .package-name {
             font-size: 1.5rem;
             font-weight: 700;
             color: var(--text-color-light);
             margin-bottom: 10px;
         }
-        
+
         .package-price {
             font-size: 2.5rem;
             font-weight: 900;
             color: var(--primary-color);
             margin-bottom: 5px;
         }
-        
+
         .package-period {
             color: var(--text-color-secondary);
             font-size: 1rem;
             margin-bottom: 20px;
         }
-        
+
         .package-description {
             color: var(--text-color-secondary);
             margin-bottom: 25px;
             line-height: 1.6;
         }
-        
+
         .package-features {
             margin-bottom: 25px;
             text-align: left;
         }
-        
+
         .feature-item {
             display: flex;
             align-items: center;
             margin-bottom: 10px;
             color: var(--text-color-light);
         }
-        
+
         .feature-item i {
             color: var(--primary-color);
             margin-right: 10px;
             width: 20px;
         }
-        
+
         .select-package-btn {
             width: 100%;
             padding: 15px;
@@ -190,11 +192,11 @@ $og_tags = SEO::getOpenGraphTags('packages');
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
-        
+
         .select-package-btn:hover {
             background: var(--primary-dark);
         }
-        
+
         .login-prompt {
             background: #fff3cd;
             border: 1px solid #ffeaa7;
@@ -204,17 +206,17 @@ $og_tags = SEO::getOpenGraphTags('packages');
             margin-bottom: 20px;
             text-align: center;
         }
-        
+
         .login-prompt a {
             color: var(--primary-color);
             font-weight: 600;
             text-decoration: none;
         }
-        
+
         .login-prompt a:hover {
             text-decoration: underline;
         }
-        
+
         .homepage-cta {
             background: #e7f3ff;
             border: 2px solid #b3d9ff;
@@ -223,28 +225,29 @@ $og_tags = SEO::getOpenGraphTags('packages');
             margin: 20px 0;
             text-align: center;
         }
-        
+
         .homepage-cta .btn {
             margin-bottom: 10px;
         }
-        
+
         .homepage-cta p {
             margin: 0;
             color: #666;
             font-size: 0.9rem;
         }
-        
+
         @media (max-width: 768px) {
             .packages-grid {
                 grid-template-columns: 1fr;
             }
-            
+
             .package-card.popular {
                 transform: none;
             }
         }
     </style>
 </head>
+
 <body class="packages-page">
     <!-- Navigation -->
     <nav class="navbar">
@@ -253,7 +256,7 @@ $og_tags = SEO::getOpenGraphTags('packages');
                 <i class="fas fa-satellite-dish"></i>
                 <span class="logo-text">BingeTV</span>
             </div>
-            
+
             <ul class="nav-menu">
                 <li class="nav-item">
                     <a href="index" class="nav-link">Home</a>
@@ -278,7 +281,7 @@ $og_tags = SEO::getOpenGraphTags('packages');
         <div class="packages-header">
             <h1>Choose Your Perfect Plan</h1>
             <p>Select the package that best fits your streaming needs</p>
-            
+
             <!-- Back to Homepage CTA -->
             <div class="homepage-cta">
                 <a href="index" class="btn btn-secondary">
@@ -302,30 +305,37 @@ $og_tags = SEO::getOpenGraphTags('packages');
                     <h3 class="package-name"><?php echo htmlspecialchars($package['name']); ?></h3>
                     <div class="package-price">KES <?php echo number_format($package['price'], 0); ?></div>
                     <div class="package-period">per month</div>
-                    
+
                     <div class="package-description">
                         <?php echo htmlspecialchars($package['description']); ?>
                     </div>
-                    
+
                     <div class="package-features">
-                        <div class="feature-item">
-                            <i class="fas fa-mobile-alt"></i>
-                            <span><?php echo $package['max_devices']; ?> device(s)</span>
-                        </div>
-                        <div class="feature-item">
-                            <i class="fas fa-calendar"></i>
-                            <span><?php echo $package['duration_days']; ?> days access</span>
-                        </div>
-                        <div class="feature-item">
-                            <i class="fas fa-hd-video"></i>
-                            <span>HD Quality</span>
-                        </div>
-                        <div class="feature-item">
-                            <i class="fas fa-headset"></i>
-                            <span>24/7 Support</span>
-                        </div>
+                        <?php
+                        $features = [];
+                        if (isset($package['features'])) {
+                            if (is_string($package['features'])) {
+                                $features = json_decode($package['features'], true) ?: [];
+                            } else {
+                                $features = $package['features'];
+                            }
+                        }
+
+                        if (empty($features)) {
+                            $features[] = ($package['max_devices'] ?? 1) . " device(s)";
+                            $features[] = ($package['duration_days'] ?? 30) . " days access";
+                            $features[] = "HD Quality Streaming";
+                            $features[] = "24/7 Premium Support";
+                        }
+
+                        foreach ($features as $feature): ?>
+                            <div class="feature-item">
+                                <i class="fas fa-check"></i>
+                                <span><?php echo htmlspecialchars($feature); ?></span>
+                            </div>
+                        <?php endforeach; ?>
                     </div>
-                    
+
                     <form method="POST">
                         <input type="hidden" name="package_id" value="<?php echo $package['id']; ?>">
                         <button type="submit" class="select-package-btn">
@@ -348,7 +358,7 @@ $og_tags = SEO::getOpenGraphTags('packages');
                     </div>
                     <p>Premium TV streaming service for Kenya.</p>
                 </div>
-                
+
                 <div class="footer-section">
                     <h4>Quick Links</h4>
                     <ul class="footer-links">
@@ -358,7 +368,7 @@ $og_tags = SEO::getOpenGraphTags('packages');
                         <li><a href="package-selection">Packages</a></li>
                     </ul>
                 </div>
-                
+
                 <div class="footer-section">
                     <h4>Account</h4>
                     <ul class="footer-links">
@@ -369,7 +379,7 @@ $og_tags = SEO::getOpenGraphTags('packages');
                     </ul>
                 </div>
             </div>
-            
+
             <div class="footer-bottom">
                 <p>&copy; 2024 BingeTV. All rights reserved.</p>
             </div>
@@ -379,4 +389,5 @@ $og_tags = SEO::getOpenGraphTags('packages');
     <!-- JavaScript -->
     <script src="../js/main.js"></script>
 </body>
+
 </html>

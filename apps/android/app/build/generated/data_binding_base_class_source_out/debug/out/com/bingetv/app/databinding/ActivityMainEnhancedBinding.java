@@ -4,9 +4,12 @@ package com.bingetv.app.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextClock;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
 import com.bingetv.app.R;
+import com.google.android.exoplayer2.ui.StyledPlayerView;
 import java.lang.NullPointerException;
 import java.lang.Override;
 import java.lang.String;
@@ -29,33 +33,95 @@ public final class ActivityMainEnhancedBinding implements ViewBinding {
   public final RecyclerView channelRecyclerView;
 
   @NonNull
-  public final TextView errorView;
+  public final TextClock clockView;
 
   @NonNull
-  public final ImageButton favoritesButton;
+  public final TextView errorView;
 
   @NonNull
   public final ProgressBar loadingView;
 
   @NonNull
-  public final ImageButton searchButton;
+  public final ImageButton navFavorites;
 
   @NonNull
-  public final ImageButton settingsButton;
+  public final ImageButton navHistory;
+
+  @NonNull
+  public final ImageButton navLive;
+
+  @NonNull
+  public final ImageButton navMovies;
+
+  @NonNull
+  public final LinearLayout navRail;
+
+  @NonNull
+  public final ImageButton navRecordings;
+
+  @NonNull
+  public final ImageButton navSearch;
+
+  @NonNull
+  public final ImageButton navSettings;
+
+  @NonNull
+  public final ImageButton navShows;
+
+  @NonNull
+  public final ImageView previewChannelLogo;
+
+  @NonNull
+  public final TextView previewChannelName;
+
+  @NonNull
+  public final TextView previewEpgNext;
+
+  @NonNull
+  public final TextView previewEpgNow;
+
+  @NonNull
+  public final ProgressBar previewEpgProgress;
+
+  @NonNull
+  public final StyledPlayerView previewPlayerView;
+
+  @NonNull
+  public final FrameLayout topPreviewContainer;
 
   private ActivityMainEnhancedBinding(@NonNull LinearLayout rootView,
       @NonNull RecyclerView categoryRecyclerView, @NonNull RecyclerView channelRecyclerView,
-      @NonNull TextView errorView, @NonNull ImageButton favoritesButton,
-      @NonNull ProgressBar loadingView, @NonNull ImageButton searchButton,
-      @NonNull ImageButton settingsButton) {
+      @NonNull TextClock clockView, @NonNull TextView errorView, @NonNull ProgressBar loadingView,
+      @NonNull ImageButton navFavorites, @NonNull ImageButton navHistory,
+      @NonNull ImageButton navLive, @NonNull ImageButton navMovies, @NonNull LinearLayout navRail,
+      @NonNull ImageButton navRecordings, @NonNull ImageButton navSearch,
+      @NonNull ImageButton navSettings, @NonNull ImageButton navShows,
+      @NonNull ImageView previewChannelLogo, @NonNull TextView previewChannelName,
+      @NonNull TextView previewEpgNext, @NonNull TextView previewEpgNow,
+      @NonNull ProgressBar previewEpgProgress, @NonNull StyledPlayerView previewPlayerView,
+      @NonNull FrameLayout topPreviewContainer) {
     this.rootView = rootView;
     this.categoryRecyclerView = categoryRecyclerView;
     this.channelRecyclerView = channelRecyclerView;
+    this.clockView = clockView;
     this.errorView = errorView;
-    this.favoritesButton = favoritesButton;
     this.loadingView = loadingView;
-    this.searchButton = searchButton;
-    this.settingsButton = settingsButton;
+    this.navFavorites = navFavorites;
+    this.navHistory = navHistory;
+    this.navLive = navLive;
+    this.navMovies = navMovies;
+    this.navRail = navRail;
+    this.navRecordings = navRecordings;
+    this.navSearch = navSearch;
+    this.navSettings = navSettings;
+    this.navShows = navShows;
+    this.previewChannelLogo = previewChannelLogo;
+    this.previewChannelName = previewChannelName;
+    this.previewEpgNext = previewEpgNext;
+    this.previewEpgNow = previewEpgNow;
+    this.previewEpgProgress = previewEpgProgress;
+    this.previewPlayerView = previewPlayerView;
+    this.topPreviewContainer = topPreviewContainer;
   }
 
   @Override
@@ -97,15 +163,15 @@ public final class ActivityMainEnhancedBinding implements ViewBinding {
         break missingId;
       }
 
-      id = R.id.error_view;
-      TextView errorView = ViewBindings.findChildViewById(rootView, id);
-      if (errorView == null) {
+      id = R.id.clock_view;
+      TextClock clockView = ViewBindings.findChildViewById(rootView, id);
+      if (clockView == null) {
         break missingId;
       }
 
-      id = R.id.favorites_button;
-      ImageButton favoritesButton = ViewBindings.findChildViewById(rootView, id);
-      if (favoritesButton == null) {
+      id = R.id.error_view;
+      TextView errorView = ViewBindings.findChildViewById(rootView, id);
+      if (errorView == null) {
         break missingId;
       }
 
@@ -115,21 +181,107 @@ public final class ActivityMainEnhancedBinding implements ViewBinding {
         break missingId;
       }
 
-      id = R.id.search_button;
-      ImageButton searchButton = ViewBindings.findChildViewById(rootView, id);
-      if (searchButton == null) {
+      id = R.id.nav_favorites;
+      ImageButton navFavorites = ViewBindings.findChildViewById(rootView, id);
+      if (navFavorites == null) {
         break missingId;
       }
 
-      id = R.id.settings_button;
-      ImageButton settingsButton = ViewBindings.findChildViewById(rootView, id);
-      if (settingsButton == null) {
+      id = R.id.nav_history;
+      ImageButton navHistory = ViewBindings.findChildViewById(rootView, id);
+      if (navHistory == null) {
+        break missingId;
+      }
+
+      id = R.id.nav_live;
+      ImageButton navLive = ViewBindings.findChildViewById(rootView, id);
+      if (navLive == null) {
+        break missingId;
+      }
+
+      id = R.id.nav_movies;
+      ImageButton navMovies = ViewBindings.findChildViewById(rootView, id);
+      if (navMovies == null) {
+        break missingId;
+      }
+
+      id = R.id.nav_rail;
+      LinearLayout navRail = ViewBindings.findChildViewById(rootView, id);
+      if (navRail == null) {
+        break missingId;
+      }
+
+      id = R.id.nav_recordings;
+      ImageButton navRecordings = ViewBindings.findChildViewById(rootView, id);
+      if (navRecordings == null) {
+        break missingId;
+      }
+
+      id = R.id.nav_search;
+      ImageButton navSearch = ViewBindings.findChildViewById(rootView, id);
+      if (navSearch == null) {
+        break missingId;
+      }
+
+      id = R.id.nav_settings;
+      ImageButton navSettings = ViewBindings.findChildViewById(rootView, id);
+      if (navSettings == null) {
+        break missingId;
+      }
+
+      id = R.id.nav_shows;
+      ImageButton navShows = ViewBindings.findChildViewById(rootView, id);
+      if (navShows == null) {
+        break missingId;
+      }
+
+      id = R.id.preview_channel_logo;
+      ImageView previewChannelLogo = ViewBindings.findChildViewById(rootView, id);
+      if (previewChannelLogo == null) {
+        break missingId;
+      }
+
+      id = R.id.preview_channel_name;
+      TextView previewChannelName = ViewBindings.findChildViewById(rootView, id);
+      if (previewChannelName == null) {
+        break missingId;
+      }
+
+      id = R.id.preview_epg_next;
+      TextView previewEpgNext = ViewBindings.findChildViewById(rootView, id);
+      if (previewEpgNext == null) {
+        break missingId;
+      }
+
+      id = R.id.preview_epg_now;
+      TextView previewEpgNow = ViewBindings.findChildViewById(rootView, id);
+      if (previewEpgNow == null) {
+        break missingId;
+      }
+
+      id = R.id.preview_epg_progress;
+      ProgressBar previewEpgProgress = ViewBindings.findChildViewById(rootView, id);
+      if (previewEpgProgress == null) {
+        break missingId;
+      }
+
+      id = R.id.preview_player_view;
+      StyledPlayerView previewPlayerView = ViewBindings.findChildViewById(rootView, id);
+      if (previewPlayerView == null) {
+        break missingId;
+      }
+
+      id = R.id.top_preview_container;
+      FrameLayout topPreviewContainer = ViewBindings.findChildViewById(rootView, id);
+      if (topPreviewContainer == null) {
         break missingId;
       }
 
       return new ActivityMainEnhancedBinding((LinearLayout) rootView, categoryRecyclerView,
-          channelRecyclerView, errorView, favoritesButton, loadingView, searchButton,
-          settingsButton);
+          channelRecyclerView, clockView, errorView, loadingView, navFavorites, navHistory, navLive,
+          navMovies, navRail, navRecordings, navSearch, navSettings, navShows, previewChannelLogo,
+          previewChannelName, previewEpgNext, previewEpgNow, previewEpgProgress, previewPlayerView,
+          topPreviewContainer);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

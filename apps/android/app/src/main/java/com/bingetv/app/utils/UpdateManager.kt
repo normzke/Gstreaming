@@ -12,17 +12,12 @@ import kotlinx.coroutines.withContext
 
 object UpdateManager {
 
-    private const val UPDATE_URL = "https://raw.githubusercontent.com/bingetv/app/main/update.json" // Placeholder, should be user's server
+    private const val UPDATE_JSON_Url = "https://bingetv.co.ke/update.json" // Full URL for Intent
+    private const val BASE_URL = "https://bingetv.co.ke/" // Base URL for Retrofit
 
     suspend fun checkForUpdates(context: Context, onComplete: () -> Unit) {
         try {
-            // We use a temporary Retrofit instance or add to ApiClient
-            val api = ApiClient.getXtreamApi("https://raw.githubusercontent.com/") // Point to a base URL
-            // Actually, better to have a dedicated UpdateApi check
-            
             val update = withContext(Dispatchers.IO) {
-                // For now, let's pretend we fetch from a static URL
-                // In a real scenario, this would be the user's domain
                 fetchUpdateInfo()
             }
 
@@ -40,12 +35,14 @@ object UpdateManager {
     }
 
     private suspend fun fetchUpdateInfo(): com.bingetv.app.data.api.AppUpdate? {
-        // Implementation logic:
-        // val api = ApiClient.getUpdateApi(UPDATE_URL)
-        // val response = api.checkUpdate()
-        // return if (response.isSuccessful) response.body() else null
-        
-        return null // Replace with actual API call when UPDATE_URL is ready
+        try {
+             // Use the new getUpdateApi method with the Base URL
+             val api = ApiClient.getUpdateApi(BASE_URL)
+             val response = api.checkUpdate() // Calls update.json
+             return if (response.isSuccessful) response.body() else null
+        } catch (e: Exception) {
+            return null
+        }
     }
 
     private fun showUpdateDialog(

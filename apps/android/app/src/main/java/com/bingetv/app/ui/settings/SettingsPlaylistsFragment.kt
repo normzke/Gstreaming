@@ -108,13 +108,75 @@ class SettingsPlaylistsFragment : Fragment() {
             )
             
             holder.itemView.setOnClickListener {
-                lifecycleScope.launch {
-                    repository.activatePlaylist(item.id)
-                    Toast.makeText(context, "Activated ${item.name}", Toast.LENGTH_SHORT).show()
-                }
+                showPlaylistOptions(item, holder.itemView.context)
             }
         }
+
+        private fun showPlaylistOptions(playlist: PlaylistEntity, context: android.content.Context) {
+            val options = if (playlist.isActive) {
+                arrayOf("Reload Playlist", "Edit Details", "Delete")
+            } else {
+                arrayOf("Activate", "Edit Details", "Delete")
+            }
+
+            android.app.AlertDialog.Builder(context)
+                .setTitle(playlist.name)
+                .setItems(options) { _, which ->
+                    val selection = options[which]
+                    when (selection) {
+                        "Activate" -> {
+                            lifecycleScope.launch {
+                                repository.activatePlaylist(playlist.id)
+                                com.bingetv.app.utils.PreferencesManager(context).setLastLoadedPlaylistId(-1) // Force reload
+                                Toast.makeText(context, "Activated. Restarting...", Toast.LENGTH_SHORT).show()
+                                restartApp(context)
+                            }
+                        }
+                        "Reload Playlist" -> {
+                             lifecycleScope.launch {
+                                repository.activatePlaylist(playlist.id)
+                                com.bingetv.app.utils.PreferencesManager(context).setLastLoadedPlaylistId(-1) // Force reload
+                                Toast.makeText(context, "Reloading...", Toast.LENGTH_SHORT).show()
+                                restartApp(context)
+                             }
+                        }
+                        "Edit Details" -> {
+                            val intent = Intent(context, LoginActivity::class.java)
+                            intent.putExtra("EDIT_PLAYLIST_ID", playlist.id) 
+                            context.startActivity(intent)
+                        }
+                        "Delete" -> {
+                            confirmDelete(playlist, context)
+                        }
+                    }
+                }
+                .show()
+        }
+
+        private fun confirmDelete(playlist: PlaylistEntity, context: android.content.Context) {
+             android.app.AlertDialog.Builder(context)
+                .setTitle("Delete Playlist")
+                .setMessage("Are you sure you want to delete '${playlist.name}'?")
+                .setPositiveButton("Delete") { _, _ ->
+                    lifecycleScope.launch {
+                        repository.deletePlaylist(playlist)
+                        Toast.makeText(context, "Deleted", Toast.LENGTH_SHORT).show()
+                    }
+                }
+                .setNegativeButton("Cancel", null)
+                .show()
+        }
         
+        private fun restartApp(context: android.content.Context) {
+            val intent = android.content.Intent(context, com.bingetv.app.ui.splash.SplashActivity::class.java)
+            intent.addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK or android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            context.startActivity(intent)
+            if (context is android.app.Activity) {
+                context.finish()
+            }
+            Runtime.getRuntime().exit(0)
+        }
+
         override fun getItemCount() = items.size
     }
 }

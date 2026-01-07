@@ -2,14 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_primary_light"
+    android:background="@color/background_primary"
     android:orientation="horizontal">
 
     <!-- 1. Main Navigation Rail -->
     <ScrollView
         android:layout_width="80dp"
         android:layout_height="match_parent"
-        android:background="#E0E0E0"
+        android:background="@color/background_sidebar"
         android:fillViewport="true"
         android:scrollbars="none">
 
@@ -29,7 +29,7 @@
                 android:format12Hour="h:mm a"
                 android:format24Hour="HH:mm"
                 android:textSize="14sp"
-                android:textColor="@android:color/black"
+                android:textColor="@color/text_primary"
                 android:textStyle="bold"
                 android:layout_marginBottom="16dp" />
             
@@ -49,6 +49,7 @@
                 android:tint="?android:attr/textColorPrimary"
                 android:contentDescription="@string/search"
                 android:nextFocusDown="@+id/nav_history"
+                android:nextFocusUp="@+id/nav_settings"
                 android:nextFocusRight="@+id/category_recycler_view"
                 android:focusable="true" />
     
@@ -61,6 +62,7 @@
                 android:tint="?android:attr/textColorPrimary"
                 android:contentDescription="History" 
                 android:nextFocusDown="@+id/nav_live"
+                android:nextFocusUp="@+id/nav_search"
                 android:nextFocusRight="@+id/category_recycler_view"
                 android:focusable="true" />
     
@@ -73,6 +75,7 @@
                 android:tint="@color/bingetv_red"
                 android:contentDescription="Live TV" 
                 android:nextFocusDown="@+id/nav_movies"
+                android:nextFocusUp="@+id/nav_history"
                 android:nextFocusRight="@+id/category_recycler_view"
                 android:focusable="true" />
     
@@ -85,6 +88,7 @@
                 android:tint="?android:attr/textColorPrimary"
                 android:contentDescription="Movies" 
                 android:nextFocusDown="@+id/nav_shows"
+                android:nextFocusUp="@+id/nav_live"
                 android:nextFocusRight="@+id/category_recycler_view"
                 android:focusable="true" />
     
@@ -97,6 +101,7 @@
                 android:tint="?android:attr/textColorPrimary"
                 android:contentDescription="Shows" 
                 android:nextFocusDown="@+id/nav_recordings"
+                android:nextFocusUp="@+id/nav_movies"
                 android:nextFocusRight="@+id/category_recycler_view"
                 android:focusable="true" />
     
@@ -109,6 +114,7 @@
                 android:tint="?android:attr/textColorPrimary"
                 android:contentDescription="Recordings" 
                 android:nextFocusDown="@+id/nav_favorites"
+                android:nextFocusUp="@+id/nav_shows"
                 android:nextFocusRight="@+id/category_recycler_view"
                 android:focusable="true" />
     
@@ -123,6 +129,7 @@
                 android:tint="@color/bingetv_red"
                 android:contentDescription="@string/favorites"
                 android:nextFocusDown="@+id/nav_settings"
+                android:nextFocusUp="@+id/nav_recordings"
                 android:nextFocusRight="@+id/category_recycler_view"
                 android:focusable="true" />
     
@@ -135,6 +142,8 @@
                 android:tint="?android:attr/textColorPrimary"
                 android:contentDescription="@string/settings"
                 android:layout_marginBottom="16dp"
+                android:nextFocusUp="@+id/nav_favorites"
+                android:nextFocusDown="@+id/nav_settings"
                 android:nextFocusRight="@+id/category_recycler_view"
                 android:focusable="true" />
     
@@ -157,26 +166,83 @@
         <FrameLayout
             android:id="@+id/top_preview_container"
             android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:visibility="gone"
+            android:layout_height="300dp"
+            android:visibility="visible"
             android:background="@android:color/black">
              
             <com.google.android.exoplayer2.ui.StyledPlayerView
                 android:id="@+id/preview_player_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center"
-                 />
+                android:gravity="center" />
                  
-             <TextView
-                android:id="@+id/preview_title"
-                android:layout_width="wrap_content"
+            <!-- Channel Info Overlay -->
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Channel Preview"
-                android:textColor="@android:color/white"
-                android:background="#80000000"
-                android:padding="8dp"
-                android:layout_gravity="bottom|start" />
+                android:orientation="vertical"
+                android:background="@drawable/gradient_overlay"
+                android:padding="16dp"
+                android:layout_gravity="bottom">
+                
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="8dp">
+                    
+                    <ImageView
+                        android:id="@+id/preview_channel_logo"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_marginEnd="12dp"
+                        android:scaleType="fitCenter"
+                        android:contentDescription="Channel Logo" />
+                    
+                    <TextView
+                        android:id="@+id/preview_channel_name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Channel Name"
+                        android:textColor="@color/text_primary"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:maxLines="1"
+                        android:ellipsize="end" />
+                </LinearLayout>
+                
+                <TextView
+                    android:id="@+id/preview_epg_now"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Now Playing"
+                    android:textColor="@color/text_primary"
+                    android:textSize="16sp"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:layout_marginBottom="4dp" />
+                
+                <ProgressBar
+                    android:id="@+id/preview_epg_progress"
+                    android:layout_width="match_parent"
+                    android:layout_height="4dp"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:progressTint="@color/bingetv_red"
+                    android:progressBackgroundTint="@color/divider"
+                    android:layout_marginBottom="4dp" />
+                
+                <TextView
+                    android:id="@+id/preview_epg_next"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Next: Upcoming Program"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="14sp"
+                    android:maxLines="10"
+                    android:ellipsize="end" />
+            </LinearLayout>
         </FrameLayout>
 
         <!-- Main Content Row -->
@@ -191,10 +257,12 @@
                 android:id="@+id/category_recycler_view"
                 android:layout_width="220dp"
                 android:layout_height="match_parent"
-                android:background="@color/background_secondary_light"
+                android:background="@color/background_secondary"
                 android:padding="16dp"
                 android:nextFocusLeft="@+id/nav_live"
                 android:nextFocusRight="@+id/channel_recycler_view"
+                android:focusable="true"
+                android:focusableInTouchMode="false"
                 android:descendantFocusability="afterDescendants"
                 android:clipToPadding="false" />
 
@@ -210,6 +278,8 @@
                     android:layout_height="match_parent"
                     android:padding="24dp"
                     android:nextFocusLeft="@+id/category_recycler_view"
+                    android:focusable="true"
+                    android:focusableInTouchMode="false"
                     android:descendantFocusability="afterDescendants"
                     android:clipToPadding="false" />
 

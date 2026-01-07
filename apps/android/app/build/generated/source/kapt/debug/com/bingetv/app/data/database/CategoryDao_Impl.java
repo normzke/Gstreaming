@@ -160,6 +160,53 @@ public final class CategoryDao_Impl implements CategoryDao {
     });
   }
 
+  @Override
+  public List<CategoryEntity> getAllCategoriesSync() {
+    final String _sql = "SELECT * FROM categories ORDER BY sortOrder ASC, categoryName ASC";
+    final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 0);
+    __db.assertNotSuspendingTransaction();
+    final Cursor _cursor = DBUtil.query(__db, _statement, false, null);
+    try {
+      final int _cursorIndexOfId = CursorUtil.getColumnIndexOrThrow(_cursor, "id");
+      final int _cursorIndexOfCategoryId = CursorUtil.getColumnIndexOrThrow(_cursor, "categoryId");
+      final int _cursorIndexOfCategoryName = CursorUtil.getColumnIndexOrThrow(_cursor, "categoryName");
+      final int _cursorIndexOfParentId = CursorUtil.getColumnIndexOrThrow(_cursor, "parentId");
+      final int _cursorIndexOfSortOrder = CursorUtil.getColumnIndexOrThrow(_cursor, "sortOrder");
+      final List<CategoryEntity> _result = new ArrayList<CategoryEntity>(_cursor.getCount());
+      while(_cursor.moveToNext()) {
+        final CategoryEntity _item;
+        final long _tmpId;
+        _tmpId = _cursor.getLong(_cursorIndexOfId);
+        final String _tmpCategoryId;
+        if (_cursor.isNull(_cursorIndexOfCategoryId)) {
+          _tmpCategoryId = null;
+        } else {
+          _tmpCategoryId = _cursor.getString(_cursorIndexOfCategoryId);
+        }
+        final String _tmpCategoryName;
+        if (_cursor.isNull(_cursorIndexOfCategoryName)) {
+          _tmpCategoryName = null;
+        } else {
+          _tmpCategoryName = _cursor.getString(_cursorIndexOfCategoryName);
+        }
+        final String _tmpParentId;
+        if (_cursor.isNull(_cursorIndexOfParentId)) {
+          _tmpParentId = null;
+        } else {
+          _tmpParentId = _cursor.getString(_cursorIndexOfParentId);
+        }
+        final int _tmpSortOrder;
+        _tmpSortOrder = _cursor.getInt(_cursorIndexOfSortOrder);
+        _item = new CategoryEntity(_tmpId,_tmpCategoryId,_tmpCategoryName,_tmpParentId,_tmpSortOrder);
+        _result.add(_item);
+      }
+      return _result;
+    } finally {
+      _cursor.close();
+      _statement.release();
+    }
+  }
+
   public static List<Class<?>> getRequiredConverters() {
     return Collections.emptyList();
   }

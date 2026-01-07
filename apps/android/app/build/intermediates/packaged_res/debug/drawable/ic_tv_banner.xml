@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <!-- Dark background -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/background_primary" />
+        </shape>
+    </item>
+    
+    <!-- App icon centered with padding -->
+    <item
+        android:drawable="@drawable/icon"
+        android:gravity="center"
+        android:top="16dp"
+        android:bottom="48dp" />
+
+    <!-- Text for App Name -->
+    <item
+        android:gravity="center_horizontal|bottom"
+        android:bottom="12dp">
+        <selector>
+            <item>
+                 <bitmap 
+                    android:src="@drawable/icon" 
+                    android:alpha="0"
+                    tools:ignore="ContentDescription" />
+            </item>
+        </selector>
+    </item>
+</layer-list>

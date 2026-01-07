@@ -4,11 +4,12 @@ package com.bingetv.app.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.cardview.widget.CardView;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
 import com.bingetv.app.R;
@@ -18,7 +19,7 @@ import java.lang.String;
 
 public final class ItemChannelCardBinding implements ViewBinding {
   @NonNull
-  private final CardView rootView;
+  private final FrameLayout rootView;
 
   @NonNull
   public final ImageView channelLogo;
@@ -33,22 +34,26 @@ public final class ItemChannelCardBinding implements ViewBinding {
   public final TextView epgNow;
 
   @NonNull
+  public final ProgressBar epgProgress;
+
+  @NonNull
   public final ImageView favoriteIcon;
 
-  private ItemChannelCardBinding(@NonNull CardView rootView, @NonNull ImageView channelLogo,
+  private ItemChannelCardBinding(@NonNull FrameLayout rootView, @NonNull ImageView channelLogo,
       @NonNull TextView channelName, @NonNull TextView epgNext, @NonNull TextView epgNow,
-      @NonNull ImageView favoriteIcon) {
+      @NonNull ProgressBar epgProgress, @NonNull ImageView favoriteIcon) {
     this.rootView = rootView;
     this.channelLogo = channelLogo;
     this.channelName = channelName;
     this.epgNext = epgNext;
     this.epgNow = epgNow;
+    this.epgProgress = epgProgress;
     this.favoriteIcon = favoriteIcon;
   }
 
   @Override
   @NonNull
-  public CardView getRoot() {
+  public FrameLayout getRoot() {
     return rootView;
   }
 
@@ -97,14 +102,20 @@ public final class ItemChannelCardBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.epg_progress;
+      ProgressBar epgProgress = ViewBindings.findChildViewById(rootView, id);
+      if (epgProgress == null) {
+        break missingId;
+      }
+
       id = R.id.favorite_icon;
       ImageView favoriteIcon = ViewBindings.findChildViewById(rootView, id);
       if (favoriteIcon == null) {
         break missingId;
       }
 
-      return new ItemChannelCardBinding((CardView) rootView, channelLogo, channelName, epgNext,
-          epgNow, favoriteIcon);
+      return new ItemChannelCardBinding((FrameLayout) rootView, channelLogo, channelName, epgNext,
+          epgNow, epgProgress, favoriteIcon);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

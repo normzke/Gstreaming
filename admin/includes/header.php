@@ -169,16 +169,21 @@ Auth::getInstance()->requireAdmin();
         .sidebar-toggle {
             background: none;
             border: none;
-            font-size: 1.25rem;
+            font-size: 1.5rem;
             color: var(--admin-text);
             cursor: pointer;
             padding: 0.5rem;
             border-radius: var(--admin-radius);
-            transition: background 0.2s ease;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1100;
         }
 
         .sidebar-toggle:hover {
-            background: var(--admin-bg);
+            background: rgba(0, 0, 0, 0.05);
+            color: var(--admin-primary);
         }
 
         .page-title {
@@ -401,13 +406,36 @@ Auth::getInstance()->requireAdmin();
         }
 
         /* Responsive */
-        @media (max-width: 768px) {
+        @media (max-width: 1024px) {
             .admin-sidebar {
                 transform: translateX(-100%);
+                z-index: 2000;
             }
 
-            .admin-sidebar.mobile-open {
+            .admin-sidebar.active {
                 transform: translateX(0);
+                box-shadow: 10px 0 30px rgba(0, 0, 0, 0.2);
+            }
+
+            .sidebar-overlay {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                z-index: 1500;
+                backdrop-filter: blur(2px);
+            }
+
+            .sidebar-overlay.active {
+                display: block;
+            }
+
+            .sidebar-toggle {
+                padding: 0.75rem;
+                font-size: 1.75rem;
             }
 
             .admin-main {
@@ -427,6 +455,7 @@ Auth::getInstance()->requireAdmin();
 
 <body>
     <div class="admin-layout">
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
         <!-- Sidebar -->
         <aside class="admin-sidebar" id="sidebar">
             <div class="sidebar-header">
@@ -523,6 +552,13 @@ Auth::getInstance()->requireAdmin();
                             class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'mpesa-config.php' ? 'active' : ''; ?>">
                             <i class="fas fa-cog"></i>
                             <span>M-PESA Config</span>
+                        </a>
+                    </div>
+                    <div class="nav-item">
+                        <a href="paystack-config"
+                            class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'paystack-config.php' ? 'active' : ''; ?>">
+                            <i class="fas fa-credit-card"></i>
+                            <span>Paystack Config</span>
                         </a>
                     </div>
                     <div class="nav-item">
